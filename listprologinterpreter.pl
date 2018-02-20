@@ -1,4 +1,4 @@
-:- include('listprologinterpreter.pl').
+:- include('listprologinterpreterpreds.pl').
 :- include('lpiverify.pl').
 :- dynamic debug/1.
 
