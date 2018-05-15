@@ -1,5 +1,5 @@
-:- include('listprologinterpreter3preds5.pl').
-:- include('lpiverify4.pl').
+:- include('listprologinterpreterpreds.pl').
+:- include('lpiverify.pl').
 :- dynamic debug/1.
 
 /** List Prolog Interpreter **/
