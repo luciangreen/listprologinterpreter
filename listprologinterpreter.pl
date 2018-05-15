@@ -1,5 +1,5 @@
-:- include('listprologinterpreterpreds.pl').
-:- include('lpiverify.pl').
+:- include('listprologinterpreter3preds5.pl').
+:- include('lpiverify4.pl').
 :- dynamic debug/1.
 
 /** List Prolog Interpreter **/
@@ -31,8 +31,8 @@ member1(Query,Functions,Functions2,Vars8) :-
 	updatevars(FirstArgs,Vars2,[],Result),
         %%reverse(Result,[],Vars7),
 	((not(Result=[])->
-        Result=[Var71|Vars72],
-        unique1(Vars72,Var71,[],Vars8),
+        %%Result=[Var71|Vars72],
+        unique1(Result,[],Vars8),
 %%writeln(["FirstArgs",FirstArgs,"Vars",Vars2,"Result",Result,"Vars7",Vars7,"Vars72",Vars72,"Var71",Var71,"Vars8",Vars8]),
 %%writeln(["Vars8",Vars8]),
 	findresult3(Arguments1,Vars8,[],Result2)
@@ -75,8 +75,8 @@ member12(Query,Functions,Functions2,Vars8) :-
 	updatevars(FirstArgs,Vars1,[],Result),
         %%reverse(Result,[],Vars7),
         ((not(Result=[])->
-        Result=[Var71|Vars72],
-        unique1(Vars72,Var71,[],Vars8),
+        %%Result=[Var71|Vars72],
+        unique1(Result,[],Vars8),
         findresult3(Arguments1,Vars8,[],Result2)
         );(
 %%writeln(here2),
@@ -123,8 +123,8 @@ member2(Query,Functions,Functions2,Vars8) :-
         updatevars(FirstArgs,Vars2,[],Result),
         %%reverse(Result,[],Vars7),
         ((not(Result=[])->
-        Result=[Var71|Vars72],
-        unique1(Vars72,Var71,[],Vars8),
+        %%Result=[Var71|Vars72],
+        unique1(Result,[],Vars8),
         findresult3(Arguments1,Vars8,[],Result2)
 %%writeln(["Vars2",Vars2,"Result",Result]),
         );(
@@ -162,8 +162,8 @@ member22(Query,Functions,Functions2,Vars8) :-
         updatevars(FirstArgs,Vars1,[],Result),
         %%reverse(Result,[],Vars7),
         ((not(Result=[])->
-        Result=[Var71|Vars72],
-        unique1(Vars72,Var71,[],Vars8),
+        %%Result=[Var71|Vars72],
+        unique1(Result,[],Vars8),
         findresult3(Arguments1,Vars8,[],Result2)
         );(
 %%writeln(here4),
@@ -351,6 +351,10 @@ interpretstatement1(_F0,_Functions,[member,Variable1,Variable2],Vars1,Vars2,true
 %%writeln(8),
         interpretpart(member,Variable1,Variable2,Vars1,Vars2).
 
+interpretstatement1(_F0,_Functions,[delete,Variable1,Variable2,Variable3],Vars1,Vars2,true,nocut) :-
+%%writeln(),
+        interpretpart(delete,Variable1,Variable2,Variable3,Vars1,Vars2).
+%%** all in form f,[1,1,etc], including + with 0,1
 
 interpretstatement1(_F0,_Functions,[append,Variable1,Variable2,Variable3],Vars1,Vars2,true,nocut) :-
 %%writeln(9),
@@ -370,8 +374,8 @@ interpretstatement1(Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
 	updatevars3(Vars1,Vars5,Vars6),
 	reverse(Vars6,[],Vars7),
 	((not(Vars7=[])->
-	Vars7=[Var71|Vars72],
-	unique1(Vars72,Var71,[],Vars8)
+	%%Vars7=[Var71|Vars72],
+	unique1(Vars7,[],Vars8)
 );(
 writeln(here1),
 	Vars8=[])).
@@ -462,23 +466,11 @@ reverse(List1,List2,List3) :-
 	List1=[Head|Tail],
 	append([Head],List2,List4),
 	reverse(Tail,List4,List3).
-unique1(_Remainders,[],UniqueRemainders,UniqueRemainders) :- !.
-unique1(Remainders1,Remainder,UniqueRemainders1,UniqueRemainders2) :-
-	Remainder=[Variable,Value],
-	delete(Remainders1,[Variable,_],Remainders2),
-        append([[Variable,Value]],Remainders2,Remainders3),
-	unique2(Remainders3,Remainders4,Remainders5,UniqueRemainders1,UniqueRemainders3),
-        unique1(Remainders5,Remainders4,UniqueRemainders3,UniqueRemainders2).
-unique2(Remainders1,_Remainder1,Remainder2,UniqueRemainders1,UniqueRemainders2) :-
-        Remainders1=[Remainder2],
-        append(UniqueRemainders1,[Remainder2],UniqueRemainders2).
-unique2(Remainders1,Remainder1,Remainders2,UniqueRemainders1,UniqueRemainders2) :-
-        Remainders1=[Remainder2,Remainder1|Remainders2],
-	%%Remainder2=[Variable,Value],
-	append(UniqueRemainders1,[Remainder2],UniqueRemainders2).
-%%unique3(List,
-%%unique3(List :-
-	
+unique1([],Items,Items).
+unique1([Item|Items1],Items2,Items3) :-
+	delete(Items1,Item,Items4),
+	append(Items2,[Item],Items5),
+	unique1(Items4,Items5,Items3).
 
 isvar(Variable) :-
 	atom(Variable).
@@ -486,6 +478,16 @@ isval(Value) :-
 	number(Value).
 isvalstr(N) :-
 	isval(N);string(N).
+/**isvalstrempty(N) :-
+	isval(N);(string(N);N=empty).**/
+isvalstrempty(N) :-
+	isval(N),!.
+isvalstrempty(N) :-
+	string(N),!.
+isvalstrempty(empty) :- !.
+/**isvalstrempty(N) :-
+	atom(N),fail,!.
+**/
 isvalstrorundef(N) :- 
 	var(N);(not(var(N)),(isval(N);expression(N))).
 undef(N) :-
@@ -499,20 +501,16 @@ expression([N]) :-
 expression([N|Ns]):-
 	expression(N),expression(Ns).
 
-expressionnotatom([N]) :-
-        expressionnotatom(N).
-expressionnotatom([N,Ns]):-
-        atom(N),expressionnotatom2(Ns).
-expressionnotatom([]).
-expressionnotatom2(N) :-
-        isval(N);(string(N);atom(N)).
+expressionnotatom(N) :-
+	isvalstrempty(N),!.
+expressionnotatom(N) :-
+	not(atom(N)),
+	length(N,L),L>=2,
+	expressionnotatom2(N).
 expressionnotatom2([]).
-expressionnotatom2(empty).
-expressionnotatom2([N]) :-
-        expressionnotatom2(N).
-expressionnotatom2([N|Ns]):-
-        expressionnotatom2(N),expressionnotatom2(Ns).
-
+expressionnotatom2([N|Ns]) :-
+	isvalstrempty(N),	
+	expressionnotatom2(Ns).
 
 substitutevarsA1(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2) :-
 	substitutevarsA2(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2).
@@ -528,13 +526,6 @@ substitutevarsA2(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2) :-
 	append(Vars2,[Value],Vars4)),
 	FirstArgs3=FirstArgs1),
         substitutevarsA2(Variables,Vars1,Vars4,Vars3,FirstArgs3,FirstArgs2).
-/**
-findresult3([],Arguments,Arguments).
-findresult3(Vars,Arguments1,Arguments2) :-
-	Vars=[[_VarName,Value]|Rest],
-	append(Arguments1,[Value],Arguments3),
-	findresult3(Rest,Arguments3,Arguments2).
-**/
 
 findresult3([],_Result,Result2,Result2).
 findresult3(Arguments1,Result1,Result2,Result3) :-
