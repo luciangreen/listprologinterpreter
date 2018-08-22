@@ -1,5 +1,11 @@
-:- include('listprologinterpreterpreds.pl').
-:- include('lpiverify.pl').
+:- include('listprologinterpreter3preds5.pl').
+:- include('lpiverify4.pl').
+%%:- include('caw.pl').
+%%:- include('breasoningwriter2.pl').
+
+
+%%:- include('caw4.pl').
+
 :- dynamic debug/1.
 
 /** List Prolog Interpreter **/
@@ -17,6 +23,7 @@ interpret1(Debug,Query,Functions1,Functions2,Result) :-
 	member1(Query,Functions1,Functions2,Result).
 %%member1([_,R],_,[],R).
 %%member1(_,_,[],[]).
+member1(_,_,[],_) :- fail.
 member1(Query,Functions,Functions2,Vars8) :-
 %%writeln([m1]),
 	cut(off)->(
@@ -24,7 +31,7 @@ member1(Query,Functions,Functions2,Vars8) :-
 	(Functions2=[[Function,Arguments2,(:-),Body]|_Functions3]),
 	length(Arguments1,Length),
 	length(Arguments2,Length),
-        checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs), %%->ca2 
+        checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),!, %%->ca2 
 %%writeln([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
                 (debug(on)->(writeln([call,[Function,Arguments1],"Press c."]),(not(get_single_char(97))->true;abort));true),
 	interpretbody(Functions,Functions2,Vars1,Vars2,Body,true),
@@ -45,7 +52,7 @@ member1(Query,Functions,Functions2,Vars8) :-
 	->true;
 	(%%Query=[Function,_Arguments1],
 	%%Functions2=[[Function,_Arguments2,(:-),_Body]|Functions3], %% make like previous trunk?
-	member11(Query,Functions,Functions,Vars8))
+	member11(Query,Functions,Functions2,Vars8))
 	);(turncut(off)%%,Result=[]
 	).
 member11(Query,Functions,Functions2,Result) :-
@@ -56,7 +63,7 @@ member11(Query,Functions,Functions2,Result) :-
         (Functions2=[[Function,(:-),Body]|_Functions3]),
                 (debug(on)->(writeln([call,[Function],"Press c."]),(not(get_single_char(97))->true;abort));true),
 	Result=[],
-        interpretbody(Functions,Functions2,[],_Vars2,Body,true),
+        interpretbody(Functions,Functions2,[],_Vars2,Body,true),!,
         	(debug(on)->(writeln([exit,[Function],"Press c."]),(not(get_single_char(97))->true;abort));true)
 	)->true;
 	(%%Query=[Function],
@@ -70,7 +77,7 @@ member12(Query,Functions,Functions2,Vars8) :-
         (Functions2=[[Function,Arguments2]|_Functions3]),
         length(Arguments1,Length),
         length(Arguments2,Length),
-        checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs), %% ->ca2
+        checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),!, %% ->ca2
 %%writeln([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
 	updatevars(FirstArgs,Vars1,[],Result),
         %%reverse(Result,[],Vars7),
@@ -91,7 +98,7 @@ member12(Query,Functions,Functions2,Vars8) :-
 member13(Query,Functions,Functions2,Result) :-
 %%writeln([m13]),
 	cut(off)->(
-        (Query=[Function],
+        (Query=[Function],!,
         (Functions2=[[Function]|_Functions3]),
         	(debug(on)->(writeln([call,[Function],"Press c."]),(not(get_single_char(97))->true;abort));true),
 	Result=[],
@@ -108,6 +115,7 @@ interpret2(Query,Functions1,Functions2,Result) :-
         member2(Query,Functions1,Functions2,Result).
 %%member2([_,R],_,[],R).
 %%member2(_,_,[],[]).
+member2(_,_,[],_) :- fail.
 member2(Query,Functions,Functions2,Vars8) :-
 %%writeln([m2]),
 	cut(off)->(
@@ -115,7 +123,7 @@ member2(Query,Functions,Functions2,Vars8) :-
         (Functions2=[[Function,Arguments2,(:-),Body]|_Functions3]),
         length(Arguments1,Length),
         length(Arguments2,Length),
-        checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),
+        checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),!,
 %%writeln([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
                 (debug(on)->(writeln([call,[Function,Arguments1],"Press c."]),(not(get_single_char(97))->true;abort));true),
         interpretbody(Functions,Functions2,Vars1,Vars2,Body,true), %%**arg2 change
@@ -143,7 +151,7 @@ member21(Query,Functions,Functions2,Result) :-
         (Functions2=[[Function,(:-),Body]|_Functions3]),
         Vars1=[],
                 (debug(on)->(writeln([call,[Function],"Press c."]),(not(get_single_char(97))->true;abort));true),
-        interpretbody(Functions,Functions2,Vars1,_Vars2,Body,true), %%**arg2 change
+        interpretbody(Functions,Functions2,Vars1,_Vars2,Body,true),!, %%**arg2 change
         	(debug(on)->(writeln([exit,[Function],"Press c."]),(not(get_single_char(97))->true;abort));true)
 	)->true;
 	(%%Query=[Function],
@@ -157,7 +165,7 @@ member22(Query,Functions,Functions2,Vars8) :-
         (Functions2=[[Function,Arguments2]|_Functions3]),
         length(Arguments1,Length),
         length(Arguments2,Length),
-        checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),
+        checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),!,
 %%writeln([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
         updatevars(FirstArgs,Vars1,[],Result),
         %%reverse(Result,[],Vars7),
@@ -178,7 +186,7 @@ member22(Query,Functions,Functions2,Vars8) :-
 member23(Query,Functions,Functions2,Vars8) :-
 %%writeln([m23]),
 	cut(off)->(
-        (Query=[Function],
+        (Query=[Function],!,
         (Functions2=[[Function]|_Functions3]),
         	(debug(on)->(writeln([call,[Function],"Press c."]),(not(get_single_char(97))->true;abort));true),
 	Vars8=[],
@@ -224,14 +232,15 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
         expressionnotatom(Value1),
         checkarguments(Arguments3,Arguments4,Vars1,Vars2,FirstArgs1,FirstArgs2).
 
+interpretbody(_Functions1,_Functions2,Vars,Vars,[],true) :- !.
+
 interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
         Body=[Statements1|Statements2],
         interpretbody(Functions0,Functions,Vars1,Vars3,Statements1,Result2),
         interpretbody(Functions0,Functions,Vars3,Vars2,Statements2,Result3),
         %%((Result3=cut)->!;true),
-        logicalconjunction(Result1,Result2,Result3).
+        logicalconjunction(Result1,Result2,Result3),!.
 
-interpretbody(_Functions1,_Functions2,Vars,Vars,[],true).
 interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
         Body=[[not,[Statements]]|Statements2],
 	interpretbody(Functions0,Functions,Vars1,Vars3,Statements,Result2),
@@ -239,12 +248,12 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
         interpretbody(Functions0,Functions,Vars3,Vars2,Statements2,Result3),
         %%((Result3=cut)->!;true),
         logicalnot(Result2,Result4),
-	(logicalconjunction(Result1,Result4,Result3)->true;(Result1=false)).
+	(logicalconjunction(Result1,Result4,Result3)->true;(Result1=false)),!.
 interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
         Body=[[Statements1],or,[Statements2]],
         (interpretbody(Functions0,Functions,Vars1,Vars2,Statements1,Result1);
 	%%,((Value1=cut)->!;true));
-        interpretbody(Functions0,Functions,Vars1,Vars2,Statements2,Result1)).
+        interpretbody(Functions0,Functions,Vars1,Vars2,Statements2,Result1)),!.
 	%%,((Value=cut)->!;true)).
 	%%(logicaldisjunction(Result1,Value1,Value2)->true;(Result1=false)).
 
@@ -259,7 +268,7 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
 	interpretbody(Functions0,Functions2,Vars3,Vars2,Statements,Result3),
 	%%((Result3=cut)->!;true),
 %%writeln(["here4"]),
-	logicalconjunction(Result1,Result2,Result3).
+	logicalconjunction(Result1,Result2,Result3),!.
 %%writeln([Result1,Result2,Result3]).
 turncut(State1) :-
 	cut(State2),
@@ -280,83 +289,83 @@ false(false).
 %%writeln("AND HERE!")
 %%	.
 
-interpretstatement1(_F0,_Functions,[cut],Vars,Vars,true,cut) :- !.
+interpretstatement1(_F0,_Functions,[cut,[]],Vars,Vars,true,cut) :- !.
 
-interpretstatement1(_F0,_Functions,[atom,Variable],Vars,Vars,true,nocut) :-
+interpretstatement1(_F0,_Functions,[atom,[Variable]],Vars,Vars,true,nocut) :-
 	getvalue(Variable,Value,Vars),
-                (debug(on)->(writeln([call,[atom,Value],"Press c."]),(not(get_single_char(97))->true;abort));true),
+                (debug(on)->(writeln([call,[atom,[Value]],"Press c."]),(not(get_single_char(97))->true;abort));true),
 	atom(Value),
-                (debug(on)->(writeln([exit,[atom,Value],"Press c."]),(not(get_single_char(97))->true;abort));true).
+                (debug(on)->(writeln([exit,[atom,[Value]],"Press c."]),(not(get_single_char(97))->true;abort));true).
 
-interpretstatement1(_F0,_Functions,[string,Variable],Vars,Vars,true,nocut) :-
+interpretstatement1(_F0,_Functions,[string,[Variable]],Vars,Vars,true,nocut) :-
         getvalue(Variable,Value,Vars),
-                (debug(on)->(writeln([call,[string,Value],"Press c."]),(not(get_single_char(97))->true;abort));true),
+                (debug(on)->(writeln([call,[string,[Value]],"Press c."]),(not(get_single_char(97))->true;abort));true),
         string(Value),
-                (debug(on)->(writeln([exit,[string,Value],"Press c."]),(not(get_single_char(97))->true;abort));true).
+                (debug(on)->(writeln([exit,[string,[Value]],"Press c."]),(not(get_single_char(97))->true;abort));true).
 
-interpretstatement1(_F0,_Functions,[number,Variable],Vars,Vars,true,nocut) :-
+interpretstatement1(_F0,_Functions,[number,[Variable]],Vars,Vars,true,nocut) :-
         getvalue(Variable,Value,Vars),
-                (debug(on)->(writeln([call,[number,Value],"Press c."]),(not(get_single_char(97))->true;abort));true),
+                (debug(on)->(writeln([call,[number,[Value]],"Press c."]),(not(get_single_char(97))->true;abort));true),
         number(Value),
-                (debug(on)->(writeln([exit,[number,Value],"Press c."]),(not(get_single_char(97))->true;abort));true).
+                (debug(on)->(writeln([exit,[number,[Value]],"Press c."]),(not(get_single_char(97))->true;abort));true).
 
-interpretstatement1(_F0,_Functions,[variable,Variable],Vars,Vars,true,nocut) :-
+interpretstatement1(_F0,_Functions,[variable,[Variable]],Vars,Vars,true,nocut) :-
         var(Variable),
-                (debug(on)->(writeln([call,[var,Variable],"Press c."]),(not(get_single_char(97))->true;abort));true),
-                (debug(on)->(writeln([exit,[var,Variable],"Press c."]),(not(get_single_char(97))->true;abort));true).
+                (debug(on)->(writeln([call,[variable,[Variable]],"Press c."]),(not(get_single_char(97))->true;abort));true),
+                (debug(on)->(writeln([exit,[variable,[Variable]],"Press c."]),(not(get_single_char(97))->true;abort));true).
 
-interpretstatement1(_F0,_Functions,[Variable1,Operator,Variable2],Vars1,Vars2,true,nocut) :-
+interpretstatement1(_F0,_Functions,[Operator,[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 	isop(Operator),
 	interpretpart(is,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(_F0,_Functions,[Variable1,Operator,Variable2],Vars1,Vars2,true,nocut) :-
+interpretstatement1(_F0,_Functions,[Operator,[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 %%writeln(31),
         isop(Operator),
         interpretpart(is,Variable2,Variable1,Vars1,Vars2).
 	
-interpretstatement1(_F0,_Functions,[Variable1,is,Variable2+Variable3],Vars1,Vars2,true,nocut) :-
+interpretstatement1(_F0,_Functions,[+,[Variable2,Variable3,Variable1]],Vars1,Vars2,true,nocut) :-
 %%writeln(4),
         interpretpart(isplus,Variable1,Variable2,Variable3,Vars1,Vars2).
 
-interpretstatement1(_F0,_Functions,[Variable2+Variable3,is,Variable1],Vars1,Vars2,true,nocut) :-
+%%interpretstatement1(_F0,_Functions,[Variable2+Variable3,is,Variable1],Vars1,Vars2,true,nocut) :-
 %%writeln(41),
-        interpretpart(isplus,Variable1,Variable2,Variable3,Vars1,Vars2).
+        %%interpretpart(isplus,Variable1,Variable2,Variable3,Vars1,Vars2).
 
-interpretstatement1(_F0,_Functions,[Variable1=[Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
+interpretstatement1(_F0,_Functions,[=,[Variable1,[Variable2,Variable3]]],Vars1,Vars2,true,nocut) :-
 %%writeln(5),
         interpretpart(match,Variable1,Variable2,Variable3,Vars1,Vars2).
 
-interpretstatement1(_F0,_Functions,[[Variable2,Variable3]=Variable1],Vars1,Vars2,true,nocut) :-
+%%interpretstatement1(_F0,_Functions,[[Variable2,Variable3]=Variable1],Vars1,Vars2,true,nocut) :-
 %%writeln(51),
-        interpretpart(match,Variable1,Variable2,Variable3,Vars1,Vars2).
+%%        interpretpart(match,Variable1,Variable2,Variable3,Vars1,Vars2).
 
-interpretstatement1(_F0,_Functions,[Variable1=[Variable2]],Vars1,Vars2,true,nocut) :-
-%%writeln(52),
+interpretstatement1(_F0,_Functions,[wrap,[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+%%writeln(52), wrap
         interpretpart(bracket1,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(_F0,_Functions,[[Variable1]=[Variable2]],Vars1,Vars2,true,nocut) :-
-%%writeln(53),
+interpretstatement1(_F0,_Functions,[unwrap,[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+%%writeln(53), unwrap
         interpretpart(bracket2,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(_F0,_Functions,[head,Variable1,Variable2],Vars1,Vars2,true,nocut) :-
+interpretstatement1(_F0,_Functions,[head,[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 %%writeln(6),
         interpretpart(head,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(_F0,_Functions,[tail,Variable1,Variable2],Vars1,Vars2,true,nocut) :-
+interpretstatement1(_F0,_Functions,[tail,[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 %%writeln(61),
         interpretpart(tail,Variable1,Variable2,Vars1,Vars2).
 
 
-interpretstatement1(_F0,_Functions,[member,Variable1,Variable2],Vars1,Vars2,true,nocut) :-
+interpretstatement1(_F0,_Functions,[member,[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 %%writeln(8),
         interpretpart(member,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(_F0,_Functions,[delete,Variable1,Variable2,Variable3],Vars1,Vars2,true,nocut) :-
+interpretstatement1(_F0,_Functions,[delete,[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
 %%writeln(),
         interpretpart(delete,Variable1,Variable2,Variable3,Vars1,Vars2).
 %%** all in form f,[1,1,etc], including + with 0,1
 
-interpretstatement1(_F0,_Functions,[append,Variable1,Variable2,Variable3],Vars1,Vars2,true,nocut) :-
+interpretstatement1(_F0,_Functions,[append,[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
 %%writeln(9),
         interpretpart(append,Variable1,Variable2,Variable3,Vars1,Vars2).
 
@@ -471,41 +480,73 @@ unique1([Item|Items1],Items2,Items3) :-
 	delete(Items1,Item,Items4),
 	append(Items2,[Item],Items5),
 	unique1(Items4,Items5,Items3).
-
 isvar(Variable) :-
 	atom(Variable).
 isval(Value) :-
 	number(Value).
 isvalstr(N) :-
 	isval(N);string(N).
+isvalempty(N) :-
+	isval(N);(N=empty).
 /**isvalstrempty(N) :-
 	isval(N);(string(N);N=empty).**/
 isvalstrempty(N) :-
-	isval(N),!.
+	isval(N).
 isvalstrempty(N) :-
-	string(N),!.
-isvalstrempty(empty) :- !.
+	string(N).
+isvalstrempty(empty).
 /**isvalstrempty(N) :-
 	atom(N),fail,!.
 **/
 isvalstrorundef(N) :- 
-	var(N);(not(var(N)),(isval(N);expression(N))).
+	var(N),!.
+isvalstrorundef(N) :- 
+	not(var(N)),isval(N),!.
+isvalstrorundef(N) :- 
+	not(var(N)),expression(N),!.
 undef(N) :-
 	var(N).
+/**
 expression(N) :-
-	isval(N);(string(N);atom(N)).
+	isval(N);(string(N);atom(N)),!.
 expression([]).
 expression(empty).
 expression([N]) :-
 	expression(N).
 expression([N|Ns]):-
 	expression(N),expression(Ns).
+**/
+
+expression(empty) :-
+	!.
+expression(N) :-
+	isval(N),!.
+expression(N) :-
+	string(N),!.
+expression(N) :-
+	atom(N),!.
+expression([]) :-
+	!.
+expression(N) :-
+	not(atom(N)),
+	length(N,L),L>=1,
+	expression2(N).
+expression2([]).
+expression2([N|Ns]) :-
+	expression3(N),
+	expression2(Ns).
+expression3(N) :-
+	isval(N),!.
+expression3(N) :-
+	string(N),!.
+expression3(N) :-
+	atom(N),!.
 
 expressionnotatom(N) :-
 	isvalstrempty(N),!.
 expressionnotatom(N) :-
 	not(atom(N)),
-	length(N,L),L>=2,
+	length(N,L),L>=1,
 	expressionnotatom2(N).
 expressionnotatom2([]).
 expressionnotatom2([N|Ns]) :-
@@ -539,3 +580,6 @@ findresult3(Arguments1,Result1,Result2,Result3) :-
 	member([Variable,Value],Result1),
         append(Result2,[Value],Result4),
         findresult3(Arguments2,Result1,Result4,Result3).
+
+
+
