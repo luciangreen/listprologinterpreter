@@ -1,15 +1,21 @@
-interpretpart(is,Variable1,Value1,Vars1,Vars2) :-
-        getvalue(Value1,Value1A,Vars1),
+interpretpart(is,Variable1,Variable2,Vars1,Vars2) :-
+        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+
+        %%getvalue(Value1,Value1A,Vars1),
 	%%isvalstr(Value1),
 	%%isvalstr(Value1A),
-	expression(Value1A),
-        %%val1emptyorvalsequal(Value1A,Value1),
+	expression(Value1),
+	expression(Value2),
+        val1emptyorvalsequal(Value1,Value2),
 	%%isval(Value2),
-        putvalue(Variable1,Value1A,Vars1,Vars2),
-		(debug(on)->(writeln([call,[variable,is,Value1A],"Press c."]),(not(get_single_char(97))->true;abort));true),
-		(debug(on)->(writeln([exit,[Variable1,is,Value1A],"Press c."]),(not(get_single_char(97))->true;abort));true).
+        putvalue(Variable1,Value2,Vars1,Vars2),
+		(debug(on)->(writeln([call,[variable,is,Value2],"Press c."]),(not(get_single_char(97))->true;abort));true),
+		(debug(on)->(writeln([exit,[Variable1,is,Value2],"Press c."]),(not(get_single_char(97))->true;abort));true).
 interpretpart(isplus,Variable1,Variable2,Variable3,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
+	isvalempty(Value1),
+	isval(Value2),
+	isval(Value3),
         Value1A is Value2 + Value3,
         val1emptyorvalsequal(Value1,Value1A),
         putvalue(Variable1,Value1A,Vars1,Vars2),
@@ -22,7 +28,8 @@ interpretpart(match,Variable1,Variable2,Variable3,Vars1,Vars2) :-
         val1emptyorvalsequal(Value3,Value3A),
         putvalue(Variable2,Value2A,Vars1,Vars3),
         putvalue(Variable3,Value3A,Vars3,Vars2),
-        	(debug(on)->(writeln([call,[[Value2A, Value3A],=,[variable1,variable2]],"Press c."]),(not(get_single_char(97))->true;abort));true),        		(debug(on)->(writeln([exit,[[Value2A, Value3A],=,[Value2A, Value3A]],"Press c."]),(not(get_single_char(97))->true;abort));true).
+        	(debug(on)->(writeln([call,[[Value2A, Value3A],=,[variable1,variable2]],"Press c."]),(not(get_single_char(97))->true;abort));true),        		
+		(debug(on)->(writeln([exit,[[Value2A, Value3A],=,[Value2A, Value3A]],"Press c."]),(not(get_single_char(97))->true;abort));true).
 interpretpart(match,Variable1,Variable2,Variable3,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
         Value1A = [Value2, Value3],
@@ -94,8 +101,7 @@ getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars) :-
         getvalue(Variable1,Value1,Vars),
         getvalue(Variable2,Value2,Vars),
         getvalue(Variable3,Value3,Vars).
-val1emptyorvalsequal(empty,Value) :-
-	not(Value=empty).
+val1emptyorvalsequal(empty,_Value) :- !.
 val1emptyorvalsequal(Value,Value) :-
 	not(Value=empty).
 isop(is).
