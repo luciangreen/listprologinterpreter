@@ -1,3 +1,11 @@
+%% convert_to_grammar_part1([[n,nouns],[[v,l1],[v,l2]]],"->",[[[n,word],[[v,noun1]]],[[n,word],[[v,noun2]]],[[n,code],[[n,append],[[v,l1],[[v,noun1],[v,noun2]],[v,l2]]]]]]],[],G).
+%% convert_to_grammar_part1([[[n,noun],[[v,l1],[v,l2]],"->",[[[n,word],[[v,noun1]]]]]],[],G).
+%% convert_to_grammar_part1([[[n,noun],"->",[[[n,word],[[v,noun1]]]]]],[],G).
+%% convert_to_grammar_part1([[[n,noun],"->",[[[v,a]],[[n,code],[[n,=],[[v,a],"apple"]]]]]],[],G).
+%% convert_to_grammar_part1([[[n,noun],"->",[[v,a],[[n,code],[matches,[[v,a],["apple"]]]]]]],[],G).
+%% convert_to_grammar_part1([[[n,noun],"->",[["apple"]]]],[],G).
+%% convert_to_grammar_part1([[[n,noun],"->",["apple"]]],[],G).
+
 convert_to_grammar_part1([],Grammar,Grammar) :- !.
 convert_to_grammar_part1(Grammar1,Grammar2,Grammar3) :-
 	Grammar1=[Grammar4|Grammar5],
