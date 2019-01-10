@@ -32,7 +32,9 @@ member1(Query,Functions,Functions2,Vars8) :-
 	(Functions2=[[Function,Arguments2,":-",Body]|_Functions3]),
 	length(Arguments1,Length),
 	length(Arguments2,Length),
-        checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),!, %%->ca2 
+        
+        ((Function=[n,grammar]->true;Function=[n,grammar_part])->checkarguments1(Arguments1,Arguments2,[],Vars1,[],FirstArgs);checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),!),
+        %%->ca2 
 %%writeln([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
                 (debug(on)->(writeln([call,[Function,Arguments1],"Press c."]),(not(get_single_char(97))->true;abort));true),
 	interpretbody(Functions,Functions2,Vars1,Vars2,Body,true),
@@ -78,7 +80,7 @@ member12(Query,Functions,Functions2,Vars8) :-
         (Functions2=[[Function,Arguments2]|_Functions3]),
         length(Arguments1,Length),
         length(Arguments2,Length),
-        checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),!, %% ->ca2
+        ((Function=[n,grammar]->true;Function=[n,grammar_part])->checkarguments1(Arguments1,Arguments2,[],Vars1,[],FirstArgs);checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),!),
 %%writeln([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
 	updatevars(FirstArgs,Vars1,[],Result),
         %%reverse(Result,[],Vars7),
@@ -124,7 +126,7 @@ member2(Query,Functions,Functions2,Vars8) :-
         (Functions2=[[Function,Arguments2,":-",Body]|_Functions3]),
         length(Arguments1,Length),
         length(Arguments2,Length),
-        checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),!,
+        ((Function=[n,grammar]->true;Function=[n,grammar_part])->checkarguments1(Arguments1,Arguments2,[],Vars1,[],FirstArgs);checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),!),
 %%writeln([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
                 (debug(on)->(writeln([call,[Function,Arguments1],"Press c."]),(not(get_single_char(97))->true;abort));true),
         interpretbody(Functions,Functions2,Vars1,Vars2,Body,true), %%**arg2 change
@@ -166,7 +168,7 @@ member22(Query,Functions,Functions2,Vars8) :-
         (Functions2=[[Function,Arguments2]|_Functions3]),
         length(Arguments1,Length),
         length(Arguments2,Length),
-        checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),!,
+        ((Function=[n,grammar]->true;Function=[n,grammar_part])->checkarguments1(Arguments1,Arguments2,[],Vars1,[],FirstArgs);checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),!),
 %%writeln([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
         updatevars(FirstArgs,Vars1,[],Result),
         %%reverse(Result,[],Vars7),
@@ -221,8 +223,9 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
 	not(var(Variable1)),isvar(Variable1),
         Arguments2=[Variable2|Arguments4],
 	not(var(Variable2)),isvar(Variable2),
-	(getvalue(Variable2,Value,Vars1)->(Value=empty->Value1=Variable2;Value1=Value)),
-        putvalue(Variable2,Value1,Vars1,Vars3),
+	(getvalue(Variable2,Value,Vars1)->true;Value=empty), 
+	%%((Value=empty->Value1=Variable2;Value1=Value))),
+        putvalue(Variable2,Value,Vars1,Vars3),
         append(FirstArgs1,[[Variable1,Variable2]],FirstArgs3),
         checkarguments(Arguments3,Arguments4,Vars3,Vars2,FirstArgs3,FirstArgs2).
 checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
@@ -233,6 +236,42 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
         expressionnotatom(Value1),
         checkarguments(Arguments3,Arguments4,Vars1,Vars2,FirstArgs1,FirstArgs2).
 
+checkarguments1([],[],Vars,Vars,FirstArgs,FirstArgs). 
+checkarguments1(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%
+%%writeln(1),
+	Arguments1=[Value|Arguments3], %% Value may be a number, string, list or tree
+	expressionnotatom(Value),
+	Arguments2=[Variable2|Arguments4],
+	not(var(Variable2)),isvar(Variable2),
+	putvalue(Variable2,Value,Vars1,Vars3),
+	checkarguments1(Arguments3,Arguments4,Vars3,Vars2,FirstArgs1,FirstArgs2).
+checkarguments1(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%A
+%%writeln(2),
+        Arguments1=[Variable|Arguments3], %% Value may be a number, string, list or tree
+        not(var(Variable)),isvar(Variable),
+        Arguments2=[Value|Arguments4],
+        expressionnotatom(Value),
+        putvalue(Variable,Value,Vars1,Vars3),
+	append(FirstArgs1,[[Variable,_]],FirstArgs3),
+        checkarguments1(Arguments3,Arguments4,Vars3,Vars2,FirstArgs3,FirstArgs2).
+checkarguments1(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
+%%writeln(3),
+        Arguments1=[Variable1|Arguments3],
+	not(var(Variable1)),isvar(Variable1),
+        Arguments2=[Variable2|Arguments4],
+	not(var(Variable2)),isvar(Variable2),
+	(getvalue(Variable2,Value,Vars1)->((Value=empty->Value1=Variable2;Value1=Value))),
+        putvalue(Variable2,Value1,Vars1,Vars3),
+        append(FirstArgs1,[[Variable1,Variable2]],FirstArgs3),
+        checkarguments1(Arguments3,Arguments4,Vars3,Vars2,FirstArgs3,FirstArgs2).
+checkarguments1(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
+%%writeln(4),
+        Arguments1=[Value1|Arguments3],
+        expressionnotatom(Value1),
+        Arguments2=[Value1|Arguments4],
+        expressionnotatom(Value1),
+        checkarguments1(Arguments3,Arguments4,Vars1,Vars2,FirstArgs1,FirstArgs2).
+        
 interpretbody(_Functions1,_Functions2,Vars,Vars,[],true) :- !.
 
 interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
@@ -406,6 +445,7 @@ Vars2=[Phrase2|Vars4],
 		  Query2=[[n,grammar_part],Vars5],
 		  ((((terminal(RuleName),  
 		  
+
 		  (not(Vars4=[])->append([Phrase2,RuleName],Vars4,Vars52);
 		  (Vars52=[Phrase2,RuleName])),
 		  
