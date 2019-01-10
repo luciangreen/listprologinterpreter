@@ -1,7 +1,7 @@
 %% test(Debug[on/off],Total,Score).
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=8, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=9, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -64,8 +64,8 @@ test(4,[[n,append1],[[v,a]]],
                 [[n,append],[[v,b],[v,c],[v,a]]]
         ]
         ],
-        [[n,b],["b"]],
-        [[n,c],["c"]]
+        [[n,b],[["b"]]],
+        [[n,c],[["c"]]]
 ]
 ,[[[v,a], ["b", "c"]]]).
 
@@ -98,7 +98,8 @@ test(7,[[n,reverse],[[1,2,3],[],[v,l]]],
         [[n,reverse],[[v,l],[v,m],[v,n]],":-",
         [       [[n,head],[[v,l],[v,h]]],
                 [[n,tail],[[v,l],[v,t]]],
-                [[n,append],[[v,h],[v,m],[v,o]]],
+                [[n,wrap],[[v,h1],[v,h]]],
+                [[n,append],[[v,h1],[v,m],[v,o]]],
                 [[n,reverse],[[v,t],[v,o],[v,n]]]
         ]
         ]
@@ -113,4 +114,16 @@ test(8,[[n,grammar1],["apple"]],
 		  ],
 		  
 		  [[n,noun],"->",["apple"]]
+],[]).
+
+test(9,[[n,grammar1],["aaa"]],
+[
+		  [[n,grammar1],[[v,s]],":-",
+		  [
+		  			 [[n,grammar],[[v,s],[n,noun]]] 
+		  ]
+		  ],
+		  
+		  [[n,noun],"->",[""]],
+		  [[n,noun],"->",["a",[[n,noun]]]]
 ],[]).
