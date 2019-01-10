@@ -11,6 +11,7 @@
 interpret(Debug,Query,Functions1,Result) :-
 %%writeln([i1]),
 	convert_to_grammar_part1(Functions1,[],Functions2),
+	%%writeln(Functions2),
 %%writeln(Functions2),
 	interpret1(Debug,Query,Functions2,Functions2,Result),
 	!.
@@ -220,8 +221,8 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
 	not(var(Variable1)),isvar(Variable1),
         Arguments2=[Variable2|Arguments4],
 	not(var(Variable2)),isvar(Variable2),
-	(getvalue(Variable2,Value,Vars1)->true;Value=empty),
-        putvalue(Variable2,Value,Vars1,Vars3),
+	(getvalue(Variable2,Value,Vars1)->(Value=empty->Value1=Variable2;Value1=Value)),
+        putvalue(Variable2,Value1,Vars1,Vars3),
         append(FirstArgs1,[[Variable1,Variable2]],FirstArgs3),
         checkarguments(Arguments3,Arguments4,Vars3,Vars2,FirstArgs3,FirstArgs2).
 checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
@@ -371,10 +372,10 @@ interpretstatement1(_F0,_Functions,[[n,append],[Variable1,Variable2,Variable3]],
         interpretpart(append,Variable1,Variable2,Variable3,Vars1,Vars2).
 
 
-interpretstatement1(_F0,_Functions,[[n,grammar_part]|Variables1],Vars1,Vars2,true,nocut) :-
+/**interpretstatement1(_F0,_Functions,[[n,grammar_part]|Variables1],Vars1,Vars2,true,nocut) :-
 %%writeln(x9),
 		  [Variables2]=Variables1,
-        interpretpart(grammar_part,Variables2,Vars1,Vars2),!.
+        interpretpart(grammar_part,Variables2,Vars1,Vars2),!.**/
 
 interpretstatement1(Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
 %%writeln("h1/10"),
@@ -385,16 +386,16 @@ interpretstatement1(Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
 		  (Grammar2=Functions0,
 		  ((Arguments=[[Phrase1,RuleName|Variables2]],
 		  ([Variables3]=Variables2->true;(Variables2=[],Variables3=[])))))),
-		  
+
 %%writeln(["Arguments",Arguments,"Vars1",Vars1]),
 
 %%substitutevarsA1(Phrase,Vars1,[],Vars3,[],FirstArgs1),
-        
+
 %%Vars3=[[[v,PhraseVarName],PhraseValue]],
 %%Vars4=[[[v,vgp1],PhraseValue]],
-   
+
    append([Phrase1],Variables3,Variables4), %% *** Should V3 be in [] v
-   
+
 substitutevarsA1(Variables4,Vars1,[],Vars2,[],FirstArgs), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
 %%writeln([substitutevarsA1,arguments,Arguments,vars1,Vars1,vars3,Vars3,firstargs,FirstArgs]),
 		  
@@ -420,16 +421,15 @@ Vars2=[Phrase2|Vars4],
 	unique1(Vars7,[],Vars8)
 )->true;(
 %%writeln(here1),
-	Vars8=[]))->true)),
+	Vars8=[]),strip(Vars8,[],Result2))->true)),
 
-        	(debug(on)->(writeln([exit,[[n,grammar],Vars52],"Press c."]),(not(get_single_char(97))->true;abort));true)
+        	(debug(on)->(writeln([exit,[[n,grammar],Result2],"Press c."]),(not(get_single_char(97))->true;abort));true)
 
 )->true;(not(terminal(RuleName)),
          %% Bodyvars2?
 		          	
 		          			  (not(Vars4=[])->append([Phrase2,RuleName],Vars4,Vars52);
 		  (Vars52=[Phrase2,RuleName])),
-
 
 (debug(on)->(writeln([call,[[n,grammar],Vars52],"Press c."]),(not(get_single_char(97))->true;abort));true),
 
@@ -448,22 +448,25 @@ Vars2=[Phrase2|Vars4],
 %%writeln(here1),
 	Vars8=[])))),!.
 
+
 interpretstatement1(Grammar,_Grammar2,Query1,Vars1,Vars8,true,nocut) :-
 %%writeln("h1/10"),
+%%trace,%%%%****
         Query1=[[n,grammar_part]|Arguments],
         Arguments=[[RuleName|Variables2]],
-        	(([Variables3]=Variables2->true;(Variables2=[],Variables3=[]))),
+        	%%(([Variables4|Rest]=Variables2->Variables3=Variables2;(Variables2=[],Variables3=[]))),
 
         ((not(terminal(RuleName)),
 %%writeln(["Arguments",Arguments,"Vars1",Vars1]),
-        substitutevarsA1(Variables3,Vars1,[],Vars3,[],FirstArgs), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
+        substitutevarsA1(Variables2,Vars1,[],Vars3,[],FirstArgs), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
 %%writeln([substitutevarsA1,arguments,Arguments,vars1,Vars1,vars3,Vars3,firstargs,FirstArgs]),
 		  (not(Vars3=[])->(append([RuleName],Vars3,Vars4),Query2=[[n,grammar_part],Vars4]);
 		  Query2=[[n,grammar_part],RuleName]), %% Bodyvars2?
 %%        	debug(on)->writeln([call,[Function,[Vars3]]]),
 %%writeln(["Query2",Query2,"Functions0",Functions0]),
-        
-interpret2(Query2,Grammar,Grammar,Result1),
+        %%notrace,%%****
+ interpret2(Query2,Grammar,Grammar,Result1),
+ %%trace,%****
 	updatevars2(FirstArgs,Result1,[],Vars5),
 	updatevars3(Vars1,Vars5,Vars6),
 	reverse(Vars6,[],Vars7),
@@ -473,17 +476,25 @@ interpret2(Query2,Grammar,Grammar,Result1),
 )->true;(
 %%writeln(here1),
 	Vars8=[]))->true)->true;
-(terminal(RuleName),substitutevarsA1(Variables3,Vars1,[],Vars3,[],FirstArgs),append(RuleName,Vars3,Vars4),
-interpretpart(grammar_part,Vars4,[],Result1),
+(terminal(RuleName),substitutevarsA1(Variables2,Vars1,[],Vars3,[],FirstArgs),
+%%writeln(here), %%****
+%%Vars3=[Phrase,End],
+%%Vars41=[Phrase,[v,vgp]],
+append([RuleName],Vars3,Vars9),
+%%writeln([vars9,Vars9]), %%%%%*****
+interpretpart(grammar_part,Vars9,[],Result1),
 	updatevars2(FirstArgs,Result1,[],Vars5),
 	updatevars3(Vars3,Vars5,Vars6),
 	reverse(Vars6,[],Vars7),
 	((not(Vars7=[])->
 	%%Vars7=[Var71|Vars72],
 	unique1(Vars7,[],Vars8)
+	%%writeln([vars8,Vars8]) %%%*****
 )->true;(
 %%writeln(here1),
-	Vars8=[]))->true)),!.
+	Vars8=[]))->true)),%%notrace, %%****
+	!.
+
 
 interpretstatement1(Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
 %%writeln("h1/10"),
@@ -543,7 +554,7 @@ getvar(Variable,Value,Vars) :-
 getvar(undef,undef,_Vars) :-
 	!.
 getvar(Variable,empty,Vars) :-
-        not(member([Variable,_Value],Vars));
+        not(member([Variable,_Value],Vars))->true;
 	member([Variable,empty],Vars).
 updatevar(undef,_Value,Vars,Vars) :-
 	!.
@@ -612,7 +623,9 @@ isvalempty(N) :-
 /**isvalstrempty(N) :-
 	isval(N);(string(N);N=empty).**/
 isvalstrempty(N) :-
-	isval(N).
+	var(N),!.
+isvalstrempty(N) :-
+	isval(N),!.
 isvalstrempty(N) :-
 	string(N).
 isvalstrempty(empty).
@@ -669,7 +682,7 @@ expressionnotatom(N) :-
 expressionnotatom(N) :-
 	not(atom(N)),
 	length(N,L),L>=1,
-	expressionnotatom2(N).
+	expressionnotatom2(N),!.
 expressionnotatom(Name) :-
 	predicate_or_rule_name(Name),!.
 expressionnotatom2([]).
@@ -678,8 +691,8 @@ expressionnotatom2([N|Ns]) :-
 	expressionnotatom2(Ns).
 
 substitutevarsA1(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2) :-
-	substitutevarsA2(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2).
-substitutevarsA2([],_Vars1,Vars2,Vars2,FirstArgs,FirstArgs).
+	substitutevarsA2(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2),!.
+substitutevarsA2([],_Vars1,Vars2,Vars2,FirstArgs,FirstArgs):-!.
 substitutevarsA2(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2) :-
 	Arguments=[Variable|Variables],
 	((getvalue(Variable,Value,Vars1),
@@ -690,7 +703,7 @@ substitutevarsA2(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2) :-
 	(getvalue(Variable,Value,Vars1),
 	append(Vars2,[Value],Vars4)),
 	FirstArgs3=FirstArgs1),
-        substitutevarsA2(Variables,Vars1,Vars4,Vars3,FirstArgs3,FirstArgs2).
+        substitutevarsA2(Variables,Vars1,Vars4,Vars3,FirstArgs3,FirstArgs2),!.
 
 findresult3([],_Result,Result2,Result2).
 findresult3(Arguments1,Result1,Result2,Result3) :-
@@ -705,5 +718,11 @@ findresult3(Arguments1,Result1,Result2,Result3) :-
         append(Result2,[Value],Result4),
         findresult3(Arguments2,Result1,Result4,Result3).
 
+strip([],Result2,Result2).
+strip(Arguments1,Result2,Result3) :-
+	Arguments1=[[Variable,Value]|Arguments2],
+        isvar(Variable),
+        append(Result2,[Value],Result4),
+        strip(Arguments2,Result4,Result3).
 
 
