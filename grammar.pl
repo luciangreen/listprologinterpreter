@@ -57,9 +57,9 @@ convert_to_grammar_part1(Grammar1,Grammar2,Grammar3) :-
 	convert_to_grammar_part2(Body1,1,3,2,[],Body2),
 	append(Grammar6,[Body2],Grammar7),
 	
-	%% member to check all doesn't work
-	((maplist(basecasecondition(Variables3,[n,Name]),Grammar2))->
-((Variables1=[]->(Grammar9=[[n,grammar_part],[[n,Name],[],[v,vgp]]],Grammar10=[[n,grammar_part],[[n,Name],"",[v,vgp]]]);fail %% need more for variable
+	%% member to check all doesn't work elsewhere, do ; to ->true;
+	(maplist(basecasecondition(Variables3,[n,Name]),Grammar2)->
+((Variables1=[]->(Grammar9=[[n,grammar_part],[[n,Name],[],[v,vgp]]],Grammar10=[[n,grammar_part],[[n,Name],"",[v,vgp]]]);(Grammar9=[[n,grammar_part],[[n,Name],[],[v,vgp]|Variables1]],Grammar10=[[n,grammar_part],[[n,Name],"",[v,vgp]|Variables1]]) %% need more for variable
 	),append(Grammar2,[Grammar9,
 	Grammar10,Grammar7],Grammar8));
 	append(Grammar2,[%%Grammar9,
