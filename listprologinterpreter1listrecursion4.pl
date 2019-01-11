@@ -1,10 +1,5 @@
-%%:- include('caw.pl').
-%%:- include('breasoningwriter2.pl').
-
-
-%%:- include('caw4.pl').
-
 :- dynamic debug/1.
+:- dynamic cut/1.
 
 /** List Prolog Interpreter **/
 
@@ -215,7 +210,7 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%A
         Arguments2=[Value|Arguments4],
         expressionnotatom(Value),
         putvalue(Variable,Value,Vars1,Vars3),
-	append(FirstArgs1,[[Variable,_]],FirstArgs3),
+	append(FirstArgs1,[[Variable,Value]],FirstArgs3),
         checkarguments(Arguments3,Arguments4,Vars3,Vars2,FirstArgs3,FirstArgs2).
 checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
 %%writeln(3),
@@ -420,11 +415,12 @@ interpretstatement1(Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
 %%writeln("h1/10"),
         Query1=[[n,grammar]|Arguments],
         ((Arguments=[[Grammar1,Phrase1,RuleName|Variables2]],
-        [Variables3]=Variables2,
+        %%[Variables3]=Variables2,
 		  convert_to_grammar_part1(Grammar1,[],Grammar2))->true;
 		  (Grammar2=Functions0,
-		  ((Arguments=[[Phrase1,RuleName|Variables2]],
-		  ([Variables3]=Variables2->true;(Variables2=[],Variables3=[])))))),
+		  ((Arguments=[[Phrase1,RuleName|Variables2]]
+		  %%([Variables3]=Variables2->true;(Variables2=[],Variables3=[]))
+		  )))),
 
 %%writeln(["Arguments",Arguments,"Vars1",Vars1]),
 
@@ -433,7 +429,7 @@ interpretstatement1(Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
 %%Vars3=[[[v,PhraseVarName],PhraseValue]],
 %%Vars4=[[[v,vgp1],PhraseValue]],
 
-   append([Phrase1],Variables3,Variables4), %% *** Should V3 be in [] v
+   append([Phrase1],Variables2,Variables4), %% *** Should V3 be in [] v
 
 substitutevarsA1(Variables4,Vars1,[],Vars2,[],FirstArgs), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
 %%writeln([substitutevarsA1,arguments,Arguments,vars1,Vars1,vars3,Vars3,firstargs,FirstArgs]),
@@ -623,8 +619,9 @@ updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
 updatevars([],_Vars1,Vars2,Vars2) :- !.
 updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
 	FirstArgs=[[Orig,New]|Rest],
-	member([New,Value],Vars1),
-	append(Vars2,[[Orig,Value]],Vars4),
+	(expressionnotatom(New)->append(Vars2,[[Orig,New]],Vars4);
+	(member([New,Value],Vars1),
+	append(Vars2,[[Orig,Value]],Vars4))),
 	updatevars(Rest,Vars1,Vars4,Vars3),!.
 updatevars2(_FirstArgs,[],Vars,Vars) :- !.
 updatevars2(FirstArgs,Vars1,Vars2,Vars3) :-
