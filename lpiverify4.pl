@@ -1,7 +1,7 @@
 %% test(Debug[on/off],Total,Score).
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=9, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=11, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -127,3 +127,28 @@ test(9,[[n,grammar1],["aaa"]],
 		  [[n,noun],"->",[""]],
 		  [[n,noun],"->",["a",[[n,noun]]]]
 ],[]).
+
+test(10,[[n,grammar1],["aa",[v,t]]],
+[
+		  [[n,grammar1],[[v,s],[v,t]],":-",
+		  [
+		  			 [[n,grammar],[[v,s],[n,noun],[v,t]]] 
+		  ]
+		  ],
+		  
+		  [[n,noun],["b"],"->",[""]],
+		  [[n,noun],[[v,t]],"->",["a",[[n,noun],[[v,t]]]]]
+],[[[v,t],"b"]]).
+
+test(11,[[n,grammar1],["aa",[v,t],[v,u]]],
+[
+		  [[n,grammar1],[[v,s],[v,t],[v,u]],":-",
+		  [
+		  			 [[n,grammar],[[v,s],[n,noun],[v,t],[v,u]]] 
+		  ]
+		  ],
+		  
+		  [[n,noun],["b","c"],"->",[""]],
+		  [[n,noun],[[v,t],[v,u]],"->",["a",[[n,noun],[[v,t],[v,u]]]]]
+],[[[v,t],"b"],[[v,u],"c"]]).
+
