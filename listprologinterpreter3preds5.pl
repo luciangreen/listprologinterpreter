@@ -20,6 +20,17 @@ interpretpart(is,Variable1,Variable2,Vars1,Vars2) :-
         putvalue(Variable1,Value1A,Vars1,Vars2),
         	(debug(on)->(writeln([call,[[n,wrap],[variable,[Value2]]],"Press c."]),(not(get_single_char(97))->true;abort));true),
         	(debug(on)->(writeln([exit,[[n,wrap],[Variable2,[Value2]]],"Press c."]),(not(get_single_char(97))->true;abort));true).
+
+		interpretpart(stringtonumber,Variable2,Variable1,Vars1,Vars2) :-
+        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+	%%Value1A = [Value2],
+	(Value2A=""->Value1="";
+	number_string(Value1,Value2A)),
+        val1emptyorvalsequal(Value2,Value2A),
+        %%val1emptyorvalsequal(Value1A,Value2),
+        putvalue(Variable2,Value2A,Vars1,Vars2),
+        	(debug(on)->(writeln([call,[[n,stringtonumber],[Value1,Value2A]],"Press c."]),(not(get_single_char(97))->true;abort));true),
+        	(debug(on)->(writeln([exit,[[n,stringtonumber],[Value1,Value2A]],"Press c."]),(not(get_single_char(97))->true;abort));true).
         	
 interpretpart(bracket2,Variable1,Variable2,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
@@ -104,19 +115,54 @@ interpretpart(append,Variable1,Variable2,Variable3,Vars1,Vars2) :-
         	(debug(on)->(writeln([exit,[[n,append],[Value1,Value2,Value3A]],"Press c."]),(not(get_single_char(97))->true;abort));true).
         	
         	
+interpretpart(stringconcat,Terminal,Phrase2,Phrase1,Vars1,Vars2) :-
+	%%Variables1=[Terminal,Phrase1,Phrase2], %% terminal can be v or "a"
+        getvalues2([Terminal,Phrase1,Phrase2],
+        	[],[TerminalValue1,Phrase1Value1,Phrase2Value1],Vars1,[],[Flag1,Flag2,_Flag3]), %% prolog vars, list of vars, [v]=[prolog var]
+        %%delete(Value1,Value2,Value3A),
+        (Terminal=[_Value]->TerminalValue2=[TerminalValue1];TerminalValue2=TerminalValue1),
+                
+(Terminal=""->(TerminalValue2="",
+       
+string_concat(TerminalValue2,Phrase2Value1,Phrase1Value1))->true;
+            ((var(TerminalValue2)->(string_concat(TerminalValue2,Phrase2Value1,Phrase1Value1)),string_length(TerminalValue2,1));string_concat(TerminalValue2,Phrase2Value1,Phrase1Value1))),
+                
+        putvalue(Terminal,TerminalValue2,Vars1,Vars3),
+        putvalue(Phrase2,Phrase2Value1,Vars3,Vars4),
+        putvalue(Phrase1,Phrase1Value1,Vars4,Vars2),
+        (Flag1=true->TerminalValue3=variable1;TerminalValue3=TerminalValue1),
+        (Flag2=true->Phrase1Value3=variable2;Phrase1Value3=Phrase1Value1),
+        	(debug(on)->(writeln([call,[[n,stringconcat],[TerminalValue3,Phrase1Value3,Phrase2]],"Press c."]),(not(get_single_char(97))->true;abort));true),
+        	(debug(on)->(writeln([exit,[[n,stringconcat],[TerminalValue1,Phrase1Value1,Phrase2Value1]],"Press c."]),(not(get_single_char(97))->true;abort));true),!.
+        	
+        	        	
+
 interpretpart(grammar_part,Variables1,Vars1,Vars2) :-
 	Variables1=[Terminal,Phrase1,Phrase2], %% terminal can be v or "a"
         %%terminal(Terminal),
         getvalues2([Terminal,Phrase1,Phrase2],
         	[],[TerminalValue1,Phrase1Value1,Phrase2Value1],Vars1,[],[Flag1,Flag2,_Flag3]), %% prolog vars, list of vars, [v]=[prolog var]
         %%delete(Value1,Value2,Value3A),
-        (Terminal=[_Value]->(TerminalValue2=[TerminalValue1],
-        append(TerminalValue2,Phrase2Value1,Phrase1Value1)); % String may be unknown, P2 may be unknown (err if both unknown) but Phrase1 is known
-        %% undefined_to_empty([TerminalValue1,Phrase2Value1,Phrase1Value1],[],
-        %% [TerminalValue2,Phrase2Value2,Phrase1Value2]),
-(Terminal=[]->(TerminalValue2=[],
-        append(TerminalValue2,Phrase2Value1,Phrase1Value1));
-                (TerminalValue2=TerminalValue1,string_concat(TerminalValue2,Phrase2Value1,Phrase1Value1)))),
+        (Terminal=[_Value]->TerminalValue2=[TerminalValue1];TerminalValue2=TerminalValue1),
+
+
+
+((string(Phrase1Value1)->Phrase1Value1=Phrase1Value11;(number(Phrase1Value1)->number_string(Phrase1Value1,Phrase1Value11);Phrase1Value1=Phrase1Value11)),
+
+(Terminal=""->TerminalValue2="";true),
+       
+(((var(TerminalValue2)->(string_concat(TerminalValue2,Phrase2Value1,Phrase1Value11)),string_length(TerminalValue2,1));string_concat(TerminalValue2,Phrase2Value1,Phrase1Value11))->true;    
+
+string_concat(TerminalValue2,Phrase2Value1,Phrase1Value11))->true;
+            
+
+
+((Phrase1Value1=[_ItemA|_ItemsA]),(Terminal=[]->(TerminalValue2=[],
+
+((var(TerminalValue2)->length(TerminalValue2,1);true),(append(TerminalValue2,Phrase2Value1,Phrase1Value1))))->true;
+
+(append(TerminalValue2,Phrase2Value1,Phrase1Value1)->true)))),
+
         putvalue(Terminal,TerminalValue2,Vars1,Vars3),
         putvalue(Phrase2,Phrase2Value1,Vars3,Vars4),
         putvalue(Phrase1,Phrase1Value1,Vars4,Vars2),
@@ -137,6 +183,14 @@ val1emptyorvalsequal(Value,Value) :-
 	not(Value=empty).
 isop(is).
 isop(=).
+stringconcat1([],Item,Item) :-
+	!.
+stringconcat1(Item11,Item21,Item31) :-
+	
+replace_empty_with_empty_set(	[Item11,Item21,Item31],[],[Item1,Item2,Item3]),
+maplist(expressionnotatom,[Item1,Item2,Item3]),
+	string_concat(Item1,Item2,Item3),!.
+
 append1([],Item,Item) :-
 	!.
 append1(Item11,Item21,Item31) :-
