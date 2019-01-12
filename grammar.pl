@@ -50,35 +50,64 @@ convert_to_grammar_part1(Grammar1,Grammar2,Grammar3) :-
 	Grammar1=[Grammar4|Grammar5],
 	(Grammar4=[[n,Name],Variables1,"->",Body1]->true;
 	(Grammar4=[[n,Name],"->",Body1],Variables1=[])),
-	append([[v,vgp1],[v,vgp2]],Variables1,Variables2),
+	%%((maplist(no_calls,Body1))-> %% this is a base case
+	%%append([[v,vgp],[v,vgp]],Variables1,Variables2);
+	append([[v,vgp1],[v,vgp2]],Variables1,Variables2)
+	%%)
+	,
 	member(Item1,Body1),call_or_terminal(Item1),	%% If not, operator expected.
 	append([[n,Name]],Variables2,Variables3),
 	Grammar6=[[n,grammar_part],Variables3,":-"],
-	convert_to_grammar_part2(Body1,1,3,2,[],Body2),
+	convert_to_grammar_part20(Body1,1,2,2,[],Body2),
 	append(Grammar6,[Body2],Grammar7),
 	
 	%% member to check all doesn't work elsewhere, do ; to ->true;
-	(maplist(basecasecondition(Variables3,[n,Name]),Grammar2)->
-((Variables1=[]->(Grammar9=[[n,grammar_part],[[n,Name],[],[v,vgp]]],Grammar10=[[n,grammar_part],[[n,Name],"",[v,vgp]]]);(Grammar9=[[n,grammar_part],[[n,Name],[],[v,vgp]|Variables1]],Grammar10=[[n,grammar_part],[[n,Name],"",[v,vgp]|Variables1]]) %% need more for variable
-	),append(Grammar2,[Grammar9,
-	Grammar10,Grammar7],Grammar8));
-	append(Grammar2,[%%Grammar9,
-	Grammar7],Grammar8)),
+(maplist(basecasecondition(Variables3,[n,Name]),Grammar2)->
+((Variables1=[]->(Grammar9=[[n,grammar_part],[[n,Name],[],[v,vgp]]],Grammar10=[[n,grammar_part],[[n,Name],"",[v,vgp]]]
+);(
+Grammar9=[[n,grammar_part],[[n,Name],[],[v,vgp]|Variables1]],Grammar10=[[n,grammar_part],[[n,Name],"",[v,vgp]|Variables1]]
+) 
+	),
+	append(Grammar2,[Grammar9,
+	Grammar10,
+	Grammar7],Grammar8));
+
+	append(Grammar2,[
+	Grammar7],Grammar8)
+	),
 	convert_to_grammar_part1(Grammar5,Grammar8,Grammar3),!.
 convert_to_grammar_part1(Grammar1,Grammar2,Grammar3) :-
 	Grammar1=[Grammar4|Grammar5],
-   (((Grammar4=[_Name1,_Variables1,":-",_Body1]->true;
+   ((((Grammar4=[_Name1,_Variables1,":-",_Body1]->true;
 	Grammar4=[_Name2,":-",_Body2])->true;
 	Grammar4=[_Name3,_Variables2])->true;
-	Grammar4=[_Name4]),
+	Grammar4=[_Name4])->true;
+	(writeln(["Error: Grammar",Grammar4,"badly formed."]),abort)),
 	append(Grammar2,[Grammar4],Grammar6),
 	convert_to_grammar_part1(Grammar5,Grammar6,Grammar3),!.
 	
 basecasecondition(Variables3,[n,Name],Item1) :-
 	not((Item1=[[n,grammar_part],Item2|_Rest2],Item2=[[n,Name]|_Rest3],length(Variables3,Length),length(Item2,Length))).
-	convert_to_grammar_part2([],_FirstVar,_SecondVar,_SecondVarParent,Body,Body) :- !.
+
+no_calls(Item) :-
+	not(call1(Item)),!.
+	
+convert_to_grammar_part20(Body1,FirstVar1,SecondVar1,SecondVarParent,Body2,Body3) :-
+	(count_call_or_terminal(Body1,0,1,[],_I)->
+	SecondVar2=SecondVar1;SecondVar2=3),
+	
+convert_to_grammar_part2(Body1,FirstVar1,SecondVar2,SecondVarParent,Body2,Body3),!.
+
+count_call_or_terminal([],N,N,I,I) :- !.
+count_call_or_terminal([Item|Items],N1,N2,I1,I2) :-
+	(call_or_terminal(Item)->(N3 is N1+1,append(I1,[Item],I3));N3 is N1,I3=I1),
+	count_call_or_terminal(Items,N3,N2,I3,I2),!.
+	
+
+convert_to_grammar_part2([],_FirstVar,_SecondVar,_SecondVarParent,Body,Body) :- !.
 
 %% only want 2vp to be used if last call
+
 
 convert_to_grammar_part2(Body1,FirstVar1,SecondVar,SecondVarParent,Body2,Body3) :-
 	Body1=[Item|Items],
@@ -100,7 +129,11 @@ convert_to_grammar_part2(Body1,FirstVar,SecondVar,SecondVarParent,Body2,Body3) :
 	Item=[[n,code]|Rest2],
 	append(Body2,Rest2,Body4),
 	convert_to_grammar_part2(Rest1,FirstVar,SecondVar,SecondVarParent,Body4,Body3),!.
-	
+
+convert_to_grammar_part2(Body1,_FirstVar,_SecondVar,_SecondVarParent,_Body4,_Body3) :-
+	Body1=[Item|_Rest1],
+	writeln(["Error: Item",Item,"badly formed."]),abort,!.
+
 convert_to_grammar_part31(Body1,FirstVar,SecondVar,SecondVarParent,Body2,Body3) :-
 	Body1=[Item1|Rest1],
 	convert_to_grammar_part311(Item1,FirstVar,SecondVarParent,Body2,Body4),
@@ -113,7 +146,7 @@ convert_to_grammar_part311([[n,RuleName]],FirstVar1,SecondVarParent,Body2,Body3)
 	append([[n,grammar_part]],[Call],Item),
 	append(Body2,[Item],Body3),!.
 
-convert_to_grammar_part311([[n,RuleName],Variables1],FirstVar1,SecondVarParent,Body2,Body3) :-
+convert_to_grammar_part311([[n,RuleName]|[Variables1]],FirstVar1,SecondVarParent,Body2,Body3) :-
 	variables(Variables1),
 	to_variable_name(FirstVar1,FirstVarName),
 	to_variable_name(SecondVarParent,SecondVarParentName),
@@ -137,7 +170,7 @@ convert_to_grammar_part321(Item1,Rest1,FirstVar1,SecondVar1,SecondVarParent,Body
 	convert_to_grammar_part2(Rest1,FirstVar2,SecondVar2,SecondVarParent,Body4,Body3),!.
 
 convert_to_grammar_part321(Item1,Rest1,FirstVar1,SecondVar1,SecondVarParent,Body2,Body3) :-
-	Item1=[[n,RuleName],Variables1],
+	Item1=[[n,RuleName]|[Variables1]],
 	variables(Variables1),
 	to_variable_name(FirstVar1,FirstVarName),
 	to_variable_name(SecondVar1,SecondVarName),
@@ -191,18 +224,19 @@ predicate_or_rule([[n,_Name]|_Variables]) :- !.
 variables([]) :- !.
 variables(Variables1) :-
 	Variables1=[Variable|Variables2],
-	Variable=[v,_VariableName],
+	terminal(Variable),%%=[v,_VariableName],
 	variables(Variables2),!.
+terminal([]) :- !.
 terminal(Item1) :-
-	(Item1=[Item2]->
-		terminal(Item2);
-		(variable_name(Item1)->true;string(Item1))),!.
+	not(code(Item1)),
+	([Item2]=Item1->true;Item2=Item1),
+		(variable_name(Item2)->true;string(Item2)),!.
 code(Item) :-
-	Item=[code|_Rest],!.
-call1([[n,_PredicateName]|_Variables]) :- !.
+	(Item=[[n,code]|_Rest]->true;Item=[n,code]),!.
+call1(Item) :- (Item=[[n,_PredicateName]|_Variables]->true;Item=[n,_PredicateName]),not(code(Item)),!.
 call_not_grammar([[n,PredicateName]|_Variables]) :- not(PredicateName=grammar),not(PredicateName=grammar_part),!.
 call_grammar_part([[n,grammar_part]|_Variables]) :- !.
-
+name([n,_Name]):-!.
 call_or_terminal(Item) :-
 	terminal(Item)->true;call1(Item),!.
 	
