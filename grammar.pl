@@ -45,8 +45,12 @@
 %% ** change [v,name] to [v*,name] so new interpreter, grammar command can run them, can have multiple v, v* or groups of these used in an interpreter shell x use a marker to avoid replacing variables with values when passing algorithms to shells, or detect and leave without marker
 
 %% keep original length recorded to add base case in case when add variables
-convert_to_grammar_part1([],Grammar,Grammar) :- !.
 convert_to_grammar_part1(Grammar1,Grammar2,Grammar3) :-
+	convert_to_grammar_part11(Grammar1,Grammar2,Grammar4,[],EndGrammar),
+	append(Grammar4,EndGrammar,Grammar3),!.
+
+convert_to_grammar_part11([],Grammar,Grammar,EndGrammar,EndGrammar) :- !.
+convert_to_grammar_part11(Grammar1,Grammar2,Grammar3,EndGrammar1,EndGrammar2) :-
 	Grammar1=[Grammar4|Grammar5],
 	(Grammar4=[[n,Name],Variables1,"->",Body1]->true;
 	(Grammar4=[[n,Name],"->",Body1],Variables1=[])),
@@ -63,20 +67,20 @@ convert_to_grammar_part1(Grammar1,Grammar2,Grammar3) :-
 	
 	%% member to check all doesn't work elsewhere, do ; to ->true;
 (maplist(basecasecondition(Variables3,[n,Name]),Grammar2)->
-((Variables1=[]->(Grammar9=[[n,grammar_part],[[n,Name],[],[v,vgp]]],Grammar10=[[n,grammar_part],[[n,Name],"",[v,vgp]]]
+((Variables1=[]->(Grammar9=[[n,grammar_part],[[n,Name],[],[v,vgp]]],Grammar10=[[n,grammar_part],[[n,Name],"",[v,vgp]]],append(EndGrammar1,[[[n,grammar_part],[[n,Name],[v,vgp],[v,vgp]]]],EndGrammar3)
 );(
-Grammar9=[[n,grammar_part],[[n,Name],[],[v,vgp]|Variables1]],Grammar10=[[n,grammar_part],[[n,Name],"",[v,vgp]|Variables1]]
+Grammar9=[[n,grammar_part],[[n,Name],[],[v,vgp]|Variables1]],Grammar10=[[n,grammar_part],[[n,Name],"",[v,vgp]|Variables1]],append(EndGrammar1,[[[n,grammar_part],[[n,Name],[v,vgp],[v,vgp]|Variables1]]],EndGrammar3)
 ) 
 	),
 	append(Grammar2,[Grammar9,
 	Grammar10,
 	Grammar7],Grammar8));
-
+	(EndGrammar1=EndGrammar3,
 	append(Grammar2,[
-	Grammar7],Grammar8)
+	Grammar7],Grammar8))
 	),
-	convert_to_grammar_part1(Grammar5,Grammar8,Grammar3),!.
-convert_to_grammar_part1(Grammar1,Grammar2,Grammar3) :-
+	convert_to_grammar_part11(Grammar5,Grammar8,Grammar3,EndGrammar3,EndGrammar2),!.
+convert_to_grammar_part11(Grammar1,Grammar2,Grammar3,EndGrammar1,EndGrammar2) :-
 	Grammar1=[Grammar4|Grammar5],
    ((((Grammar4=[_Name1,_Variables1,":-",_Body1]->true;
 	Grammar4=[_Name2,":-",_Body2])->true;
@@ -84,7 +88,7 @@ convert_to_grammar_part1(Grammar1,Grammar2,Grammar3) :-
 	Grammar4=[_Name4])->true;
 	(writeln(["Error: Grammar",Grammar4,"badly formed."]),abort)),
 	append(Grammar2,[Grammar4],Grammar6),
-	convert_to_grammar_part1(Grammar5,Grammar6,Grammar3),!.
+	convert_to_grammar_part11(Grammar5,Grammar6,Grammar3,EndGrammar1,EndGrammar2),!.
 	
 basecasecondition(Variables3,[n,Name],Item1) :-
 	not((Item1=[[n,grammar_part],Item2|_Rest2],Item2=[[n,Name]|_Rest3],length(Variables3,Length),length(Item2,Length))).
