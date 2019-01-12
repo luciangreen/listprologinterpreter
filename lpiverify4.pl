@@ -1,7 +1,7 @@
 %% test(Debug[on/off],Total,Score).
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=11, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=13, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -152,3 +152,36 @@ test(11,[[n,grammar1],["aa",[v,t],[v,u]]],
 		  [[n,noun],[[v,t],[v,u]],"->",["a",[[n,noun],[[v,t],[v,u]]]]]
 ],[[[v,t],"b"],[[v,u],"c"]]).
 
+test(12,[[n,grammar1],["aa"]],
+[
+		  [[n,grammar1],[[v,s]],":-",
+		  [
+		  			 [[n,grammar_part],[[n,noun],[v,s],""]]
+		  ]
+		  ],
+
+		  [[n,noun],"->",[""]],
+		  [[n,noun],"->",["a",[[n,noun]]]]
+
+],[]).
+
+test(13,[[n,grammar1],["abbb"]],
+[
+		  [[n,grammar1],[[v,s]],":-",
+		  [
+		  			 [[n,grammar_part],[[n,noun],[v,s],""]] 
+		  ]
+		  ],
+		  
+		  [[n,noun],"->",[""]],
+		  [[n,noun],"->",["a",[[n,verb]]]],
+		  
+		  [[n,verb],"->",[""]],
+		  [[n,verb],"->",["b",[[n,verb]]]]
+
+		  
+],[]).
+
+%% Backpropagate variables
+%% find all future possible exits in predicate before failing
+%% grammars take rest and see if the next rule will use it
