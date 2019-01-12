@@ -165,7 +165,7 @@ test(12,[[n,grammar1],["aa"]],
 
 ],[]).
 
-test(13,[[n,grammar1],["abbb"]],
+test(13,[[n,grammar1],["cbd"]],
 [
 		  [[n,grammar1],[[v,s]],":-",
 		  [
@@ -174,14 +174,13 @@ test(13,[[n,grammar1],["abbb"]],
 		  ],
 		  
 		  [[n,noun],"->",[""]],
-		  [[n,noun],"->",["a",[[n,verb]]]],
+		  [[n,noun],"->",["c",[[n,verb]],[[n,noun]]]],
 		  
-		  [[n,verb],"->",[""]],
+		  [[n,verb],"->",["d"]],
 		  [[n,verb],"->",["b",[[n,verb]]]]
-
 		  
 ],[]).
 
-%% Backpropagate variables
-%% find all future possible exits in predicate before failing
+%% Backpropagate variables ?
+%% find all future possible exits in predicate before failing ?
 %% grammars take rest and see if the next rule will use it
