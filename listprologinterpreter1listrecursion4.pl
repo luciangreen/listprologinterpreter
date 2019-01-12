@@ -345,6 +345,13 @@ interpretstatement1(_F0,_Functions,[[n,number],[Variable]],Vars,Vars,true,nocut)
         number(Value),
                 (debug(on)->(writeln([exit,[[n,number],[Value]],"Press c."]),(not(get_single_char(97))->true;abort));true).
 
+interpretstatement1(_F0,_Functions,[[n,letters],[Variable]],Vars,Vars,true,nocut) :-
+        getvalue(Variable,Value,Vars),
+                (debug(on)->(writeln([call,[[n,letters],[Value]],"Press c."]),(not(get_single_char(97))->true;abort));true),
+        string_codes(Value,Value1),
+        phrase(word1(Value1),_),
+                (debug(on)->(writeln([exit,[[n,letters],[Value]],"Press c."]),(not(get_single_char(97))->true;abort));true).
+
 interpretstatement1(_F0,_Functions,[[n,variable],[Variable]],Vars,Vars,true,nocut) :-
         var(Variable),
                 (debug(on)->(writeln([call,[[n,variable],[Variable]],"Press c."]),(not(get_single_char(97))->true;abort));true),
@@ -405,17 +412,25 @@ interpretstatement1(_F0,_Functions,[[n,append],[Variable1,Variable2,Variable3]],
 %%writeln(9),
         interpretpart(append,Variable1,Variable2,Variable3,Vars1,Vars2).
 
+interpretstatement1(_F0,_Functions,[[n,stringconcat],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
+%%writeln(9),
+        interpretpart(stringconcat,Variable1,Variable2,Variable3,Vars1,Vars2).
 
 /**interpretstatement1(_F0,_Functions,[[n,grammar_part]|Variables1],Vars1,Vars2,true,nocut) :-
 %%writeln(x9),
 		  [Variables2]=Variables1,
         interpretpart(grammar_part,Variables2,Vars1,Vars2),!.**/
 
+interpretstatement1(_F0,_Functions,[[n,stringtonumber],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+%%writeln(52), wrap
+        interpretpart(stringtonumber,Variable1,Variable2,Vars1,Vars2).
+
 interpretstatement1(Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
 %%writeln("h1/10"),
         Query1=[[n,grammar]|Arguments],
         ((Arguments=[[Grammar1,Phrase1,RuleName|Variables2]],
         %%[Variables3]=Variables2,
+        name(RuleName),
 		  convert_to_grammar_part1(Grammar1,[],Grammar2))->true;
 		  (Grammar2=Functions0,
 		  ((Arguments=[[Phrase1,RuleName|Variables2]]
@@ -562,7 +577,9 @@ interpretstatement1(Functions0,_Functions,Query,Vars,Vars,true) :-
         interpret2(Query,Functions0,Functions0,_Result1),
         	debug(on)->writeln([exit,[Function]]).
 
-
+word1([])-->[].
+word1([A|As]) --> [A],word1(As),{%%atom_codes(A,AC),
+char_type(A,alpha)},!.
 /**interpretstatement1(_Functions0, _Functions,_Query,_Vars1,_Vars2,false) :-
 	writeln([false]).
 **/
