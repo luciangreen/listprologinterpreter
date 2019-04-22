@@ -8,6 +8,8 @@ Note: Instructions are for Mac, but you can modify steps 6 and possibly 9 for Wi
 
 Note: Replace /Users/yourname/yourfolder/ (in edit.pl lines 12 and 13 and the following) with the folder the rest of the files will be in, /var/www/yourdomain.com/ (edit.pl line 14 and the following) with the home folder on the VPS and xxx.xxx.xxx.xxx (edit.pl line 14 and the following) with your VPS's IP address.
 
+Replace stub meditator and doctor names in meditationnoreplace.pl and medicinenoreplace.pl respectively.  Meditators are taught by Lucian Academy, or a teacher with 50 Meditation As who dots on the utterance-arem link daily and doctors are those who need the effects of medicine.
+
 1. Sign up for a free account on e.g. AwardSpace.com.
 2. Sign up for a free or paid domain name inside the AwardSpace control panel.
 3. Sign up for a $10/3 months VPS account.
