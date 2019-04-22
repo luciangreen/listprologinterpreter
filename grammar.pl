@@ -277,4 +277,3 @@ undefined_to_empty(Values1,Values2,Values3) :-
 	(var(Value1)->Value2=empty;Value2=Value1),
 	append(Values2,[Value2],Values5),
 	undefined_to_empty(Values4,Values5,Values3),!.
-	

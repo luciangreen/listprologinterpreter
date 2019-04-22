@@ -1,7 +1,8 @@
+
 %% test(Debug[on/off],Total,Score).
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=13, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=12, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -165,22 +166,4 @@ test(12,[[n,grammar1],["aa"]],
 
 ],[]).
 
-test(13,[[n,grammar1],["cbd"]],
-[
-		  [[n,grammar1],[[v,s]],":-",
-		  [
-		  			 [[n,grammar_part],[[n,noun],[v,s],""]] 
-		  ]
-		  ],
-		  
-		  [[n,noun],"->",[""]],
-		  [[n,noun],"->",["c",[[n,verb]],[[n,noun]]]],
-		  
-		  [[n,verb],"->",["d"]],
-		  [[n,verb],"->",["b",[[n,verb]]]]
-		  
-],[]).
 
-%% Backpropagate variables ?
-%% find all future possible exits in predicate before failing ?
-%% grammars take rest and see if the next rule will use it

@@ -1,0 +1,70 @@
+Setting up a VPS (Virtual Private Server) with TextToBr
+
+Use a VPS (necessary because of the time the computation takes) to achieve meditation without meditating.  Many daily benefits, such as health.
+
+Please read Instructions for Using texttobr(2).pl.txt before installing.
+
+Note: Instructions are for Mac, but you can modify steps 6 and possibly 9 for Windows and Linux.
+
+Note: Replace /Users/yourname/yourfolder/ (in edit.pl lines 12 and 13 and the following) with the folder the rest of the files will be in, /var/www/yourdomain.com/ (edit.pl line 14 and the following) with the home folder on the VPS and xxx.xxx.xxx.xxx (edit.pl line 14 and the following) with your VPS's IP address.
+
+1. Sign up for a free account on e.g. AwardSpace.com.
+2. Sign up for a free or paid domain name inside the AwardSpace control panel.
+3. Sign up for a $10/3 months VPS account.
+4. Ask the admin to install SWI-Prolog for Linux (e.g. Debian - https://packages.debian.org/stable/swi-prolog)
+5. Set up an FTP account on the VPS using the special control panel.
+6. Allow signing in to your VPS account without having to type your password each time: 
+
+Set up shell ssh key terminal mac save public key log in -
+https://www.linode.com/docs/security/authentication/use-public-key-authentication-with-ssh/
+Does ssh key require password?
+https://stackoverflow.com/questions/21095054/ssh-key-still-asking-for-password-and-passphrase
+Where is ssh configuration file mac -
+http://osxdaily.com/2011/04/05/setup-ssh-config-fie/
+command-shift-. see invisible finder windows
+
+7. Copy the contents of the folder to "yourfolder".
+
+8. Upload them to the VPS's /var/www/yourdomain.com/ folder.
+
+Note: Read the following to change the number of people who this script aims for:
+
+Memory returned when suffering from Parkinsons.txt
+
+9. Save the following (not a shell script) in a text file and log in and paste it into the Mac terminal.
+
+ssh root@xxx.xxx.xxx.xxx -p 22
+%% Paste rest after entering the password without keys installed, otherwise paste whole thing.
+
+cd ../var/www/yourdomain.com/
+swipl -G100g -T20g -L2g
+
+[meditationnoreplace].
+meditation.
+
+halt.
+swipl -G100g -T20g -L2g
+[meditationnoreplace].
+
+[medicinenoreplace].
+medicine.
+
+leash(-all),visible(+all).
+protocol("./file.txt").
+trace.
+caw00(off,[n,f],[[[n,append],2,1],[[n,delete],2,1],[[n,head],1,1],[[n,tail],1,1],[[n,member],1,1]],2,8,_InputVarList,_OutputVarList,[],_Program2,Ps).
+notrace,noprotocol.
+
+halt.
+swipl -G100g -T20g -L2g
+[meditationnoreplace].
+
+time((N is 21*3*3*3*4, M is 4000,  texttobr2(N,u,u,M),texttobr(N,u,u,M))).
+
+halt.
+swipl -G100g -T20g -L2g
+[meditationnoreplace].
+
+time((N is 21*3*3*2*4, M is 4000,  texttobr2(N,u,u,M),texttobr(N,u,u,M))).
+
+

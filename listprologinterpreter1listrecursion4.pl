@@ -778,5 +778,3 @@ strip(Arguments1,Result2,Result3) :-
         isvar(Variable),
         append(Result2,[Value],Result4),
         strip(Arguments2,Result4,Result3).
-
-
