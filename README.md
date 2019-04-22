@@ -8,3 +8,7 @@ listprologinterpreter3preds5.pl - More predicates used by the List Prolog Interp
 lpiverify4.pl - A verify program for List Prolog Interpreter
 grammar.pl - Adds List Prolog grammars
 listprolog.pl - Loads necessary files at start - see lpiverify4.pl for examples
+
+Read Me
+
+Please read "Setting up a VPS with TextToBr.txt" to set up a VPS with TextToBr.
