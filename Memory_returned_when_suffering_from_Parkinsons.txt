@@ -2,7 +2,7 @@ Putting "Frank" on done up 50 As for meditation helped his memory return while s
 
 time((N is 21*3*3*3*4, M is 4000,  texttobr2(N,u,u,M),texttobr(N,u,u,M))).
 
-21 people, 3 (Lucian, God, the area of study), 3 (today, tomorrow, 3 (standard, B, B to B), the day after tomorrow), 4 * 50As
+21 people, 3 (Lucian, God, the area of study), 3 (today, tomorrow, the day after tomorrow), 3 (standard, B, B to B), 4 * 50As
 
 time((N is 21*3*3*2*4, M is 4000,  texttobr2(N,u,u,M),texttobr(N,u,u,M))).
 
