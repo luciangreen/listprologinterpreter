@@ -23,7 +23,7 @@ Does ssh key require password?
 https://stackoverflow.com/questions/21095054/ssh-key-still-asking-for-password-and-passphrase
 Where is ssh configuration file mac -
 http://osxdaily.com/2011/04/05/setup-ssh-config-fie/
-command-shift-. see invisible finder windows
+command-shift-. see invisible finder files, use AirDrop to transfer to new Macs rather than scp or ftp.
 
 7. Copy the contents of the folder to "yourfolder".
 
