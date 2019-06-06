@@ -1,0 +1,228 @@
+%% rcaw.paste - paste this into terminal
+%% before pasting, to avoid conjunctivitis and haemorrhoids, think of two radio buttons put on recordings, put through with prayer, nut and bolt, quantum box prayer 1, 1, 0.5 cm and 1, 1, 0.5 cm.
+
+ssh root@x.x.x.x -p 22
+/** Access your VPS - see https://github.com/luciangreen/listprologinterpreter/blob/master/Setting_up_a_VPS_with_TextToBr.txt
+
+set up shell ssh key terminal mac save public key log in
+https://www.linode.com/docs/security/authentication/use-public-key-authentication-with-ssh/
+does ssh key require password
+https://stackoverflow.com/questions/21095054/ssh-key-still-asking-for-password-and-passphrase
+where is ssh configuration file mac
+http://osxdaily.com/2011/04/05/setup-ssh-config-fie/
+command-shift-. see invisible finder files
+**/
+
+cd ../var/www/yourdomain.com/
+
+%% Meditation and Medicine
+
+swipl -G100g -T20g -L2g
+
+[meditationnoreplace].
+meditation.
+
+halt.
+
+%% Preparation for Mind Reading - or at least gives you 10 done up As
+
+leash(-all),visible(+all).
+protocol("./file.txt").
+trace.
+caw00(off,[n,f],[[[n,append],2,1],[[n,delete],2,1],[[n,head],1,1],[[n,tail],1,1],[[n,member],1,1]],2,8,_InputVarList,_OutputVarList,[],_Program2,Ps).
+notrace,noprotocol.
+
+%% ** Stop - close window x halt (last time I stopped here)
+halt.
+swipl -G100g -T20g -L2g
+[meditationnoreplace].
+
+[meditatorsanddoctors].
+meditators(Meditators),doctors(Doctors),append(Meditators,Doctors,MeditatorsandDoctors),length(MeditatorsandDoctors,LengthMeditatorsandDoctors),
+
+time((N is 100*4, M is 4000,  texttobr2(N,u,u,M),texttobr(N,u,u,M))).
+
+%% Give the meditators, etc. the As.
+
+[texttobr2qb].
+
+[meditatorsanddoctors].
+meditators(Meditators),doctors(Doctors),append(Meditators,Doctors,MeditatorsandDoctors),length(MeditatorsandDoctors,LengthMeditatorsandDoctors1),
+
+LengthMeditatorsandDoctors2 is 3*LengthMeditatorsandDoctors1,
+texttobr2(LengthMeditatorsandDoctors2).
+
+halt.
+
+%% Security
+
+%% First half
+
+swipl -G100g -T20g -L2g
+
+FileName2='./sfile1.txt',
+FileName3='sfile1.txt',
+
+protocol(FileName2).
+notrace.
+
+[mindreadtestsec].
+
+sectest0.
+
+noprotocol.
+
+[meditationnoreplace].
+
+FileName2='./sfile1.txt',
+FileName3='sfile1.txt',
+
+time((texttobr2(u,FileName3,u,u),texttobr(u,FileName3,u,u))),
+
+atom_concat('echo "" | mutt -s "Security 1" you@yourdomain.com -a ',FileName3,A1),
+
+shell1(A1).
+
+halt.
+
+%% Second half
+
+swipl -G100g -T20g -L2g
+
+FileName2='./sfile2.txt',
+FileName3='sfile2.txt',
+
+protocol(FileName2).
+notrace.
+
+[mindreadtestsec].
+
+sectest1.
+
+noprotocol.
+
+[meditationnoreplace].
+
+FileName2='./sfile2.txt',
+FileName3='sfile2.txt',
+
+time((texttobr2(u,FileName3,u,u),texttobr(u,FileName3,u,u))),
+
+atom_concat('echo "" | mutt -s "Security 2" you@yourdomain.com -a ',FileName3,A1),
+
+shell1(A1).
+
+halt.
+
+%% Give the meditators, etc. the As.
+
+swipl -G100g -T20g -L2g
+
+[mindreadtestsec].
+
+[texttobr2qb].
+
+[meditatorsanddoctors].
+meditators(Meditators),doctors(Doctors),append(Meditators,Doctors,MeditatorsandDoctors),length(MeditatorsandDoctors,LengthMeditatorsandDoctors1),
+
+LengthMeditatorsandDoctors2 is 2*LengthMeditatorsandDoctors1,
+texttobr2(LengthMeditatorsandDoctors2).
+
+halt.
+
+%% Meditation
+
+%% andrew - duplicate for others from "andrew"
+swipl -G100g -T20g -L2g
+[listprolog].
+[mindreadingcaw].
+caw00(off,[n,f],[[[n,append],2,1],[[n,delete],2,1],[[n,head],1,1],[[n,tail],1,1],[[n,member],1,1]],2,8,_InputVarList,_OutputVarList,[],_Program2,Ps),Ps=[[Query,Functions,_Result1]|_Rest],leash(-all),visible(+all),protocol("./andrew.txt"),trace,interpret(off,Query,Functions,_Result2),notrace,noprotocol.
+halt.
+swipl -G100g -T20g -L2g
+[meditationnoreplace].
+time((N is 2, M is 8000,  texttobr2(N,"andrew.txt",u,M),texttobr(N,"andrew.txt",u,M))).
+%% Give the meditator the As.
+[texttobr2qb].
+texttobr2(3). %% Dot on As, GG,B,BB and dot on
+atom_concat('echo "" | mutt -s "Meditations andrew" you@yourdomain.com -a andrew.txt','',A1),
+shell1(A1).
+halt.
+
+
+%% Psychiatrist
+
+%% First half
+
+swipl -G100g -T20g -L2g
+
+FileName2='./pfile1.txt',
+FileName3='pfile1.txt',
+
+protocol(FileName2).
+notrace.
+
+[mindreadtestpsychiatrist].
+
+sectest0.
+
+noprotocol.
+
+[meditationnoreplace].
+
+FileName2='./pfile1.txt',
+FileName3='pfile1.txt',
+
+time((texttobr2(u,FileName3,u,u),texttobr(u,FileName3,u,u))),
+
+atom_concat('echo "" | mutt -s "Psychiatric Report 1" your@yourdomain -a ',FileName3,A1),
+
+shell1(A1).
+
+halt.
+
+%% Second half
+
+swipl -G100g -T20g -L2g
+
+FileName2='./pfile2.txt',
+FileName3='pfile2.txt',
+
+protocol(FileName2).
+notrace.
+
+[mindreadtestpsychiatrist].
+
+sectest1.
+
+noprotocol.
+
+[meditationnoreplace].
+
+FileName2='./pfile2.txt',
+FileName3='pfile2.txt',
+
+time((texttobr2(u,FileName3,u,u),texttobr(u,FileName3,u,u))),
+
+atom_concat('echo "" | mutt -s "Psychiatric Report 2" you@yourdomain -a ',FileName3,A1),
+
+shell1(A1).
+
+halt.
+
+%% Give the meditators, etc. the As.
+
+swipl -G100g -T20g -L2g
+
+[mindreadtestsec].
+
+[texttobr2qb].
+
+[meditatorsanddoctors].
+meditators(Meditators),doctors(Doctors),append(Meditators,Doctors,MeditatorsandDoctors),length(MeditatorsandDoctors,LengthMeditatorsandDoctors1),
+
+LengthMeditatorsandDoctors2 is 2*LengthMeditatorsandDoctors1,
+texttobr2(LengthMeditatorsandDoctors2).
+
+halt.
+
+logout
