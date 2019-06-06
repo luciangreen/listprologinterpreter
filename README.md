@@ -16,3 +16,5 @@ Please read "Setting up a VPS with TextToBr.txt" to set up a VPS with TextToBr.
 June 2019
 
 rcaw.paste added - this can be run each day to meet daily regimen requirements, such as preventing unwanted thoughts (mindreadtestsec.pl), giving meditators thoughts (mindreadingcaw.pl) and giving thoughts about psychoanalysis (mindreadtestpsychiatrist.pl).
+
+Caution: follow instructions in https://github.com/luciangreen/listprologinterpreter/blob/master/Instructions_for_Using_texttobr(2).pl.txt when using texttobr, texttobr2 or mind reader to avoid medical problems.
