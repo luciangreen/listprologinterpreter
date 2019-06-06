@@ -24,7 +24,7 @@ meditation.
 
 halt.
 
-%% Preparation for Mind Reading - or at least gives you 10 done up As
+%% Preparation for Mind Reading - or at least gives you 100 done up As
 
 leash(-all),visible(+all).
 protocol("./file.txt").
