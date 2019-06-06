@@ -12,3 +12,7 @@ listprolog.pl - Loads necessary files at start - see lpiverify4.pl for examples
 Read Me
 
 Please read "Setting up a VPS with TextToBr.txt" to set up a VPS with TextToBr.
+
+June 2019
+
+rcaw.paste added - this can be run each day to meet daily regimen requirements, such as preventing unwanted thoughts (mindreadtestsec.pl), giving meditators thoughts (mindreadingcaw.pl) and giving thoughts about psychoanalysis (mindreadtestpsychiatrist.pl).
