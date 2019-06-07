@@ -151,7 +151,7 @@ No muscle aches/pains
 4. Each day, prepare for using texttobr[1/2]:
 
 
-Realise the hand breasoning switch is done for you each day from the first time you switch it on, doing the following, by breasoning out the following ten words from file2qb.txt each day:
+Realise the hand breasoning switch is done for you each day from the first time you switch it on, doing the following, by breasoning out the following ten words from file2qb.txt (medicine) each day:
 "i the to and in by of this prepared a"
 
 
