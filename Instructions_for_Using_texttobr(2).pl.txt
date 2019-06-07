@@ -151,7 +151,8 @@ No muscle aches/pains
 4. Each day, prepare for using texttobr[1/2]:
 
 
-Realise the hand breasoning switch is done for you each day from the first time you switch it on, doing the following:
+Realise the hand breasoning switch is done for you each day from the first time you switch it on, doing the following, by breasoning out the following ten words from file2qb.txt each day:
+"i the to and in by of this prepared a"
 
 
 Use only ONE of the following plans.  It is recommended to progress through plans 1-3, for at least one month each.  Commence instructions at 8 AM at the earliest.  Warning: Not following these instructions when using texttobr[1/2] can results in haemorrhoids, eyelid twitches and eyelid itchiness.
