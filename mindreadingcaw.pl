@@ -42,33 +42,6 @@ bash_command(Command, Output) :-
         close(Out)).
 
 
-trialy1(R1) :-
-	trial0(A1), %% Control
-	trial0(A2), %% Test 1
-	(A1>A2->R1=true;R1=fail).
-
-trial0(Av) :- N is 10, trial1(N,0,S),
-	Av is S/N.
-
-trial1(0,A,A) :- !.
-trial1(N,A,B) :- mindreadtest(S), A1 is A+S,
-	N1 is N-1,trial1(N1,A1,B).
-
-mindreadtest(Sec) :-
-	%% 250 br for characters to be br out with 10 br each from person to me - do when initial 250 br test done and doing 10 br test
-	%%comment(fiftyastest),
-	%%random(X),X1 is 10*X, X2 is floor(X1), (X2=<2 -> (
-	%%texttobr,writeln(['true test']), %%); %% use breasonings breasoned out by computer for not by me, for job medicine for "me", at last time point
-	%%true), %% leave last time point blank
-	(texttobr2(2)),%% make an A to detect reaction to gracious giving or blame of in following
-	get_time(TimeStamp1),
-	%%phrase_from_file(string(_String), 'file.txt'),
-	(daysbspeoplearmy(2)), %% test breasonings breasoned out by computer for not by me, for job medicine for "me", at last time point
-	%% is gracious giving or blame
-	get_time(TimeStamp2),
-	%%comment(turnoffas),
-   Sec is TimeStamp2 - TimeStamp1.
-
 caw00(Debug,PredicateName,Rules,MaxLength,TotalVars,_InputVarList,_OutputVarList,Program1,_Program2,Ps1) :-
 	repeat,
 	%%MaxLength2 is MaxLength + 1,
