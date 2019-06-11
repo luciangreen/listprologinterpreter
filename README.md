@@ -1,7 +1,7 @@
 # listprologinterpreter
 List Prolog Interpreter
 
-List Prolog Interpreter is an interpreter for a new version of Prolog that is in list format, making it easier to generate List Prolog programs.  This interpreter is a program that parses and runs List Prolog code.  The intepreter is written in SWI-Prolog.
+List Prolog Interpreter is an interpreter for a new version of Prolog that is in list format, making it easier to generate List Prolog programs.  This interpreter is a program that parses and runs List Prolog code.  The interpreter is written in SWI-Prolog.
 
 listprologinterpreter1listrecursion4.pl - The List Prolog Interpreter
 listprologinterpreter3preds5.pl - More predicates used by the List Prolog Interpreter
