@@ -69,7 +69,7 @@ caw1(Query,PredicateName,Rules,MaxLength,VarList,InputVars1,InputVars2,InputVars
 	caw1a(Query,PredicateName,Rules,MaxLength2,VarList,InputVars1,InputVars2,InputVars3,OutputVarList,OutputVars,[],_Program2,Programs3,Ps1),!.
 
 %%caw1(_Query,_PredicateName,_Rules,_MaxLength,_VarList,_InputVars1,_InputVars2,_InputVars3,_OutputVarList,_OutputVars,_Program1,_Program4,Ps,Ps) :- writeln(here1),!.
-caw1(Query,PredicateName,Rules,MaxLength2,VarList,InputVars1,InputVars2,InputVars3,OutputVarList,OutputVars,[],_Program2,Programs3,Programs3) :- !.
+caw1(_Query,_PredicateName,_Rules,_MaxLength2,_VarList,_InputVars1,_InputVars2,_InputVars3,_OutputVarList,_OutputVars,[],_Program2,Programs3,Programs3) :- !.
 	%%writeln([here1,	caw1(Query,PredicateName,Rules,MaxLength2,VarList,InputVars1,InputVars2,InputVars3,OutputVarList,OutputVars,[],_Program21,Programs3,Programs3)]),!.
 
 caw1a(Query,PredicateName,Rules,MaxLength,VarList,InputVars1,InputVars2,InputVars3,OutputVarList,OutputVars,Program1,Program4,Ps1,Ps2) :-
@@ -126,7 +126,7 @@ caw(Query,PredicateName,Rules,MaxLength,VarList,InputVars1,InputVars2,InputVars3
 	cawa(Query,PredicateName,Rules,MaxLength2,VarList,InputVars1,InputVars2,InputVars3,OutputVarList,OutputVars,[],_Program2,Programs3,Programs2),!.
 %%caw(_,_,_,_,_,_,_,_,_,_,_,_,Ps,Ps) :- !.
 
-caw(Query,PredicateName,Rules,MaxLength2,VarList,InputVars1,InputVars2,InputVars3,OutputVarList,OutputVars,[],_Program2,Programs3,Programs3) :-
+caw(_Query,_PredicateName,_Rules,_MaxLength2,_VarList,_InputVars1,_InputVars2,_InputVars3,_OutputVarList,_OutputVars,[],_Program2,Programs3,Programs3) :-
 	%%writeln([here2,	caw(Query,PredicateName,Rules,MaxLength2,VarList,InputVars1,InputVars2,InputVars3,OutputVarList,OutputVars,[],_Program21,Programs3,Programs3)]),
 	!.
 
@@ -190,7 +190,7 @@ iv1flagdisjunction(A,B,true) :-
 	((A=true)->true; (B=true)),!.
 iv1flagdisjunction(_,_,false) :- !.
 
-**/
+
 restlast([],_,_,_) :- fail, !.	
 restlast([Last],Rest,Rest,Last) :-
 	Last=[v,_],!.
