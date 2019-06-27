@@ -14,19 +14,20 @@ None
 
 * Download the repository to your machine.
 In the SWI-Prolog environment, enter:
-['listprolog'].    
+`['listprolog'].`    
 
 * Running the tests
 To run all tests, enter:
-test(off,NTotal,Score).
+`test(off,NTotal,Score).`
 
 To run a specific test:
-test1(off,TestNumber,Passed).
+`test1(off,TestNumber,Passed).`
 where TestNumber is the test number from lpiverify4.pl.
 
 Example of an end to end test
-The query test1(off,1,Passed).
+The query `test1(off,1,Passed).`
 tests the following predicate:
+```
 test(1,[[n,function],[1,1,[v,c]]],
 [
         [[n,function],[[v,a],[v,b],[v,c]],":-",
@@ -36,11 +37,11 @@ test(1,[[n,function],[1,1,[v,c]]],
         ]
 ]
 ,[[[v,c], 2]]).
-
+```
 This query contains the query tested, the predicate and the required result.
 
-Also, the query test1(off,7,Passed).
-
+Also, the query `test1(off,7,Passed).`
+```
 test(7,[[n,reverse],[[1,2,3],[],[v,l]]],
 [
         [[n,reverse],[[],[v,l],[v,l]]],
@@ -53,7 +54,7 @@ test(7,[[n,reverse],[[1,2,3],[],[v,l]]],
         ]
         ]
 ],[[[v,l], [3, 2, 1]]]).
-
+```
 tests the reverse predicate.
 
 # Versioning
