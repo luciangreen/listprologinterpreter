@@ -110,7 +110,7 @@ test(8,[[n,grammar1],["apple"]],
 [
 		  [[n,grammar1],[[v,s]],":-",
 		  [
-		  			 [[n,grammar],[[v,s],[n,noun]]] 
+		  			 [[n,noun],[[v,s],""]] 
 		  ]
 		  ],
 		  
@@ -121,7 +121,7 @@ test(9,[[n,grammar1],["aaa"]],
 [
 		  [[n,grammar1],[[v,s]],":-",
 		  [
-		  			 [[n,grammar],[[v,s],[n,noun]]] 
+		  			 [[n,noun],[[v,s],""]] 
 		  ]
 		  ],
 		  
@@ -133,7 +133,7 @@ test(10,[[n,grammar1],["aa",[v,t]]],
 [
 		  [[n,grammar1],[[v,s],[v,t]],":-",
 		  [
-		  			 [[n,grammar],[[v,s],[n,noun],[v,t]]] 
+		  			 [[n,noun],[[v,s],"",[v,t]]] 
 		  ]
 		  ],
 		  
@@ -145,7 +145,7 @@ test(11,[[n,grammar1],["aa",[v,t],[v,u]]],
 [
 		  [[n,grammar1],[[v,s],[v,t],[v,u]],":-",
 		  [
-		  			 [[n,grammar],[[v,s],[n,noun],[v,t],[v,u]]] 
+		  			 [[n,noun],[[v,s],"",[v,t],[v,u]]] 
 		  ]
 		  ],
 		  
@@ -157,7 +157,7 @@ test(12,[[n,grammar1],["aa"]],
 [
 		  [[n,grammar1],[[v,s]],":-",
 		  [
-		  			 [[n,grammar_part],[[n,noun],[v,s],""]]
+		  			 [[n,noun],[[v,s],""]]
 		  ]
 		  ],
 
