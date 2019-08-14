@@ -9,28 +9,28 @@ interpretpart(is,Variable1,Variable2,Vars1,Vars2) :-
         val1emptyorvalsequal(Value1,Value2),
 	%%isval(Value2),
         putvalue(Variable1,Value2,Vars1,Vars2),
-		(debug(on)->(writeln([call,[[n,is],[variable,Value2]],"Press c."]),(not(get_single_char(97))->true;abort));true),
-		(debug(on)->(writeln([exit,[[n,is],[Variable1,Value2]],"Press c."]),(not(get_single_char(97))->true;abort));true).
+		(debug(on)->(writeln1([call,[[n,is],[variable,Value2]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+		(debug(on)->(writeln1([exit,[[n,is],[Variable1,Value2]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),!.
 		
-		interpretpart(bracket1,Variable1,Variable2,Vars1,Vars2) :-
+interpretpart(bracket1,Variable1,Variable2,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
-	Value1A = [Value2],
-        val1emptyorvalsequal(Value1,Value1A),
+	Value1A = [Value1],
+        val1emptyorvalsequal(Value2,Value1A),
         %%val1emptyorvalsequal(Value1A,Value2),
-        putvalue(Variable1,Value1A,Vars1,Vars2),
-        	(debug(on)->(writeln([call,[[n,wrap],[variable,[Value2]]],"Press c."]),(not(get_single_char(97))->true;abort));true),
-        	(debug(on)->(writeln([exit,[[n,wrap],[Variable2,[Value2]]],"Press c."]),(not(get_single_char(97))->true;abort));true).
+        putvalue(Variable2,Value1A,Vars1,Vars2),
+        	(debug(on)->(writeln1([call,[[n,wrap],[Variable2,[value]]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        	(debug(on)->(writeln1([exit,[[n,wrap],[Variable2,[Value1A]]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),!.
 
 		interpretpart(stringtonumber,Variable2,Variable1,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
 	%%Value1A = [Value2],
-	(Value2A=""->Value1="";
-	number_string(Value1,Value2A)),
-        val1emptyorvalsequal(Value2,Value2A),
+	((Value2=""->true;Value2=empty)->Value1="";
+	number_string(Value1A,Value2)),
+        val1emptyorvalsequal(Value1,Value1A),
         %%val1emptyorvalsequal(Value1A,Value2),
-        putvalue(Variable2,Value2A,Vars1,Vars2),
-        	(debug(on)->(writeln([call,[[n,stringtonumber],[Value1,Value2A]],"Press c."]),(not(get_single_char(97))->true;abort));true),
-        	(debug(on)->(writeln([exit,[[n,stringtonumber],[Value1,Value2A]],"Press c."]),(not(get_single_char(97))->true;abort));true).
+        putvalue(Variable1,Value1A,Vars1,Vars2),
+        	(debug(on)->(writeln1([call,[[n,stringtonumber],[Value2,value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        	(debug(on)->(writeln1([exit,[[n,stringtonumber],[Value2,Value1A]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),!.
         	
 interpretpart(bracket2,Variable1,Variable2,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
@@ -38,16 +38,16 @@ interpretpart(bracket2,Variable1,Variable2,Vars1,Vars2) :-
         val1emptyorvalsequal(Value1,Value1A),
         %%val1emptyorvalsequal(Value2A,Value1),
         putvalue(Variable1,Value1A,Vars1,Vars2),
-        	(debug(on)->(writeln([call,[[n,unwrap],[[variable],[Value2]]],"Press c."]),(not(get_single_char(97))->true;abort));true),
-        	(debug(on)->(writeln([exit,[[n,unwrap],[[Value2],[Value2]]],"Press c."]),(not(get_single_char(97))->true;abort));true).
+        	(debug(on)->(writeln1([call,[[n,unwrap],[[variable],[Value2]]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        	(debug(on)->(writeln1([exit,[[n,unwrap],[[Value2],[Value2]]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),!.
         	
 interpretpart(head,Variable1,Variable2,Vars1,Vars2) :-
 	getvalues(Variable1,Variable2,Value1,Value2,Vars1),
 	Value1=[Value1A|_Rest],
         val1emptyorvalsequal(Value2,Value1A),
         putvalue(Variable2,Value1A,Vars1,Vars2),
-        	(debug(on)->(writeln([call,[[n,head],[Value1,variable]],"Press c."]),(not(get_single_char(97))->true;abort));true),
-        	(debug(on)->(writeln([exit,[[n,head],[Value1,Value1A]],"Press c."]),(not(get_single_char(97))->true;abort));true),	!.
+        	(debug(on)->(writeln1([call,[[n,head],[Value1,variable]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        	(debug(on)->(writeln1([exit,[[n,head],[Value1,Value1A]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),!.
         	
 interpretpart(tail,Variable1,Variable2,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
@@ -55,18 +55,19 @@ interpretpart(tail,Variable1,Variable2,Vars1,Vars2) :-
 	%%removebrackets(Value1A,Value1B), 
         val1emptyorvalsequal(Value2,Value1A),
         putvalue(Variable2,Value1A,Vars1,Vars2),
-        	(debug(on)->(writeln([call,[[n,tail],[Value1,variable]],"Press c."]),(not(get_single_char(97))->true;abort));true),
-        	(debug(on)->(writeln([exit,[[n,tail],[Value1,Value1A]],"Press c."]),(not(get_single_char(97))->true;abort));true).
+        	(debug(on)->(writeln1([call,[[n,tail],[Value1,variable]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        	(debug(on)->(writeln1([exit,[[n,tail],[Value1,Value1A]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),!.
         	
 interpretpart(member,Variable1,Variable2,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
-	(not(Value1=empty)->(member(Value1,Value2),Vars2=Vars1,
-        	(debug(on)->(writeln([call,[[n,member],[Value1,Value2]],"Press c."]),(not(get_single_char(97))->true;abort));true),
-        	(debug(on)->(writeln([exit,[[n,member],[Value1,Value2]],"Press c."]),(not(get_single_char(97))->true;abort));true));
+        
+(debug(on)->(writeln1([call,[[n,member],[Value1,Value2]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+	((not(Value1=empty)->(member(Value1,Value2),
 	(member(Value3,Value2),
-	putvalue(Variable1,Value3,Vars1,Vars2),
-                (debug(on)->(writeln([call,[[n,member],[variable1,Value2]],"Press c."]),(not(get_single_char(97))->true;abort));true),
-                (debug(on)->(writeln([exit,[[n,member],[Value3,Value2]],"Press c."]),(not(get_single_char(97))->true;abort));true))).
+	putvalue(Variable1,Value3,Vars1,Vars2)%%,Vars2=Vars1
+	)))->
+	(debug(on)->(writeln1([exit,[[n,member],[Value3,Value2]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true);
+	((debug(on)->(writeln1([fail,[[n,member],[Value1,Value2]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)),!.
 
 interpretpart(isplus,Variable1,Variable2,Variable3,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
@@ -76,48 +77,53 @@ interpretpart(isplus,Variable1,Variable2,Variable3,Vars1,Vars2) :-
         Value1A is Value2 + Value3,
         val1emptyorvalsequal(Value1,Value1A),
         putvalue(Variable1,Value1A,Vars1,Vars2),
-        	(debug(on)->(writeln([call,[[n,+],[Value2,Value3,variable]],"Press c."]),(not(get_single_char(97))->true;abort));true),
-        	(debug(on)->(writeln([exit,[[n,+],[Value2,Value3,Value1A]],"Press c."]),(not(get_single_char(97))->true;abort));true).
+        	(debug(on)->(writeln1([call,[[n,+],[Value2,Value3,variable]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        	(debug(on)->(writeln1([exit,[[n,+],[Value2,Value3,Value1A]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),!.
         	
 interpretpart(match,Variable1,Variable2,Variable3,Vars1,Vars2) :-
-        getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
+                	getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
         Value1 = [Value2A, Value3A],
-        val1emptyorvalsequal(Value2,Value2A),
+        	(debug(on)->(writeln1([call,[[n,=],[[Value2A, Value3A],[variable1,variable2]]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        ((val1emptyorvalsequal(Value2,Value2A),
         val1emptyorvalsequal(Value3,Value3A),
         putvalue(Variable2,Value2A,Vars1,Vars3),
-        putvalue(Variable3,Value3A,Vars3,Vars2),
-        	(debug(on)->(writeln([call,[[n,=],[[Value2A, Value3A],[variable1,variable2]]],"Press c."]),(not(get_single_char(97))->true;abort));true),        		
-		(debug(on)->(writeln([exit,[[n,=],[[Value2A, Value3A],[Value2A, Value3A]],"Press c."]]),(not(get_single_char(97))->true;abort));true).
+        putvalue(Variable3,Value3A,Vars3,Vars2))->		(debug(on)->(writeln1([exit,[[n,=],[[Value2A, Value3A],[Value2A, Value3A]],"Press c."]]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true)
+		;
+		(Value1 = [Value2A,Value3A],
+		((debug(on)->(writeln1([fail,[[n,=],[[Value2A, Value3A],[variable1,variable2]]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail))),!.
 		
 interpretpart(match,Variable1,Variable2,Variable3,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
         Value1A = [Value2, Value3],
+                	(((debug(on)->(writeln1([call,[[n,=],[variable,[Value2,Value3]]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+
         val1emptyorvalsequal(Value1,Value1A),
-        putvalue(Variable1,Value1A,Vars1,Vars2),
-        	(debug(on)->(writeln([call,[[n,=],[variable,[Value2,Value3]]],"Press c."]),(not(get_single_char(97))->true;abort));true),
-        	(debug(on)->(writeln([exit,[[n,=],[Value2,Value3],[Value2,Value3]],"Press c."]),(not(get_single_char(97))->true;abort));true).
+        putvalue(Variable1,Value1A,Vars1,Vars2))->
+        (debug(on)->(writeln1([exit,[[n,=],[Value2,Value3],[Value2,Value3]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true);
+                        	(Value1A = [Value2, Value3],((debug(on)->(writeln1([fail,[[n,=],[variable,[Value2,Value3]]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail))),!.
 
 interpretpart(delete,Variable1,Variable2,Variable3,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
         delete(Value1,Value2,Value3A),
         val1emptyorvalsequal(Value3,Value3A),
         putvalue(Variable3,Value3A,Vars1,Vars2),
-        	(debug(on)->(writeln([call,[[n,delete],[Value1,Value2,variable3]],"Press c."]),(not(get_single_char(97))->true;abort));true),
-        	(debug(on)->(writeln([exit,[[n,delete],[Value1,Value2,Value3A]],"Press c."]),(not(get_single_char(97))->true;abort));true).
+        	(debug(on)->(writeln1([call,[[n,delete],[Value1,Value2,variable3]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        	(debug(on)->(writeln1([exit,[[n,delete],[Value1,Value2,Value3A]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),!.
 
 
 interpretpart(append,Variable1,Variable2,Variable3,Vars1,Vars2) :-
-        getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
-        append1(Value1,Value2,Value3A),
-        val1emptyorvalsequal(Value3,Value3A),
-        putvalue(Variable3,Value3A,Vars1,Vars2),
-        	(debug(on)->(writeln([call,[[n,append],[Value1,Value2,variable3]],"Press c."]),(not(get_single_char(97))->true;abort));true),
-        	(debug(on)->(writeln([exit,[[n,append],[Value1,Value2,Value3A]],"Press c."]),(not(get_single_char(97))->true;abort));true).
         	
+        getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
+        (debug(on)->(writeln1([call,[[n,append],[Value1,Value2,variable3]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        (append1(Value1,Value2,Value3A)->
+                	(debug(on)->(writeln1([exit,[[n,append],[Value1,Value2,Value3A]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true);
+        ((debug(on)->(writeln1([fail,[[n,append],[Value1,Value2,variable3]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)),
+        val1emptyorvalsequal(Value3,Value3A),
+        putvalue(Variable3,Value3A,Vars1,Vars2),!.        	
         	
 interpretpart(stringconcat,Terminal,Phrase2,Phrase1,Vars1,Vars2) :-
 	%%Variables1=[Terminal,Phrase1,Phrase2], %% terminal can be v or "a"
-        getvalues2([Terminal,Phrase1,Phrase2],
+        ((getvalues2([Terminal,Phrase1,Phrase2],
         	[],[TerminalValue1,Phrase1Value1,Phrase2Value1],Vars1,[],[Flag1,Flag2,_Flag3]), %% prolog vars, list of vars, [v]=[prolog var]
         %%delete(Value1,Value2,Value3A),
         (Terminal=[_Value]->TerminalValue2=[TerminalValue1];TerminalValue2=TerminalValue1),
@@ -131,14 +137,15 @@ string_concat(TerminalValue2,Phrase2Value1,Phrase1Value1))->true;
         putvalue(Phrase2,Phrase2Value1,Vars3,Vars4),
         putvalue(Phrase1,Phrase1Value1,Vars4,Vars2),
         (Flag1=true->TerminalValue3=variable1;TerminalValue3=TerminalValue1),
-        (Flag2=true->Phrase1Value3=variable2;Phrase1Value3=Phrase1Value1),
-        	(debug(on)->(writeln([call,[[n,stringconcat],[TerminalValue3,Phrase1Value3,Phrase2]],"Press c."]),(not(get_single_char(97))->true;abort));true),
-        	(debug(on)->(writeln([exit,[[n,stringconcat],[TerminalValue1,Phrase1Value1,Phrase2Value1]],"Press c."]),(not(get_single_char(97))->true;abort));true),!.
+        (Flag2=true->Phrase1Value3=variable2;Phrase1Value3=Phrase1Value1))->
+        	((debug(on)->(writeln1([call,[[n,stringconcat],[TerminalValue3,Phrase1Value3,Phrase2]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        	(debug(on)->(writeln1([exit,[[n,stringconcat],[TerminalValue1,Phrase1Value1,Phrase2Value1]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true));
         	
-        	        	
-
+        	((debug(on)->(writeln1([call,[[n,stringconcat]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        	((debug(on)->(writeln1([fail,[[n,stringconcat]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail))),!.
+        	
 interpretpart(grammar_part,Variables1,Vars1,Vars2) :-
-	Variables1=[Terminal,Phrase1,Phrase2], %% terminal can be v or "a"
+	((Variables1=[Terminal,Phrase1,Phrase2], %% terminal can be v or "a"
         %%terminal(Terminal),
         getvalues2([Terminal,Phrase1,Phrase2],
         	[],[TerminalValue1,Phrase1Value1,Phrase2Value1],Vars1,[],[Flag1,Flag2,_Flag3]), %% prolog vars, list of vars, [v]=[prolog var]
@@ -167,9 +174,15 @@ string_concat(TerminalValue2,Phrase2Value1,Phrase1Value11))->true;
         putvalue(Phrase2,Phrase2Value1,Vars3,Vars4),
         putvalue(Phrase1,Phrase1Value1,Vars4,Vars2),
         (Flag1=true->TerminalValue3=variable1;TerminalValue3=TerminalValue1),
-        (Flag2=true->Phrase1Value3=variable2;Phrase1Value3=Phrase1Value1),
-        	(debug(on)->(writeln([call,[[n,grammar_part],[TerminalValue3,Phrase1Value3,Phrase2]],"Press c."]),(not(get_single_char(97))->true;abort));true),
-        	(debug(on)->(writeln([exit,[[n,grammar_part],[TerminalValue1,Phrase1Value1,Phrase2Value1]],"Press c."]),(not(get_single_char(97))->true;abort));true),!.
+        (Flag2=true->Phrase1Value3=variable2;Phrase1Value3=Phrase1Value1))->
+        	((debug(on)->(writeln1([call,[[n,grammar_part],[TerminalValue3,Phrase1Value3,Phrase2]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        	(debug(on)->(writeln1([exit,[[n,grammar_part],[TerminalValue1,Phrase1Value1,Phrase2Value1]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true));
+
+        	((debug(on)->(writeln1([call,[[n,grammar_part]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        	((debug(on)->(writeln1([fail,[[n,grammar_part]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail))),!.
+        	
+        	
+        	
 
 getvalues(Variable1,Variable2,Value1,Value2,Vars) :-
         getvalue(Variable1,Value1,Vars),

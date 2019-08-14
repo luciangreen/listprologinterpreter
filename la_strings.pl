@@ -14,3 +14,6 @@ phrase_from_file_s(string(Output), String) :-
 	atom_string(String1,String),
 	phrase_from_file(string(Output), String1),!.
 	
+writeln1(Term) :-
+	term_to_atom(Term,Atom),
+	writeln(Atom).
