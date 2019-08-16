@@ -48,7 +48,7 @@ test(7,[[n,reverse],[[1,2,3],[],[v,l]]],
         [[n,reverse],[[v,l],[v,m],[v,n]],":-",
         [       [[n,head],[[v,l],[v,h]]],
                 [[n,tail],[[v,l],[v,t]]],
-                [[n,wrap],[[v,h1],[v,h]]],
+                [[n,wrap],[[v,h],[v,h1]]],
                 [[n,append],[[v,h1],[v,m],[v,o]]],
                 [[n,reverse],[[v,t],[v,o],[v,n]]]
         ]

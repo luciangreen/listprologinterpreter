@@ -42,7 +42,21 @@ bash_command(Command, Output) :-
         close(Out)).
 
 
+%% mindreadingcaw1.pl - version that randomly chooses combinations of ideas
+
+a :-
+	B=["a","b","c"],
+	random_member(A,B),
+	delete(B,A,C),
+	random_member(D,C),
+	E=[deployment,grammar,spelling,file_synchronisation,web_text_editor,system_of_cawp_specs,cawpverify,lpi_atom_to_terms,computational_english_and_cawp,writeln1,patterns_replaced_in_cawp_specs,time_travel,mind_reading,spiritual_time_travel,spiritual_word_processor,cawp,quantum_power,spiritual_algorithm_writer,medicine,meditation,pedagogy,computational_english,popology,theology,societology],
+	random_member(F,E),
+	random_member(G,E),
+	writeln([A,=,F,and,D,=,G]).
+
+
 caw00(Debug,PredicateName,Rules,MaxLength,TotalVars,_InputVarList,_OutputVarList,Program1,_Program2,Ps1) :-
+	a,
 	repeat,
 	%%MaxLength2 is MaxLength + 1,
 	%%TotalVars = MaxLength,
@@ -82,12 +96,15 @@ random2(N) :-
 randvars(0,_,V,V) :- !.
 randvars(N,L,V1,V2) :-
 	
-	random1(N0), N1 is N0/100, N2A is round(97+(N1*L)), char_code(V3,N2A), V31=[v,V3], ((member(V31,V1))->randvars(N,L,V1,V2);
+	%%random1(N0), N1 is N0/100, 
+	random(N0), N1 is N0,
+	N2A is round(97+(N1*L)), char_code(V3,N2A), V31=[v,V3], ((member(V31,V1))->randvars(N,L,V1,V2);
 	(append(V1,[V31],V4),
 	NA is N-1, randvars(NA,L,V4,V2))),!.
 randvars2(0,_L,V,V) :- !.
 randvars2(N,L,V1,V2) :-
-	random1(N0), N1 is N0/100, N2A is round(97+(N1*L)), char_code(V3,N2A), atom_string(V3,V4), %%V41=[v,V4],
+	random(N0), N1 is N0,
+	N2A is round(97+(N1*L)), char_code(V3,N2A), atom_string(V3,V4), %%V41=[v,V4],
 	((member(V4,V1))->randvars2(N,L,V1,V2);
 	(append(V1,[V4],V5),
 	NA is N-1, randvars2(NA,L,V5,V2))),!.
