@@ -16,4 +16,4 @@ phrase_from_file_s(string(Output), String) :-
 	
 writeln1(Term) :-
 	term_to_atom(Term,Atom),
-	writeln(Atom).
+	writeln(Atom),!.
