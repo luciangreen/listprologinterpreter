@@ -244,7 +244,7 @@ test(14,[[n,grammar1],["[a]",[v,t]]],
 ],[[[v,t],["a"]]]).
 
 
-test(15,[[n,grammar1],["[[a,b],a]",[v,t]]],
+test(15,[[n,grammar1],["[[a,b],1]",[v,t]]],
 [
 		  [[n,grammar1],[[v,u],[v,t]],":-",
 		  [
@@ -314,4 +314,4 @@ test(15,[[n,grammar1],["[[a,b],a]",[v,t]]],
 		  [[v,a],[[n,code],[[n,letters],[[v,a]]],
 		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
 		  [[n,append],[[v,v],[v,a],[v,u]]]]]
-],[[[v,t],[["a","b"],"a"]]]).
+],[[[v,t],[["a","b"],1]]]).
