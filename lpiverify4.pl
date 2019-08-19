@@ -244,7 +244,7 @@ test(14,[[n,grammar1],["[a]",[v,t]]],
 ],[[[v,t],["a"]]]).
 
 
-test(15,[[n,grammar1],["[[a,b],1]",[v,t]]],
+test(15,[[n,grammar1],["[[aa,bb],11]",[v,t]]],
 [
 		  [[n,grammar1],[[v,u],[v,t]],":-",
 		  [
@@ -295,11 +295,12 @@ test(15,[[n,grammar1],["[[a,b],1]",[v,t]]],
 		  [[n,number212],[[v,v],[v,u]]]]],
 
 		  [[n,number21],[[v,t],[v,u]],"->",
-		  [[v,a],[[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[v,a],
+		  [[n,number21],[[],[v,numberstring]]],
+		  [[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
 		  [[n,number],[[v,a1]]],
 		  [[n,stringconcat],[[v,t],[v,a],[v,v]]],
-		  [[n,append],[[v,v],[v,a],[v,u]]]]]],
-
+		  [[n,stringconcat],[[v,v],[v,numberstring],[v,u]]]]]],
 
 		  [[n,word212],["","",[v,t],[v,t]]],
 
@@ -311,7 +312,9 @@ test(15,[[n,grammar1],["[[a,b],1]",[v,t]]],
 		  [[n,word212],[[v,v],[v,u]]]]],
 
 		  [[n,word21],[[v,t],[v,u]],"->",
-		  [[v,a],[[n,code],[[n,letters],[[v,a]]],
+		  [[v,a],
+		  [[n,word21],[[],[v,wordstring]]],
+		  [[n,code],[[n,letters],[[v,a]]],
 		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
-		  [[n,append],[[v,v],[v,a],[v,u]]]]]
-],[[[v,t],[["a","b"],1]]]).
+		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]
+],[[[v,t],[["aa","bb"],11]]]).
