@@ -201,7 +201,7 @@ stringconcat1([],Item,Item) :-
 stringconcat1(Item11,Item21,Item31) :-
 	
 replace_empty_with_empty_set(	[Item11,Item21,Item31],[],[Item1,Item2,Item3]),
-maplist(expressionnotatom,[Item1,Item2,Item3]),
+maplist(expression,[Item1,Item2,Item3]),
 	string_concat(Item1,Item2,Item3),!.
 
 append1([],Item,Item) :-
@@ -209,7 +209,7 @@ append1([],Item,Item) :-
 append1(Item11,Item21,Item31) :-
 	
 replace_empty_with_empty_set(	[Item11,Item21,Item31],[],[Item1,Item2,Item3]),
-maplist(expressionnotatom,[Item1,Item2,Item3]),
+%%maplist(expression,[Item1,Item2,Item3]), %% commented out 21 8 19
 /**((isvalstr(Item1),Item1A=[Item1]);(not(isvalstr(Item1)),Item1A=Item1)),
         ((isvalstr(Item2),Item2A=[Item2]);(not(isvalstr(Item2)),Item2A=Item2)),
         %%((isvalstr(Item3),Item3A=[Item3]);(not(isvalstr(Item3)),Item3A=Item3)),
