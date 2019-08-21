@@ -305,8 +305,8 @@ test(15,[[n,grammar1],["[[a],1]",[v,t]]],
 		  [[n,number],[[v,a1]]],
 		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
 	 	  [[n,number21],["",[v,numberstring]]],
-		  [[n,code],[[n,stringconcat],[[v,v],[v,numberstring],[v,u]]]]]],
-
+		  [[n,code],[[n,stringconcat],[[v,v],
+		  [v,numberstring],[v,u]]]]]],
 
 		  [[n,word212],["","",[v,t],[v,t]]],
 
