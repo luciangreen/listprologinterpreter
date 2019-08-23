@@ -1,1 +1,1 @@
-[[square,useful]]
+[[a,useful],[and,useful],[apple,delicious],[book,useful],[box,useful],[brain,thoughtful],[dash,useful],[dog,joyful],[down,useful],[eightrectangle,useful],[equals,useful],[hand,careful],[heart,happy],[line,useful],[lowera,useful],[minus,useless],[n,useful],[one,useful],[paper,useful],[pencilsharpener,useful],[person,happy],[plus,useful],[right,useful],[square,useful],[tick,useful],[two,enough],[tworectangle,useful],[up,useful],[variable,useful],[xcorrection,useful]]
