@@ -305,8 +305,8 @@ test(15,[[n,grammar1],["[[a],1]",[v,t]]],
 		  [[n,number],[[v,a1]]],
 		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
 	 	  [[n,number21],["",[v,numberstring]]],
-		  [[n,code],[[n,stringconcat],[[v,v],
-		  [v,numberstring],[v,u]]]]]],
+		  [[n,code],[[n,stringconcat],
+		  [[v,v],[v,numberstring],[v,u]]]]]],
 
 		  [[n,word212],["","",[v,t],[v,t]]],
 
@@ -327,3 +327,207 @@ test(15,[[n,grammar1],["[[a],1]",[v,t]]],
 
 %%],[[[v,t],[["a"],1]]]).
 ],[[[v,t],[["a"],1]]]).
+
+%% Dukel goes to the grammar example
+
+test(16,[[n,grammar1],["john ate the apple"]],
+[
+		  [[n,grammar1],[[v,u]],":-",
+		  [
+		  			 [[n,sentence],[[v,u],""]]
+		  ]
+		  ],
+		  
+		  [[n,sentence],"->",
+		  [[[n,subject]],[[n,verbphrase]]]],
+
+		  [[n,verbphrase],"->",
+		  [[[n,verb]],[[n,object]]]],
+		  
+		  [[n,subject],["",""]],
+
+		  [[n,subject],"->",["john"," "]],
+
+		  [[n,subject],[[v,a],[v,a]]],
+		  
+		  [[n,verb],["",""]],
+
+		  [[n,verb],"->",["ate"," "]],
+
+		  [[n,verb],[[v,a],[v,a]]],
+
+		  [[n,object],["",""]],
+
+		  [[n,object],"->",["the"," ","apple"]],
+
+		  [[n,object],[[v,a],[v,a]]]
+],[]).
+
+%% Blackl loves the grammar
+%% Points to flaw in interpreter x backtracking is manually done (allowing multiple characters in sentences)
+
+test(17,[[n,grammar1],["a. b.",[v,t]]],
+%%test(15,[[n,compound213],["","",[["a"],1],[v,t]]],
+
+[
+		  [[n,grammar1],[[v,u],[v,t]],":-",
+		  [
+		  			 [[n,compound21],[[v,u],"",[],[v,t]]]
+		  			 %%[[n,number21],[[v,u],"","",[v,t]]]
+		  			 %%[[n,compound213],["","",[["a"],1],[v,t]]]
+		  ]
+		  ],
+
+		  [[n,compound213],["","",[v,t],[v,t]]],
+
+		  [[n,compound213],[[v,u],[v,u],[v,t],[v,t]]], %% swapped these
+
+		  [[n,compound],[[v,t],[v,u]],"->",
+		  [[[n,compound21],[[v,t],[v,v]]],
+		  [[n,compound213],[[v,v],[v,u]]]]],
+
+		  [[n,compound212],["","",[v,t],[v,t]]],
+
+		  [[n,compound212],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,compound21],[[v,t],[v,u]],"->",
+		  [[[n,item],[[v,i]]],".",
+		  [[n,code],[[n,stringconcat],[[v,i],".",[v,i2]]],
+		  [[n,wrap],[[v,i2],[v,itemname1]]],
+		  [[n,append],[[v,t],[v,itemname1],[v,v]]]],
+		  [[n,compound212],[[v,v],[v,u]]]]],
+
+		  [[n,compound21],[[v,t],[v,u]],"->",
+		  [[[n,item],[[v,i]]],"."," ",
+		  [[n,compound21],[[],[v,compound1name]]],
+		  [[n,code],[[n,stringconcat],[[v,i],".",[v,i2]]],
+		  [[n,wrap],[[v,i2],[v,itemname1]]],
+		  [[n,append],[[v,t],[v,itemname1],[v,v]]],
+		  [[n,append],[[v,v],[v,compound1name],[v,u]]]]]],
+/**
+		  [[n,item],[[v,t]],"->",
+		  [[[n,number21],["",[v,t]]]]],
+**/
+		  [[n,item],[[v,t]],"->",[[[n,word21],["",[v,t]]]]],
+
+		  [[n,item],[[v,t]],"->",[[[n,compound],[[],[v,t]]]]],
+/**
+		  [[n,number212],["","",[v,t],[v,t]]],
+
+		  [[n,number212],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,number21],[[v,t],[v,u]],"->",
+		  [[v,a],[[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,number212],[[v,v],[v,u]]]]],
+
+		  [[n,number21],[[v,t],[v,u]],"->",
+		  [[v,a],
+		  [[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+	 	  [[n,number21],["",[v,numberstring]]],
+		  [[n,code],[[n,stringconcat],
+		  [[v,v],[v,numberstring],[v,u]]]]]],
+**/
+		  [[n,word212],["","",[v,t],[v,t]]],
+
+		  [[n,word212],[[v,u],[v,u],[v,t],[v,t]]],
+
+/**
+		  [[n,word21],[[v,t],[v,u]],"->",
+		  [[v,a],[[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word212],[[v,v],[v,u]]]]],
+**/
+		  [[n,word21],[[v,t],[v,u]],"->",
+		  [[v,a],[[n,code],[[n,letters],[[v,a]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word212],[[v,v],[v,u]]]]],
+
+/**
+		  [[n,word21],[[v,t],[v,u]],"->",
+		  [[v,a],
+		  [[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+	 	  [[n,word21],["",[v,numberstring]]],
+		  [[n,code],[[n,stringconcat],
+		  [[v,v],[v,numberstring],[v,u]]]]]]
+
+**/
+		  [[n,word21],[[v,t],[v,u]],"->",
+		  [[v,a],
+		  [[n,code],[[n,letters],[[v,a]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word21],["",[v,wordstring]]],
+		  [[n,code],
+		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]]
+
+%%],[[[v,t],[["a"],1]]]).
+],[[[v,t],["a.","b."]]]).
+
+%% Adye is Venan
+
+test(18,[[n,grammar1],["what is 1+11",[v,c]]],
+[
+		  [[n,grammar1],[[v,u],[v,c]],":-",
+		  [
+		  			 [[n,sentence],[[v,u],"",[v,c]]]
+		  ]
+		  ],
+		  
+		  [[n,sentence],[[v,c]],"->",
+		  [[[n,subject]],[[n,verbphrase],[[v,c]]]]],
+
+		  [[n,verbphrase],[[v,c]],"->",
+		  [[[n,verb]],[[n,object],[[v,c]]]]],
+		  
+		  [[n,subject],["",""]],
+
+		  [[n,subject],"->",["what"," "]],
+
+		  [[n,subject],[[v,a],[v,a]]],
+		  
+		  [[n,verb],["",""]],
+
+		  [[n,verb],"->",["is"," "]],
+
+		  [[n,verb],[[v,a],[v,a]]],
+
+		  [[n,object],["","",[v,c]]],
+
+		  [[n,object],[[v,c]],"->",[[[n,item],[[v,a]]],
+		  "+",
+		  [[n,item],[[v,b]]],
+		  [[n,code],[[n,+],[[v,a],[v,b],[v,c]]]]]],
+
+		  [[n,object],[[v,a],[v,a]]],
+		  
+		  [[n,item],[[v,t]],"->",
+		  [[[n,number21],["",[v,u]]],[[n,code],
+		  [[n,stringtonumber],[[v,u],[v,t]]]]]],
+
+		  [[n,number212],["","",[v,t],[v,t]]],
+
+		  [[n,number212],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,number21],[[v,t],[v,u]],"->",
+		  [[v,a],[[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,number212],[[v,v],[v,u]]]]],
+
+		  [[n,number21],[[v,t],[v,u]],"->",
+		  [[v,a],
+		  [[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+	 	  [[n,number21],["",[v,numberstring]]],
+		  [[n,code],[[n,stringconcat],
+		  [[v,v],[v,numberstring],[v,u]]]]]]
+
+
+],[[[v,c],12]]).

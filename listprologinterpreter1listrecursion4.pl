@@ -343,6 +343,10 @@ interpretstatement1(_F0,_Functions,[[n,+],[Variable2,Variable3,Variable1]],Vars1
 %%writeln1(41),
         %%interpretpart(isplus,Variable1,Variable2,Variable3,Vars1,Vars2).
 
+interpretstatement1(_F0,_Functions,[[n,=],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+%%writeln1(5),
+        interpretpart(match,Variable1,Variable2,Vars1,Vars2).
+
 interpretstatement1(_F0,_Functions,[[n,=],[Variable1,[Variable2,Variable3]]],Vars1,Vars2,true,nocut) :-
 %%writeln1(5),
         interpretpart(match,Variable1,Variable2,Variable3,Vars1,Vars2).

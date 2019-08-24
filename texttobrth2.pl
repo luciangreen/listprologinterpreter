@@ -200,8 +200,8 @@ prep(List,BrDict03,BrDict03t,Filex,Stringx1,M,Brth,BrthDict03) :-
 		%%towords3(BrDict03,[],BrDict04,[],_ObjectNames,[],AllUsedNames),
 	towords2a(BrthDict03,[],BrtDict04t),
 
-	subtract(List3,BrtDict04t,Dt1),
-	length(Dt1,Lengtht01),Differencet1 is abs(Lengtht01),write("Number of words remaining to define breathsonings for: "), writeln(Differencet1),
+	%%subtract(List3,BrtDict04t,Dt1),
+	%%length(Dt1,Lengtht01),Differencet1 is abs(Lengtht01),write("Number of words remaining to define breathsonings for: "), writeln(Differencet1),
 	%%writeln(["Number of words remaining to define breathsonings for",Dt1]), %% Print number of words remaining to define breathsonings for
 
 	subtract(AllUsedNames,BrtDict04t,Dt2),
@@ -216,7 +216,7 @@ prep(List,BrDict03,BrDict03t,Filex,Stringx1,M,Brth,BrthDict03) :-
 		)->true;true)
 	
 
-)->true;(string(Filex),writeln("Number of words, unique words, words remaining to define, undefined breasonings and orphaned breasonings skipped for speed when breasoning out a string."))),!.
+)->true;(string(Filex),writeln("Number of words, unique words, unique breathsonings, words remaining to define, undefined breasonings, orphaned breasonings, undefined breathsonings and orphaned breathsonings skipped for speed when breasoning out a string."))),!.
 
 br2(_,_,_,_,_,0,_,_,_) :- !.
 br2(List1,BrDict03,BrDict2,BrDict03t,BrDict03t2,N1,Brth,BrthDict03,BrthDict04) :-
