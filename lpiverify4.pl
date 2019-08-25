@@ -551,13 +551,6 @@ test(19,[[n,positivityscore],["would1"%%,"you","like","a","walk"
         ]]
 **/        
 
-        [[n,positivityscore],[[v,l],[v,m],[v,s1],[v,s2]],":-",
-        [       [[n,head],[[v,l],[v,h]]],
-                [[n,tail],[[v,l],[v,t]]],
-                [[n,not],[[[n,member],[[v,h],[v,m]]]]],
-                [[n,positivityscore],[[v,t],[v,m],[v,s1],
-                	[v,s2]]]]],
-
         [[n,positivityscore],[[],[v,l],[v,s],[v,s]]],
         [[n,positivityscore],[[v,l],[v,m],[v,s1],[v,s2]],":-",
         [       [[n,head],[[v,l],[v,h]]],
@@ -566,7 +559,15 @@ test(19,[[n,positivityscore],["would1"%%,"you","like","a","walk"
                 [[n,+],[[v,s1],1,[v,s3]]],
                 [[n,positivityscore],[[v,t],[v,m],[v,s3],
                 	[v,s2]]]
-        ]]
+        ]],
+        
+                [[n,positivityscore],[[v,l],[v,m],[v,s1],[v,s2]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,not],[[[n,member],[[v,h],[v,m]]]]],
+                [[n,positivityscore],[[v,t],[v,m],[v,s1],
+                	[v,s2]]]]]
+
         
 ]
         
