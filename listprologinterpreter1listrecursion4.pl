@@ -38,7 +38,7 @@ member1(Query,Functions,Functions2,Vars8) :-
 	),
 	updatevars(FirstArgs,Vars2,[],Result),
         %%reverse(Result,[],Vars7),
-	((%%not(Result=[])->
+	((not(Result=[])->
         %%Result=[Var71|Vars72],
         unique1(Result,[],Vars8),
 %%writeln1(["FirstArgs",FirstArgs,"Vars",Vars2,"Result",Result,"Vars7",Vars7,"Vars72",Vars72,"Var71",Var71,"Vars8",Vars8]),
@@ -82,7 +82,7 @@ member12(Query,Functions,Functions2,Vars8) :-
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
 	updatevars(FirstArgs,Vars1,[],Result),
         %%reverse(Result,[],Vars7),
-        ((%%not(Result=[])->
+        ((not(Result=[])->
         %%Result=[Var71|Vars72],
         unique1(Result,[],Vars8),
         findresult3(Arguments1,Vars8,[],Result2)
@@ -132,7 +132,7 @@ member2(Query,Functions,Functions2,Vars8) :-
 %%writeln1(["Functions",Functions,"Functions2",Functions2,"Vars1",Vars1,"Vars2",Vars2,"Body",Body]),
         updatevars(FirstArgs,Vars2,[],Result),
         %%reverse(Result,[],Vars7),
-        ((%%not(Result=[])->
+        ((not(Result=[])->
         %%Result=[Var71|Vars72],
         unique1(Result,[],Vars8),
         findresult3(Arguments1,Vars8,[],Result2)
@@ -172,7 +172,7 @@ member22(Query,Functions,Functions2,Vars8) :-
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
         updatevars(FirstArgs,Vars1,[],Result),
         %%reverse(Result,[],Vars7),
-        ((%%not(Result=[])->
+        ((not(Result=[])->
         %%Result=[Var71|Vars72],
         unique1(Result,[],Vars8),
         findresult3(Arguments1,Vars8,[],Result2)
