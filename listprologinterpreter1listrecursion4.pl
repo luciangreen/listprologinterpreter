@@ -236,30 +236,83 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
         expressionnotatom3(Value1),
         checkarguments(Arguments3,Arguments4,Vars1,Vars2,FirstArgs1,FirstArgs2).
 
+
+
+
 interpretbody(_Functions1,_Functions2,Vars,Vars,[],true) :- !.
 
+
+
+/**
 interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
-        Body=[Statements1|Statements2],not(predicate_or_rule_name(Statements1)),
+        Body=[[[n,not],Statement]
+        ],
+	
+	writeln1(interpretbody(Functions0,Functions,Vars1,Vars3,Statement,Result2)),
+	not(interpretbody(Functions0,Functions,Vars1,Vars3,Statement,Result2)), %% 2->1
+        ((Result2=cut)->!;true).
+**/
+
+/** *** may need to uncomment
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
+        Body=[Statements1|Statements2],not(Statements1=[[n,not],_]),not(predicate_or_rule_name(Statements1)),
         interpretbody(Functions0,Functions,Vars1,Vars3,Statements1,Result2),
         interpretbody(Functions0,Functions,Vars3,Vars2,Statements2,Result3),
         %%((Result3=cut)->!;true),
         logicalconjunction(Result1,Result2,Result3),!.
+**/
+        
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
+        Body=[[[n,not],[Statement]]|Statements2
+        ],
+	
+	%%writeln1(interpretbody(Functions0,Functions,Vars1,Vars3,[Statement],Result2)),
+	not(interpretbody(Functions0,Functions,Vars1,Vars3,[Statement],Result2)), %% 2->1
+        ((Result2=cut)->!;true),
+        interpretbody(Functions0,Functions,Vars3,Vars2,Statements2,Result3),
+        ((Result3=cut)->!;true),
+  %%()      logicalnot(Result2,Result4), 
+%%()	(logicalconjunction(Result1,Result4,Result3)->true;(Result1=false)),
+	!.
+	
+	
+
 
 interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
-        Body=[[not,[Statements]]|Statements2],
-	interpretbody(Functions0,Functions,Vars1,Vars3,Statements,Result2),
-        %%((Result2=cut)->!;true),
-        interpretbody(Functions0,Functions,Vars3,Vars2,Statements2,Result3),
-        %%((Result3=cut)->!;true),
-        logicalnot(Result2,Result4),
-	(logicalconjunction(Result1,Result4,Result3)->true;(Result1=false)),!.
-interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
-        Body=[[Statements1],or,[Statements2]],
-        (interpretbody(Functions0,Functions,Vars1,Vars2,Statements1,Result1)->true;
+        Body=[[[n,or],[Statements1,Statements2]]|Statements3],
+        (interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2); %% *** changed from 1 to Result2
 	%%,((Value1=cut)->!;true));
-        interpretbody(Functions0,Functions,Vars1,Vars2,Statements2,Result1)),!.
+        interpretbody(Functions0,Functions,Vars1,Vars3,[Statements2],Result2)),%%!. *** changed from 1 to Result2
+
+        interpretbody(Functions0,Functions,Vars3,Vars2,Statements3,Result3),
+        %%((Result3=cut)->!;true),
+        %%logicalconjunction(Result1,Result2,Result3),
+        !.
+
+
 	%%,((Value=cut)->!;true)).
 	%%(logicaldisjunction(Result1,Value1,Value2)->true;(Result1=false)).
+
+
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
+        Body=[[[n,"->"],[Statements1,Statements2]]|Statements3],
+        (interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2)-> 
+                interpretbody(Functions0,Functions,Vars3,Vars4,[Statements2],Result2)),
+
+        interpretbody(Functions0,Functions,Vars4,Vars2,Statements3,Result3),
+        !.
+
+
+
+
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
+        Body=[[[n,"->"],[Statements1,Statements2,Statements2a]]|Statements3],
+        (interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2)-> 
+                interpretbody(Functions0,Functions,Vars3,Vars4,[Statements2],Result2);
+                interpretbody(Functions0,Functions,Vars1,Vars4,[Statements2a],Result2)),
+
+        interpretbody(Functions0,Functions,Vars4,Vars2,Statements3,Result3),
+        !.
 
 
 interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
@@ -296,6 +349,18 @@ false(false).
 
 interpretstatement1(_F0,_Functions,[[n,cut]],Vars,Vars,true,cut) :- !.
 
+/**
+interpretstatement1(Functions0,Functions,[[n,not],[Statements]],Vars1,Vars2,Result,nocut) :-
+	not(interpretbody(Functions0,Functions,Vars1,Vars2,
+		Statements,Result)).
+
+interpretstatement1(Functions0,Functions,[[n,or],[Statement1,Statement2]],Vars1,Vars2,Result,nocut) :-
+	(interpretbody(Functions0,Functions,Vars1,Vars2,
+		Statement1,Result1);
+		interpretbody(Functions0,Functions,Vars1,Vars2,
+		Statement2,Result2)).
+**/
+
 interpretstatement1(_F0,_Functions,[[n,atom],[Variable]],Vars,Vars,true,nocut) :-
 	getvalue(Variable,Value,Vars),
                 (debug(on)->(writeln1([call,[[n,atom],[Value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
@@ -325,6 +390,11 @@ interpretstatement1(_F0,_Functions,[[n,variable],[Variable]],Vars,Vars,true,nocu
         var(Variable),
                 (debug(on)->(writeln1([call,[[n,variable],[Variable]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
                 (debug(on)->(writeln1([exit,[[n,variable],[Variable]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true).
+
+interpretstatement1(_F0,_Functions,[[n,Operator],[Variable1]],Vars1,Vars2,true,nocut) :-
+	isop(Operator),
+	interpretpart(is,Variable1,Vars1,Vars2).
+
 
 interpretstatement1(_F0,_Functions,[[n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 	isop(Operator),

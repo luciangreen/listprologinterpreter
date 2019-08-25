@@ -531,3 +531,45 @@ test(18,[[n,grammar1],["what is 1+11",[v,c]]],
 
 
 ],[[[v,c],12]]).
+
+
+test(19,[[n,positivityscore],[["not","you","like","a","walk"]
+,["would","you","like","a","walk"
+],0,[v,s]]],
+/**
+test(19,[[n,positivityscore],[["not"%%,"you","like","a","walk"
+],["would"%%,"you","like","a","walk"
+],0,[v,s]]],
+**/
+[
+ /**
+        [[n,positivityscore],[[v,l],[v,m]],":-",
+        [      	 %%[[n,not],[
+        				[[n,member],[[v,l],[v,m]]],
+        			 [[n,=],[[v,l],"would"]]
+        ]]
+        **/
+        
+
+
+        [[n,positivityscore],[[],[v,l],[v,s],[v,s]]],
+        [[n,positivityscore],[[v,l],[v,m],[v,s1],[v,s2]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,member],[[v,h],[v,m]]],
+                [[n,+],[[v,s1],1,[v,s3]]],
+                [[n,positivityscore],[[v,t],[v,m],[v,s3],
+                	[v,s2]]]
+        ]],
+        
+        [[n,positivityscore],[[v,l],[v,m],[v,s1],[v,s2]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                %%[[n,not],[[[n,member],[[v,h],[v,m]]]]],
+                [[n,positivityscore],[[v,t],[v,m],[v,s1],
+                	[v,s2]]]]]
+
+]
+        
+,[[[v,s], 4]]).
+%%,[]).

@@ -82,7 +82,7 @@ interpretpart(isplus,Variable1,Variable2,Variable3,Vars1,Vars2) :-
 
 
 
-/**interpretpart(match,Variable1,Variable2,Vars1,Vars2) :-
+interpretpart(is,Variable1,Variable2,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
         Value1A = Value2,
                 	(((debug(on)->(writeln1([call,[[n,=],[variable,Value2]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
@@ -92,7 +92,7 @@ interpretpart(isplus,Variable1,Variable2,Variable3,Vars1,Vars2) :-
         (debug(on)->(writeln1([exit,[[n,=],[Value2,Value3],[Value2,Value3]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true);
                         	(Value1A = Value2,((debug(on)->(writeln1([fail,[[n,=],[variable,Value2]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail))),!.
                         	
-             **/           	
+                       	
                         	
 interpretpart(match,Variable1,Variable2,Variable3,Vars1,Vars2) :-
                 	getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
