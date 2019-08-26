@@ -261,6 +261,25 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
         %%((Result3=cut)->!;true),
         logicalconjunction(Result1,Result2,Result3),!.
 **/
+
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
+        Body=[[Statements1|Statements1a]|Statements2
+        ],
+	
+		not(predicate_or_rule_name(Statements1)),
+%%writeln1(interpretbody(Functions0,Functions,Vars1,Vars3,[Statement],Result2)),
+	interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2), %% 2->1
+
+	interpretbody(Functions0,Functions,Vars3,Vars4,Statements1a,Result2), %% 2->1
+        %%((Result2=cut)->!;true),
+        interpretbody(Functions0,Functions,Vars4,Vars2,Statements2,Result3),
+       %% ((Result3=cut)->!;true),
+  %%()      logicalnot(Result2,Result4), 
+%%()	(logicalconjunction(Result1,Result4,Result3)->true;(Result1=false)),
+	!.
+
+
+
         
 interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
         Body=[[[n,not],[Statement]]|Statements2
