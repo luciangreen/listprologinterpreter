@@ -1,9 +1,9 @@
 %% test(Debug[on/off],Total,Score).
 
-:- use_module(library(time)).
+%%:- use_module(library(time)).
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=20, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=21, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -245,8 +245,7 @@ test(14,[[n,grammar1],["[a]",[v,t]]],
 
 ],[[[v,t],["a"]]]).
 
-
-test(15,[[n,grammar1],["[[a],1]",[v,t]]],
+test(15,[[n,grammar1],["[[aa,b],1]",[v,t]]],
 %%test(15,[[n,compound213],["","",[["a"],1],[v,t]]],
 
 [
@@ -272,6 +271,7 @@ test(15,[[n,grammar1],["[[a],1]",[v,t]]],
 
 		  [[n,compound21],[[v,t],[v,u]],"->",
 		  [[[n,item],[[v,i]]],
+		  %%[[n,lookahead],["]"]],
 		  [[n,code],[[n,wrap],[[v,i],[v,itemname1]]],
 		  [[n,append],[[v,t],[v,itemname1],[v,v]]]],
 		  [[n,compound212],[[v,v],[v,u]]]]],
@@ -296,7 +296,8 @@ test(15,[[n,grammar1],["[[a],1]",[v,t]]],
 		  [[n,number212],[[v,u],[v,u],[v,t],[v,t]]],
 
 		  [[n,number21],[[v,t],[v,u]],"->",
-		  [[v,a],[[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[v,a],[[n,commaorrightbracketnext]],
+		  [[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
 		  [[n,number],[[v,a1]]],
 		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
 		  [[n,number212],[[v,v],[v,u]]]]],
@@ -315,7 +316,8 @@ test(15,[[n,grammar1],["[[a],1]",[v,t]]],
 		  [[n,word212],[[v,u],[v,u],[v,t],[v,t]]],
 
 		  [[n,word21],[[v,t],[v,u]],"->",
-		  [[v,a],[[n,code],[[n,letters],[[v,a]]],
+		  [[v,a],[[n,commaorrightbracketnext]],
+		  [[n,code],[[n,letters],[[v,a]]],
 		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
 		  [[n,word212],[[v,v],[v,u]]]]],
 
@@ -325,10 +327,20 @@ test(15,[[n,grammar1],["[[a],1]",[v,t]]],
 		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
 		  [[n,word21],["",[v,wordstring]]],
 		  [[n,code],
-		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]]
+		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]],
+		  
+		  [[n,commaorrightbracketnext],"->",
+		  [[[n,lookahead],[","]]]],
+
+		  [[n,commaorrightbracketnext],"->",
+		  [[[n,lookahead],["]"]]]],
+		  
+		  [[n,lookahead],[[v,a],[v,a],[v,b]],":-",
+		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
+
 
 %%],[[[v,t],[["a"],1]]]).
-],[[[v,t],[["a"],1]]]).
+],[[[v,t],[["aa","b"],1]]]).
 
 %% Dukel goes to the grammar example
 
@@ -618,4 +630,43 @@ test(20,[[n,function],[1,1,[v,c]]],
         ]
 ]
 ,[[[v,c], 2]]).
+
+%%test(21,[[n,grammar1],["john ate"]],
+test(21,[[n,grammar1],["ate",[v,t]]],
+[
+
+
+		  [[n,grammar1],[[v,u],[v,t]],":-",
+		  [
+		  			 [[n,lookahead],[[v,u],[v,t],"ate"]] %% 2 is endstring, 3 is what lookahead checks for
+		  ]
+		  ],
+/**		  
+		  [[n,sentence],"->",
+		  [[[n,subject]],
+		  [[n,lookahead],["ate"]],
+		  [[n,verb]]
+		  ]],
+
+		  [[n,verbphrase],"->",
+		  [[[n,verb]]]],
+		  
+		  [[n,subject],["",""]],
+
+		  [[n,subject],"->",["john"," "]],
+
+		  [[n,subject],[[v,a],[v,a]]],
+
+		  [[n,object],["",""]],
+
+		  [[n,object],"->",["apples"]],
+
+		  [[n,object],[[v,a],[v,a]]],
+**/
+		  
+		  [[n,lookahead],[[v,a],[v,a],[v,b]],":-",
+		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
+
+]
+,[[[v,t],"ate"]]).
 
