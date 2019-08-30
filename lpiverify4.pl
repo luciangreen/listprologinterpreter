@@ -1,7 +1,9 @@
 %% test(Debug[on/off],Total,Score).
 
+:- use_module(library(time)).
+
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=15, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=20, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -364,9 +366,8 @@ test(16,[[n,grammar1],["john ate the apple"]],
 ],[]).
 
 %% Blackl loves the grammar
-%% Points to flaw in interpreter x backtracking is manually done (allowing multiple characters in sentences)
 
-test(17,[[n,grammar1],["a. b.",[v,t]]],
+test(17,[[n,grammar1],["aaa1 ,-'! a? b! b.",[v,t]]],
 %%test(15,[[n,compound213],["","",[["a"],1],[v,t]]],
 
 [
@@ -391,17 +392,17 @@ test(17,[[n,grammar1],["a. b.",[v,t]]],
 		  [[n,compound212],[[v,u],[v,u],[v,t],[v,t]]],
 
 		  [[n,compound21],[[v,t],[v,u]],"->",
-		  [[[n,item],[[v,i]]],".",
-		  [[n,code],[[n,stringconcat],[[v,i],".",[v,i2]]],
-		  [[n,wrap],[[v,i2],[v,itemname1]]],
+		  [[[n,item],[[v,i]]],
+		  [[n,code],%%[[n,stringconcat],[[v,i],".",[v,i2]]],
+		  [[n,wrap],[[v,i],[v,itemname1]]],
 		  [[n,append],[[v,t],[v,itemname1],[v,v]]]],
 		  [[n,compound212],[[v,v],[v,u]]]]],
 
 		  [[n,compound21],[[v,t],[v,u]],"->",
-		  [[[n,item],[[v,i]]],"."," ",
+		  [[[n,item],[[v,i]]]," ",
 		  [[n,compound21],[[],[v,compound1name]]],
-		  [[n,code],[[n,stringconcat],[[v,i],".",[v,i2]]],
-		  [[n,wrap],[[v,i2],[v,itemname1]]],
+		  [[n,code],%%[[n,stringconcat],[[v,i],".",[v,i2]]],
+		  [[n,wrap],[[v,i],[v,itemname1]]],
 		  [[n,append],[[v,t],[v,itemname1],[v,v]]],
 		  [[n,append],[[v,v],[v,compound1name],[v,u]]]]]],
 /**
@@ -443,8 +444,11 @@ test(17,[[n,grammar1],["a. b.",[v,t]]],
 		  [[n,word212],[[v,v],[v,u]]]]],
 **/
 		  [[n,word21],[[v,t],[v,u]],"->",
-		  [[v,a],[[n,code],[[n,letters],[[v,a]]],
-		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[v,a],[v,b],
+		  [[n,code],[[n,sentencechars],[[v,a]]],
+		  [[n,finalchar],[[v,b]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v1]]],
+		  [[n,stringconcat],[[v,v1],[v,b],[v,v]]]],
 		  [[n,word212],[[v,v],[v,u]]]]],
 
 /**
@@ -460,14 +464,44 @@ test(17,[[n,grammar1],["a. b.",[v,t]]],
 **/
 		  [[n,word21],[[v,t],[v,u]],"->",
 		  [[v,a],
-		  [[n,code],[[n,letters],[[v,a]]],
+		  [[n,code],[[n,sentencechars],[[v,a]]],
 		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
 		  [[n,word21],["",[v,wordstring]]],
 		  [[n,code],
-		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]]
+		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]],
+		  
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,letters],[[v,c]]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[[n,stringtonumber],[[v,c],[v,n]]],
+		  [[n,number],[[v,n]]]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,=],[[v,c]," "]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,=],[[v,c],","]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,=],[[v,c],"-"]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,=],[[v,c],"'"]]]],
+		  
+		  [[n,finalchar],[[v,c]],":-",
+		  [[[n,=],[[v,c],"."]]]],
+
+		  [[n,finalchar],[[v,c]],":-",
+		  [[[n,=],[[v,c],"!"]]]],
+
+		  [[n,finalchar],[[v,c]],":-",
+		  [[[n,=],[[v,c],"?"]]]]
+
 
 %%],[[[v,t],[["a"],1]]]).
-],[[[v,t],["a.","b."]]]).
+],[[[v,t],["aaa1 ,-'!","a?","b!","b."]]]).
+
 
 %% Adye is Venan
 
@@ -532,6 +566,7 @@ test(18,[[n,grammar1],["what is 1+11",[v,c]]],
 
 ],[[[v,c],12]]).
 
+%% Inky Classic 2
 
 test(19,[[n,positivityscore],[["not","you","like","a","walk"]
 ,["would","you","like","a","walk"
@@ -561,7 +596,7 @@ test(19,[[n,positivityscore],["would1"%%,"you","like","a","walk"
                 	[v,s2]]]
         ]],
         
-                [[n,positivityscore],[[v,l],[v,m],[v,s1],[v,s2]],":-",
+        [[n,positivityscore],[[v,l],[v,m],[v,s1],[v,s2]],":-",
         [       [[n,head],[[v,l],[v,h]]],
                 [[n,tail],[[v,l],[v,t]]],
                 [[n,not],[[[n,member],[[v,h],[v,m]]]]],
@@ -573,3 +608,14 @@ test(19,[[n,positivityscore],["would1"%%,"you","like","a","walk"
         
 ,[[[v,s], 4]]).
 %%,[]).
+
+test(20,[[n,function],[1,1,[v,c]]],
+[
+        [[n,function],[[v,a],[v,b],[v,c]],":-",
+        [
+                [[[n,+],[[v,a],[v,b],[v,c]]]]
+        ]
+        ]
+]
+,[[[v,c], 2]]).
+
