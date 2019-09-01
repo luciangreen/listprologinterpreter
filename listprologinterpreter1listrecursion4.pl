@@ -6,6 +6,7 @@
 
 interpret(Debug,Query,Functions1,Result) :-
 %%writeln1([i1]),
+	%%writeln1(convert_to_grammar_part1(Functions1,[],Functions2,_)),
 	convert_to_grammar_part1(Functions1,[],Functions2,_),
 	%%writeln1(Functions2),
 	%%pp3(Functions2),
@@ -13,11 +14,11 @@ interpret(Debug,Query,Functions1,Result) :-
 interpret1(Debug,Query,Functions1,Functions2,Result) :-
 %%writeln1([i11]),
 	retractall(debug(_)),
-    	assertz(debug(Debug)),
-        retractall(cut(_)),
-        assertz(cut(off)),
+ 	assertz(debug(Debug)),
+   retractall(cut(_)),
+   assertz(cut(off)),
 	retractall(leash1(_)),
-    	assertz(leash1(off)),
+   assertz(leash1(off)),
 	member1(Query,Functions1,Functions2,Result).
 %%member1([_,R],_,[],R).
 %%member1(_,_,[],[]).

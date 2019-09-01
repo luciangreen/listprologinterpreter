@@ -3,7 +3,7 @@
 %%:- use_module(library(time)).
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=21, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=22, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -338,9 +338,9 @@ test(15,[[n,grammar1],["[[aa,b],1]",[v,t]]],
 		  [[n,lookahead],[[v,a],[v,a],[v,b]],":-",
 		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
 
-
 %%],[[[v,t],[["a"],1]]]).
 ],[[[v,t],[["aa","b"],1]]]).
+
 
 %% Dukel goes to the grammar example
 
@@ -510,7 +510,6 @@ test(17,[[n,grammar1],["aaa1 ,-'! a? b! b.",[v,t]]],
 		  [[n,finalchar],[[v,c]],":-",
 		  [[[n,=],[[v,c],"?"]]]]
 
-
 %%],[[[v,t],[["a"],1]]]).
 ],[[[v,t],["aaa1 ,-'!","a?","b!","b."]]]).
 
@@ -575,8 +574,8 @@ test(18,[[n,grammar1],["what is 1+11",[v,c]]],
 		  [[n,code],[[n,stringconcat],
 		  [[v,v],[v,numberstring],[v,u]]]]]]
 
-
 ],[[[v,c],12]]).
+
 
 %% Inky Classic 2
 
@@ -602,7 +601,7 @@ test(19,[[n,positivityscore],["would1"%%,"you","like","a","walk"
         [[n,positivityscore],[[v,l],[v,m],[v,s1],[v,s2]],":-",
         [       [[n,head],[[v,l],[v,h]]],
                 [[n,tail],[[v,l],[v,t]]],
-                [[n,member],[[v,h],[v,m]]],
+                [[n,member],[[v,m],[v,h]]],
                 [[n,+],[[v,s1],1,[v,s3]]],
                 [[n,positivityscore],[[v,t],[v,m],[v,s3],
                 	[v,s2]]]
@@ -611,7 +610,7 @@ test(19,[[n,positivityscore],["would1"%%,"you","like","a","walk"
         [[n,positivityscore],[[v,l],[v,m],[v,s1],[v,s2]],":-",
         [       [[n,head],[[v,l],[v,h]]],
                 [[n,tail],[[v,l],[v,t]]],
-                [[n,not],[[[n,member],[[v,h],[v,m]]]]],
+                [[n,not],[[[n,member],[[v,m],[v,h]]]]],
                 [[n,positivityscore],[[v,t],[v,m],[v,s1],
                 	[v,s2]]]]]
 
@@ -669,4 +668,52 @@ test(21,[[n,grammar1],["ate",[v,t]]],
 
 ]
 ,[[[v,t],"ate"]]).
+
+
+test(22,[[n,grammar1],["peter cut the pear"]],
+[
+		  [[n,grammar1],[[v,u]],":-",
+		  [
+		  			 [[n,sentence],[[v,u],""]]
+		  ]
+		  ],
+		  
+		  [[n,sentence],"->",
+		  [[[n,subject]],[[n,verbphrase]]]],
+
+		  [[n,verbphrase],"->",
+		  [[[n,verb]],[[n,object]]]],
+		  
+		  [[n,subject],["",""]],
+
+		  [[n,subject],"->",["john"," "]],
+
+		  [[n,subject],"->",["peter"," "]],
+
+		  [[n,subject],[[v,a],[v,a]]],
+		  
+		  [[n,verb],["",""]],
+
+		  [[n,verb],"->",["ate"," "]],
+
+		  [[n,verb],"->",["bought"," "]],
+
+		  [[n,verb],"->",["cut"," "]],
+
+		  [[n,verb],[[v,a],[v,a]]],
+
+		  [[n,object],"->",
+		  ["the"," ",[[n,noun]]]],
+
+		  [[n,noun],["",""]],
+
+		  [[n,noun],"->",["apple"]],
+
+		  [[n,noun],"->",["pear"]],
+
+		  [[n,noun],"->",["peach"]],
+
+		  [[n,noun],[[v,a],[v,a]]]
+],[]).
+
 
