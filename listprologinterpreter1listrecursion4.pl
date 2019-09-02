@@ -10,7 +10,8 @@ interpret(Debug,Query,Functions1,Result) :-
 	convert_to_grammar_part1(Functions1,[],Functions2,_),
 	%%writeln1(Functions2),
 	%%pp3(Functions2),
-	interpret1(Debug,Query,Functions2,Functions2,Result).
+	%%writeln1(interpret1(Debug,Query,Functions2,Functions2,Result)),
+	findall(Result1,interpret1(Debug,Query,Functions2,Functions2,Result1),Result).
 interpret1(Debug,Query,Functions1,Functions2,Result) :-
 %%writeln1([i11]),
 	retractall(debug(_)),
@@ -19,6 +20,7 @@ interpret1(Debug,Query,Functions1,Functions2,Result) :-
    assertz(cut(off)),
 	retractall(leash1(_)),
    assertz(leash1(off)),
+	%%writeln1(member1(Query,Functions1,Functions2,Result)),
 	member1(Query,Functions1,Functions2,Result).
 %%member1([_,R],_,[],R).
 %%member1(_,_,[],[]).
@@ -32,19 +34,23 @@ member1(Query,Functions,Functions2,Vars8) :-
 	length(Arguments1,Length),
 	length(Arguments2,Length),
         
+        %%writeln1(checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs)),
         checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),
         %%->ca2 
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
                 (debug(on)->(writeln1([call,[Function,Arguments1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
 	(interpretbody(Functions,Functions2,Vars1,Vars2,Body,true)->true;((debug(on)->(writeln1([fail,[Function,Arguments1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)
 	),
+	%%writeln1(updatevars(FirstArgs,Vars2,[],Result)),
 	updatevars(FirstArgs,Vars2,[],Result),
         %%reverse(Result,[],Vars7),
 	((not(Result=[])->
         %%Result=[Var71|Vars72],
+        %%writeln1(unique1(Result,[],Vars8)),
         unique1(Result,[],Vars8),
 %%writeln1(["FirstArgs",FirstArgs,"Vars",Vars2,"Result",Result,"Vars7",Vars7,"Vars72",Vars72,"Var71",Var71,"Vars8",Vars8]),
 %%writeln1(["Vars8",Vars8]),
+	%%writeln1(findresult3(Arguments1,Vars8,[],Result2)),
 	findresult3(Arguments1,Vars8,[],Result2)
 %%writeln1([findresult3,"Arguments1",Arguments1,"Vars8",Vars8,"Result2",Result2])
 	);(
@@ -210,7 +216,7 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%
 	Arguments2=[Variable2|Arguments4],
 	not(var(Variable2)),isvar(Variable2),
 	putvalue(Variable2,Value,Vars1,Vars3),
-	checkarguments(Arguments3,Arguments4,Vars3,Vars2,FirstArgs1,FirstArgs2).
+	checkarguments(Arguments3,Arguments4,Vars3,Vars2,FirstArgs1,FirstArgs2),!.
 checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%A
 %%writeln1(2),
         Arguments1=[Variable|Arguments3], %% Value may be a number, string, list or tree
@@ -219,25 +225,25 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%A
         expressionnotatom3(Value),
         putvalue(Variable,Value,Vars1,Vars3),
 	append(FirstArgs1,[[Variable,Value]],FirstArgs3),
-        checkarguments(Arguments3,Arguments4,Vars3,Vars2,FirstArgs3,FirstArgs2).
+        checkarguments(Arguments3,Arguments4,Vars3,Vars2,FirstArgs3,FirstArgs2),!.
 checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
 %%writeln1(3),
         Arguments1=[Variable1|Arguments3],
 	not(var(Variable1)),isvar(Variable1),
         Arguments2=[Variable2|Arguments4],
 	not(var(Variable2)),isvar(Variable2),
-	(getvalue(Variable2,Value,Vars1)->true;Value=empty), 
+	(getvalue(Variable2,Value,Vars1)),%%->true);Value=empty), 
 	%%((Value=empty->Value1=Variable2;Value1=Value))),
         putvalue(Variable2,Value,Vars1,Vars3),
         append(FirstArgs1,[[Variable1,Variable2]],FirstArgs3),
-        checkarguments(Arguments3,Arguments4,Vars3,Vars2,FirstArgs3,FirstArgs2).
+        checkarguments(Arguments3,Arguments4,Vars3,Vars2,FirstArgs3,FirstArgs2),!.
 checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
 %%writeln1(4),
         Arguments1=[Value1|Arguments3],
         expressionnotatom3(Value1),
         Arguments2=[Value1|Arguments4],
         expressionnotatom3(Value1),
-        checkarguments(Arguments3,Arguments4,Vars1,Vars2,FirstArgs1,FirstArgs2).
+        checkarguments(Arguments3,Arguments4,Vars1,Vars2,FirstArgs1,FirstArgs2),!.
 
 
 
@@ -621,6 +627,7 @@ interpretstatement1(Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
 %%writeln1("h1/10"),
         Query1=[Function,Arguments],%%not(Function=[n,grammar]->true;Function=[n,grammar_part]), ****
 %%writeln1(["Arguments",Arguments,"Vars1",Vars1]),
+        %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
         substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
 %%writeln1([substitutevarsA1,arguments,Arguments,vars1,Vars1,vars3,Vars3,firstargs,FirstArgs]),
         Query2=[Function,Vars3], %% Bodyvars2?
@@ -672,13 +679,17 @@ putvalue(Variable,Value,Vars1,Vars2) :-
         ((not(isvar(Variable)),isvalstrorundef(Value),Variable=Value,Vars1=Vars2)->true;
         (isvar(Variable),isvalstrorundef(Value),updatevar(Variable,Value,Vars1,Vars2))),!. 
 getvar(Variable,Value,Vars) :-
-        member([Variable,Value],Vars),
-	not(Value=empty).
+	((member([Variable,Value],Vars),
+	not(Value=empty))->true;
+	        ((aggregate_all(count,member([Variable,_Value],Vars),0)->true;%%
+	member([Variable,empty],Vars)),Value=empty))
+.
 getvar(undef,undef,_Vars) :-
 	!.
-getvar(Variable,empty,Vars) :-
-        not(member([Variable,_Value],Vars))->true;
-	member([Variable,empty],Vars).
+%%getvar(Variable,empty,Vars) :-
+        %%(aggregate_all(count,member([Variable,_Value],Vars),0)->true;%%;
+	%%member([Variable,empty],Vars))
+	%%.
 updatevar(undef,_Value,Vars,Vars) :-
 	!.
 updatevar(Variable,Value,Vars1,Vars2) :-
@@ -837,18 +848,18 @@ substitutevarsA2(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2) :-
 	FirstArgs3=FirstArgs1),
         substitutevarsA2(Variables,Vars1,Vars4,Vars3,FirstArgs3,FirstArgs2),!.
 
-findresult3([],_Result,Result2,Result2).
+findresult3([],_Result,Result2,Result2):-!.
 findresult3(Arguments1,Result1,Result2,Result3) :-
 	Arguments1=[Value|Arguments2],
 	expressionnotatom3(Value),
 	append(Result2,[Value],Result4),
-        findresult3(Arguments2,Result1,Result4,Result3).
+        findresult3(Arguments2,Result1,Result4,Result3),!.
 findresult3(Arguments1,Result1,Result2,Result3) :-
         Arguments1=[Variable|Arguments2],
         isvar(Variable),
 	member([Variable,Value],Result1),
         append(Result2,[Value],Result4),
-        findresult3(Arguments2,Result1,Result4,Result3).
+        findresult3(Arguments2,Result1,Result4,Result3),!.
 
 strip([],Result2,Result2).
 strip(Arguments1,Result2,Result3) :-
