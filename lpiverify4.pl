@@ -26,7 +26,7 @@ test(1,[[n,function],[1,1,[v,c]]],
         ]
         ]
 ]
-,[[[v,c], 2]]).
+,[[[[v,c], 2]]]).
 %%writeln([eg2]),
 test(2,[[n,function],[1,1,[v,c]]],
 [
@@ -37,7 +37,7 @@ test(2,[[n,function],[1,1,[v,c]]],
         ]
         ]
 ]
-,[[[v,c], 3]]).
+,[[[[v,c], 3]]]).
 %%writeln([eg3]),
 test(3,[[n,function],[1,1,[v,c]]],
 [
@@ -56,7 +56,7 @@ test(3,[[n,function],[1,1,[v,c]]],
         ]
         ]
 ]
-,[[[v,c], 5]]).
+,[[[[v,c], 5]]]).
 %%writeln([eg4]),
 test(4,[[n,append1],[[v,a]]],
 [
@@ -70,7 +70,7 @@ test(4,[[n,append1],[[v,a]]],
         [[n,b],[["b"]]],
         [[n,c],[["c"]]]
 ]
-,[[[v,a], ["b", "c"]]]).
+,[[[[v,a], ["b", "c"]]]]).
 
 %%writeln([eg5]),
 test(5,[[n,count],[1,[v,n]]],
@@ -78,11 +78,12 @@ test(5,[[n,count],[1,[v,n]]],
         [[n,count],[1,2]],
         [[n,count],[[v,n],[v,p]],":-",
         [
+                [[n,not],[[[n,=],[[v,n],1]]]],
                 [[n,+],[[v,n],1,[v,m]]],
                 [[n,count],[[v,m],[v,p]]]
         ]
         ]
-] ,[[[v,n], 2]]).
+] ,[[[[v,n], 2]]]).
 %%writeln([eg6]),
 test(6,[[n,count],[0,[v,n]]],
 [
@@ -93,7 +94,7 @@ test(6,[[n,count],[0,[v,n]]],
                 [[n,count],[[v,m],[v,p]]]
         ]
         ]
-] ,[[[v,n], 2]]).
+] ,[[[[v,n], 2]]]).
 %%writeln([eg7]),
 test(7,[[n,reverse],[[1,2,3],[],[v,l]]],
 [
@@ -106,7 +107,7 @@ test(7,[[n,reverse],[[1,2,3],[],[v,l]]],
                 [[n,reverse],[[v,t],[v,o],[v,n]]]
         ]
         ]
-],[[[v,l], [3, 2, 1]]]).
+],[[[[v,l], [3, 2, 1]]]]).
 
 test(8,[[n,grammar1],["apple"]],
 [
@@ -117,7 +118,7 @@ test(8,[[n,grammar1],["apple"]],
 		  ],
 		  
 		  [[n,noun],"->",["apple"]]
-],[]).
+],[[]]).
 
 test(9,[[n,grammar1],["aaa"]],
 [
@@ -129,7 +130,7 @@ test(9,[[n,grammar1],["aaa"]],
 		  
 		  [[n,noun],"->",[""]],
 		  [[n,noun],"->",["a",[[n,noun]]]]
-],[]).
+],[[]]).
 
 test(10,[[n,grammar1],["aa",[v,t]]],
 [
@@ -141,7 +142,7 @@ test(10,[[n,grammar1],["aa",[v,t]]],
 		  
 		  [[n,noun],["b"],"->",[""]],
 		  [[n,noun],[[v,t]],"->",["a",[[n,noun],[[v,t]]]]]
-],[[[v,t],"b"]]).
+],[[[[v,t],"b"]]]).
 
 test(11,[[n,grammar1],["aa",[v,t],[v,u]]],
 [
@@ -153,7 +154,7 @@ test(11,[[n,grammar1],["aa",[v,t],[v,u]]],
 		  
 		  [[n,noun],["b","c"],"->",[""]],
 		  [[n,noun],[[v,t],[v,u]],"->",["a",[[n,noun],[[v,t],[v,u]]]]]
-],[[[v,t],"b"],[[v,u],"c"]]).
+],[[[[v,t],"b"],[[v,u],"c"]]]).
 
 test(12,[[n,grammar1],["aa"]],
 [
@@ -166,7 +167,7 @@ test(12,[[n,grammar1],["aa"]],
 		  [[n,noun],"->",[""]],
 		  [[n,noun],"->",["a",[[n,noun]]]]
 
-],[]).
+],[[]]).
 
 test(13,[[n,grammar1],["[a,a]",[v,t]]],
 [
@@ -209,7 +210,7 @@ test(13,[[n,grammar1],["[a,a]",[v,t]]],
 		  
 		  [[n,a],[[v,a],[v,a]]]
 
-],[[[v,t],["a","a"]]]).
+],[[[[v,t],["a","a"]]]]).
 
 test(14,[[n,grammar1],["[a]",[v,t]]],
 [
@@ -243,7 +244,7 @@ test(14,[[n,grammar1],["[a]",[v,t]]],
 
 		  [[n,a],[[v,a],[v,a]]]
 
-],[[[v,t],["a"]]]).
+],[[[[v,t],["a"]]]]).
 
 test(15,[[n,grammar1],["[[aa,b],1]",[v,t]]],
 %%test(15,[[n,compound213],["","",[["a"],1],[v,t]]],
@@ -339,7 +340,7 @@ test(15,[[n,grammar1],["[[aa,b],1]",[v,t]]],
 		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
 
 %%],[[[v,t],[["a"],1]]]).
-],[[[v,t],[["aa","b"],1]]]).
+],[[[[v,t],[["aa","b"],1]]]]).
 
 
 %% Dukel goes to the grammar example
@@ -375,7 +376,7 @@ test(16,[[n,grammar1],["john ate the apple"]],
 		  [[n,object],"->",["the"," ","apple"]],
 
 		  [[n,object],[[v,a],[v,a]]]
-],[]).
+],[[]]).
 
 %% Blackl loves the grammar
 
@@ -511,7 +512,7 @@ test(17,[[n,grammar1],["aaa1 ,-'! a? b! b.",[v,t]]],
 		  [[[n,=],[[v,c],"?"]]]]
 
 %%],[[[v,t],[["a"],1]]]).
-],[[[v,t],["aaa1 ,-'!","a?","b!","b."]]]).
+],[[[[v,t],["aaa1 ,-'!","a?","b!","b."]]]]).
 
 
 %% Adye is Venan
@@ -574,7 +575,7 @@ test(18,[[n,grammar1],["what is 1+11",[v,c]]],
 		  [[n,code],[[n,stringconcat],
 		  [[v,v],[v,numberstring],[v,u]]]]]]
 
-],[[[v,c],12]]).
+],[[[[v,c],12]]]).
 
 
 %% Inky Classic 2
@@ -617,7 +618,7 @@ test(19,[[n,positivityscore],["would1"%%,"you","like","a","walk"
         
 ]
         
-,[[[v,s], 4]]).
+,[[[[v,s], 4]]]).
 %%,[]).
 
 test(20,[[n,function],[1,1,[v,c]]],
@@ -628,7 +629,7 @@ test(20,[[n,function],[1,1,[v,c]]],
         ]
         ]
 ]
-,[[[v,c], 2]]).
+,[[[[v,c], 2]]]).
 
 %%test(21,[[n,grammar1],["john ate"]],
 test(21,[[n,grammar1],["ate",[v,t]]],
@@ -667,7 +668,7 @@ test(21,[[n,grammar1],["ate",[v,t]]],
 		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
 
 ]
-,[[[v,t],"ate"]]).
+,[[[[v,t],"ate"]]]).
 
 
 test(22,[[n,grammar1],["peter cut the pear"]],
@@ -714,6 +715,20 @@ test(22,[[n,grammar1],["peter cut the pear"]],
 		  [[n,noun],"->",["peach"]],
 
 		  [[n,noun],[[v,a],[v,a]]]
-],[]).
+],[[]]).
 
+test(23,[[n,count],[1,[v,n]]],
+[
+        [[n,count],[1,2],":-",
+        [
+                [[n,cut]]
+        ]
+        ],
+        [[n,count],[[v,n],[v,p]],":-",
+        [
+                [[n,+],[[v,n],1,[v,m]]],
+                [[n,count],[[v,m],[v,p]]]
+        ]
+        ]
+] ,[[[[v,n], 2]]]).
 
