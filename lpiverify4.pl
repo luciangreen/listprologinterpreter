@@ -716,19 +716,3 @@ test(22,[[n,grammar1],["peter cut the pear"]],
 
 		  [[n,noun],[[v,a],[v,a]]]
 ],[[]]).
-
-test(23,[[n,count],[1,[v,n]]],
-[
-        [[n,count],[1,2],":-",
-        [
-                [[n,cut]]
-        ]
-        ],
-        [[n,count],[[v,n],[v,p]],":-",
-        [
-                [[n,+],[[v,n],1,[v,m]]],
-                [[n,count],[[v,m],[v,p]]]
-        ]
-        ]
-] ,[[[[v,n], 2]]]).
-
