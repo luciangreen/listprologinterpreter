@@ -376,6 +376,8 @@ false(false).
 %%	.
 
 interpretstatement1(_F0,_Functions,[[n,cut]],Vars,Vars,true,cut) :- !.
+interpretstatement1(_F0,_Functions,[[n,true]],Vars,Vars,_,nocut).
+interpretstatement1(_F0,_Functions,[[n,fail]],Vars,Vars,_,nocut) :- fail.
 
 /**
 interpretstatement1(Functions0,Functions,[[n,not],[Statements]],Vars1,Vars2,Result,nocut) :-
@@ -474,6 +476,10 @@ interpretstatement1(_F0,_Functions,[[n,tail],[Variable1,Variable2]],Vars1,Vars2,
 interpretstatement1(_F0,_Functions,[[n,member],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 %%writeln1(8),
         interpretpart(member,Variable1,Variable2,Vars1,Vars2).
+
+interpretstatement1(_F0,_Functions,[[n,member2],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+%%writeln1(8),
+        interpretpart(member2,Variable1,Variable2,Vars1,Vars2).
 
 interpretstatement1(_F0,_Functions,[[n,delete],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
 %%writeln1(),
