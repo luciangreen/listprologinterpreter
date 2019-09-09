@@ -69,6 +69,18 @@ interpretpart(member,Variable1,Variable2,Vars1,Vars2) :-
 	(debug(on)->(writeln1([exit,[[n,member],[Value1,Value3]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true);
 	((debug(on)->(writeln1([fail,[[n,member],[Value1,Value2]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)),!.
 
+
+interpretpart(member2,Variable1,Variable2,Vars1,Vars2) :-
+        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        
+(debug(on)->(writeln1([call,[[n,member2],[Value1,Value2]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+	(((Value2=empty,((member(Value2a,Value1),
+	putvalue(Variable2,Value2a,Vars1,Vars2)),
+	(debug(on)->(writeln1([exit,[[n,member2],[Value1,Value2a]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true)
+	)))).
+%%		((debug(on)->(writeln1([fail,[[n,member2],[Value1,value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail))))).
+
+
 interpretpart(isplus,Variable1,Variable2,Variable3,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
 	isvalempty(Value1),
