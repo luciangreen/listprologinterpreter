@@ -780,7 +780,7 @@ test(24,[[n,modus_ponens],["a",[["a","b"],["c","d"],["e","f"]],[v,s]]],
 %% splits on \n, removes 1 duplicate per line, returns score of duplicates
 
 test(25,[[n,grammar1],["aaa1 ,-'\na\nb\nb\n",
-"aaa1 ,-'\na\nb\na\n",
+"aaa1 ,-'\na\nb\na",
 [v,s]]],
 %%()test(15,[[n,compound213],["","",[["a"],1],[v,t]]],
 %%test(25,[[n,word21],["a\n","","",[v,t]]],
@@ -917,6 +917,9 @@ test(25,[[n,grammar1],["aaa1 ,-'\na\nb\nb\n",
 		  [[n,finalchar],[[v,c]],":-",
 		  [[[n,=],[[v,c],"\n"]]]],
 		  
+		  [[n,finalchar],[[v,c]],":-",
+		  [[[n,=],[[v,c],""]]]],
+		  
 %%		  [[n,not_return_next],[[v,a],[v,a]],":-",
 %%		  [[[n,not],[[[n,stringconcat],["\n",[v,d],[v,a]]]]]]]
 
@@ -977,4 +980,13 @@ test(25,[[n,grammar1],["aaa1 ,-'\na\nb\nb\n",
 %%		],[[[[v,m1],2]]]).
 %%],[]).
 %%()],[[[[v,t],"a"]]]).
+
+%% Pedagogy X - write 15*2=30 As in Honours and 50*2=100 As in Masters and 250 As in PhD. - use cawp to find algorithms with input and output in same pattern as a past algorithm - question answer for cawp specs, run cawp in post order
+
+/**
+%% - simple x spec with data - for alg, and simple x spec with data for grammars
+- in text file
+
+- instruct to call only previously found predicates (x call first) - then constructs next predicate up as head predicate - new feature: substitutes a call x either tries existing tree or writes fresh code
+**/
 
