@@ -17,3 +17,7 @@ phrase_from_file_s(string(Output), String) :-
 writeln1(Term) :-
 	term_to_atom(Term,Atom),
 	writeln(Atom),!.
+	
+shell1_s(Command) :-
+ 	atom_string(Command1,Command),
+	shell1(Command1),!.
