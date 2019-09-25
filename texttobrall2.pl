@@ -1,6 +1,6 @@
 %% Load with ['meditationnoreplace'].
-%% and ['texttobrth2'].
-%% Run with texttobr2(u,u,u,u,true).
+%% and ['texttobrall2'].
+%% Run with texttobr2(u,u,u,u,true,true,true,true,true,true).
 
 %% Important: See instructions for using texttobr.pl at https://lucianpedia.wikia.com/wiki/Instructions_for_Using_texttobr(2).pl .
 
