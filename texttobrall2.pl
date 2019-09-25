@@ -16,7 +16,7 @@
 :- include('la_strings').
 
 %% Brth is true or false
-texttobr2(N1,Filex1,Stringx1,M1,Brth) :-
+texttobr2(N1,Filex1,Stringx1,M1,Brth,Room,PartOfRoom,Direction,ObjectToPrepare,ObjectToFinish) :-
 
 	((number(N1),N=N1)->true;
 	(N1=u,N=1)),
@@ -27,8 +27,8 @@ texttobr2(N1,Filex1,Stringx1,M1,Brth) :-
 	((number(M1),M=M1)->true;
 	M=all), %% If m1 is undefined or all then m=all
 
-	prep(List1,BrDict03,BrDict03t,Filex,Stringx1,M,Brth,BrthDict03),
-	br2(List1,BrDict03,BrDict2,BrDict03t,BrDict03t2,N,Brth,BrthDict03,BrthDict04),
+	prep(List1,BrDict03,BrDict03t,Filex,Stringx1,M,Brth,BrthDict03,Room,RoomDict03,PartOfRoom,PartOfRoomDict03,Direction,DirectionDict03,ObjectToPrepare,ObjectToPrepareDict03,ObjectToFinish,ObjectToFinishDict03),
+	br2(List1,BrDict03,BrDict2,BrDict03t,BrDict03t2,N,Brth,BrthDict03,BrthDict04,Room,RoomDict03,RoomDict04,PartOfRoom,PartOfRoomDict03,PartOfRoomDict04,Direction,DirectionDict03,DirectionDict04,ObjectToPrepare,ObjectToPrepareDict03,ObjectToPrepareDict04,ObjectToFinish,ObjectToFinishDict03,ObjectToFinishDict04),
 	sort(BrDict2,BrDict3),
 	(BrDict03=BrDict3->true;
 	(open_s("brdict1.txt",write,Stream),
@@ -49,7 +49,49 @@ texttobr2(N1,Filex1,Stringx1,M1,Brth) :-
 	(open_s("brthdict.txt",write,Stream3),
 %%	string_codes(BrDict3),
 	write(Stream3,BrthDict044),
- 	close(Stream3))))->true;true),!.
+ 	close(Stream3))))->true;true),
+ 	
+ 	((Room=true,
+ 	sort(RoomDict04,RoomDict044),
+	(RoomDict04=RoomDict044->true;
+	(open_s("roomdict.txt",write,Stream4),
+%%	string_codes(BrDict3),
+	write(Stream4,RoomDict044),
+ 	close(Stream4))))->true;true),
+
+ 	((PartOfRoom=true,
+ 	sort(PartOfRoomDict04,PartOfRoomDict044),
+	(PartOfRoomDict04=PartOfRoomDict044->true;
+	(open_s("partofroomdict.txt",write,Stream5),
+%%	string_codes(BrDict3),
+	write(Stream5,PartOfRoomDict044),
+ 	close(Stream5))))->true;true),
+
+ 	((Direction=true,
+ 	sort(DirectionDict04,DirectionDict044),
+	(DirectionDict04=DirectionDict044->true;
+	(open_s("directiondict.txt",write,Stream6),
+%%	string_codes(BrDict3),
+	write(Stream6,DirectionDict044),
+ 	close(Stream6))))->true;true),
+
+ 	((ObjectToPrepare=true,
+ 	sort(ObjectToPrepareDict04,ObjectToPrepareDict044),
+	(ObjectToPrepareDict04=ObjectToPrepareDict044->true;
+	(open_s("objecttopreparedict.txt",write,Stream7),
+%%	string_codes(BrDict3),
+	write(Stream7,ObjectToPrepareDict044),
+ 	close(Stream7))))->true;true),
+
+ 	((ObjectToFinish=true,
+ 	sort(ObjectToFinishDict04,ObjectToFinishDict044),
+	(ObjectToFinishDict04=ObjectToFinishDict044->true;
+	(open_s("objecttofinishdict.txt",write,Stream8),
+%%	string_codes(BrDict3),
+	write(Stream8,ObjectToFinishDict044),
+ 	close(Stream8))))->true;true),
+ 	
+ 	!.
 
 
 replace0(Input,Find,Replace,SepandPad,M,Output0) :-
@@ -99,7 +141,7 @@ truncate(List1,M,String0) :-
 	append(String0,_,List1))->true;
 	String0=List1),!.
 	
-prep(List,BrDict03,BrDict03t,Filex,Stringx1,M,Brth,BrthDict03) :-
+prep(List,BrDict03,BrDict03t,Filex,Stringx1,M,Brth,BrthDict03,Room,RoomDict03,PartOfRoom,PartOfRoomDict03,Direction,DirectionDict03,ObjectToPrepare,ObjectToPrepareDict03,ObjectToFinish,ObjectToFinishDict03) :-
 	phrase_from_file_s(string(BrDict0), "brdict1.txt"),
 	%%Chars="’",
 	SepandPad="&#@~%`$?-+*^,()|.:;=_/[]<>{}\n\r\s\t\\\"!'0123456789",
@@ -169,6 +211,32 @@ prep(List,BrDict03,BrDict03t,Filex,Stringx1,M,Brth,BrthDict03) :-
 	length(BrthDict03,BrthLength0),write("Number of unique breathsonings in dictionary: "), writeln(BrthLength0))->true;true),
 	
 	
+	((Room=true,
+		phrase_from_file_s(string(RoomDict0), "roomdict.txt"),		splitfurther(RoomDict0,RoomDict01),
+	sort(RoomDict01,RoomDict03),
+	length(RoomDict03,RoomLength0),write("Number of unique rooms in dictionary: "), writeln(RoomLength0))->true;true),
+
+	((PartOfRoom=true,
+		phrase_from_file_s(string(PartOfRoomDict0), "partofroomdict.txt"),		splitfurther(PartOfRoomDict0,PartOfRoomDict01),
+	sort(PartOfRoomDict01,PartOfRoomDict03),
+	length(PartOfRoomDict03,PartOfRoomLength0),write("Number of unqiue parts of rooms in dictionary: "), writeln(PartOfRoomLength0))->true;true),
+
+	((Direction=true,
+		phrase_from_file_s(string(DirectionDict0), "directiondict.txt"),		splitfurther(DirectionDict0,DirectionDict01),
+	sort(DirectionDict01,DirectionDict03),
+	length(DirectionDict03,DirectionLength0),write("Number of unique directions in dictionary: "), writeln(DirectionLength0))->true;true),
+
+	((ObjectToPrepare=true,
+		phrase_from_file_s(string(ObjectToPrepareDict0), "objecttopreparedict.txt"),		splitfurther(ObjectToPrepareDict0,ObjectToPrepareDict01),
+	sort(ObjectToPrepareDict01,ObjectToPrepareDict03),
+	length(ObjectToPrepareDict03,ObjectToPrepareLength0),write("Number of unique objects to prepare in dictionary: "), writeln(ObjectToPrepareLength0))->true;true),
+
+	((ObjectToFinish=true,
+		phrase_from_file_s(string(ObjectToFinishDict0), "objecttofinishdict.txt"),		splitfurther(ObjectToFinishDict0,ObjectToFinishDict01),
+	sort(ObjectToFinishDict01,ObjectToFinishDict03),
+	length(ObjectToFinishDict03,ObjectToFinishLength0),write("Number of unique objects to finish in dictionary: "), writeln(ObjectToFinishLength0))->true;true),
+
+
 	((Stringx1=u, %% Use file, not string as input.
 	
 	%%maplist(downcase_atom, List2, List3),
@@ -213,16 +281,67 @@ prep(List,BrDict03,BrDict03t,Filex,Stringx1,M,Brth,BrthDict03) :-
 	
 		%%writeln([orphanedbreathsonings,Dt3]) %% Print orphaned breathsonings
 	
+		)->true;true),
+		
+	((Room=true,
+	towords2a(RoomDict03,[],RoomDict04t),
+	subtract(AllUsedNames,RoomDict04t,RoomDt2),
+	length(RoomDt2,RoomLengtht01t),RoomDifferencet22 is abs(RoomLengtht01t),write("Number of undefined rooms: "), writeln(RoomDifferencet22),
+	%%writeln([undefinedrooms,RoomDt2]), %% Print undefined rooms
+	subtract(RoomDict04t,AllUsedNames,RoomDt3),
+	length(RoomDt3,RoomLengtht01t2),RoomDifferencet3 is abs(RoomLengtht01t2),write("Number of orphaned rooms: "), writeln(RoomDifferencet3)
+		%%writeln([orphanedrooms,RoomDt3]) %% Print orphaned rooms
+		)->true;true),
+
+	((PartOfRoom=true,
+	towords2a(PartOfRoomDict03,[],PartOfRoomDict04t),
+	subtract(AllUsedNames,PartOfRoomDict04t,PartOfRoomDt2),
+	length(PartOfRoomDt2,PartOfRoomLengtht01t),PartOfRoomDifferencet22 is abs(PartOfRoomLengtht01t),write("Number of undefined parts of rooms: "), writeln(PartOfRoomDifferencet22),
+	%%writeln([undefinedPartsOfRooms,PartOfRoomDt2]), %% Print undefined PartsOfRooms
+	subtract(PartOfRoomDict04t,AllUsedNames,PartOfRoomDt3),
+	length(PartOfRoomDt3,PartOfRoomLengtht01t2),PartOfRoomDifferencet3 is abs(PartOfRoomLengtht01t2),write("Number of orphaned parts of rooms: "), writeln(PartOfRoomDifferencet3)
+		%%writeln([orphanedPartsOfRooms,PartOfRoomDt3]) %% Print orphaned PartsOfRooms
+		)->true;true),
+
+	((Direction=true,
+	towords2a(DirectionDict03,[],DirectionDict04t),
+	subtract(AllUsedNames,DirectionDict04t,DirectionDt2),
+	length(DirectionDt2,DirectionLengtht01t),DirectionDifferencet22 is abs(DirectionLengtht01t),write("Number of undefined directions: "), writeln(DirectionDifferencet22),
+	%%writeln([undefinedDirections,DirectionDt2]), %% Print undefined Directions
+	subtract(DirectionDict04t,AllUsedNames,DirectionDt3),
+	length(DirectionDt3,DirectionLengtht01t2),DirectionDifferencet3 is abs(DirectionLengtht01t2),write("Number of orphaned directions: "), writeln(DirectionDifferencet3)
+		%%writeln([orphanedDirections,DirectionDt3]) %% Print orphaned Directions
+		)->true;true),
+
+	((ObjectToPrepare=true,
+	towords2a(ObjectToPrepareDict03,[],ObjectToPrepareDict04t),
+	subtract(AllUsedNames,ObjectToPrepareDict04t,ObjectToPrepareDt2),
+	length(ObjectToPrepareDt2,ObjectToPrepareLengtht01t),ObjectToPrepareDifferencet22 is abs(ObjectToPrepareLengtht01t),write("Number of undefined objects to prepare: "), writeln(ObjectToPrepareDifferencet22),
+	%%writeln([undefinedObjectsToPrepare,ObjectToPrepareDt2]), %% Print undefined ObjectsToPrepare
+	subtract(ObjectToPrepareDict04t,AllUsedNames,ObjectToPrepareDt3),
+	length(ObjectToPrepareDt3,ObjectToPrepareLengtht01t2),ObjectToPrepareDifferencet3 is abs(ObjectToPrepareLengtht01t2),write("Number of orphaned objects to prepare: "), writeln(ObjectToPrepareDifferencet3)
+		%%writeln([orphanedObjectsToPrepare,ObjectToPrepareDt3]) %% Print orphaned ObjectsToPrepare
+		)->true;true),
+
+	((ObjectToFinish=true,
+	towords2a(ObjectToFinishDict03,[],ObjectToFinishDict04t),
+	subtract(AllUsedNames,ObjectToFinishDict04t,ObjectToFinishDt2),
+	length(ObjectToFinishDt2,ObjectToFinishLengtht01t),ObjectToFinishDifferencet22 is abs(ObjectToFinishLengtht01t),write("Number of undefined objects to finish: "), writeln(ObjectToFinishDifferencet22),
+	%%writeln([undefinedObjectsToFinish,ObjectToFinishDt2]), %% Print undefined ObjectsToFinish
+	subtract(ObjectToFinishDict04t,AllUsedNames,ObjectToFinishDt3),
+	length(ObjectToFinishDt3,ObjectToFinishLengtht01t2),ObjectToFinishDifferencet3 is abs(ObjectToFinishLengtht01t2),write("Number of orphaned objects to finish: "), writeln(ObjectToFinishDifferencet3)
+		%%writeln([orphanedObjectsToFinish,ObjectToFinishDt3]) %% Print orphaned ObjectsToFinish
 		)->true;true)
+
 	
 
 )->true;(string(Filex),writeln("Number of words, unique words, unique breathsonings, words remaining to define, undefined breasonings, orphaned breasonings, undefined breathsonings and orphaned breathsonings skipped for speed when breasoning out a string."))),!.
 
-br2(_,_,_,_,_,0,_,_,_) :- !.
-br2(List1,BrDict03,BrDict2,BrDict03t,BrDict03t2,N1,Brth,BrthDict03,BrthDict04) :-
-	br(List1,BrDict03,BrDict2,BrDict03t,BrDict03t2,Brth,BrthDict03,BrthDict04),
+br2(_,A,A,B,B,0,_Brth,BrthDict03,BrthDict03,_Room,RoomDict03,RoomDict03,_PartOfRoom,PartOfRoomDict03,PartOfRoomDict03,_Direction,DirectionDict03,DirectionDict03,_ObjectToPrepare,ObjectToPrepareDict03,ObjectToPrepareDict03,_ObjectToFinish,ObjectToFinishDict03,ObjectToFinishDict03) :- !.
+br2(List1,BrDict03,BrDict2,BrDict03t,BrDict03t2,N1,Brth,BrthDict03,BrthDict04,Room,RoomDict03,RoomDict04,PartOfRoom,PartOfRoomDict03,PartOfRoomDict04,Direction,DirectionDict03,DirectionDict04,ObjectToPrepare,ObjectToPrepareDict03,ObjectToPrepareDict04,ObjectToFinish,ObjectToFinishDict03,ObjectToFinishDict04) :-
+	br(List1,BrDict03,BrDict21,BrDict03t,BrDict03t21,Brth,BrthDict03,BrthDict041,Room,RoomDict03,RoomDict041,PartOfRoom,PartOfRoomDict03,PartOfRoomDict041,Direction,DirectionDict03,DirectionDict041,ObjectToPrepare,ObjectToPrepareDict03,ObjectToPrepareDict041,ObjectToFinish,ObjectToFinishDict03,ObjectToFinishDict041),
 	N2 is N1-1,
-	br2(List1,BrDict03,BrDict2,BrDict03t,BrDict03t2,N2,Brth,BrthDict03,BrthDict04),!.
+	br2(List1,BrDict21,BrDict2,BrDict03t21,BrDict03t2,N2,Brth,BrthDict041,BrthDict04,Room,RoomDict041,RoomDict04,PartOfRoom,PartOfRoomDict041,PartOfRoomDict04,Direction,DirectionDict041,DirectionDict04,ObjectToPrepare,ObjectToPrepareDict041,ObjectToPrepareDict04,ObjectToFinish,ObjectToFinishDict041,ObjectToFinishDict04),!.
 
 towords2([],A,A) :- !.
 towords2(BrDict03,A,B) :-
@@ -306,9 +425,9 @@ digits([X|Xs]) --> [X], {(char_type(X,digit)->true;(string_codes(Word2,[X]),Word
 %%digits([X]) --> [X], {(char_type(X,digit);(string_codes(Word2,[X]),Word2="."))}, !.
 digits([]) --> [].
 
-br([],B,B,C,C,_,D,D) :-
+br([],B,B,C,C,_,D,D,_Room,RoomDict03,RoomDict03,_PartOfRoom,PartOfRoomDict03,PartOfRoomDict03,_Direction,DirectionDict03,DirectionDict03,_ObjectToPrepare,ObjectToPrepareDict03,ObjectToPrepareDict03,_ObjectToFinish,ObjectToFinishDict03,ObjectToFinishDict03) :-
 	!.
-br([Word|Words],BrDict,BrDict2,BrDict4,BrDict5,Brth,BrthDict03,BrthDict04) :-
+br([Word|Words],BrDict,BrDict2,BrDict4,BrDict5,Brth,BrthDict03,BrthDict04,Room,RoomDict03,RoomDict04,PartOfRoom,PartOfRoomDict03,PartOfRoomDict04,Direction,DirectionDict03,DirectionDict04,ObjectToPrepare,ObjectToPrepareDict03,ObjectToPrepareDict04,ObjectToFinish,ObjectToFinishDict03,ObjectToFinishDict04) :-
 	downcase_atom(Word, Word2), atom_string(Word2,Word3),
 	
 	/**member([Word3,X,Y,Z],BrDict4) -> %% This feature is a bug because words in brdict2 shouldn't necessarily be the words in brdict1
@@ -351,7 +470,37 @@ br([Word|Words],BrDict,BrDict2,BrDict4,BrDict5,Brth,BrthDict03,BrthDict04) :-
 	write("Enter human judgement (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _End2, Stringth2),split_string(Stringth2, "", " ", Stringth3),Stringth3=[Stringth4]),
 	append(BrthDict03,[[String53,Stringth4]],BrthDict3)))->true;true),	
 	
-	br(Words,BrDict3,BrDict2,BrDict3t,BrDict5,Brth,BrthDict3,BrthDict04).
+	(Room=true,(member([String53,_Room],RoomDict03)-> 
+	RoomDict3=RoomDict03;
+	((repeat,
+	write("Enter room (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _RoomEnd2, RoomStringth2),split_string(RoomStringth2, "", " ", RoomStringth3),RoomStringth3=[RoomStringth4]),
+	append(RoomDict03,[[String53,RoomStringth4]],RoomDict3)))->true;true),	
+
+	(PartOfRoom=true,(member([String53,_PartOfRoom],PartOfRoomDict03)-> 
+	PartOfRoomDict3=PartOfRoomDict03;
+	((repeat,
+	write("Enter part of room (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _PartOfRoomEnd2, PartOfRoomStringth2),split_string(PartOfRoomStringth2, "", " ", PartOfRoomStringth3),PartOfRoomStringth3=[PartOfRoomStringth4]),
+	append(PartOfRoomDict03,[[String53,PartOfRoomStringth4]],PartOfRoomDict3)))->true;true),	
+	
+	(Direction=true,(member([String53,_Direction],DirectionDict03)-> 
+	DirectionDict3=DirectionDict03;
+	((repeat,
+	write("Enter direction (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _DirectionEnd2, DirectionStringth2),split_string(DirectionStringth2, "", " ", DirectionStringth3),DirectionStringth3=[DirectionStringth4]),
+	append(DirectionDict03,[[String53,DirectionStringth4]],DirectionDict3)))->true;true),	
+	
+	(ObjectToPrepare=true,(member([String53,_ObjectToPrepare],ObjectToPrepareDict03)-> 
+	ObjectToPrepareDict3=ObjectToPrepareDict03;
+	((repeat,
+	write("Enter object to prepare (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _ObjectToPrepareEnd2, ObjectToPrepareStringth2),split_string(ObjectToPrepareStringth2, "", " ", ObjectToPrepareStringth3),ObjectToPrepareStringth3=[ObjectToPrepareStringth4]),
+	append(ObjectToPrepareDict03,[[String53,ObjectToPrepareStringth4]],ObjectToPrepareDict3)))->true;true),	
+	
+	(ObjectToFinish=true,(member([String53,_ObjectToFinish],ObjectToFinishDict03)-> 
+	ObjectToFinishDict3=ObjectToFinishDict03;
+	((repeat,
+	write("Enter object to finish (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _ObjectToFinishEnd2, ObjectToFinishStringth2),split_string(ObjectToFinishStringth2, "", " ", ObjectToFinishStringth3),ObjectToFinishStringth3=[ObjectToFinishStringth4]),
+	append(ObjectToFinishDict03,[[String53,ObjectToFinishStringth4]],ObjectToFinishDict3)))->true;true),	
+	
+	br(Words,BrDict3,BrDict2,BrDict3t,BrDict5,Brth,BrthDict3,BrthDict04,Room,RoomDict3,RoomDict04,PartOfRoom,PartOfRoomDict3,PartOfRoomDict04,Direction,DirectionDict3,DirectionDict04,ObjectToPrepare,ObjectToPrepareDict3,ObjectToPrepareDict04,ObjectToFinish,ObjectToFinishDict3,ObjectToFinishDict04).
 	%%).
 brth(_,sweetinvincibleandprayedfor).
 
