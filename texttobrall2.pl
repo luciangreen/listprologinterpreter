@@ -219,7 +219,7 @@ prep(List,BrDict03,BrDict03t,Filex,Stringx1,M,Brth,BrthDict03,Room,RoomDict03,Pa
 	((PartOfRoom=true,
 		phrase_from_file_s(string(PartOfRoomDict0), "partofroomdict.txt"),		splitfurther(PartOfRoomDict0,PartOfRoomDict01),
 	sort(PartOfRoomDict01,PartOfRoomDict03),
-	length(PartOfRoomDict03,PartOfRoomLength0),write("Number of unqiue parts of rooms in dictionary: "), writeln(PartOfRoomLength0))->true;true),
+	length(PartOfRoomDict03,PartOfRoomLength0),write("Number of unique parts of rooms in dictionary: "), writeln(PartOfRoomLength0))->true;true),
 
 	((Direction=true,
 		phrase_from_file_s(string(DirectionDict0), "directiondict.txt"),		splitfurther(DirectionDict0,DirectionDict01),
