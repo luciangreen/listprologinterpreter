@@ -3,7 +3,7 @@
 %%:- use_module(library(time)).
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=22, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=25, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
