@@ -771,7 +771,7 @@ test(24,[[n,modus_ponens],["a",[["a","b"],["c","d"],["e","f"]],[v,s]]],
 [
         [[n,modus_ponens],[[v,a],[v,ab],[v,b]],":-",
         [       [[n,member2],[[v,ab],[v,ab1]]],
-                [[n,=],[[v,ab1],[[v,a],[v,b]]]]
+                [[n,equals1],[[v,ab1],[[v,a],[v,b]]]] %% equals1?
         ]]
         
 ],[[[[v,s],"b"]]]).
