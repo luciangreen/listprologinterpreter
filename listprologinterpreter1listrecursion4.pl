@@ -423,21 +423,27 @@ interpretstatement1(_F0,_Functions,[[n,variable],[Variable]],Vars,Vars,true,nocu
 
 interpretstatement1(_F0,_Functions,[[n,Operator],[Variable1]],Vars1,Vars2,true,nocut) :-
 	isop(Operator),
-	interpretpart(is,Variable1,Vars1,Vars2).
+	interpretpart(is,Variable1,Vars1,Vars2),!.
 
 
 interpretstatement1(_F0,_Functions,[[n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 	isop(Operator),
-	interpretpart(is,Variable1,Variable2,Vars1,Vars2).
+	interpretpart(is,Variable1,Variable2,Vars1,Vars2),!.
 
 interpretstatement1(_F0,_Functions,[[n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 %%writeln1(31),
         isop(Operator),
         interpretpart(is,Variable2,Variable1,Vars1,Vars2).
 	
-interpretstatement1(_F0,_Functions,[[n,+],[Variable2,Variable3,Variable1]],Vars1,Vars2,true,nocut) :-
+interpretstatement1(_F0,_Functions,[[n,Operator],[Variable2,Variable3,Variable1]],Vars1,Vars2,true,nocut) :-
+	operator(Operator),
 %%writeln1(4),
-        interpretpart(isplus,Variable1,Variable2,Variable3,Vars1,Vars2).
+        interpretpart(isop,Operator,Variable1,Variable2,Variable3,Vars1,Vars2).
+
+interpretstatement1(_F0,_Functions,[[n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+	comparisonoperator(Operator),
+%%writeln1(4),
+        interpretpart(iscomparison,Operator,Variable1,Variable2,Vars1,Vars2).
 
 %%interpretstatement1(_F0,_Functions,[Variable2+Variable3,is,Variable1],Vars1,Vars2,true,nocut) :-
 %%writeln1(41),
@@ -447,9 +453,13 @@ interpretstatement1(_F0,_Functions,[[n,=],[Variable1,Variable2]],Vars1,Vars2,tru
 %%writeln1(5),
         interpretpart(match,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(_F0,_Functions,[[n,=],[Variable1,[Variable2,Variable3]]],Vars1,Vars2,true,nocut) :-
+interpretstatement1(_F0,_Functions,[[n,equals1],[Variable1,[Variable2,Variable3]]],Vars1,Vars2,true,nocut) :-
 %%writeln1(5),
-        interpretpart(match,Variable1,Variable2,Variable3,Vars1,Vars2).
+        interpretpart(match1,Variable1,Variable2,Variable3,Vars1,Vars2).
+
+interpretstatement1(_F0,_Functions,[[n,equals2],[Variable1,[Variable2,Variable3]]],Vars1,Vars2,true,nocut) :-
+%%writeln1(5),
+        interpretpart(match2,Variable1,Variable2,Variable3,Vars1,Vars2).
 
 %%interpretstatement1(_F0,_Functions,[[Variable2,Variable3]=Variable1],Vars1,Vars2,true,nocut) :-
 %%writeln1(51),
@@ -659,6 +669,19 @@ interpretstatement1(Functions0,_Functions,Query,Vars,Vars,true) :-
         	debug(on)->writeln1([call,[Function]]),
         interpret2(Query,Functions0,Functions0,_Result1),
         	debug(on)->writeln1([exit,[Function]]).
+
+operator(+).
+operator(-).
+operator(*).
+operator(/).
+
+comparisonoperator(>).
+comparisonoperator(>=).
+comparisonoperator(<).
+comparisonoperator(=<).
+comparisonoperator(=).
+comparisonoperator(=\=).
+
 
 word1([])-->[].
 word1([A|As]) --> [A],word1(As),{%%atom_codes(A,AC),
