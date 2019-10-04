@@ -45,7 +45,7 @@ texttobr2(N1,Filex1,Stringx1,M1,Brth,Room,PartOfRoom,Direction,ObjectToPrepare,O
  	
  	((Brth=true,
  	sort(BrthDict04,BrthDict044),
-	(BrthDict04=BrthDict044->true;
+	(BrthDict03=BrthDict044->true;
 	(open_s("brthdict.txt",write,Stream3),
 %%	string_codes(BrDict3),
 	write(Stream3,BrthDict044),
@@ -447,19 +447,20 @@ br([Word|Words],BrDict,BrDict2,BrDict4,BrDict5,Brth,BrthDict03,BrthDict04,Room,R
 	BrDict3=BrDict;
 	((repeat,
 	write("Enter object name (without spaces), if different for "), writeln(Word3),read_string(user_input, "\n", "\r", _End2, String2),split_string(String2, "", " ", String3),String3=[String4]),
-	append(BrDict,[[Word3,String4]],BrDict3))),
-	brth(Word3,_Brth),
+	append(BrDict,[[Word3,String4]],BrDict3),
+	texttobr(1,u,String4,1))),
+	%%*brth(Word3,_Brth),
 
 (String4=""->String5=Word3;String5=String4),
 
 	downcase_atom(String5, String52), atom_string(String52,String53),
 
 	(member([String53,_X,_Y,_Z],BrDict4)->
-	BrDict3t=BrDict4;
+	BrDict3t1=BrDict4;
 	((repeat,
 	write("Enter x, y and z in cm for "), writeln(String53),read_string(user_input, "\n", "\r", _End, String),split_string(String, ",", " ", Values),Values=[X1,Y1,Z1],number_string(X,X1),number_string(Y,Y1),number_string(Z,Z1)),
-	append(BrDict4,[[String53,X,Y,Z]],BrDict3t))),
-	brth(String53,_Brth2),
+	append(BrDict4,[[String53,X,Y,Z]],BrDict3t1))),
+	%%*brth(String53,_Brth2),
 	%%write("br(\'"),write(Word3),writeln("\',)."),
 %%	writeln([Word3,X,Y,Z]),
 	%%write(' '),
@@ -467,40 +468,77 @@ br([Word|Words],BrDict,BrDict2,BrDict4,BrDict5,Brth,BrthDict03,BrthDict04,Room,R
 	(Brth=true,(member([String53,_Breathsoning],BrthDict03)-> 
 	BrthDict3=BrthDict03;
 	((repeat,
-	write("Enter human judgement (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _End2, Stringth2),split_string(Stringth2, "", " ", Stringth3),Stringth3=[Stringth4]),
+	write("Enter human judgement (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _End2, Stringth2),split_string(Stringth2, "", " ", Stringth3),Stringth3=[Stringth4]),texttobr(1,u,Stringth4,1),
 	append(BrthDict03,[[String53,Stringth4]],BrthDict3)))->true;true),	
 	
 	(Room=true,(member([String53,_Room],RoomDict03)-> 
 	RoomDict3=RoomDict03;
 	((repeat,
-	write("Enter room (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _RoomEnd2, RoomStringth2),split_string(RoomStringth2, "", " ", RoomStringth3),RoomStringth3=[RoomStringth4]),
+	write("Enter room (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _RoomEnd2, RoomStringth2),split_string(RoomStringth2, "", " ", RoomStringth3),RoomStringth3=[RoomStringth4]),texttobr(1,u,RoomStringth4,1),
 	append(RoomDict03,[[String53,RoomStringth4]],RoomDict3)))->true;true),	
 
-	(PartOfRoom=true,(member([String53,_PartOfRoom],PartOfRoomDict03)-> 
+
+	(member([RoomStringth4,_X,_Y,_Z],BrDict3t1)->
+	BrDict3t2=BrDict3t1;
+	((repeat,
+	write("Enter x, y and z in cm for "), writeln(RoomStringth4),read_string(user_input, "\n", "\r", _End, RoomString),split_string(RoomString, ",", " ", RoomValues),RoomValues=[RoomX1,RoomY1,RoomZ1],number_string(RoomX,RoomX1),number_string(RoomY,RoomY1),number_string(RoomZ,RoomZ1)),
+	append(BrDict3t1,[[RoomStringth4,RoomX,RoomY,RoomZ]],BrDict3t2))),
+
+
+(PartOfRoom=true,(member([String53,_PartOfRoom],PartOfRoomDict03)-> 
 	PartOfRoomDict3=PartOfRoomDict03;
 	((repeat,
-	write("Enter part of room (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _PartOfRoomEnd2, PartOfRoomStringth2),split_string(PartOfRoomStringth2, "", " ", PartOfRoomStringth3),PartOfRoomStringth3=[PartOfRoomStringth4]),
-	append(PartOfRoomDict03,[[String53,PartOfRoomStringth4]],PartOfRoomDict3)))->true;true),	
+	write("Enter part of room (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _PartOfRoomEnd2, PartOfRoomStringth2),split_string(PartOfRoomStringth2, "", " ", PartOfRoomStringth3),PartOfRoomStringth3=[PartOfRoomStringth4]),texttobr(1,u,PartOfRoomStringth4,1),
+	append(PartOfRoomDict03,[[String53,PartOfRoomStringth4]],PartOfRoomDict3)))->true;true),
 	
-	(Direction=true,(member([String53,_Direction],DirectionDict03)-> 
+
+	(member([PartOfRoomStringth4,_X,_Y,_Z],BrDict3t2)->
+	BrDict3t3=BrDict3t2;
+	((repeat,
+	write("Enter x, y and z in cm for "), writeln(PartOfRoomStringth4),read_string(user_input, "\n", "\r", _End, PartOfRoomString),split_string(PartOfRoomString, ",", " ", PartOfRoomValues),PartOfRoomValues=[PartOfRoomX1,PartOfRoomY1,PartOfRoomZ1],number_string(PartOfRoomX,PartOfRoomX1),number_string(PartOfRoomY,PartOfRoomY1),number_string(PartOfRoomZ,PartOfRoomZ1)),
+	append(BrDict3t2,[[PartOfRoomStringth4,PartOfRoomX,PartOfRoomY,PartOfRoomZ]],BrDict3t3))),
+
+(Direction=true,(member([String53,_Direction],DirectionDict03)-> 
 	DirectionDict3=DirectionDict03;
 	((repeat,
-	write("Enter direction (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _DirectionEnd2, DirectionStringth2),split_string(DirectionStringth2, "", " ", DirectionStringth3),DirectionStringth3=[DirectionStringth4]),
-	append(DirectionDict03,[[String53,DirectionStringth4]],DirectionDict3)))->true;true),	
+	write("Enter direction (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _DirectionEnd2, DirectionStringth2),split_string(DirectionStringth2, "", " ", DirectionStringth3),DirectionStringth3=[DirectionStringth4]),texttobr(1,u,DirectionStringth4,1),
+	append(DirectionDict03,[[String53,DirectionStringth4]],DirectionDict3)))->true;true),
 	
-	(ObjectToPrepare=true,(member([String53,_ObjectToPrepare],ObjectToPrepareDict03)-> 
+
+	(member([DirectionStringth4,_X,_Y,_Z],BrDict3t3)->
+	BrDict3t4=BrDict3t3;
+	((repeat,
+	write("Enter x, y and z in cm for "), writeln(DirectionStringth4),read_string(user_input, "\n", "\r", _End, DirectionString),split_string(DirectionString, ",", " ", DirectionValues),DirectionValues=[DirectionX1,DirectionY1,DirectionZ1],number_string(DirectionX,DirectionX1),number_string(DirectionY,DirectionY1),number_string(DirectionZ,DirectionZ1)),
+	append(BrDict3t3,[[DirectionStringth4,DirectionX,DirectionY,DirectionZ]],BrDict3t4))),
+
+(ObjectToPrepare=true,(member([String53,_ObjectToPrepare],ObjectToPrepareDict03)-> 
 	ObjectToPrepareDict3=ObjectToPrepareDict03;
 	((repeat,
-	write("Enter object to prepare (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _ObjectToPrepareEnd2, ObjectToPrepareStringth2),split_string(ObjectToPrepareStringth2, "", " ", ObjectToPrepareStringth3),ObjectToPrepareStringth3=[ObjectToPrepareStringth4]),
-	append(ObjectToPrepareDict03,[[String53,ObjectToPrepareStringth4]],ObjectToPrepareDict3)))->true;true),	
+	write("Enter object to prepare (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _ObjectToPrepareEnd2, ObjectToPrepareStringth2),split_string(ObjectToPrepareStringth2, "", " ", ObjectToPrepareStringth3),ObjectToPrepareStringth3=[ObjectToPrepareStringth4]),texttobr(1,u,ObjectToPrepareStringth4,1),
+	append(ObjectToPrepareDict03,[[String53,ObjectToPrepareStringth4]],ObjectToPrepareDict3)))->true;true),
 	
-	(ObjectToFinish=true,(member([String53,_ObjectToFinish],ObjectToFinishDict03)-> 
+	
+		(member([ObjectToPrepareStringth4,_X,_Y,_Z],BrDict3t4)->
+	BrDict3t5=BrDict3t4;
+	((repeat,
+	write("Enter x, y and z in cm for "), writeln(ObjectToPrepareStringth4),read_string(user_input, "\n", "\r", _End, ObjectToPrepareString),split_string(ObjectToPrepareString, ",", " ", ObjectToPrepareValues),ObjectToPrepareValues=[ObjectToPrepareX1,ObjectToPrepareY1,ObjectToPrepareZ1],number_string(ObjectToPrepareX,ObjectToPrepareX1),number_string(ObjectToPrepareY,ObjectToPrepareY1),number_string(ObjectToPrepareZ,ObjectToPrepareZ1)),
+	append(BrDict3t4,[[ObjectToPrepareStringth4,ObjectToPrepareX,ObjectToPrepareY,ObjectToPrepareZ]],BrDict3t5))),
+
+
+(ObjectToFinish=true,(member([String53,_ObjectToFinish],ObjectToFinishDict03)-> 
 	ObjectToFinishDict3=ObjectToFinishDict03;
 	((repeat,
-	write("Enter object to finish (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _ObjectToFinishEnd2, ObjectToFinishStringth2),split_string(ObjectToFinishStringth2, "", " ", ObjectToFinishStringth3),ObjectToFinishStringth3=[ObjectToFinishStringth4]),
-	append(ObjectToFinishDict03,[[String53,ObjectToFinishStringth4]],ObjectToFinishDict3)))->true;true),	
+	write("Enter object to finish (without spaces), if different for "), writeln(String53),read_string(user_input, "\n", "\r", _ObjectToFinishEnd2, ObjectToFinishStringth2),split_string(ObjectToFinishStringth2, "", " ", ObjectToFinishStringth3),ObjectToFinishStringth3=[ObjectToFinishStringth4]),texttobr(1,u,ObjectToFinishStringth4,1),
+	append(ObjectToFinishDict03,[[String53,ObjectToFinishStringth4]],ObjectToFinishDict3)))->true;true),
 	
-	br(Words,BrDict3,BrDict2,BrDict3t,BrDict5,Brth,BrthDict3,BrthDict04,Room,RoomDict3,RoomDict04,PartOfRoom,PartOfRoomDict3,PartOfRoomDict04,Direction,DirectionDict3,DirectionDict04,ObjectToPrepare,ObjectToPrepareDict3,ObjectToPrepareDict04,ObjectToFinish,ObjectToFinishDict3,ObjectToFinishDict04).
+
+		(member([ObjectToFinishStringth4,_X,_Y,_Z],BrDict3t5)->
+	BrDict3t6=BrDict3t5;
+	((repeat,
+	write("Enter x, y and z in cm for "), writeln(ObjectToFinishStringth4),read_string(user_input, "\n", "\r", _End, ObjectToFinishString),split_string(ObjectToFinishString, ",", " ", ObjectToFinishValues),ObjectToFinishValues=[ObjectToFinishX1,ObjectToFinishY1,ObjectToFinishZ1],number_string(ObjectToFinishX,ObjectToFinishX1),number_string(ObjectToFinishY,ObjectToFinishY1),number_string(ObjectToFinishZ,ObjectToFinishZ1)),
+	append(BrDict3t5,[[ObjectToFinishStringth4,ObjectToFinishX,ObjectToFinishY,ObjectToFinishZ]],BrDict3t6))),
+
+br(Words,BrDict3,BrDict2,BrDict3t6,BrDict5,Brth,BrthDict3,BrthDict04,Room,RoomDict3,RoomDict04,PartOfRoom,PartOfRoomDict3,PartOfRoomDict04,Direction,DirectionDict3,DirectionDict04,ObjectToPrepare,ObjectToPrepareDict3,ObjectToPrepareDict04,ObjectToFinish,ObjectToFinishDict3,ObjectToFinishDict04).
 	%%).
 brth(_,sweetinvincibleandprayedfor).
 
