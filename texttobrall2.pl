@@ -1,6 +1,7 @@
 %% Load with ['meditationnoreplace'].
 %% and ['texttobrall2'].
 %% Run with texttobr2(u,u,u,u,true,true,true,true,true,true).
+%% or texttobr2(u,u,u,u,true,false,false,false,false,false).
 
 %% Important: See instructions for using texttobr.pl at https://lucianpedia.wikia.com/wiki/Instructions_for_Using_texttobr(2).pl .
 
@@ -478,11 +479,11 @@ br([Word|Words],BrDict,BrDict2,BrDict4,BrDict5,Brth,BrthDict03,BrthDict04,Room,R
 	append(RoomDict03,[[String53,RoomStringth4]],RoomDict3)))->true;true),	
 
 
-	(member([RoomStringth4,_X,_Y,_Z],BrDict3t1)->
+	(Room=true,(member([RoomStringth4,_X,_Y,_Z],BrDict3t1)->
 	BrDict3t2=BrDict3t1;
 	((repeat,
 	write("Enter x, y and z in cm for "), writeln(RoomStringth4),read_string(user_input, "\n", "\r", _End, RoomString),split_string(RoomString, ",", " ", RoomValues),RoomValues=[RoomX1,RoomY1,RoomZ1],number_string(RoomX,RoomX1),number_string(RoomY,RoomY1),number_string(RoomZ,RoomZ1)),
-	append(BrDict3t1,[[RoomStringth4,RoomX,RoomY,RoomZ]],BrDict3t2))),
+	append(BrDict3t1,[[RoomStringth4,RoomX,RoomY,RoomZ]],BrDict3t2)))->true;BrDict3t2=BrDict3t1),
 
 
 (PartOfRoom=true,(member([String53,_PartOfRoom],PartOfRoomDict03)-> 
@@ -492,11 +493,11 @@ br([Word|Words],BrDict,BrDict2,BrDict4,BrDict5,Brth,BrthDict03,BrthDict04,Room,R
 	append(PartOfRoomDict03,[[String53,PartOfRoomStringth4]],PartOfRoomDict3)))->true;true),
 	
 
-	(member([PartOfRoomStringth4,_X,_Y,_Z],BrDict3t2)->
+	(PartOfRoom=true,(member([PartOfRoomStringth4,_X,_Y,_Z],BrDict3t2)->
 	BrDict3t3=BrDict3t2;
 	((repeat,
 	write("Enter x, y and z in cm for "), writeln(PartOfRoomStringth4),read_string(user_input, "\n", "\r", _End, PartOfRoomString),split_string(PartOfRoomString, ",", " ", PartOfRoomValues),PartOfRoomValues=[PartOfRoomX1,PartOfRoomY1,PartOfRoomZ1],number_string(PartOfRoomX,PartOfRoomX1),number_string(PartOfRoomY,PartOfRoomY1),number_string(PartOfRoomZ,PartOfRoomZ1)),
-	append(BrDict3t2,[[PartOfRoomStringth4,PartOfRoomX,PartOfRoomY,PartOfRoomZ]],BrDict3t3))),
+	append(BrDict3t2,[[PartOfRoomStringth4,PartOfRoomX,PartOfRoomY,PartOfRoomZ]],BrDict3t3)))->true;BrDict3t3=BrDict3t2),
 
 (Direction=true,(member([String53,_Direction],DirectionDict03)-> 
 	DirectionDict3=DirectionDict03;
@@ -505,11 +506,12 @@ br([Word|Words],BrDict,BrDict2,BrDict4,BrDict5,Brth,BrthDict03,BrthDict04,Room,R
 	append(DirectionDict03,[[String53,DirectionStringth4]],DirectionDict3)))->true;true),
 	
 
-	(member([DirectionStringth4,_X,_Y,_Z],BrDict3t3)->
+	(Direction=true,(member([DirectionStringth4,_X,_Y,_Z],BrDict3t3)->
 	BrDict3t4=BrDict3t3;
 	((repeat,
 	write("Enter x, y and z in cm for "), writeln(DirectionStringth4),read_string(user_input, "\n", "\r", _End, DirectionString),split_string(DirectionString, ",", " ", DirectionValues),DirectionValues=[DirectionX1,DirectionY1,DirectionZ1],number_string(DirectionX,DirectionX1),number_string(DirectionY,DirectionY1),number_string(DirectionZ,DirectionZ1)),
-	append(BrDict3t3,[[DirectionStringth4,DirectionX,DirectionY,DirectionZ]],BrDict3t4))),
+	append(BrDict3t3,[[DirectionStringth4,DirectionX,DirectionY,DirectionZ]],BrDict3t4)))->true;BrDict3t4=BrDict3t3),
+	
 
 (ObjectToPrepare=true,(member([String53,_ObjectToPrepare],ObjectToPrepareDict03)-> 
 	ObjectToPrepareDict3=ObjectToPrepareDict03;
@@ -518,11 +520,11 @@ br([Word|Words],BrDict,BrDict2,BrDict4,BrDict5,Brth,BrthDict03,BrthDict04,Room,R
 	append(ObjectToPrepareDict03,[[String53,ObjectToPrepareStringth4]],ObjectToPrepareDict3)))->true;true),
 	
 	
-		(member([ObjectToPrepareStringth4,_X,_Y,_Z],BrDict3t4)->
+	(ObjectToPrepare=true,(member([ObjectToPrepareStringth4,_X,_Y,_Z],BrDict3t4)->
 	BrDict3t5=BrDict3t4;
 	((repeat,
 	write("Enter x, y and z in cm for "), writeln(ObjectToPrepareStringth4),read_string(user_input, "\n", "\r", _End, ObjectToPrepareString),split_string(ObjectToPrepareString, ",", " ", ObjectToPrepareValues),ObjectToPrepareValues=[ObjectToPrepareX1,ObjectToPrepareY1,ObjectToPrepareZ1],number_string(ObjectToPrepareX,ObjectToPrepareX1),number_string(ObjectToPrepareY,ObjectToPrepareY1),number_string(ObjectToPrepareZ,ObjectToPrepareZ1)),
-	append(BrDict3t4,[[ObjectToPrepareStringth4,ObjectToPrepareX,ObjectToPrepareY,ObjectToPrepareZ]],BrDict3t5))),
+	append(BrDict3t4,[[ObjectToPrepareStringth4,ObjectToPrepareX,ObjectToPrepareY,ObjectToPrepareZ]],BrDict3t5)))->true;BrDict3t5=BrDict3t4),
 
 
 (ObjectToFinish=true,(member([String53,_ObjectToFinish],ObjectToFinishDict03)-> 
@@ -532,11 +534,11 @@ br([Word|Words],BrDict,BrDict2,BrDict4,BrDict5,Brth,BrthDict03,BrthDict04,Room,R
 	append(ObjectToFinishDict03,[[String53,ObjectToFinishStringth4]],ObjectToFinishDict3)))->true;true),
 	
 
-		(member([ObjectToFinishStringth4,_X,_Y,_Z],BrDict3t5)->
+	(ObjectToFinish=true,(member([ObjectToFinishStringth4,_X,_Y,_Z],BrDict3t5)->
 	BrDict3t6=BrDict3t5;
 	((repeat,
 	write("Enter x, y and z in cm for "), writeln(ObjectToFinishStringth4),read_string(user_input, "\n", "\r", _End, ObjectToFinishString),split_string(ObjectToFinishString, ",", " ", ObjectToFinishValues),ObjectToFinishValues=[ObjectToFinishX1,ObjectToFinishY1,ObjectToFinishZ1],number_string(ObjectToFinishX,ObjectToFinishX1),number_string(ObjectToFinishY,ObjectToFinishY1),number_string(ObjectToFinishZ,ObjectToFinishZ1)),
-	append(BrDict3t5,[[ObjectToFinishStringth4,ObjectToFinishX,ObjectToFinishY,ObjectToFinishZ]],BrDict3t6))),
+	append(BrDict3t5,[[ObjectToFinishStringth4,ObjectToFinishX,ObjectToFinishY,ObjectToFinishZ]],BrDict3t6)))->true;BrDict3t6=BrDict3t5),
 
 br(Words,BrDict3,BrDict2,BrDict3t6,BrDict5,Brth,BrthDict3,BrthDict04,Room,RoomDict3,RoomDict04,PartOfRoom,PartOfRoomDict3,PartOfRoomDict04,Direction,DirectionDict3,DirectionDict04,ObjectToPrepare,ObjectToPrepareDict3,ObjectToPrepareDict04,ObjectToFinish,ObjectToFinishDict3,ObjectToFinishDict04).
 	%%).
