@@ -207,4 +207,4 @@ Note, lookahead is a grammar predicate call even though the predicate itself is 
 		  [[n,lookahead],[[v,a],[v,a],[v,b]],":-",
 		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
 
-Predicates or predicates to modify to provide the function of string to list (test 15), split on character(s) (test 17), intersection, minus are in lpiverify4.pl or in philosophy/Put in lpiverify.
+Predicates or predicates to modify to provide the function of string to list (test 15), split on character(s) (test 17), intersection and minus are in lpiverify4.pl or in philosophy/Put in lpiverify.
