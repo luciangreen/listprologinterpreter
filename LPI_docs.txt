@@ -179,7 +179,7 @@ Base cases for recursive grammars require e.g.
 		  [[n,append],[[v,t],[v,itemname1],[v,v]]]],
 		  [[n,compound212],[[v,v],[v,u]]]]],
 
-In it, [[n,a]] calls a grammar predicate called "a".  [n,code],[...] is similar to {} in SWI-Prolog (it allows commands to be called within a grammar).  The code wraps a string and appends it to a list, before exiting code and calling the grammar predicate n,compound212.  v and u are not entry and exit strings, they are extra arguments, handled with t in the base cases above.
+In it, [[n,a]] calls a grammar predicate called "a".  [[n,code],...] is similar to {} in SWI-Prolog (it allows commands to be called within a grammar).  The code wraps a string and appends it to a list, before exiting code and calling the grammar predicate n,compound212.  v and u are not entry and exit strings, they are extra arguments, handled with t in the base cases above.
 
 Sometimes there is another recursive clause, which calls itself:
 		  [[n,compound21],[[v,t],[v,u]],"->",
@@ -206,3 +206,5 @@ and goes to "b" instead as wanted.
 Note, lookahead is a grammar predicate call even though the predicate itself is not a grammar predicate:
 		  [[n,lookahead],[[v,a],[v,a],[v,b]],":-",
 		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
+
+Predicates or predicates to modify to provide the function of string to list, split on character(s), intersection, minus are in lpiverify4.pl or in philosophy/Put in lpiverify.
