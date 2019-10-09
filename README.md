@@ -57,6 +57,10 @@ test(7,[[n,reverse],[[1,2,3],[],[v,l]]],
 ```
 tests the reverse predicate.
 
+# Documentation
+
+See LPI_docs.txt
+
 # Versioning
 
 We will use SemVer for versioning.
