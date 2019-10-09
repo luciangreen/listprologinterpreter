@@ -3,7 +3,7 @@
 %%:- use_module(library(time)).
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=25, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=37, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -771,7 +771,7 @@ test(24,[[n,modus_ponens],["a",[["a","b"],["c","d"],["e","f"]],[v,s]]],
 [
         [[n,modus_ponens],[[v,a],[v,ab],[v,b]],":-",
         [       [[n,member2],[[v,ab],[v,ab1]]],
-                [[n,equals1],[[v,ab1],[[v,a],[v,b]]]] %% equals1?
+                [[n,equals1],[[v,ab1],[[v,a],[v,b]]]]
         ]]
         
 ],[[[[v,s],"b"]]]).
@@ -990,3 +990,150 @@ test(25,[[n,grammar1],["aaa1 ,-'\na\nb\nb\n",
 - instruct to call only previously found predicates (x call first) - then constructs next predicate up as head predicate - new feature: substitutes a call x either tries existing tree or writes fresh code
 **/
 
+%% Two Uses - See philosophy/he should identify different writers in the exposition.pl
+
+test(26,[[n,append1],[["a"],["b"],[v,s]]],
+
+[
+        [[n,append1],[[v,a],[v,b],[v,s]],":-",
+        [       [[n,append],[[v,a],[v,b],[v,s]]]
+        ]]
+        
+],[[[[v,s],["a","b"]]]]).
+
+
+test(27,[[n,equals11],["a","a"]],
+
+[
+        [[n,equals11],[[v,a],[v,a]]]
+        
+],[[]]).
+
+test(28,[[n,number11],[1]],
+
+[
+        [[n,number11],[[v,a]],":-",
+        [       [[n,number],[[v,a]]]
+        ]]
+        
+],[[]]).
+
+test(29,[[n,minus11],[[1,2,3],[3],[v,c]]],
+
+[
+        [[n,minus11],[[v,a],[],[v,a]]],
+        [[n,minus11],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,head],[[v,b],[v,h]]],
+                [[n,tail],[[v,b],[v,t]]],
+                [[n,delete],[[v,a],[v,h],[v,c]]],
+                [[n,minus11],[[v,c],[v,t],[v,c]]]
+        ]]
+        
+],[[[[v,c],[1,2]]]]).
+
+test(30,[[n,if11],[1,[v,b]]],
+
+[
+        [[n,if11],[[v,a],[v,b]],":-",
+        [       [[n,"->"],[[[n,is],[[v,a],1]],
+                [[n,is],[[v,b],2]],
+                [[n,is],[[v,b],3]]]]
+        ]]
+        
+],[[[[v,b],2]]]).
+
+
+test(31,[[n,not11],[1]],
+
+[
+        [[n,not11],[[v,a]],":-",
+        [       [[n,not],[[[n,=],[[v,a],2]]]]
+        ]]
+        
+],[[]]).
+
+test(32,[[n,or11],[1]],
+
+[
+        [[n,or11],[[v,a]],":-",
+        [       [[n,or],[[[n,is],[[v,a],1]],
+                [[n,is],[[v,a],2]]]]
+        ]]
+        
+],[[]]).
+
+%% Starts at 3, decreases given a or b until 1
+
+test(33,[[n,downpipe],[3,1,[[3,[4,2]],[2,[3,1]]]]],
+
+[
+        [[n,downpipe],[[v,a],[v,a],[v,b]]],
+        [[n,downpipe],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,member2],[[v,c],[v,c1]]],
+                [[n,equals1],[[v,c1],[[v,c11],[v,c12]]]],
+                [[n,equals1],[[v,c12],[[v,c121],[v,c122]]]],
+                [[n,"->"],[[[n,>],[[v,a],[v,c121]]],
+                [[n,downpipe],[[v,c121],[v,b],[v,c]]],
+                        [[n,"->"],[[[n,>],[[v,a],[v,c122]]],
+                        [[n,downpipe],[[v,c122],[v,b],[v,c]]],
+                        [[n,fail]]]]]]
+        ]]
+        
+],[[]]).
+
+%% Get item n, copies it
+
+test(34,[[n,getitemn],[3,[1,2,3],[v,c]]],
+
+[
+        [[n,getitemn],[1,[v,b],[v,c]],":-",
+        [       [[n,head],[[v,b],[v,c]]]
+        ]],
+        [[n,getitemn],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,not],[[[n,=],[[v,a],0]]]],
+                [[n,tail],[[v,b],[v,t]]],
+                [[n,-],[[v,a],1,[v,d]]],
+                [[n,getitemn],[[v,d],[v,t],[v,c]]]
+        ]]
+        
+],[[[[v,c],3]]]).
+
+%% A shell of LPI allows manipulation of variable order, testing for e.g. identical inverse
+
+%% commutative not identical
+
+test(35,[[n,identical],[1,2]],
+
+[
+        [[n,identical],[[v,a],[v,b]],":-",
+        [       [[n,+],[[v,a],[v,b],[v,c]]],
+                [[n,+],[[v,b],[v,a],[v,c]]]
+        ]]
+        
+],[[]]).
+
+test(36,[[n,associative],[1,2,3]],
+
+[
+        [[n,associative],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,*],[[v,a],[v,b],[v,d]]],
+                [[n,*],[[v,d],[v,c],[v,e]]],
+                [[n,*],[[v,b],[v,c],[v,f]]],
+                [[n,*],[[v,f],[v,a],[v,e]]]
+        ]]
+        
+],[[]]).
+
+%% audience size
+
+test(37,[[n,length],[[1],0,[v,l]]],
+[
+        [[n,length],[[],[v,l],[v,l]]],
+        [[n,length],[[v,l],[v,m1],[v,n]],":-",
+        [       [[n,not],[[[n,=],[[v,l],[]]]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,+],[[v,m1],1,[v,m2]]],
+                [[n,length],[[v,t],[v,m2],[v,n]]]
+        ]
+        ]
+],[[[[v,l], 1]]]).
