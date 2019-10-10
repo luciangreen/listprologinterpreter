@@ -1,8 +1,8 @@
 # List Prolog Documentation
 
-* Load List Prolog by downloading the repository from GitHub at `https://github.com/luciangreen/listprologinterpreter.`
+* Load List Prolog by downloading the <a href="https://github.com/luciangreen/listprologinterpreter">repository from GitHub</a>.
 
-* Please download and install SWI-Prolog for your machine at `https://www.swi-prolog.org/build/`.
+* Please download and instal <a href="https://www.swi-prolog.org/build/">SWI-Prolog</a> for your machine.
 
 * Load the List Prolog Interpreter by typing:
 `['listprolog'].`

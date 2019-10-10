@@ -59,7 +59,7 @@ tests the reverse predicate.
 
 # Documentation
 
-See `https://github.com/luciangreen/listprologinterpreter/blob/master/LPI_docs.md`.
+See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/LPI_docs.md">List Prolog Documentation</a>.
 
 # Versioning
 
@@ -75,11 +75,11 @@ I licensed this project under the BSD3 License - see the LICENSE.md file for det
 
 # Addendum
 
-Please read "Setting up a VPS with TextToBr.txt" to set up a VPS with TextToBr.
+Please read <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/Setting_up_a_VPS_with_TextToBr.txt">"Setting up a VPS with TextToBr.txt"</a> to set up a VPS with TextToBr.
 
-rcaw.paste added - this can be run each day to meet daily regimen requirements, such as preventing unwanted thoughts (mindreadtestsec.pl), giving meditators thoughts (mindreadingcaw.pl) and giving thoughts about psychoanalysis (mindreadtestpsychiatrist.pl).
+<a href="https://github.com/luciangreen/listprologinterpreter/blob/master/rcaw.paste">rcaw.paste</a> added - this can be run each day to meet daily regimen requirements, such as preventing unwanted thoughts (<a href="https://github.com/luciangreen/listprologinterpreter/blob/master/mindreadtestsec.pl">mindreadtestsec.pl</a>), giving meditators thoughts (<a href="https://github.com/luciangreen/listprologinterpreter/blob/master/mindreadingcaw.pl">mindreadingcaw.pl</a>) and giving thoughts about psychoanalysis (<a href="https://github.com/luciangreen/listprologinterpreter/blob/master/mindreadtestpsychiatrist.pl">mindreadtestpsychiatrist.pl</a>).
 
 ### Caution:
 
-follow instructions in https://github.com/luciangreen/listprologinterpreter/blob/master/Instructions_for_Using_texttobr(2).pl.txt when using texttobr, texttobr2 or mind reader to avoid medical problems.
+follow instructions in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/Instructions_for_Using_texttobr(2).pl.txt">Instructions for Using texttobr(2)</a> when using texttobr, texttobr2 or mind reader to avoid medical problems.
 
