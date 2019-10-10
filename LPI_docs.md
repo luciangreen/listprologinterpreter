@@ -2,7 +2,7 @@
 
 * Load List Prolog by downloading the <a href="https://github.com/luciangreen/listprologinterpreter">repository from GitHub</a>.
 
-* Please download and instal <a href="https://www.swi-prolog.org/build/">SWI-Prolog</a> for your machine.
+* Please download and install <a href="https://www.swi-prolog.org/build/">SWI-Prolog</a> for your machine.
 
 * Load the List Prolog Interpreter by typing:
 `['listprolog'].`
@@ -16,7 +16,7 @@ Query - the query,
 Functions - the algorithm,
 Result - the result.
 
-For example:
+* For example:
 ```
 interpret(off,[[n,function],[1,1,[v,c]]],
 [
