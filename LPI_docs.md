@@ -84,7 +84,7 @@ E.g.
 [[n,downpipe],[[v,c122],[v,b],[v,c]]]]]
 ```
 
-* Or, if-then statements may in the form:
+* Or, if-then statements may be in the form:
 
 `[[n,"->"],[Statements1,Statements2,Statements2a]]`
 
@@ -102,7 +102,7 @@ For example:
 # Documentation of Commands
 
 
-* `[[n,cut]]` - behaves like swipl's ! (doesn't allow backtracking past it)
+* `[[n,cut]]` - behaves like swipl's ! (doesn't allow backtracking forward or back past it)
 
 * `[[n,true]]` - behaves like true
 
@@ -171,7 +171,7 @@ test(8,[[n,grammar1],["apple"]],
 
 * Grammars may be recursive (see test 9), i.e. they may repeat until triggering the base case.
 
-* Grammars may have extra arguments, called normally after the other arguments.  The entry and exit string arguments are only used outside the grammar, and can be accessed, e.g.:
+* Grammars may have extra arguments, placed after the other arguments.  The entry and exit string arguments are only used outside the grammar, and can be accessed, e.g.:
 ```
 		  [[n,lookahead],[[v,a],[v,a],[v,b]],":-",
 		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
