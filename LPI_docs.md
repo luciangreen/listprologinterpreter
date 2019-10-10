@@ -169,7 +169,7 @@ test(8,[[n,grammar1],["apple"]],
 
 * In the above example, the word `"apple"` is parsed.  Grammars use `"->"`, not `":-"`.
 
-* Grammars may be recursive (see test 9), i.e. they may repeat until triggering the base case.
+* Grammars may be recursive (see test 9 in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a>), i.e. they may repeat until triggering the base case.
 
 * Grammars may have extra arguments, placed after the other arguments.  The entry and exit string arguments are only used outside the grammar, and can be accessed, e.g.:
 ```
@@ -235,4 +235,4 @@ even though the predicate itself is not a grammar predicate:
 		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
 ```
 
-* Predicates or predicates to modify to provide the function of string to list (test 15), split on character(s) (test 17), `intersection` and `minus` are in `lpiverify4.pl` or in `philosophy/Put in lpiverify`.
+* Predicates or predicates to modify to provide the function of string to list (test 15), split on character(s) (test 17), `intersection` and `minus` are in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a> or in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/philosophy/Put%20in%20lpiverify/he%20should%20identify%20different%20writers%20in%20the%20exposition.pl">plans</a>.
