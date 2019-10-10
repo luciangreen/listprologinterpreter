@@ -30,7 +30,7 @@ interpret(off,[[n,function],[1,1,[v,c]]],
 ```
 
 The result of the query is:
-`Result=[[[[v,c], 2]]]`
+`Result=[[[[v,c], 2]]]`  This is the list of non-deterministic results (i.e. ones that SWI-Prolog would return after pressing `";"`) containing the list of variable values.
 
 
 # Documentation of Body Structures
