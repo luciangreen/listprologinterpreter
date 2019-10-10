@@ -59,7 +59,7 @@ tests the reverse predicate.
 
 # Documentation
 
-See LPI_docs.txt
+See `https://github.com/luciangreen/listprologinterpreter/blob/master/LPI_docs.md`.
 
 # Versioning
 
