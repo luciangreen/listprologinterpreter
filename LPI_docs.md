@@ -11,10 +11,10 @@
 `interpret(Debug,Query,Functions,Result).`
 
 Where:
-Debug - on or off for trace
-Query - the query
-Functions - the algorithm
-Result - the result
+Debug - on or off for trace,
+Query - the query,
+Functions - the algorithm,
+Result - the result.
 
 For example:
 ```
@@ -184,12 +184,12 @@ Note: `":-"`, not `"->"`
 		  [[n,compound212],["","",[v,t],[v,t]]],
 ```
 
-- and a "bottom case" in case it is not at the end of the string, e.g.:
+and a "bottom case" in case it is not at the end of the string, e.g.:
 ```
 		  [[n,compound212],[[v,u],[v,u],[v,t],[v,t]]],
 ```
 
-- given the clause:
+given the clause:
 ```
 		  [[n,compound21],[[v,t],[v,u]],"->",
 		  [[[n,a]],
@@ -226,10 +226,10 @@ E.g.:
 With `commaorrightbracketnext` (which looks ahead for a comma or `"]"`), it doesn't return true in `"a"` of `"ab,c"`
 and goes to `"b"` instead as wanted.
 
-Note, `lookahead` can call a grammar predicate:
+* Note, we can call `lookahead` as a grammar predicate:
 `[[n,lookahead],["ate"]]`
 
-- even though the predicate itself is not a grammar predicate:
+even though the predicate itself is not a grammar predicate:
 ```
 		  [[n,lookahead],[[v,a],[v,a],[v,b]],":-",
 		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
