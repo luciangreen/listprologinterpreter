@@ -155,6 +155,7 @@ interpretpart(append,Variable1,Variable2,Variable3,Vars1,Vars2) :-
         ((debug(on)->(writeln1([fail,[[n,append],[Value1,Value2,variable3]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)),
         val1emptyorvalsequal(Value3,Value3A),
         putvalue(Variable3,Value3A,Vars1,Vars2),!.        	
+
         	
 interpretpart(stringconcat,Terminal,Phrase2,Phrase1,Vars1,Vars2) :-
 	%%Variables1=[Terminal,Phrase1,Phrase2], %% terminal can be v or "a"

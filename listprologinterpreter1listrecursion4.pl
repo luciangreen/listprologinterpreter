@@ -417,14 +417,14 @@ interpretstatement1(_F0,_Functions,[[n,letters],[Variable]],Vars,Vars,true,nocut
                 (debug(on)->(writeln1([exit,[[n,letters],[Value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true).
 
 interpretstatement1(_F0,_Functions,[[n,variable],[Variable]],Vars,Vars,true,nocut) :-
-        var(Variable),
+        isvar(Variable),
                 (debug(on)->(writeln1([call,[[n,variable],[Variable]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
                 (debug(on)->(writeln1([exit,[[n,variable],[Variable]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true).
 
-interpretstatement1(_F0,_Functions,[[n,Operator],[Variable1]],Vars1,Vars2,true,nocut) :-
+/**interpretstatement1(_F0,_Functions,[[n,Operator],[Variable1]],Vars1,Vars2,true,nocut) :-
 	isop(Operator),
 	interpretpart(is,Variable1,Vars1,Vars2),!.
-
+**/
 
 interpretstatement1(_F0,_Functions,[[n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 	isop(Operator),
@@ -449,9 +449,10 @@ interpretstatement1(_F0,_Functions,[[n,Operator],[Variable1,Variable2]],Vars1,Va
 %%writeln1(41),
         %%interpretpart(isplus,Variable1,Variable2,Variable3,Vars1,Vars2).
 
-interpretstatement1(_F0,_Functions,[[n,=],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+/**interpretstatement1(_F0,_Functions,[[n,=],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 %%writeln1(5),
-        interpretpart(match,Variable1,Variable2,Vars1,Vars2).
+        interpretpart(is,Variable1,Variable2,Vars1,Vars2).
+**/
 
 interpretstatement1(_F0,_Functions,[[n,equals1],[Variable1,[Variable2,Variable3]]],Vars1,Vars2,true,nocut) :-
 %%writeln1(5),
@@ -499,6 +500,7 @@ interpretstatement1(_F0,_Functions,[[n,delete],[Variable1,Variable2,Variable3]],
 interpretstatement1(_F0,_Functions,[[n,append],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
 %%writeln1(9),
         interpretpart(append,Variable1,Variable2,Variable3,Vars1,Vars2).
+
 
 interpretstatement1(_F0,_Functions,[[n,stringconcat],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
 %%writeln1(9),
