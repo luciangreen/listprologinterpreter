@@ -72,6 +72,8 @@ For example:
 [[n,is],[[v,a],2]]]]
 ```
 
+A limitation of List Prolog is that multiple clauses should be used rather than "or" to give non-deterministic results.
+
 * If-then statements may either be in the form:
 
 `[[n,"->"],[Statements1,Statements2]]`
