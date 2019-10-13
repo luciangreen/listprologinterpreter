@@ -3,7 +3,7 @@
 %%:- use_module(library(time)).
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=41, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=47, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -1201,7 +1201,7 @@ test(40,[[n,minus1],[[1,2,3],[1,2],[v,a]]],
 test(41,[[n,substring],[[1,2,3,4],[2,3]]],
 
 [
-        [[[n,substring],[[], []]]],
+        [[n,substring],[[], []]],
         [[n,substring],[[],[v,b]],":-",
 	             [[[n,not],[[[n,=],[[v,b],[]]]]],
 	             [[n,fail]]]],
@@ -1222,3 +1222,89 @@ test(41,[[n,substring],[[1,2,3,4],[2,3]]],
         ]]
         
 ],[[]]).
+
+test(42,[[n,or12],[[v,a]]],
+
+[
+        [[n,or12],[1]],
+        [[n,or12],[2]]        
+        
+],[[[[v, a], 1]], [[[v, a], 2]]]).
+
+test(43,[[n,intersection1],[[1,2,3],[3,4,5],[],[v,a]]],
+
+[[[n,intersection1],[[], [v,a], [v,l], [v,l]]],
+[[n,intersection1],[[v,l1], [v,l2], [v,l3a], [v,l3]],":-",
+	[[[n,head],[[v,l1],[v,i1]]],
+	[[n,tail],[[v,l1],[v,l4]]],
+	[[n,intersection2],[[v,i1],[v,l2],[],[v,l5]]],
+	[[n,append],[[v,l3a],[v,l5],[v,l6]]],
+	[[n,intersection1],[[v,l4],[v,l2],[v,l6],[v,l3]]]]],
+[[n,intersection2],[[v,a], [], [v,l], [v,l]]],
+[[n,intersection2],[[v,i1], [v,l1], [v,l2], [v,l3]], ":-",
+	[[[n,head],[[v,l1],[v,i1]]],
+	[[n,tail],[[v,l1],[v,l4]]],
+	[[n,wrap],[[v,i1],[v,i11]]],
+	[[n,append],[[v,l2],[v,i11],[v,l5]]],
+	[[n,intersection2],[[v,i1], [v,l4], [v,l5], [v,l3]]]]],
+[[n,intersection2],[[v,i1], [v,l1], [v,l2], [v,l3]], ":-",
+	[[[n,head],[[v,l1],[v,i2]]],
+	[[n,tail],[[v,l1],[v,l4]]],
+	[[n,not],[[[n,=],[[v,i1],[v,i2]]]]],
+	[[n,intersection2],[[v,i1], [v,l4], [v,l2], [v,l3]]]]]]
+
+,[[[[v,a], [3]]]]).
+
+test(44,[[n,delete2],[[1,1,2],1,[],[v,a]]],
+
+[[[n,delete2],[[], [v,a], [v,l], [v,l]]],
+[[n,delete2],[[v,l1],[v,i1],[v,l2],[v,l3]],":-",
+	[[[n,head],[[v,l1],[v,i1]]],
+	[[n,tail],[[v,l1],[v,l5]]],
+	[[n,delete2],[[v,l5],[v,i1],[v,l2],[v,l3]]]]],
+[[n,delete2],[[v,l1],[v,i1],[v,l2],[v,l3]],":-",
+	[[[n,head],[[v,l1],[v,i2]]],
+	[[n,tail],[[v,l1],[v,l5]]],
+	[[n,not],[[[n,=],[[v,i1],[v,i2]]]]],
+	[[n,wrap],[[v,i2],[v,i21]]],
+	[[n,append],[[v,l2],[v,i21],[v,l6]]],
+	[[n,delete2],[[v,l5],[v,i1],[v,l6],[v,l3]]]]]]
+	
+,[[[[v,a], [2]]]]).
+
+%% confidence - when a person produces a certain amount of work, they will be fulfilled
+
+test(45,[[n,greaterthan],[3,2]],
+
+[
+[[n,greaterthan],[[v,a],[v,b]],":-",
+        [[[n,>],[[v,a],[v,b]]]]]
+        
+],[[]]).
+
+%% did - check a box true
+
+test(46,[[n,conjunction],["true","false",[v,c]]],
+
+[
+[[n,conjunction],["true","true","true"]],
+[[n,conjunction],[[v,a],[v,b],"false"],":-",
+	[[[n,not],[[[[n,=],[[v,a],"true"]],
+	[[n,=],[[v,b],"true"]]]]]]]]
+        
+,[[[[v,c], "false"]]]).
+
+%% have - I had the collection of 1D items
+
+test(47,[[n,sum],[[3,1,2],0,[v,l]]],
+[
+        [[n,sum],[[],[v,l],[v,l]]],
+        [[n,sum],[[v,l],[v,m1],[v,n]],":-",
+        [       [[n,not],[[[n,=],[[v,l],[]]]]],
+                [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,+],[[v,m1],[v,h],[v,m2]]],
+                [[n,sum],[[v,t],[v,m2],[v,n]]]
+        ]
+        ]
+],[[[[v,l], 6]]]).
