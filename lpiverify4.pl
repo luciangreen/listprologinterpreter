@@ -3,7 +3,7 @@
 %%:- use_module(library(time)).
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=47, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=49, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -1308,3 +1308,62 @@ test(47,[[n,sum],[[3,1,2],0,[v,l]]],
         ]
         ]
 ],[[[[v,l], 6]]]).
+
+test(48,[[n,sort0],[[9,4,8,2,1,5,7,6,3,10],[v,l]]],
+[
+        [[n,sort0],[[v,l],[v,n]],":-",
+        [       [[n,sort1],[[v,l],[],[v,n]]]
+        ]
+        ],
+        [[n,sort1],[[],[v,l],[v,l]]],
+        [[n,sort1],[[v,l],[v,m1],[v,n]],":-",
+        [       [[n,not],[[[n,=],[[v,l],[]]]]],
+                [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,maximum],[[v,t],[v,h],[v,m2],[],[v,r]]],
+                [[n,wrap],[[v,m2],[v,m3]]],
+                [[n,append],[[v,m1],[v,m3],[v,m4]]],
+                [[n,sort1],[[v,r],[v,m4],[v,n]]]
+        ]
+        ],
+        [[n,maximum],[[],[v,l],[v,l],[v,r],[v,r]]],
+        [[n,maximum],[[v,l],[v,m1],[v,n],[v,r1],[v,r2]],":-",
+        [       [[n,not],[[[n,=],[[v,l],[]]]]],
+                [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,"->"],[[[n,>=],[[v,m1],[v,h]]],
+                        [[[n,=],[[v,m2],[v,m1]]],
+                        [[n,wrap],[[v,h],[v,h2]]],
+                        [[n,append],[[v,r1],[v,h2],[v,r3]]]],
+                        [[[[n,=],[[v,m2],[v,h]]]],
+                        [[n,wrap],[[v,m1],[v,m12]]],
+                        [[n,append],[[v,r1],[v,m12],[v,r3]]]]]],
+                [[n,maximum],[[v,t],[v,m2],[v,n],[v,r3],[v,r2]]]
+        ]
+        ]
+],[[[[v,l], [10,9,8,7,6,5,4,3,2,1]]]]).
+
+test(49,[[n,maximum0],[[2,1,3,5,-1],[v,m]]],
+[
+        [[n,maximum0],[[v,l],[v,m]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,maximum],[[v,t],[v,h],[v,m],[],[v,r]]]
+        ]
+        ],
+        [[n,maximum],[[],[v,l],[v,l],[v,r],[v,r]]],
+        [[n,maximum],[[v,l],[v,m1],[v,n],[v,r1],[v,r2]],":-",
+        [       [[n,not],[[[n,=],[[v,l],[]]]]],
+                [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,"->"],[[[n,>=],[[v,m1],[v,h]]],
+                        [[[n,=],[[v,m2],[v,m1]]],
+                        [[n,wrap],[[v,h],[v,h2]]],
+                        [[n,append],[[v,r1],[v,h2],[v,r3]]]],
+                        [[[[n,=],[[v,m2],[v,h]]]],
+                        [[n,wrap],[[v,m1],[v,m12]]],
+                        [[n,append],[[v,r1],[v,m12],[v,r3]]]]]],
+                [[n,maximum],[[v,t],[v,m2],[v,n],[v,r3],[v,r2]]]
+        ]
+        ]
+],[[[[v,m], 5]]]).
