@@ -1,3 +1,5 @@
+:- use_module(library(date)).
+
 :- dynamic debug/1.
 :- dynamic cut/1.
 :- dynamic leash1/1.
@@ -503,7 +505,6 @@ interpretstatement1(_F0,_Functions,[[n,append],[Variable1,Variable2,Variable3]],
 
 
 interpretstatement1(_F0,_Functions,[[n,stringconcat],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
-%%writeln1(9),
         interpretpart(stringconcat,Variable1,Variable2,Variable3,Vars1,Vars2).
 
 /**interpretstatement1(_F0,_Functions,[[n,grammar_part]|Variables1],Vars1,Vars2,true,nocut) :-
@@ -512,8 +513,10 @@ interpretstatement1(_F0,_Functions,[[n,stringconcat],[Variable1,Variable2,Variab
         interpretpart(grammar_part,Variables2,Vars1,Vars2),!.**/
 
 interpretstatement1(_F0,_Functions,[[n,stringtonumber],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
-%%writeln1(52), wrap
         interpretpart(stringtonumber,Variable1,Variable2,Vars1,Vars2).
+
+interpretstatement1(_F0,_Functions,[[n,date],[Year,Month,Day,Hour,Minute,Seconds]],Vars1,Vars2,true,nocut) :-
+        interpretpart(date,Year,Month,Day,Hour,Minute,Seconds,Vars1,Vars2).
 
 /***
 interpretstatement1(Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-

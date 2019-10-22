@@ -1062,7 +1062,7 @@ test(32,[[n,or11],[1]],
         
 ],[[]]).
 
-%% Starts at 3, decreases given a or b until 1
+%% Starts at 3, decreases given the lesser of A or B until reaching 1.
 
 test(33,[[n,downpipe],[3,1,[[3,[4,2]],[2,[3,1]]]]],
 
@@ -1309,6 +1309,8 @@ test(47,[[n,sum],[[3,1,2],0,[v,l]]],
         ]
 ],[[[[v,l], 6]]]).
 
+%% I see to sort
+
 test(48,[[n,sort0],[[9,4,8,2,1,5,7,6,3,10],[v,l]]],
 [
         [[n,sort0],[[v,l],[v,n]],":-",
@@ -1343,6 +1345,8 @@ test(48,[[n,sort0],[[9,4,8,2,1,5,7,6,3,10],[v,l]]],
         ]
 ],[[[[v,l], [10,9,8,7,6,5,4,3,2,1]]]]).
 
+%% the aim of going to a place is reaching local maximum height
+
 test(49,[[n,maximum0],[[2,1,3,5,-1],[v,m]]],
 [
         [[n,maximum0],[[v,l],[v,m]],":-",
@@ -1367,3 +1371,32 @@ test(49,[[n,maximum0],[[2,1,3,5,-1],[v,m]]],
         ]
         ]
 ],[[[[v,m], 5]]]).
+
+%% the tutor gave the mark for either answer
+
+test(50,[[n,disjunction],["true","false",[v,c]]],
+
+[
+[[n,disjunction],["false","false","false"]],
+[[n,disjunction],[[v,a],[v,b],"true"],":-",
+	[[[n,not],[[[[n,=],[[v,a],"false"]],
+	[[n,=],[[v,b],"false"]]]]]]]]
+        
+,[[[[v,c], "true"]]]).
+
+test(51,[[n,expressionnotheadache],["true",[v,c]]],
+
+[
+[[n,expressionnotheadache],["true","true"]],
+[[n,expressionnotheadache],[[v,a],"false"],":-",
+	[[[n,not],[[[[n,=],[[v,a],"true"]]]]]]] ]       
+,[[[[v,c], "true"]]]).
+
+test(52,[[n,mainrole],[7,[v,c]]],
+
+[
+[[n,mainrole],[7,"mainrole"]],
+[[n,mainrole],[[v,shortcourses],"false"],":-",
+	[[[n,not],[[[[n,=],[[v,shortcourses],7]]]]]]] ]       
+,[[[[v,c], "mainrole"]]]).
+

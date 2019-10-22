@@ -1,0 +1,781 @@
+1. Pedagogy - Two Uses - Write Original Algorithms and Arguments
+
+1. Write Original Algorithms and Arguments
+
+Example:
+Fred copied someone 
+
+Fred attended the lectures and tutorials in Computer Science, he was new to first year. He did not have the confidence to see the tutor. It was nearing the deadline of the assignment. He asked if he could borrow his friend's work, but the lecturer caught him. 
+
+Schepisi did not copy 
+
+Schepisi was in second year. He had a good basis of knowledge from programming his computer as a child. He started early and earned a high distinction.
+
+Description:
+Splits on a new line and returns the number of duplicate lines.
+
+Algorithm:
+test(25,[[n,grammar1],["aaa1 ,-'\na\nb\nb\n",
+"aaa1 ,-'\na\nb\na",
+[v,s]]],
+
+[
+		  [[n,grammar1],[[v,u],[v,t],[v,s]],":-",
+		  [
+		  			 [[n,compound21],[[v,u],"",[],[v,u1]]],
+		  			 [[n,compound21],[[v,t],"",[],[v,t1]]],
+		  			 [[n,positivityscore],[[v,u1],[v,t1],0,[v,s]]]
+		  ]
+		  ],
+
+		  [[n,compound212],["","",[v,t],[v,t]]],
+
+		  [[n,compound212],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,compound21],[[v,t],[v,u]],"->",
+		  [[[n,item],[[v,i]]],
+		  [[n,code],
+		  [[n,wrap],[[v,i],[v,itemname1]]],
+		  [[n,append],[[v,t],[v,itemname1],[v,v]]]],
+		  [[n,compound212],[[v,v],[v,u]]]]],
+
+		  [[n,compound21],[[v,t],[v,u]],"->",
+		  [[[n,item],[[v,i]]],
+		  [[n,compound21],[[],[v,compound1name]]],
+		  [[n,code],
+		  [[n,wrap],[[v,i],[v,itemname1]]],
+		  [[n,append],[[v,t],[v,itemname1],[v,v]]],
+		  [[n,append],[[v,v],[v,compound1name],[v,u]]]]]],
+
+		  [[n,item],[[v,t]],"->",[[[n,word21],["",[v,t]]]]],
+
+		  [[n,item],[[v,t]],"->",[[[n,compound],[[],[v,t]]]]],
+
+		  [[n,word212],["","",[v,t],[v,t]]],
+
+		  [[n,word212],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,word21],[[v,t],[v,u]],"->",
+		  [[v,b],
+		  [[n,code],
+		  [[n,finalchar],[[v,b]]]
+		  ],
+		  [[n,word212],[[v,t],[v,u]]]]],
+
+		  [[n,word21],[[v,t],[v,u]],"->",
+		  [[v,a],
+		  [[n,code],[[n,not],[[[n,=],[[v,a],"\n"]]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word21],["",[v,wordstring]]],
+		  [[n,code],
+		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]],
+
+		  [[n,finalchar],[[v,c]],":-",
+		  [[[n,=],[[v,c],"\n"]]]],
+		  
+		  [[n,finalchar],[[v,c]],":-",
+		  [[[n,=],[[v,c],""]]]],
+
+        [[n,positivityscore],[[],[v,l],[v,s],[v,s]]],
+        [[n,positivityscore],[[v,l],[v,m],[v,s1],[v,s2]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,member],[[v,m],[v,h]]],
+                [[n,"->"],[[[n,deletea2],[[v,m],[v,h],[v,m1]]],
+                [[n,true]],
+                [[n,=],[[v,m],[v,m1]]]]],
+                [[n,+],[[v,s1],1,[v,s3]]],
+                [[n,positivityscore],[[v,t],[v,m1],[v,s3],
+                	[v,s2]]]
+        ]],
+        
+        [[n,positivityscore],[[v,l],[v,m],[v,s1],[v,s2]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,not],[[[n,membera3],[[v,m],[v,h]]]]],
+                [[n,positivityscore],[[v,t],[v,m],[v,s1],
+                	[v,s2]]]]],
+                	
+        [[n,deletea2],[[],[v,l],[v,m1]],":-",[[[n,fail]]]],
+        [[n,deletea2],[[v,l],[v,m],[v,t]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,=],[[v,m],[v,h]]]
+                ]],
+                
+        [[n,deletea2],[[v,l],[v,m],[v,m1]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,not],[[[n,=],[[v,m],[v,h]]]]],
+                [[n,deletea2],[[v,t],[v,m],[v,m1]]]
+        ]],
+        
+        [[n,membera3],[[],[v,l]],":-",[[[n,fail]]]],
+        [[n,membera3],[[v,l],[v,m]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[[n,=],[[v,m],[v,h]]]]
+        ]],
+        
+        [[n,membera3],[[v,l],[v,m]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,not],[[[[n,=],[[v,m],[v,h]]]]]],
+                [[n,membera3],[[v,t],[v,m]]]
+        ]]
+
+],[[[[v,s],3]]]).
+
+
+2. Splits - Split into Sentences
+
+Example:
+The student was asked to write an algorithm to split a string into sentences.
+
+Description:
+Splits a string on a full stop, exclamation mark or question mark.
+
+Algorithm:
+test(17,[[n,grammar1],["aaa1 ,-'! a? b! b.",[v,t]]],
+[
+		  [[n,grammar1],[[v,u],[v,t]],":-",
+		  [
+		  			 [[n,compound21],[[v,u],"",[],[v,t]]]
+		  ]
+		  ],
+
+		  [[n,compound213],["","",[v,t],[v,t]]],
+
+		  [[n,compound213],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,compound],[[v,t],[v,u]],"->",
+		  [[[n,compound21],[[v,t],[v,v]]],
+		  [[n,compound213],[[v,v],[v,u]]]]],
+
+		  [[n,compound212],["","",[v,t],[v,t]]],
+
+		  [[n,compound212],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,compound21],[[v,t],[v,u]],"->",
+		  [[[n,item],[[v,i]]],
+		  [[n,code],
+		  [[n,wrap],[[v,i],[v,itemname1]]],
+		  [[n,append],[[v,t],[v,itemname1],[v,v]]]],
+		  [[n,compound212],[[v,v],[v,u]]]]],
+
+		  [[n,compound21],[[v,t],[v,u]],"->",
+		  [[[n,item],[[v,i]]]," ",
+		  [[n,compound21],[[],[v,compound1name]]],
+		  [[n,code],
+		  [[n,wrap],[[v,i],[v,itemname1]]],
+		  [[n,append],[[v,t],[v,itemname1],[v,v]]],
+		  [[n,append],[[v,v],[v,compound1name],[v,u]]]]]],
+
+		  [[n,item],[[v,t]],"->",[[[n,word21],["",[v,t]]]]],
+
+		  [[n,item],[[v,t]],"->",[[[n,compound],[[],[v,t]]]]],
+
+		  [[n,word212],["","",[v,t],[v,t]]],
+
+		  [[n,word212],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,word21],[[v,t],[v,u]],"->",
+		  [[v,a],[v,b],
+		  [[n,code],[[n,sentencechars],[[v,a]]],
+		  [[n,finalchar],[[v,b]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v1]]],
+		  [[n,stringconcat],[[v,v1],[v,b],[v,v]]]],
+		  [[n,word212],[[v,v],[v,u]]]]],
+
+		  [[n,word21],[[v,t],[v,u]],"->",
+		  [[v,a],
+		  [[n,code],[[n,sentencechars],[[v,a]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word21],["",[v,wordstring]]],
+		  [[n,code],
+		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]],
+		  
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,letters],[[v,c]]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[[n,stringtonumber],[[v,c],[v,n]]],
+		  [[n,number],[[v,n]]]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,=],[[v,c]," "]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,=],[[v,c],","]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,=],[[v,c],"-"]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,=],[[v,c],"'"]]]],
+		  
+		  [[n,finalchar],[[v,c]],":-",
+		  [[[n,=],[[v,c],"."]]]],
+
+		  [[n,finalchar],[[v,c]],":-",
+		  [[[n,=],[[v,c],"!"]]]],
+
+		  [[n,finalchar],[[v,c]],":-",
+		  [[[n,=],[[v,c],"?"]]]]
+
+],[[[[v,t],["aaa1 ,-'!","a?","b!","b."]]]]).
+
+
+3. On - Modus Ponens
+
+Example:
+Upon event A occurring, event B occurs.
+
+Description:
+Given A and A->B, returns B.
+
+Algorithm:
+test(24,[[n,modus_ponens],["a",[["a","b"],["c","d"],["e","f"]],[v,s]]],
+
+[
+        [[n,modus_ponens],[[v,a],[v,ab],[v,b]],":-",
+        [       [[n,member2],[[v,ab],[v,ab1]]],
+                [[n,equals1],[[v,ab1],[[v,a],[v,b]]]]
+        ]]
+        
+],[[[[v,s],"b"]]]).
+
+
+4. A - Plus
+
+Example:
+Given two groups of one type of item, we can add their quantities.
+
+Description:
+Given A and B, returns C=A+B.
+
+Algorithm:
+test(1,[[n,function],[1,1,[v,c]]],
+[
+        [[n,function],[[v,a],[v,b],[v,c]],":-",
+        [
+                [[n,+],[[v,a],[v,b],[v,c]]]
+        ]
+        ]
+]
+,[[[[v,c], 2]]]).
+
+
+5. New - Append
+
+Example:
+A new thing can come from two old things.
+
+Description:
+Given two lists, appends them to form one list.
+
+Algorithm:
+test(26,[[n,append1],[["a"],["b"],[v,s]]],
+
+[
+        [[n,append1],[[v,a],[v,b],[v,s]],":-",
+        [       [[n,append],[[v,a],[v,b],[v,s]]]
+        ]]
+        
+],[[[[v,s],["a","b"]]]]).
+
+
+6. Line - Equals
+
+Example:
+Two items join to form a line if they are equal type.
+
+Description:
+Determines that two values are equal.
+
+Algorithm:
+test(27,[[n,equals11],["a","a"]],
+
+[
+        [[n,equals11],[[v,a],[v,a]]]
+        
+],[[]]).
+
+
+7. Number - Number
+
+Example:
+The shopper determined that the value of her shopping budget was a number.
+
+Description:
+Verifies that a value is a number.
+
+Algorithm:
+test(28,[[n,number11],[1]],
+
+[
+        [[n,number11],[[v,a]],":-",
+        [       [[n,number],[[v,a]]]
+        ]]
+        
+],[[]]).
+
+
+8. Fred - Down Pipe
+
+Example:
+The 
+
+Description:
+Starts at 3, decreases given the lesser of A or B until reaching 1.
+
+Algorithm:
+test(33,[[n,downpipe],[3,1,[[3,[4,2]],[2,[3,1]]]]],
+
+[
+        [[n,downpipe],[[v,a],[v,a],[v,b]]],
+        [[n,downpipe],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,member2],[[v,c],[v,c1]]],
+                [[n,equals1],[[v,c1],[[v,c11],[v,c12]]]],
+                [[n,equals1],[[v,c12],[[v,c121],[v,c122]]]],
+                [[n,"->"],[[[n,>],[[v,a],[v,c121]]],
+                [[n,downpipe],[[v,c121],[v,b],[v,c]]],
+                [[n,"->"],[[[n,>],[[v,a],[v,c122]]],
+                        [[n,downpipe],[[v,c122],[v,b],[v,c]]],
+                        [[n,fail]]]]]]
+        ]]
+        
+],[[]]).
+
+
+9. Copied - Get Item N
+
+Example:
+Get item N and copies it.
+
+Description:
+Gets item N from a list.
+
+Algorithm:
+test(34,[[n,getitemn],[3,[1,2,3],[v,c]]],
+
+[
+        [[n,getitemn],[1,[v,b],[v,c]],":-",
+        [       [[n,head],[[v,b],[v,c]]]
+        ]],
+        [[n,getitemn],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,not],[[[n,=],[[v,a],0]]]],
+                [[n,tail],[[v,b],[v,t]]],
+                [[n,-],[[v,a],1,[v,d]]],
+                [[n,getitemn],[[v,d],[v,t],[v,c]]]
+        ]]
+        
+],[[[[v,c],3]]]).
+
+
+10. Someone - Commutative
+
+Example:
+Which ever order the boys laid on the ground end to end, they had the same total height.
+
+Description:
+Verifies that A+B and B+A are commutative.
+
+Algorithm:
+
+test(35,[[n,commutative],[1,2]],
+
+[
+        [[n,commutative],[[v,a],[v,b]],":-",
+        [       [[n,+],[[v,a],[v,b],[v,c]]],
+                [[n,+],[[v,b],[v,a],[v,c]]]
+        ]]
+        
+],[[]]).
+
+
+11. Attended - Associative
+
+Example:
+Which ever orientation the delegates with the same dimensions had, they had the same volume (where volume equals width*depth*height).
+
+Description:
+(A*B)*C and A*(B*C) are associative because they have equal value.
+
+Algorithm:
+test(36,[[n,associative],[1,2,3]],
+
+[
+        [[n,associative],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,*],[[v,a],[v,b],[v,d]]],
+                [[n,*],[[v,d],[v,c],[v,e]]],
+                [[n,*],[[v,b],[v,c],[v,f]]],
+                [[n,*],[[v,f],[v,a],[v,e]]]
+        ]]
+        
+],[[]]).
+
+
+12. Lectures - Length 
+
+Example:
+The audience size was the length of the list of members of the audience.
+
+Description:
+Returns the number of items (length of) the list.
+
+Algorithm:
+test(37,[[n,length],[[1],0,[v,l]]],
+[
+        [[n,length],[[],[v,l],[v,l]]],
+        [[n,length],[[v,l],[v,m1],[v,n]],":-",
+        [       [[n,not],[[[n,=],[[v,l],[]]]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,+],[[v,m1],1,[v,m2]]],
+                [[n,length],[[v,t],[v,m2],[v,n]]]
+        ]
+        ]
+],[[[[v,l], 1]]]).
+
+
+13. Tutorials - Optimise/Differences Equal
+
+Example:
+The student replaced the recurring calculation with a constant that the calculation equalled.
+
+Description:
+Are the differences between A and B, and C and D, etc. equal, enabling them to be replaced with a constant?
+
+Algorithm:
+test(38,[[n,optimise1],[[[5,4],[3,2],[1,0]],[v,d]]],
+
+[
+        [[n,optimise1],[[v,a],[v,b]],":-",
+        [       [[n,head],[[v,a],[v,h]]],
+                [[n,tail],[[v,a],[v,t]]],
+                [[n,equals1],[[v,h],[[v,h1],[v,h2]]]],
+                [[n,-],[[v,h1],[v,h2],[v,b]]],
+                [[n,"->"],[[[n,not],[[[n,=],[[v,t],[]]]]],
+                [[n,optimise1],[[v,t],[v,b]]],
+                [[n,true]]]]
+        ]]
+        
+],[[[[v,d], 1]]]).
+
+
+14. Computer - Member
+
+Example:
+The student checked that the answer was correct.
+
+Description:
+Returns whether an item is in a list.
+
+Algorithm:
+test(39,[[n,member1a],[1,[1,2]]],
+
+[[[n,member1a],[[v,i1],[v,l]], ":-",
+	[[[n,intersection2],[[v,i1],[v,l],[],[v,m]]]]],
+[[n,intersection2],[[v,a], [], [v,l], [v,l]]],
+[[n,intersection2],[[v,i1], [v,l1], [v,l2], [v,l3]], ":-",
+	[[[n,head],[[v,l1],[v,i1]]],
+	[[n,tail],[[v,l1],[v,l4]]],
+	[[n,wrap],[[v,i1],[v,i11]]],
+	[[n,append],[[v,l2],[v,i11],[v,l5]]],
+	[[n,intersection2],[[v,i1], [v,l4], [v,l5], [v,l3]]]]],
+[[n,intersection2],[[v,i1], [v,l1], [v,l2], [v,l3]], ":-",
+	[[[n,head],[[v,l1],[v,i2]]],
+	[[n,tail],[[v,l1],[v,l4]]],
+	[[n,not],[[[n,=],[[v,i1],[v,i2]]]]],
+	[[n,intersection2],[[v,i1], [v,l4], [v,l2], [v,l3]]]]]]
+,[[]]).
+
+
+15. Science - Minus
+
+Example:
+The scientist found the remaining items.
+
+Description: Subtracting [1,2] from [1,2,3] returns [3].
+
+Algorithm:
+test(40,[[n,minus1],[[1,2,3],[1,2],[v,a]]],
+
+[[[n,minus1],[[v,l], [], [v,l]]],
+[[n,minus1],[[v,l1], [v,l2], [v,l3]],":-",
+	[[[n,head],[[v,l2],[v,i1]]],
+	[[n,tail],[[v,l2],[v,l5]]],
+	[[n,delete2],[[v,l1],[v,i1],[],[v,l6]]],
+	[[n,minus1],[[v,l6], [v,l5], [v,l3]]]]],
+[[n,delete2],[[], [v,a], [v,l], [v,l]]],
+[[n,delete2],[[v,l1],[v,i1],[v,l2],[v,l3]],":-",
+	[[[n,head],[[v,l1],[v,i1]]],
+	[[n,tail],[[v,l1],[v,l5]]],
+	[[n,delete2],[[v,l5],[v,i1],[v,l2],[v,l3]]]]],
+[[n,delete2],[[v,l1],[v,i1],[v,l2],[v,l3]],":-",
+	[[[n,head],[[v,l1],[v,i2]]],
+	[[n,tail],[[v,l1],[v,l5]]],
+	[[n,not],[[[n,=],[[v,i1],[v,i2]]]]],
+	[[n,wrap],[[v,i2],[v,i21]]],
+	[[n,append],[[v,l2],[v,i21],[v,l6]]],
+	[[n,delete2],[[v,l5],[v,i1],[v,l6],[v,l3]]]]]]
+	
+,[[[[v,a], [3]]]]).
+
+
+16. He - Substring
+
+Example:
+He needed to verify that the task sequence was completed.
+
+Description:
+Returns true if e.g. the substring [2,3] is part of the string [1,2,3,4].
+
+Algorithm:
+test(41,[[n,substring],[[1,2,3,4],[2,3]]],
+
+[
+        [[n,substring],[[], []]],
+        [[n,substring],[[],[v,b]],":-",
+	             [[[n,not],[[[n,=],[[v,b],[]]]]],
+	             [[n,fail]]]],
+        [[n,substring],[[v,a],[v,b]],":-",
+                [[[n,head],[[v,a],[v,ah]]],
+                [[n,tail],[[v,a],[v,at]]],
+                [[n,"->"],[[[n,listhead],[[v,at],[v,bt]]],
+                        [[n,true]],
+                        [[n,substring],[[v,at],[v,b]]]]]]],
+
+        [[n,listhead],[[], [v,l]]],
+        [[n,listhead],[[v,a],[v,b]],":-",
+                [[[n,head],[[v,a],[v,ah]]],
+                [[n,tail],[[v,a],[v,at]]],
+                [[n,head],[[v,b],[v,ah]]],
+                [[n,tail],[[v,b],[v,bt]]],
+                [[n,listhead],[[v,at],[v,bt]]]
+        ]]
+        
+],[[]]).
+
+
+17. Was - Intersection
+
+Example:
+The list to check contained an item from the time.
+
+Description:
+The intersection of [1,2,3] and [3,4,5] was [3].
+
+Algorithm:
+test(43,[[n,intersection1],[[1,2,3],[3,4,5],[],[v,a]]],
+
+[[[n,intersection1],[[], [v,a], [v,l], [v,l]]],
+[[n,intersection1],[[v,l1], [v,l2], [v,l3a], [v,l3]],":-",
+	[[[n,head],[[v,l1],[v,i1]]],
+	[[n,tail],[[v,l1],[v,l4]]],
+	[[n,intersection2],[[v,i1],[v,l2],[],[v,l5]]],
+	[[n,append],[[v,l3a],[v,l5],[v,l6]]],
+	[[n,intersection1],[[v,l4],[v,l2],[v,l6],[v,l3]]]]],
+[[n,intersection2],[[v,a], [], [v,l], [v,l]]],
+[[n,intersection2],[[v,i1], [v,l1], [v,l2], [v,l3]], ":-",
+	[[[n,head],[[v,l1],[v,i1]]],
+	[[n,tail],[[v,l1],[v,l4]]],
+	[[n,wrap],[[v,i1],[v,i11]]],
+	[[n,append],[[v,l2],[v,i11],[v,l5]]],
+	[[n,intersection2],[[v,i1], [v,l4], [v,l5], [v,l3]]]]],
+[[n,intersection2],[[v,i1], [v,l1], [v,l2], [v,l3]], ":-",
+	[[[n,head],[[v,l1],[v,i2]]],
+	[[n,tail],[[v,l1],[v,l4]]],
+	[[n,not],[[[n,=],[[v,i1],[v,i2]]]]],
+	[[n,intersection2],[[v,i1], [v,l4], [v,l2], [v,l3]]]]]]
+
+,[[[[v,a], [3]]]]).
+
+
+18. Year - Delete
+
+Example:
+The first year student backed up the work before deleting it from the disk.
+
+Description:
+The student deleted all instances of 1 from [1,1,2], leaving [2].
+
+Algorithm:
+test(44,[[n,delete2],[[1,1,2],1,[],[v,a]]],
+
+[[[n,delete2],[[], [v,a], [v,l], [v,l]]],
+[[n,delete2],[[v,l1],[v,i1],[v,l2],[v,l3]],":-",
+	[[[n,head],[[v,l1],[v,i1]]],
+	[[n,tail],[[v,l1],[v,l5]]],
+	[[n,delete2],[[v,l5],[v,i1],[v,l2],[v,l3]]]]],
+[[n,delete2],[[v,l1],[v,i1],[v,l2],[v,l3]],":-",
+	[[[n,head],[[v,l1],[v,i2]]],
+	[[n,tail],[[v,l1],[v,l5]]],
+	[[n,not],[[[n,=],[[v,i1],[v,i2]]]]],
+	[[n,wrap],[[v,i2],[v,i21]]],
+	[[n,append],[[v,l2],[v,i21],[v,l6]]],
+	[[n,delete2],[[v,l5],[v,i1],[v,l6],[v,l3]]]]]]
+	
+,[[[[v,a], [2]]]]).
+
+
+19. Did - Conjunction
+
+Example:
+The doer checked a box for the conjunction of events.
+
+Description:
+The conjunction of A and B is only true when A = true and B = true.
+
+Algorithm:
+test(46,[[n,conjunction],["true","false",[v,c]]],
+
+[
+[[n,conjunction],["true","true","true"]],
+[[n,conjunction],[[v,a],[v,b],"false"],":-",
+	[[[n,not],[[[[n,=],[[v,a],"true"]],
+	[[n,=],[[v,b],"true"]]]]]]]]
+        
+,[[[[v,c], "false"]]]).
+
+
+20. Have - Sum
+
+Example:
+I had the collection of items of certain heights.
+
+Description:
+The sum of the items in [3,1,2] equals 6.
+
+Algorithm:
+test(47,[[n,sum],[[3,1,2],0,[v,l]]],
+[
+        [[n,sum],[[],[v,l],[v,l]]],
+        [[n,sum],[[v,l],[v,m1],[v,n]],":-",
+        [       [[n,not],[[[n,=],[[v,l],[]]]]],
+                [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,+],[[v,m1],[v,h],[v,m2]]],
+                [[n,sum],[[v,t],[v,m2],[v,n]]]
+        ]
+        ]
+],[[[[v,l], 6]]]).
+
+
+21. Confidence - Greater Than
+
+Example:
+Confidence is shown when a person produces a certain amount of work.
+
+Description:
+A is greater than B, e.g. 3 > 2.
+
+Algorithm:
+test(45,[[n,greaterthan],[3,2]],
+
+[
+[[n,greaterthan],[[v,a],[v,b]],":-",
+        [[[n,>],[[v,a],[v,b]]]]]
+        
+],[[]]).
+
+
+22. To - Maximum
+
+Example:
+The aim of going to a place is reaching the maximum height.
+
+Description:
+The maximum of [2,1,3,5,-1] equals 5.
+
+Algorithm:
+test(49,[[n,maximum0],[[2,1,3,5,-1],[v,m]]],
+[
+        [[n,maximum0],[[v,l],[v,m]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,maximum],[[v,t],[v,h],[v,m],[],[v,r]]]
+        ]
+        ],
+        [[n,maximum],[[],[v,l],[v,l],[v,r],[v,r]]],
+        [[n,maximum],[[v,l],[v,m1],[v,n],[v,r1],[v,r2]],":-",
+        [       [[n,not],[[[n,=],[[v,l],[]]]]],
+                [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,"->"],[[[n,>=],[[v,m1],[v,h]]],
+                        [[[n,=],[[v,m2],[v,m1]]],
+                        [[n,wrap],[[v,h],[v,h2]]],
+                        [[n,append],[[v,r1],[v,h2],[v,r3]]]],
+                        [[[[n,=],[[v,m2],[v,h]]]],
+                        [[n,wrap],[[v,m1],[v,m12]]],
+                        [[n,append],[[v,r1],[v,m12],[v,r3]]]]]],
+                [[n,maximum],[[v,t],[v,m2],[v,n],[v,r3],[v,r2]]]
+        ]
+        ]
+],[[[[v,m], 5]]]).
+
+
+23. See - Sort
+
+Example:
+The student looked at the items to sort them.
+
+Description:
+The student sorted the list from highest to lowest value.
+
+Algorithm:
+test(48,[[n,sort0],[[9,4,8,2,1,5,7,6,3,10],[v,l]]],
+[
+        [[n,sort0],[[v,l],[v,n]],":-",
+        [       [[n,sort1],[[v,l],[],[v,n]]]
+        ]
+        ],
+        [[n,sort1],[[],[v,l],[v,l]]],
+        [[n,sort1],[[v,l],[v,m1],[v,n]],":-",
+        [       [[n,not],[[[n,=],[[v,l],[]]]]],
+                [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,maximum],[[v,t],[v,h],[v,m2],[],[v,r]]],
+                [[n,wrap],[[v,m2],[v,m3]]],
+                [[n,append],[[v,m1],[v,m3],[v,m4]]],
+                [[n,sort1],[[v,r],[v,m4],[v,n]]]
+        ]
+        ],
+        [[n,maximum],[[],[v,l],[v,l],[v,r],[v,r]]],
+        [[n,maximum],[[v,l],[v,m1],[v,n],[v,r1],[v,r2]],":-",
+        [       [[n,not],[[[n,=],[[v,l],[]]]]],
+                [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,"->"],[[[n,>=],[[v,m1],[v,h]]],
+                        [[[n,=],[[v,m2],[v,m1]]],
+                        [[n,wrap],[[v,h],[v,h2]]],
+                        [[n,append],[[v,r1],[v,h2],[v,r3]]]],
+                        [[[[n,=],[[v,m2],[v,h]]]],
+                        [[n,wrap],[[v,m1],[v,m12]]],
+                        [[n,append],[[v,r1],[v,m12],[v,r3]]]]]],
+                [[n,maximum],[[v,t],[v,m2],[v,n],[v,r3],[v,r2]]]
+        ]
+        ]
+],[[[[v,l], [10,9,8,7,6,5,4,3,2,1]]]]).
+
+
+24. Tutor - Disjunction
+
+Example:
+The tutor gave the mark for either answer.
+
+Description:
+The disjunction of A and B is only true when A = true or B = true.
+
+Algorithm:
+test(50,[[n,disjunction],["true","false",[v,c]]],
+
+[
+[[n,disjunction],["false","false","false"]],
+[[n,disjunction],[[v,a],[v,b],"true"],":-",
+	[[[n,not],[[[[n,=],[[v,a],"false"]],
+	[[n,=],[[v,b],"false"]]]]]]]]
+        
+,[[[[v,c], "true"]]]).
+
+

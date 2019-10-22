@@ -2,6 +2,7 @@
 :- include('listprologinterpreter1listrecursion4.pl').
 :- include('listprologinterpreter3preds5.pl').
 :- include('lpiverify4.pl').
+:- include('lpiverify4_open.pl').
 %%:- include('caw5 copy 12.pl').
 %%:- include('cawpverify.pl').
 %%:- include('rcawp.pl').
