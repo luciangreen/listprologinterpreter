@@ -284,7 +284,7 @@ test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
 * The user may optionally enter types after the query. The following type statement tests number, string and predicate name types.
 
 ```
-test_types_cases(2,[[n,function],[1,"a",[n,a]]],
+test_types_cases(2,[[n,function],[[v,a],[v,b],[v,c]]],
 [[[n,function],[[t,number],[t,string],[t,predicatename]]]],
 [
         [[n,function],[[v,a],[v,b],[v,c]],":-",
@@ -294,7 +294,7 @@ test_types_cases(2,[[n,function],[1,"a",[n,a]]],
                 [[n,=],[[v,c],[n,a]]]
         ]]
 ]
-,[[]]).
+,[[[[v,a], 1],[[v,b], "a"],[[v,c], [n,a]]]]).
 ```
 
 * The following type statement tests number and list types.
@@ -323,17 +323,17 @@ test_types_cases(3,[[n,function],[[v,a]]],
 
 * The following type statement tests recursive list, number and string types.
 ```
-test_types_cases(4,[[n,f],[1,"a",2,"b"]],
+test_types_cases(4,[[n,f],[[v,a],[v,b],[v,c],[v,d]]],
 [[[n,f],[[[t,list],[[t,number],[t,string]]]]]],
 [
         [[n,f],[1,"a",2,"b"]]
 ]
-,[[]]).
+,[[[[v,a], 1],[[v,b], "a"],[[v,c], 2],[[v,d], "b"]]]).
 ```
 
 * The following type statement tests unique types, number and string types.
 ```
-test_types_cases(5,[[n,f],[1,"a"]],
+test_types_cases(5,[[n,f],[[v,a],[v,b]]],
 [
         [[n,f],[[t,a],[t,b]]],
         [[t,a],[[t,number]]],
@@ -342,19 +342,19 @@ test_types_cases(5,[[n,f],[1,"a"]],
 [
         [[n,f],[1,"a"]]
 ]
-,[[]]).
+,[[[[v,a], 1],[[v,b], "a"]]]).
 ```
 
 * The following type statement tests any types, number and string types.
 ```
-test_types_cases(6,[[n,f],["a"]],
+test_types_cases(6,[[n,f],[[v,a]]],
 [
-        [[n,f],[[t,a],[t,b]]],
+        [[n,f],[[t,a]]],
         [[t,a],[[t,number]]],
         [[t,a],[[t,string]]]
 ],
 [
         [[n,f],["a"]]
 ]
-,[[]]).
+,[[[[v,a], "a"]]]).
 ```
