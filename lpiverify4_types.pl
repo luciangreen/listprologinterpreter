@@ -13,8 +13,9 @@ test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 
 test_types1(Debug,N,Passed) :-
 	test_types_cases(N,Query,Types,Functions,Result),
-	((interpret(Debug,Query,Types,Functions,Result1),%%writeln(Result1),
-	Result=Result1)->(Passed=passed,writeln([test_types,N,passed]));(Passed=failed,writeln([test_types,N,failed]))),!.
+	((interpret(Debug,Query,Types,Functions,Result)%%writeln(Result1),
+	%%Result=Result1
+	)->(Passed=passed,writeln([test_types,N,passed]));(Passed=failed,writeln([test_types,N,failed]))),!.
 
 
 %%writeln([eg1]),
@@ -29,7 +30,7 @@ test_types_cases(1,[[n,function],[1,1,[v,c]]],
 ]
 ,[[[[v,c], 2]]]).
 
-test_types_cases(2,[[n,function],[1,"a",[n,a]]],
+test_types_cases(2,[[n,function],[[v,a],[v,b],[v,c]]],
 [[[n,function],[[t,number],[t,string],[t,predicatename]]]],
 [
         [[n,function],[[v,a],[v,b],[v,c]],":-",
@@ -39,7 +40,7 @@ test_types_cases(2,[[n,function],[1,"a",[n,a]]],
                 [[n,=],[[v,c],[n,a]]]
         ]]
 ]
-,[[]]).
+,[[[[v,a], 1],[[v,b], "a"],[[v,c], [n,a]]]]).
 
 test_types_cases(3,[[n,function],[[v,a]]],
 [[[n,function],[[[t,brackets],[[t,number]]]]]],
@@ -48,14 +49,14 @@ test_types_cases(3,[[n,function],[[v,a]]],
 ]
 ,[[[[v,a], [1]]]]).
 
-test_types_cases(4,[[n,f],[1,"a",2,"b"]],
+test_types_cases(4,[[n,f],[[v,a],[v,b],[v,c],[v,d]]],
 [[[n,f],[[[t,list],[[t,number],[t,string]]]]]],
 [
         [[n,f],[1,"a",2,"b"]]
 ]
-,[[]]).
+,[[[[v,a], 1],[[v,b], "a"],[[v,c], 2],[[v,d], "b"]]]).
 
-test_types_cases(5,[[n,f],[1,"a"]],
+test_types_cases(5,[[n,f],[[v,a],[v,b]]],
 [
         [[n,f],[[t,a],[t,b]]],
         [[t,a],[[t,number]]],
@@ -64,15 +65,15 @@ test_types_cases(5,[[n,f],[1,"a"]],
 [
         [[n,f],[1,"a"]]
 ]
-,[[]]).
+,[[[[v,a], 1],[[v,b], "a"]]]).
 
-test_types_cases(6,[[n,f],["a"]],
+test_types_cases(6,[[n,f],[[v,a]]],
 [
-        [[n,f],[[t,a],[t,b]]],
+        [[n,f],[[t,a]]],
         [[t,a],[[t,number]]],
         [[t,a],[[t,string]]]
 ],
 [
         [[n,f],["a"]]
 ]
-,[[]]).
+,[[[[v,a], "a"]]]).

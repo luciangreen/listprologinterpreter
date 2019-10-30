@@ -274,7 +274,7 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
 %% Can write your own "any" type.
 
 checktypes(Function,Vars1,TypeStatements1) :-
-	((types(on),debug(on))->checktypes0(Function,Vars1,TypeStatements1);true).
+	((types(on))->checktypes0(Function,Vars1,TypeStatements1);true).
 checktypes0(_Function,[],_TypeStatements1) :- 
 L is 0,
 (                ((types(on),debug(on))->(writeln1([call,[Function,/,L,type,checked],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
@@ -286,7 +286,7 @@ checktypes0(Function,Vars1,TypeStatements1) :-
 	(                ((types(on),debug(on))->(writeln1([call,[Function,/,L,type,checked],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
 		((types(on),debug(on))->(writeln1([exit,[Function,/,L,type,checked],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true))
 ;((types(on),debug(on))->(writeln1([fail,[Function,/,L,type,checked],"Press c."]),((leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)).
-checktypes1([],[],_TypeStatements1,_) :- !.
+checktypes1([],[],_,_) :- !.
 checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
 	%%Vars1=[Vars2|Vars3],
 	TypeStatements1=[[[t,list],TypeStatements3]],%%|TypeStatements4],
