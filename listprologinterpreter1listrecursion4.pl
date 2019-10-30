@@ -3,18 +3,27 @@
 :- dynamic debug/1.
 :- dynamic cut/1.
 :- dynamic leash1/1.
+:- dynamic types/1.
 
 /** List Prolog Interpreter **/
 
 interpret(Debug,Query,Functions1,Result) :-
+	retractall(types(_)),
+ 	assertz(types(off)),
+interpret11(Debug,Query,[],Functions1,Result).
+interpret(Debug,Query,TypeStatements,Functions1,Result) :-
+	retractall(types(_)),
+ 	assertz(types(on)),
+interpret11(Debug,Query,TypeStatements,Functions1,Result).
+interpret11(Debug,Query,TypeStatements,Functions1,Result) :-
 %%writeln1([i1]),
 	%%writeln1(convert_to_grammar_part1(Functions1,[],Functions2,_)),
 	convert_to_grammar_part1(Functions1,[],Functions2,_),
 	%%writeln1(Functions2),
 	%%pp3(Functions2),
 	%%writeln1(interpret1(Debug,Query,Functions2,Functions2,Result)),
-	findall(Result1,interpret1(Debug,Query,Functions2,Functions2,Result1),Result).
-interpret1(Debug,Query,Functions1,Functions2,Result) :-
+	findall(Result1,interpret1(Debug,Query,TypeStatements,Functions2,Functions2,Result1),Result).
+interpret1(Debug,Query,TypeStatements,Functions1,Functions2,Result) :-
 %%writeln1([i11]),
 	retractall(debug(_)),
  	assertz(debug(Debug)),
@@ -23,12 +32,12 @@ interpret1(Debug,Query,Functions1,Functions2,Result) :-
 	retractall(leash1(_)),
    assertz(leash1(off)),
 	%%writeln1(member1(Query,Functions1,Functions2,Result)),
-	member1(Query,Functions1,Functions2,Result).
+	member1(Query,TypeStatements,Functions1,Functions2,Result).
 %%member1([_,R],_,[],R).
 %%member1(_,_,[],[]).
-member1(Query,_,[],_) :- %%writeln1(["The query",Query,"matches no predicates."]),
+member1(_Query,_,_,[],_) :- %%writeln1(["The query",Query,"matches no predicates."]),
 fail,!.
-member1(Query,Functions,Functions2,Vars8) :-
+member1(Query,TypeStatements,Functions,Functions2,Vars8) :-
 %%writeln1([m1]),
 	cut(off)->(
         (Query=[Function,Arguments1],
@@ -38,6 +47,7 @@ member1(Query,Functions,Functions2,Vars8) :-
         
         %%writeln1(checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs)),
         checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),
+
         %%->ca2 
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
                 (debug(on)->(writeln1([call,[Function,Arguments1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
@@ -59,14 +69,16 @@ member1(Query,Functions,Functions2,Vars8) :-
 %%writeln1(here1),
 	Vars8=[],Result2=[])),
 %%writeln1(["Arguments1",Arguments1,"Vars2",Vars2,"Result",Result]),
-		(debug(on)->(writeln1([exit,[Function,Result2],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true))
+		(debug(on)->(writeln1([exit,[Function,Result2],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+		        checktypes(Function,Result2,TypeStatements)
+)
 	;
 	(%%Query=[Function,_Arguments1],
 	%%Functions2=[[Function,_Arguments2,":-",_Body]|Functions3], %% make like previous trunk?
-	member11(Query,Functions,Functions2,Vars8))
+	member11(Query,TypeStatements,Functions,Functions2,Vars8))
 	);(turncut(off)%%,Result=[]
 	).
-member11(Query,Functions,Functions2,Result) :-
+member11(Query,TypeStatements,Functions,Functions2,Result) :-
 %%writeln1([m11]),
 %%writeln1(["Query",Query,"Functions",Functions,"Functions2",Functions2,"Result",Result]),
 	cut(off)->(
@@ -79,9 +91,9 @@ member11(Query,Functions,Functions2,Result) :-
 	);
 	(%%Query=[Function],
 	%%Functions2=[[Function]|Functions3],
-	member12(Query,Functions,Functions2,Result))
+	member12(Query,TypeStatements,Functions,Functions2,Result))
 	);(turncut(off)).
-member12(Query,Functions,Functions2,Vars8) :-
+member12(Query,TypeStatements,Functions,Functions2,Vars8) :-
 %%writeln1([m12]),
 	cut(off)->(
         (Query=[Function,Arguments1],
@@ -100,13 +112,15 @@ member12(Query,Functions,Functions2,Vars8) :-
 %%writeln1(here2),
 	Vars8=[],Result2=[])),
         	(debug(on)->(writeln1([call,[Function,Arguments1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-        	(debug(on)->(writeln1([exit,[Function,Result2],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true)
+        	(debug(on)->(writeln1([exit,[Function,Result2],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+	checktypes(Function,Result2,TypeStatements)
+
 	);
 	(%%Query=[Function,_Arguments1],
 	%%Functions2=[[Function,_Arguments2]|Functions3],
-	member13(Query,Functions,Functions2,Vars8))
+	member13(Query,TypeStatements,Functions,Functions2,Vars8))
 	);(turncut(off)).
-member13(Query,Functions,Functions2,Result) :-
+member13(Query,TypeStatements,Functions,Functions2,Result) :-
 %%writeln1([m13]),
 	cut(off)->(
         (Query=[Function],
@@ -118,17 +132,17 @@ member13(Query,Functions,Functions2,Result) :-
 	);%%->true;
 	(%%Query=[Function],
 	Functions2=[_Function|Functions3],
-	member1(Query,Functions,Functions3,Result))
+	member1(Query,TypeStatements,Functions,Functions3,Result))
 	);(turncut(off)).
 interpret2(Query,Functions1,Functions2,Result) :-
 %%writeln1(i2),
 %%writeln1(["%%interpret2 Query",Query,"Functions1",Functions1,"Functions2",Functions2]),
-        member2(Query,Functions1,Functions2,Result).
+        member2(Query,TypeStatements,Functions1,Functions2,Result).
 %%member2([_,R],_,[],R).
 %%member2(_,_,[],[]).
-member2(Query,_,[],_) :- %%writeln1(["The query",Query,"matches no predicates."]),
+member2(_Query,_,_,[],_) :- %%writeln1(["The query",Query,"matches no predicates."]),
 fail,!.
-member2(Query,Functions,Functions2,Vars8) :-
+member2(Query,TypeStatements,Functions,Functions2,Vars8) :-
 %%writeln1([m2]),
 	cut(off)->(
         (Query=[Function,Arguments1],
@@ -136,6 +150,7 @@ member2(Query,Functions,Functions2,Vars8) :-
         length(Arguments1,Length),
         length(Arguments2,Length),
         checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),
+        
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
                 (debug(on)->(writeln1([call,[Function,Arguments1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
         (interpretbody(Functions,Functions2,Vars1,Vars2,Body,true)->true;
@@ -151,13 +166,15 @@ member2(Query,Functions,Functions2,Vars8) :-
         );(
 	%%writeln1(here3),
 	Vars8=[],Result2=[])),
-        	(debug(on)->(writeln1([exit,[Function,Result2],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true)
+        	(debug(on)->(writeln1([exit,[Function,Result2],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+   checktypes(Function,Result2,TypeStatements)
+
 	);%%->true;
 	(%%Query=[Function,_Arguments1],
 	%%Functions2=[[Function,_Arguments2,":-",_Body]|Functions3],
-	member21(Query,Functions,Functions2,Vars8))
+	member21(Query,TypeStatements,Functions,Functions2,Vars8))
 	);(turncut(off)).
-member21(Query,Functions,Functions2,Result) :-
+member21(Query,TypeStatements,Functions,Functions2,Result) :-
 %%writeln1([m21]),
 	cut(off)->(
         (Query=[Function],
@@ -170,9 +187,9 @@ member21(Query,Functions,Functions2,Result) :-
 	);%%->true;
 	(%%Query=[Function],
 	%%Functions2=[[Function]|Functions3],
-	member22(Query,Functions,Functions2,Result))
+	member22(Query,TypeStatements,Functions,Functions2,Result))
 	);(turncut(off)).
-member22(Query,Functions,Functions2,Vars8) :-
+member22(Query,TypeStatements,Functions,Functions2,Vars8) :-
 %%writeln1([m22]),
 	cut(off)->(
         (Query=[Function,Arguments1],
@@ -191,13 +208,15 @@ member22(Query,Functions,Functions2,Vars8) :-
 %%writeln1(here4),
 	Vars8=[],Result2=[])),
         	(debug(on)->(writeln1([call,[Function,Arguments1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-        	(debug(on)->(writeln1([exit,[Function,Result2],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true)
+        	(debug(on)->(writeln1([exit,[Function,Result2],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+	checktypes(Function,Result2,TypeStatements)
+
 	);%%->true;
 	(%%Query=[Function,_Arguments1],
 	%%Functions2=[[Function,_Arguments2]|Functions3],
-	member23(Query,Functions,Functions2,Vars8))
+	member23(Query,TypeStatements,Functions,Functions2,Vars8))
 	);(turncut(off)).
-member23(Query,Functions,Functions2,Vars8) :-
+member23(Query,TypeStatements,Functions,Functions2,Vars8) :-
 %%writeln1([m23]),
 	cut(off)->(
         (Query=[Function],
@@ -208,7 +227,7 @@ member23(Query,Functions,Functions2,Vars8) :-
 	);%%->true;
 	(%%Query=[Function],
 	Functions2=[_Function|Functions3],
-	member2(Query,Functions,Functions3,Vars8))
+	member2(Query,TypeStatements,Functions,Functions3,Vars8))
 	);(turncut(off)).
 checkarguments([],[],Vars,Vars,FirstArgs,FirstArgs) :- !. 
 checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%
@@ -247,6 +266,79 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
         expressionnotatom3(Value1),
         checkarguments(Arguments3,Arguments4,Vars1,Vars2,FirstArgs1,FirstArgs2),!.
 
+%% checktypes(f,[1,"a",[n,a]],[[[n,f],[[t,number],[t,string],[t,predicatename]]]]).
+%% checktypes(f,[1,1,1],[[[n,f],[[[t,list],[[t,number]]]]]]).
+%% checktypes(f,[[1]],[[[n,f],[[[t,brackets],[[t,number]]]]]]).
+%% checktypes(f,[1,"a",2,"b"],[[[n,f],[[[t,list],[[t,number],[t,string]]]]]]).
+%% checktypes(f,[1,"a"],[[[n,f],[[t,a],[t,b]]],[[t,a],[[t,number]]],[[t,b],[[t,string]]]]).
+%% Can write your own "any" type.
+
+checktypes(Function,Vars1,TypeStatements1) :-
+	((types(on),debug(on))->checktypes0(Function,Vars1,TypeStatements1);true).
+checktypes0(_Function,[],_TypeStatements1) :- 
+L is 0,
+(                ((types(on),debug(on))->(writeln1([call,[Function,/,L,type,checked],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+		((types(on),debug(on))->(writeln1([exit,[Function,/,L,type,checked],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true)).
+checktypes0(Function,Vars1,TypeStatements1) :-
+	length(Vars1,L),
+	((member([Function|[TypeStatements2]],TypeStatements1),
+	checktypes1(Vars1,TypeStatements2,TypeStatements2,TypeStatements1))->
+	(                ((types(on),debug(on))->(writeln1([call,[Function,/,L,type,checked],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+		((types(on),debug(on))->(writeln1([exit,[Function,/,L,type,checked],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true))
+;((types(on),debug(on))->(writeln1([fail,[Function,/,L,type,checked],"Press c."]),((leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)).
+checktypes1([],[],_TypeStatements1,_) :- !.
+checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
+	%%Vars1=[Vars2|Vars3],
+	TypeStatements1=[[[t,list],TypeStatements3]],%%|TypeStatements4],
+	checktypes3(Vars1,TypeStatements3,TypeStatements2,TypeStatements4).
+%%	checktypes1(Vars3,TypeStatements4,TypeStatements2).
+checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
+	TypeStatements1=[[[t,brackets],TypeStatements3]],
+	[Vars2]=Vars1,
+	checktypes1(Vars2,TypeStatements3,TypeStatements2,TypeStatements4).
+/**checktypes1(Vars1,TypeStatements0,TypeStatements1,TypeStatements4) :-
+	((number(Vars1)->true);string(Vars1)->true;Vars1=[n,_]),
+	%%Vars1=[Vars2|Vars3],
+	%%TypeStatements0=[TypeStatements2|TypeStatements3],
+	checktypes2(Vars1,TypeStatements0,TypeStatements1,TypeStatements4).
+	%%checktypes1(Vars3,TypeStatements3,TypeStatements1,TypeStatements4).
+
+**/
+checktypes1(Vars1,TypeStatements0,TypeStatements1,TypeStatements4) :-
+	Vars1=[Vars2|Vars3],
+	TypeStatements0=[TypeStatements2|TypeStatements3],
+	checktypes2(Vars2,TypeStatements2,TypeStatements1,TypeStatements4),
+	checktypes1(Vars3,TypeStatements3,TypeStatements1,TypeStatements4).
+checktypes2(Vars,TypeStatements1,_TypeStatements2,_) :-
+	number(Vars),
+	TypeStatements1=[t,number].
+checktypes2(Vars,TypeStatements1,_TypeStatements2,_) :-
+	Vars=[n,_],
+	TypeStatements1=[t,predicatename].
+checktypes2(Vars,TypeStatements1,_TypeStatements2,_) :-
+	string(Vars),
+	TypeStatements1=[t,string].
+checktypes2(Vars,TypeStatements1,TypeStatements2,TypeStatements4) :-
+	TypeStatements1=[t,Type],
+	member([[t,Type]|[TypeStatements3]],TypeStatements4),
+	checktypes1(Vars,TypeStatements3,TypeStatements2,TypeStatements4).
+checktypes2(Vars,TypeStatements1,TypeStatements2,TypeStatements4) :-
+	TypeStatements1=[t,Type],
+	member([[t,Type]|[TypeStatements3]],TypeStatements4),
+	checktypes1([Vars],TypeStatements3,TypeStatements2,TypeStatements4).
+checktypes3(_,[],_TypeStatements2,_) :- !.
+checktypes3(Vars,TypeStatements3,TypeStatements2,TypeStatements6) :-
+	length(TypeStatements3,L),
+	length(L1,L),
+	append(L1,L2,Vars),
+	%%[L10]=L1,
+	TypeStatements3=[TypeStatements4|TypeStatements5],
+	findall(A,(member(L10,L1),checktypes2(L1,TypeStatements4,TypeStatements2,TypeStatements6)),B),
+	checktypes3(L2,TypeStatements5,TypeStatements2,TypeStatements6).
+
+
+
+
 
 
 
@@ -273,17 +365,17 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
         logicalconjunction(Result1,Result2,Result3),!.
 **/
 
-interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
         Body=[[Statements1|Statements1a]|Statements2
         ],
 	
 		not(predicate_or_rule_name(Statements1)),
 %%writeln1(interpretbody(Functions0,Functions,Vars1,Vars3,[Statement],Result2)),
-	interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2), %% 2->1
+	interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],_Result2), %% 2->1
 
-	interpretbody(Functions0,Functions,Vars3,Vars4,Statements1a,Result2), %% 2->1
+	interpretbody(Functions0,Functions,Vars3,Vars4,Statements1a,_Result2), %% 2->1
         %%((Result2=cut)->!;true),
-        interpretbody(Functions0,Functions,Vars4,Vars2,Statements2,Result3),
+        interpretbody(Functions0,Functions,Vars4,Vars2,Statements2,_Result3),
        %% ((Result3=cut)->!;true),
   %%()      logicalnot(Result2,Result4), 
 %%()	(logicalconjunction(Result1,Result4,Result3)->true;(Result1=false)),
@@ -292,14 +384,14 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
 
 
         
-interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
         Body=[[[n,not],[Statement]]|Statements2
         ],
 	
 	%%writeln1(interpretbody(Functions0,Functions,Vars1,Vars3,[Statement],Result2)),
-	not(interpretbody(Functions0,Functions,Vars1,Vars3,[Statement],Result2)), %% 2->1
+	not(interpretbody(Functions0,Functions,Vars1,_Vars3,[Statement],_Result2)), %% 2->1
         ((Result2=cut)->!;true),
-        interpretbody(Functions0,Functions,Vars1,Vars2,Statements2,Result3),
+        interpretbody(Functions0,Functions,Vars1,Vars2,Statements2,_Result3),
         ((Result3=cut)->!;true),
   %%()      logicalnot(Result2,Result4), 
 %%()	(logicalconjunction(Result1,Result4,Result3)->true;(Result1=false)),
@@ -308,13 +400,13 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
 	
 
 
-interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
         Body=[[[n,or],[Statements1,Statements2]]|Statements3],
-        (interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2); %% *** changed from 1 to Result2
+        (interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],_Result2); %% *** changed from 1 to Result2
 	%%,((Value1=cut)->!;true));
-        interpretbody(Functions0,Functions,Vars1,Vars3,[Statements2],Result2)),%%!. *** changed from 1 to Result2
+        interpretbody(Functions0,Functions,Vars1,Vars3,[Statements2],_Result2)),%%!. *** changed from 1 to Result2
 
-        interpretbody(Functions0,Functions,Vars3,Vars2,Statements3,Result3),
+        interpretbody(Functions0,Functions,Vars3,Vars2,Statements3,_Result3),
         %%((Result3=cut)->!;true),
         %%logicalconjunction(Result1,Result2,Result3),
         !.
@@ -324,24 +416,24 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
 	%%(logicaldisjunction(Result1,Value1,Value2)->true;(Result1=false)).
 
 
-interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
         Body=[[[n,"->"],[Statements1,Statements2]]|Statements3],
-        (interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2)-> 
-                interpretbody(Functions0,Functions,Vars3,Vars4,[Statements2],Result2)),
+        (interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],_Result2)-> 
+                interpretbody(Functions0,Functions,Vars3,Vars4,[Statements2],_Result2)),
 
-        interpretbody(Functions0,Functions,Vars4,Vars2,Statements3,Result3),
+        interpretbody(Functions0,Functions,Vars4,Vars2,Statements3,_Result3),
         !.
 
 
 
 
-interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
         Body=[[[n,"->"],[Statements1,Statements2,Statements2a]]|Statements3],
-        (interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2)-> 
-                interpretbody(Functions0,Functions,Vars3,Vars4,[Statements2],Result2);
-                interpretbody(Functions0,Functions,Vars1,Vars4,[Statements2a],Result2)),
+        (interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],_Result2)-> 
+                interpretbody(Functions0,Functions,Vars3,Vars4,[Statements2],_Result2);
+                interpretbody(Functions0,Functions,Vars1,Vars4,[Statements2a],_Result2)),
 
-        interpretbody(Functions0,Functions,Vars4,Vars2,Statements3,Result3),
+        interpretbody(Functions0,Functions,Vars4,Vars2,Statements3,_Result3),
         !.
 
 
@@ -649,9 +741,14 @@ interpretstatement1(Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
         Query1=[Function,Arguments],%%not(Function=[n,grammar]->true;Function=[n,grammar_part]), ****
 %%writeln1(["Arguments",Arguments,"Vars1",Vars1]),
         %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
-        substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
+        (Function=[v,_]->
+        (append([Function],Arguments,Arguments1),
+        substitutevarsA1(Arguments1,Vars1,[],Vars3,[],FirstArgs),
+        Vars3=[Function1|Vars31],
+        Query2=[Function1,Vars31]);
+        (substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
 %%writeln1([substitutevarsA1,arguments,Arguments,vars1,Vars1,vars3,Vars3,firstargs,FirstArgs]),
-        Query2=[Function,Vars3], %% Bodyvars2?
+        Query2=[Function,Vars3])), %% Bodyvars2?
 %%        	debug(on)->writeln1([call,[Function,[Vars3]]]),
 %%writeln1(["Query2",Query2,"Functions0",Functions0]),
         interpret2(Query2,Functions0,Functions0,Result1), 

@@ -3,7 +3,7 @@
 %%:- use_module(library(time)).
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=49, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=53, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -1399,4 +1399,37 @@ test(52,[[n,mainrole],[7,[v,c]]],
 [[n,mainrole],[[v,shortcourses],"false"],":-",
 	[[[n,not],[[[[n,=],[[v,shortcourses],7]]]]]]] ]       
 ,[[[[v,c], "mainrole"]]]).
+
+%% c=f((g(2)), 1, 1)
+test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
+[
+        [[n,function],[[v,f1],[v,a],[v,b],[v,c]],":-",
+        [
+                [[n,equals1],[[v,f1],[[v,f11],[v,f12]]]],
+                [[n,getitemn],[1,[v,f12],[v,bb]]],
+                [[v,f11],[[v,bb],[v,d],[v,f]]],
+                [[n,+],[[v,a],[v,b],[v,e]]],
+                [[n,+],[[v,e],[v,f],[v,g]]],
+                [[n,+],[[v,g],[v,d],[v,c]]]
+        ]
+        ],
+        [[n,function2],[[v,bb],[v,a],[v,f]],":-",
+        [
+                [[n,is],[[v,a],[v,bb]]],
+                [[n,is],[[v,f],1]]
+        ]
+        ],
+
+        [[n,getitemn],[1,[v,b],[v,c]],":-",
+        [       [[n,head],[[v,b],[v,c]]]
+        ]],
+        [[n,getitemn],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,not],[[[n,=],[[v,a],0]]]],
+                [[n,tail],[[v,b],[v,t]]],
+                [[n,-],[[v,a],1,[v,d]]],
+                [[n,getitemn],[[v,d],[v,t],[v,c]]]
+        ]]
+]
+
+,[[[[v,c], 5]]]).
 

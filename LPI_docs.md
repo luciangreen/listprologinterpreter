@@ -238,3 +238,123 @@ even though the predicate itself is not a grammar predicate:
 ```
 
 * Predicates or predicates to modify to provide the function of string to list (test 15), split on character(s) (test 17), `intersection` and `minus` are in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a> or in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/philosophy/Put%20in%20lpiverify/he%20should%20identify%20different%20writers%20in%20the%20exposition.pl">plans</a>.
+
+# Functional List Prolog (FLP)
+
+* List Prolog has an optional functional mode.  In FLP, function calls may be passed as variables and functions may have strong types.
+
+* In the following, `[[n,function],[[[n,function2],[2]],1,1,[v,c]]]` function2 is passed as a variable.  `[v,f11]` is replaced with the function name.
+```
+%% c=f((g(2)), 1, 1)
+test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
+[
+        [[n,function],[[v,f1],[v,a],[v,b],[v,c]],":-",
+        [
+                [[n,equals1],[[v,f1],[[v,f11],[v,f12]]]],
+                [[n,getitemn],[1,[v,f12],[v,bb]]],
+                [[v,f11],[[v,bb],[v,d],[v,f]]],
+                [[n,+],[[v,a],[v,b],[v,e]]],
+                [[n,+],[[v,e],[v,f],[v,g]]],
+                [[n,+],[[v,g],[v,d],[v,c]]]
+        ]
+        ],
+        [[n,function2],[[v,bb],[v,a],[v,f]],":-",
+        [
+                [[n,is],[[v,a],[v,bb]]],
+                [[n,is],[[v,f],1]]
+        ]
+        ],
+
+        [[n,getitemn],[1,[v,b],[v,c]],":-",
+        [       [[n,head],[[v,b],[v,c]]]
+        ]],
+        [[n,getitemn],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,not],[[[n,=],[[v,a],0]]]],
+                [[n,tail],[[v,b],[v,t]]],
+                [[n,-],[[v,a],1,[v,d]]],
+                [[n,getitemn],[[v,d],[v,t],[v,c]]]
+        ]]
+]
+
+,[[[[v,c], 5]]]).
+```
+
+* Functions may have strong types, which are checked after exiting functions.  So far, any type statement with the name and arity of the function may match data for a call to that function.
+
+* The user may optionally enter types after the query. The following type statement tests number, string and predicate name types.
+
+```
+test_types_cases(2,[[n,function],[1,"a",[n,a]]],
+[[[n,function],[[t,number],[t,string],[t,predicatename]]]],
+[
+        [[n,function],[[v,a],[v,b],[v,c]],":-",
+        [
+                [[n,=],[[v,a],1]],
+                [[n,=],[[v,b],"a"]],
+                [[n,=],[[v,c],[n,a]]]
+        ]]
+]
+,[[]]).
+```
+
+* The following type statement tests number and list types.
+```
+test_types_cases(1,[[n,function],[1,1,[v,c]]],
+[[[n,function],[[[t,list],[[t,number]]]]]],
+[
+        [[n,function],[[v,a],[v,b],[v,c]],":-",
+        [
+                [[n,+],[[v,a],[v,b],[v,c]]]
+        ]
+        ]
+]
+,[[[[v,c], 2]]]).
+```
+
+* The following type statement tests number and bracket types.
+```
+test_types_cases(3,[[n,function],[[v,a]]],
+[[[n,function],[[[t,brackets],[[t,number]]]]]],
+[
+        [[n,function],[[1]]]
+]
+,[[[[v,a], [1]]]]).
+```
+
+* The following type statement tests recursive list, number and string types.
+```
+test_types_cases(4,[[n,f],[1,"a",2,"b"]],
+[[[n,f],[[[t,list],[[t,number],[t,string]]]]]],
+[
+        [[n,f],[1,"a",2,"b"]]
+]
+,[[]]).
+```
+
+* The following type statement tests unique types, number and string types.
+```
+test_types_cases(5,[[n,f],[1,"a"]],
+[
+        [[n,f],[[t,a],[t,b]]],
+        [[t,a],[[t,number]]],
+        [[t,b],[[t,string]]]
+],
+[
+        [[n,f],[1,"a"]]
+]
+,[[]]).
+```
+
+* The following type statement tests any types, number and string types.
+```
+test_types_cases(6,[[n,f],["a"]],
+[
+        [[n,f],[[t,a],[t,b]]],
+        [[t,a],[[t,number]]],
+        [[t,a],[[t,string]]]
+],
+[
+        [[n,f],["a"]]
+]
+,[[]]).
+```
