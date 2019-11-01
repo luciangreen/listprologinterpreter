@@ -3,7 +3,7 @@
 %%:- use_module(library(time)).
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=55, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=58, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -1472,3 +1472,72 @@ test(55,[[n,_],[[v,c]]],
 [[n,test2],[2]]]
 ,[[[[v, c], 1]], [[[v, c], 2]]]).
 
+test(56,[[n,map],[[n,add],[1,2,3],0,[v,d]]],
+[
+        [[n,map],[[v,f],[],[v,l],[v,l]]],
+        [[n,map],[[v,f],[v,l],[v,m1],[v,n]],":-",
+        [       [[n,not],[[[n,=],[[v,l],[]]]]],
+                [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[v,f],[[v,m1],[v,h],[v,m2]]],
+                [[n,map],[[v,f],[v,t],[v,m2],[v,n]]]
+        ]
+        ],
+
+        [[n,add],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,+],[[v,a],[v,b],[v,c]]]
+        ]
+        ]
+]
+
+,[[[[v,d], 6]]]).
+
+%% later: (test 58) omit if [v,f] fails
+
+test(57,[[n,findall],[[n,plusone],[1,2,3],[],[v,d]]],
+[
+        [[n,findall],[[v,f],[],[v,l],[v,l]]],
+        [[n,findall],[[v,f],[v,l],[v,m1],[v,n]],":-",
+        [       [[n,not],[[[n,=],[[v,l],[]]]]],
+                [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[v,f],[[v,h],[v,m2]]],
+                [[n,wrap],[[v,m2],[v,m3]]],
+                [[n,append],[[v,m1],[v,m3],[v,m4]]],
+                [[n,findall],[[v,f],[v,t],[v,m4],[v,n]]]
+        ]
+        ],
+
+        [[n,plusone],[[v,a],[v,c]],":-",
+        [       [[n,+],[[v,a],1,[v,c]]]
+        ]
+        ]
+]
+
+,[[[[v,d], [2,3,4]]]]).
+
+
+test(58,[[n,findall],[[n,a_to_c],["a","b","a"],[],[v,d]]],
+[
+        [[n,findall],[[v,f],[],[v,l],[v,l]]],
+        [[n,findall],[[v,f],[v,l],[v,m1],[v,n]],":-",
+        [       [[n,not],[[[n,=],[[v,l],[]]]]],
+                [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,"->"],[[[v,f],[[v,h],[v,m2]]],
+                [       [[n,wrap],[[v,m2],[v,m3]]],
+                        [[n,append],[[v,m1],[v,m3],[v,m4]]]
+                ],
+                [
+                        [[n,=],[[v,m1],[v,m4]]]
+                ]]],
+                [[n,findall],[[v,f],[v,t],[v,m4],[v,n]]]
+
+        ]
+        ],
+
+        [[n,a_to_c],["a","c"]
+        ]
+]
+
+,[[[[v,d], ["c","c"]]]]).
