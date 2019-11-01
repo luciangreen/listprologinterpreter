@@ -3,7 +3,7 @@
 %%:- use_module(library(time)).
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=6, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=7, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Functions,Result),
@@ -77,3 +77,55 @@ test_types_cases(6,[[n,f],[[v,a]]],
         [[n,f],["a"]]
 ]
 ,[[[[v,a], "a"]]]).
+
+test_types_cases(7,[[n,map],[[[n,add],[[[n,add],[[[n,add],[1]]]]]],0,[v,d]]],
+[
+        [[n,map],[[[t,brackets],[[t,predicatename],
+        [[t,brackets],[[t,number]]]]],
+        [t,number],[t,number]]],
+        
+        [[n,map],[[[t,brackets],[[t,predicatename],
+        [[t,brackets],[[t,any]]]]],
+        [t,number],[t,number]]],
+        
+        [[n,add],[[t,number],[t,number],[t,number]]],
+        
+        [[n,getitemn],[[t,number],[[t,list],[[t,any]]],[t,any]]]
+],
+[
+        [[n,map],[[v,f1],[v,l],[v,n]],":-",
+        [        
+                [[n,equals1],[[v,f1],[[v,f11],[v,f12]]]],
+                [[n,=],[[v,f11],[n,add]]],
+                [[n,getitemn],[1,[v,f12],[v,bb]]],
+                [[n,number],[[v,bb]]],
+                [[v,f11],[[v,l],[v,bb],[v,n]]]
+        ]
+        ],       
+        [[n,map],[[v,f1],[v,l],[v,n]],":-",
+        [        
+                [[n,equals1],[[v,f1],[[v,f11],[v,f12]]]],
+                [[n,=],[[v,f11],[n,add]]],
+                [[n,getitemn],[1,[v,f12],[v,bb]]],
+                [[v,f11],[[v,l],1,[v,l2]]],
+                [[n,map],[[v,bb],[v,l2],[v,n]]]
+        ]
+        ],
+
+        [[n,add],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,+],[[v,a],[v,b],[v,c]]]
+        ]],
+
+        [[n,getitemn],[1,[v,b],[v,c]],":-",
+        [       [[n,head],[[v,b],[v,c]]]
+        ]],
+        [[n,getitemn],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,not],[[[n,=],[[v,a],0]]]],
+                [[n,tail],[[v,b],[v,t]]],
+                [[n,-],[[v,a],1,[v,d]]],
+                [[n,getitemn],[[v,d],[v,t],[v,c]]]
+        ]]
+
+]
+
+,[[[[v,d], 3]]]).
