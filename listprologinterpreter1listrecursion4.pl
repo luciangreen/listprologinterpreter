@@ -279,18 +279,27 @@ checktypes(Function,Vars1):-%%,TypeStatements1) :-
 	typestatements(TypeStatements1),
 %%writeln(checktypes(Function,Vars1)),
 	((types(on))->checktypes0(Function,Vars1,TypeStatements1);true).
-checktypes0(_Function,[],_TypeStatements1) :- 
-L is 0,
-(                ((types(on),debug(on))->(writeln1([call,[Function,/,L,type,checked],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-		((types(on),debug(on))->(writeln1([exit,[Function,/,L,type,checked],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true)).
+checktypes0(Function,Vars1,TypeStatements1) :- 
+L is 0,Vars1=[],
+                ((types(on),debug(on))->(writeln1([call,[Function,/,L,type,check],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+                ((types(on),debug(on))->(writeln1([call,[Function,[]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+		((types(on),debug(on))->(writeln1([exit,[Function,[]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+		((types(on),debug(on))->(writeln1([exit,[Function,/,L,type,check],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true).
 		
 checktypes0(Function,Vars1,TypeStatements1) :-
 	length(Vars1,L),
-	((types(on),debug(on))->(writeln1([call,[Function,/,L,type,checked],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+	((types(on),debug(on))->(writeln1([call,[Function,/,L,type,check],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+	((types(on),debug(on))->(writeln1([call,[Function,Vars1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
 	((member([Function|[TypeStatements2]],TypeStatements1),
 	checktypes1(Vars1,TypeStatements2,TypeStatements2,TypeStatements1))->
-	(((types(on),debug(on))->(writeln1([exit,[Function,/,L,type,checked],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true))
-;((types(on),debug(on))->(writeln1([fail,[Function,/,L,type,checked],"Press c."]),((leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)).
+	(
+	((types(on),debug(on))->(writeln1([exit,[Function,Vars1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+	((types(on),debug(on))->(writeln1([exit,[Function,/,L,type,check],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true))
+	
+;(
+	((types(on),debug(on))->(writeln1([fail,[Function,Vars1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+
+((types(on),debug(on))->(writeln1([fail,[Function,/,L,type,check],"Press c."]),((leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail))).
 
 checktypes1([],[],_,_) :- !.
 
