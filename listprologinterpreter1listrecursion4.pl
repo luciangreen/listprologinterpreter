@@ -301,9 +301,19 @@ checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
 ((types(on),debug(on))->(writeln1([call,[[t,list],TypeStatements3],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
 	((checktypes3(Vars1,TypeStatements3,TypeStatements2,TypeStatements4))->
 		(((types(on),debug(on))->(writeln1([exit,[[t,list],Vars1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true))
-;((types(on),debug(on))->(writeln1([fail,[[t,list],Vars1],"Press c."]),((leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)).%%,
+;((types(on),debug(on))->(writeln1([fail,[[t,list],Vars1],"Press c."]),((leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)).
 	%%checktypes1(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4). %% ** in brac as well
 	
+	checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
+%%writeln(checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4)),
+	Vars1=[Vars2|Vars3],
+	TypeStatements1=[[[t,list]|[TypeStatements3]]|TypeStatements4a],
+((types(on),debug(on))->(writeln1([call,[[t,list],TypeStatements3],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+	((checktypes3(Vars2,TypeStatements3,TypeStatements2,TypeStatements4))->
+		(((types(on),debug(on))->(writeln1([exit,[[t,list],Vars1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true))
+;((types(on),debug(on))->(writeln1([fail,[[t,list],Vars1],"Press c."]),((leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)),
+	checktypes1(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4). %% ** in brac as well
+
 checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
 	TypeStatements1=[[[t,brackets]|[TypeStatements3]]|TypeStatements4a],
 ((types(on),debug(on))->(writeln1([call,[[t,brackets],TypeStatements3],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),

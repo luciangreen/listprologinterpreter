@@ -3,7 +3,7 @@
 %%:- use_module(library(time)).
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=7, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=8, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Functions,Result),
@@ -78,6 +78,7 @@ test_types_cases(6,[[n,f],[[v,a]]],
 ]
 ,[[[[v,a], "a"]]]).
 
+%%test_types_cases(7,[[n,getitemn],[1,[1,2,3],[v,bb]]],
 test_types_cases(7,[[n,map],[[[n,add],[[[n,add],[[[n,add],[1]]]]]],0,[v,d]]],
 [
         [[n,map],[[[t,brackets],[[t,predicatename],
@@ -91,6 +92,9 @@ test_types_cases(7,[[n,map],[[[n,add],[[[n,add],[[[n,add],[1]]]]]],0,[v,d]]],
         [[n,add],[[t,number],[t,number],[t,number]]],
         
         [[n,getitemn],[[t,number],[[t,list],[[t,any]]],[t,any]]]
+
+        %%[[n,getitemn],[[t,number],
+        %%[[t,brackets],[[[t,list],[[t,any]]]]],[t,any]]]
 ],
 [
         [[n,map],[[v,f1],[v,l],[v,n]],":-",
@@ -129,3 +133,12 @@ test_types_cases(7,[[n,map],[[[n,add],[[[n,add],[[[n,add],[1]]]]]],0,[v,d]]],
 ]
 
 ,[[[[v,d], 3]]]).
+%%,[[[[v,bb], 1]]]).
+
+
+test_types_cases(8,[[n,f],[[v,d],[v,a],[v,c]]],
+[[[n,f],[[t,number],[[t,list],[[t,number],[t,string]]],[t,number]]]],
+[
+        [[n,f],[1,[1,"a",2,"b"],1]]
+]
+,[[[[v,d], 1],[[v,a], [1,"a",2,"b"]],[[v,c], 1]]]).
