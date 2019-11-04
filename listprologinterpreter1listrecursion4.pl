@@ -32,7 +32,7 @@ interpret1(Debug,Query,Functions1,Functions2,Result) :-
    retractall(cut(_)),
    assertz(cut(off)),
 	retractall(leash1(_)),
-   assertz(leash1(off)),
+   assertz(leash1(off)), %% Should normally be off
 	%%writeln1(member1(Query,Functions1,Functions2,Result)),
 	member1(Query,Functions1,Functions2,Result).
 %%member1([_,R],_,[],R).
@@ -276,9 +276,9 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
 %% Can write your own "any" type.
 
 checktypes(Function,Vars1):-%%,TypeStatements1) :-
-	typestatements(TypeStatements1),
 %%writeln(checktypes(Function,Vars1)),
-	((types(on))->checktypes0(Function,Vars1,TypeStatements1);true).
+	((types(on))->(typestatements(TypeStatements1),
+	checktypes0(Function,Vars1,TypeStatements1);true);true).
 checktypes0(Function,Vars1,TypeStatements1) :- 
 L is 0,Vars1=[],
                 ((types(on),debug(on))->(writeln1([call,[Function,/,L,type,check],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
@@ -523,6 +523,10 @@ turncut(State1) :-
 	cut(State2),
 	retract(cut(State2)),
 	assertz(cut(State1)).
+turndebug(State1) :-
+	debug(State2),
+	retract(debug(State2)),
+	assertz(debug(State1)).
 logicaldisjunction(true,Result2,Result3) :-
         true(Result2);true(Result3).
 logicalconjunction(true,Result2,Result3) :-
@@ -675,6 +679,15 @@ interpretstatement1(_F0,_Functions,[[n,stringconcat],[Variable1,Variable2,Variab
 
 interpretstatement1(_F0,_Functions,[[n,stringtonumber],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
         interpretpart(stringtonumber,Variable1,Variable2,Vars1,Vars2).
+
+interpretstatement1(_F0,_Functions,[[n,random],[Variable1]],Vars1,Vars2,true,nocut) :-
+        interpretpart(random,Variable1,Vars1,Vars2).
+
+interpretstatement1(_F0,_Functions,[[n,length],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+        interpretpart(length,Variable1,Variable2,Vars1,Vars2).
+
+interpretstatement1(_F0,_Functions,[[n,ceiling],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+        interpretpart(ceiling,Variable1,Variable2,Vars1,Vars2).
 
 interpretstatement1(_F0,_Functions,[[n,date],[Year,Month,Day,Hour,Minute,Seconds]],Vars1,Vars2,true,nocut) :-
         interpretpart(date,Year,Month,Day,Hour,Minute,Seconds,Vars1,Vars2).
