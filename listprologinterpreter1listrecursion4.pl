@@ -52,8 +52,8 @@ member1(Query,Functions,Functions2,Vars8) :-
 
         %%->ca2 
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
-                (debug(on)->(writeln1([call,[Function,Arguments1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-	(interpretbody(Functions,Functions2,Vars1,Vars2,Body,true)->true;((debug(on)->(writeln1([fail,[Function,Arguments1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)
+debug_call(Skip,[Function,Arguments1]),
+	(interpretbody(Functions,Functions2,Vars1,Vars2,Body,true)->debug_fail_fail(Skip);debug_fail(Skip,[Function,Arguments1])
 	),
 	%%writeln1(updatevars(FirstArgs,Vars2,[],Result)),
 	updatevars(FirstArgs,Vars2,[],Result),
@@ -71,7 +71,7 @@ member1(Query,Functions,Functions2,Vars8) :-
 %%writeln1(here1),
 	Vars8=[],Result2=[])),
 %%writeln1(["Arguments1",Arguments1,"Vars2",Vars2,"Result",Result]),
-		(debug(on)->(writeln1([exit,[Function,Result2],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+		debug_exit(Skip,[Function,Result2]),
 		        checktypes(Function,Result2)
 )
 	;
@@ -86,10 +86,10 @@ member11(Query,Functions,Functions2,Result) :-
 	cut(off)->(
         (Query=[Function],
         (Functions2=[[Function,":-",Body]|_Functions3]),
-                (debug(on)->(writeln1([call,[Function],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        debug_call(Skip,[Function]),
 	Result=[],
-        (interpretbody(Functions,Functions2,[],_Vars2,Body,true)->true;((debug(on)->(writeln1([fail,[Function],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)),
-        	(debug(on)->(writeln1([exit,[Function],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true)
+        (interpretbody(Functions,Functions2,[],_Vars2,Body,true)->debug_fail_fail(Skip);debug_fail(Skip,[Function])),
+    debug_exit(Skip,[Function])
 	);
 	(%%Query=[Function],
 	%%Functions2=[[Function]|Functions3],
@@ -113,8 +113,8 @@ member12(Query,Functions,Functions2,Vars8) :-
         );(
 %%writeln1(here2),
 	Vars8=[],Result2=[])),
-        	(debug(on)->(writeln1([call,[Function,Arguments1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-        	(debug(on)->(writeln1([exit,[Function,Result2],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        	debug_call(Skip,[Function,Arguments1]),
+   debug_exit(Skip,[Function,Result2]),
 	checktypes(Function,Result2)
 
 	);
@@ -127,10 +127,10 @@ member13(Query,Functions,Functions2,Result) :-
 	cut(off)->(
         (Query=[Function],
         (Functions2=[[Function]|_Functions3]),
-        	(debug(on)->(writeln1([call,[Function],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        debug_call(Skip,[Function]),
 	Result=[],
         %%interpretbody(Functions,[],_Vars2,Body,true),
-        	(debug(on)->(writeln1([exit,[Function],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true)
+        debug_exit(Skip,[Function])
 	);%%->true;
 	(%%Query=[Function],
 	Functions2=[_Function|Functions3],
@@ -154,9 +154,9 @@ member2(Query,Functions,Functions2,Vars8) :-
         checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),
         
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
-                (debug(on)->(writeln1([call,[Function,Arguments1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-        (interpretbody(Functions,Functions2,Vars1,Vars2,Body,true)->true;
-        ((debug(on)->(writeln1([fail,[Function,Arguments1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)), %%**arg2 change
+debug_call(Skip,[Function,Arguments1]),
+        (interpretbody(Functions,Functions2,Vars1,Vars2,Body,true)->debug_fail_fail(Skip);
+        debug_fail(Skip,[Function,Arguments1])), %%**arg2 change
 %%writeln1(["Functions",Functions,"Functions2",Functions2,"Vars1",Vars1,"Vars2",Vars2,"Body",Body]),
         updatevars(FirstArgs,Vars2,[],Result),
         %%reverse(Result,[],Vars7),
@@ -168,7 +168,7 @@ member2(Query,Functions,Functions2,Vars8) :-
         );(
 	%%writeln1(here3),
 	Vars8=[],Result2=[])),
-        	(debug(on)->(writeln1([exit,[Function,Result2],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+   debug_exit(Skip,[Function,Result2]),
    checktypes(Function,Result2)
 
 	);%%->true;
@@ -182,10 +182,10 @@ member21(Query,Functions,Functions2,Result) :-
         (Query=[Function],
         (Functions2=[[Function,":-",Body]|_Functions3]),
         Vars1=[],
-                (debug(on)->(writeln1([call,[Function],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-        (interpretbody(Functions,Functions2,Vars1,_Vars2,Body,true)->true;
-        ((debug(on)->(writeln1([fail,[Function],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)), %%**arg2 change
-        	(debug(on)->(writeln1([exit,[Function],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true)
+		  debug_call(Skip,[Function]),
+        (interpretbody(Functions,Functions2,Vars1,_Vars2,Body,true)->debug_fail_fail(Skip);
+        debug_fail(Skip,[Function])), %%**arg2 change
+        debug_exit(Skip,[Function])
 	);%%->true;
 	(%%Query=[Function],
 	%%Functions2=[[Function]|Functions3],
@@ -209,8 +209,8 @@ member22(Query,Functions,Functions2,Vars8) :-
         );(
 %%writeln1(here4),
 	Vars8=[],Result2=[])),
-        	(debug(on)->(writeln1([call,[Function,Arguments1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-        	(debug(on)->(writeln1([exit,[Function,Result2],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        	debug_call(Skip,[Function,Arguments1]),
+        	debug_exit(Skip,[Function,Result2]),
 	checktypes(Function,Result2)
 
 	);%%->true;
@@ -223,9 +223,9 @@ member23(Query,Functions,Functions2,Vars8) :-
 	cut(off)->(
         (Query=[Function],
         (Functions2=[[Function]|_Functions3]),
-        	(debug(on)->(writeln1([call,[Function],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+        	debug_call(Skip,[Function]),
 	Vars8=[],
-        	(debug(on)->(writeln1([exit,[Function],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true)
+        	debug_exit(Skip,[Function])
 	);%%->true;
 	(%%Query=[Function],
 	Functions2=[_Function|Functions3],
@@ -278,28 +278,33 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
 checktypes(Function,Vars1):-%%,TypeStatements1) :-
 %%writeln(checktypes(Function,Vars1)),
 	((types(on))->(typestatements(TypeStatements1),
-	checktypes0(Function,Vars1,TypeStatements1);true);true).
-checktypes0(Function,Vars1,TypeStatements1) :- 
+	checktypes0(Function,Vars1,TypeStatements1);true);true),!.
+checktypes0(Function,Vars1,_TypeStatements1) :- 
 L is 0,Vars1=[],
-                ((types(on),debug(on))->(writeln1([call,[Function,/,L,type,check],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-                ((types(on),debug(on))->(writeln1([call,[Function,[]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-		((types(on),debug(on))->(writeln1([exit,[Function,[]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-		((types(on),debug(on))->(writeln1([exit,[Function,/,L,type,check],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true).
+	(types(on)->debug_types_call([Function,/,L,type,check]);true),
+	
+	
+	(types(on)->debug_call(Skip,[Function,Vars1]);true),
+		
+	(types(on)->debug_exit(Skip,[Function,Vars1]);true),
+	(types(on)->debug_types_exit([Function,/,L,type,check]);true).
 		
 checktypes0(Function,Vars1,TypeStatements1) :-
 	length(Vars1,L),
-	((types(on),debug(on))->(writeln1([call,[Function,/,L,type,check],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-	((types(on),debug(on))->(writeln1([call,[Function,Vars1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+	(types(on)->debug_types_call([Function,/,L,type,check]);true),
+	
+	
+	(types(on)->debug_call(Skip,[Function,Vars1]);true),
 	((member([Function|[TypeStatements2]],TypeStatements1),
 	checktypes1(Vars1,TypeStatements2,TypeStatements2,TypeStatements1))->
 	(
-	((types(on),debug(on))->(writeln1([exit,[Function,Vars1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-	((types(on),debug(on))->(writeln1([exit,[Function,/,L,type,check],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true))
+	(types(on)->debug_exit(Skip,[Function,Vars1]);true),
+	(types(on)->debug_types_exit([Function,/,L,type,check]);true))
 	
 ;(
-	((types(on),debug(on))->(writeln1([fail,[Function,Vars1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+	(types(on)->debug_fail(Skip,[Function,Vars1]);true),
 
-((types(on),debug(on))->(writeln1([fail,[Function,/,L,type,check],"Press c."]),((leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail))).
+(types(on)->debug_types_fail([Function,/,L,type,check]);true))).
 
 checktypes1([],[],_,_) :- !.
 
@@ -308,10 +313,12 @@ checktypes1([],[],_,_) :- !.
 	Vars1=[Vars2|Vars3],
 	list(Vars2,_,_),
 	TypeStatements1=[[[t,list]|[TypeStatements3]]|TypeStatements4a],
-((types(on),debug(on))->(writeln1([call,[[t,list],TypeStatements3],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+(types(on)->debug_call(Skip,[[t,list],TypeStatements3]);true),
+
 	((checktypes3(Vars2,TypeStatements3,TypeStatements2,TypeStatements4))->
-		(((types(on),debug(on))->(writeln1([exit,[[t,list],Vars2],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true))
-;((types(on),debug(on))->(writeln1([fail,[[t,list],Vars2],"Press c."]),((leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)),
+		(types(on)->debug_exit(Skip,[[t,list],Vars2]);true)
+;     (types(on)->debug_fail(Skip,[[t,list],Vars2]);true)
+),
 	checktypes1(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4). %% ** in brac as well
 
 checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
@@ -319,20 +326,21 @@ checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
 	%%Vars1=[Vars2|Vars3],
 	%%list(Vars1,_,_),%%length(Vars1,1),
 	TypeStatements1=[[[t,list]|[TypeStatements3]]|_TypeStatements4a],
-((types(on),debug(on))->(writeln1([call,[[t,list],TypeStatements3],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+(types(on)->debug_call(Skip,[[t,list],TypeStatements3]);true),
+
 	((checktypes3(Vars1,TypeStatements3,TypeStatements2,TypeStatements4))->
-		(((types(on),debug(on))->(writeln1([exit,[[t,list],Vars1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true))
-;((types(on),debug(on))->(writeln1([fail,[[t,list],Vars1],"Press c."]),((leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)).
+		(types(on)->debug_exit(Skip,[[t,list],Vars1]);true)
+;     (types(on)->debug_fail(Skip,[[t,list],Vars1]);true)).
 	%%checktypes1(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4). %% ** in brac as well
 	
 
 checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
 	TypeStatements1=[[[t,brackets]|[TypeStatements3]]|TypeStatements4a],
-((types(on),debug(on))->(writeln1([call,[[t,brackets],TypeStatements3],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+(types(on)->debug_call(Skip,[[t,brackets],TypeStatements3]);true),
 	(([Vars2|Vars3]=Vars1,
 	checktypes1(Vars2,TypeStatements3,TypeStatements2,TypeStatements4))->
-		(((types(on),debug(on))->(writeln1([exit,[[t,brackets],Vars1],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true))
-;((types(on),debug(on))->(writeln1([fail,[[t,brackets],Vars1],"Press c."]),((leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)),
+		(types(on)->debug_exit(Skip,[[t,brackets],Vars1]);true)
+;     (types(on)->debug_fail(Skip,[[t,brackets],Vars1]);true)),
 	checktypes1(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4). %% ** in brac as well
 
 /**checktypes1(Vars1,TypeStatements0,TypeStatements1,TypeStatements4) :-
@@ -352,41 +360,40 @@ checktypes1(Vars1,TypeStatements0,TypeStatements1,TypeStatements4) :-
 checktypes2(Vars,TypeStatements1,_TypeStatements2,_C) :-
 %%writeln(checktypes2(Vars,TypeStatements1,_TypeStatements2,C)),
 TypeStatements1=[t,number],
-((types(on),debug(on))->(writeln1([call,[[t,number],Vars],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+(types(on)->debug_call(Skip,[[t,number],Vars]);true),
 	((number(Vars))->
-	(((types(on),debug(on))->(writeln1([exit,[[t,number],Vars],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true))
-;((types(on),debug(on))->(writeln1([fail,[[t,number],Vars],"Press c."]),((leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)),!.
-
+		(types(on)->debug_exit(Skip,[[t,number],Vars]);true)
+;     (types(on)->debug_fail(Skip,[[t,number],Vars]);true)),!.
 checktypes2(Vars,TypeStatements1,_TypeStatements2,_) :-
 TypeStatements1=[t,predicatename],
-((types(on),debug(on))->(writeln1([call,[[t,predicatename],Vars],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+(types(on)->debug_call(Skip,[[t,predicatename],Vars]);true),
 	((Vars=[n,_])->
-	(((types(on),debug(on))->(writeln1([exit,[[t,predicatename],Vars],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true))
-;((types(on),debug(on))->(writeln1([fail,[[t,predicatename],Vars],"Press c."]),((leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)),!.
+		(types(on)->debug_exit(Skip,[[t,predicatename],Vars]);true)
+;     (types(on)->debug_fail(Skip,[[t,predicatename],Vars]);true)),!.
 
 checktypes2(Vars,TypeStatements1,_TypeStatements2,_) :-
 TypeStatements1=[t,string],
-((types(on),debug(on))->(writeln1([call,[[t,string],Vars],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+(types(on)->debug_call(Skip,[[t,string],Vars]);true),
 	((string(Vars))->
-	(((types(on),debug(on))->(writeln1([exit,[[t,string],Vars],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true))
-;((types(on),debug(on))->(writeln1([fail,[[t,string],Vars],"Press c."]),((leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)),!.
+		(types(on)->debug_exit(Skip,[[t,string],Vars]);true)
+;     (types(on)->debug_fail(Skip,[[t,string],Vars]);true)),!.
 
 checktypes2(Vars,TypeStatements1,_TypeStatements2,_) :-
 TypeStatements1=[t,any],
-((types(on),debug(on))->(writeln1([call,[[t,any],Vars],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+(types(on)->debug_call(Skip,[[t,any],Vars]);true),
 	((true)->
-	(((types(on),debug(on))->(writeln1([exit,[[t,any],Vars],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true))
-;((types(on),debug(on))->(writeln1([fail,[[t,any],Vars],"Press c."]),((leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)),!.
+		(types(on)->debug_exit(Skip,[[t,any],Vars]);true)
+;     (types(on)->debug_fail(Skip,[[t,any],Vars]);true)),!.
 
 checktypes2(Vars,TypeStatements1,TypeStatements2,TypeStatements4) :-
 TypeStatements1=[t,Type],(not(Type=list),not(Type=brackets),not(Type=number),not(Type=predicatename),not(Type=string),not(Type=any)),
-((types(on),debug(on))->(writeln1([call,[[t,Type],Vars],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
+(types(on)->debug_call(Skip,[[t,Type],Vars]);true),
 	((
 	member([[t,Type]|[TypeStatements3]],TypeStatements4),
 	(checktypes1(Vars,TypeStatements3,TypeStatements2,TypeStatements4)->true;
 		checktypes1([Vars],TypeStatements3,TypeStatements2,TypeStatements4)))->
-	(((types(on),debug(on))->(writeln1([exit,[[t,Type],Vars],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true))
-;((types(on),debug(on))->(writeln1([fail,[[t,Type],Vars],"Press c."]),((leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail)),!.
+		(types(on)->debug_exit(Skip,[[t,Type],Vars]);true)
+;     (types(on)->debug_fail(Skip,[[t,Type],Vars]);true)),!.
 
 /**
 checktypes2(Vars,TypeStatements1,TypeStatements2,TypeStatements4) :-
@@ -560,33 +567,38 @@ interpretstatement1(Functions0,Functions,[[n,or],[Statement1,Statement2]],Vars1,
 
 interpretstatement1(_F0,_Functions,[[n,atom],[Variable]],Vars,Vars,true,nocut) :-
 	getvalue(Variable,Value,Vars),
-                (debug(on)->(writeln1([call,[[n,atom],[Value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-	atom(Value),
-                (debug(on)->(writeln1([exit,[[n,atom],[Value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true).
+debug_call(Skip,[[n,atom],[Value]]),
+	(atom(Value)->
+debug_exit(Skip,[[n,atom],[Value]])
+;     debug_fail(Skip,[[n,atom],[Value]])),!.
 
 interpretstatement1(_F0,_Functions,[[n,string],[Variable]],Vars,Vars,true,nocut) :-
         getvalue(Variable,Value,Vars),
-                (debug(on)->(writeln1([call,[[n,string],[Value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-        string(Value),
-                (debug(on)->(writeln1([exit,[[n,string],[Value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true).
+debug_call(Skip,[[n,string],[Value]]),
+	(string(Value)->
+debug_exit(Skip,[[n,string],[Value]])
+;     debug_fail(Skip,[[n,string],[Value]])),!.
 
 interpretstatement1(_F0,_Functions,[[n,number],[Variable]],Vars,Vars,true,nocut) :-
         getvalue(Variable,Value,Vars),
-                (debug(on)->(writeln1([call,[[n,number],[Value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-        number(Value),
-                (debug(on)->(writeln1([exit,[[n,number],[Value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true).
+debug_call(Skip,[[n,number],[Value]]),
+	(number(Value)->
+debug_exit(Skip,[[n,number],[Value]])
+;     debug_fail(Skip,[[n,number],[Value]])),!.
 
 interpretstatement1(_F0,_Functions,[[n,letters],[Variable]],Vars,Vars,true,nocut) :-
         getvalue(Variable,Value,Vars),
-                (debug(on)->(writeln1([call,[[n,letters],[Value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-        string_codes(Value,Value1),
-        phrase(word1(Value1),_),
-                (debug(on)->(writeln1([exit,[[n,letters],[Value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true).
+debug_call(Skip,[[n,letters],[Value]]),
+        ((string_codes(Value,Value1),
+        phrase(word1(Value1),_))->
+debug_exit(Skip,[[n,letters],[Value]])
+;     debug_fail(Skip,[[n,letters],[Value]])),!.
 
 interpretstatement1(_F0,_Functions,[[n,variable],[Variable]],Vars,Vars,true,nocut) :-
-        isvar(Variable),
-                (debug(on)->(writeln1([call,[[n,variable],[Variable]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),
-                (debug(on)->(writeln1([exit,[[n,variable],[Variable]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true).
+debug_call(Skip,[[n,variable],[Variable]]),
+        (isvar(Variable)->
+debug_exit(Skip,[[n,variable],[Variable]])
+;     debug_fail(Skip,[[n,variable],[Variable]])),!.
 
 /**interpretstatement1(_F0,_Functions,[[n,Operator],[Variable1]],Vars1,Vars2,true,nocut) :-
 	isop(Operator),
@@ -850,9 +862,36 @@ interpretstatement1(Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
 %%		debug(on)->writeln1([exit,[Function,[Result2]]]).
 interpretstatement1(Functions0,_Functions,Query,Vars,Vars,true) :-
 	Query=[_Function],
-        	debug(on)->writeln1([call,[Function]]),
-        interpret2(Query,Functions0,Functions0,_Result1),
-        	debug(on)->writeln1([exit,[Function]]).
+debug_call(Skip,[Function]),
+        (interpret2(Query,Functions0,Functions0,_Result1)->
+debug_exit(Skip,[Function])
+;     debug_fail(Skip,[Function])),!.
+
+
+debug_call(Skip,FunctionArguments1) :-
+(debug(on)->(writeln1([call,FunctionArguments1,"Press c to creep, s to skip or a to abort."]),(leash1(on)->true;((get_single_char(99)->true;(get_single_char(115))->(Skip=true,turndebug(off));((Skip=false,get_single_char(97))->abort;true)))));Skip=false).
+
+debug_fail_fail(Skip) :-
+(debug(on)->(Skip=true->turndebug(on);true);true).
+
+debug_fail(Skip,FunctionArguments1) :-
+((Skip=true->turndebug(on);true),((debug(on)->(writeln1([fail,FunctionArguments1,"Press c to creep or a to abort."]),(leash1(on)->true;((get_single_char(97))->abort;true)));true),fail)).
+
+debug_exit(Skip,FunctionResult2) :-
+((Skip=true->turndebug(on);true),((debug(on)->(writeln1([exit,FunctionResult2,"Press c to creep or a to abort."]),(leash1(on)->true;((get_single_char(97))->abort;true)));true))).
+
+
+debug_types_call(FunctionArguments1) :-
+debug_types(call,FunctionArguments1).
+debug_types(Call,FunctionArguments1) :-
+(debug(on)->(writeln1([Call,FunctionArguments1,"Press c to creep or a to abort."]),(leash1(on)->true;((get_single_char(97))->abort;true)));true).
+
+debug_types_fail(FunctionArguments1) :-
+((debug(on)->(writeln1([fail,FunctionArguments1,"Press c to creep or a to abort."]),(leash1(on)->true;((get_single_char(97))->abort;true)));true),fail).
+
+debug_types_exit(FunctionResult2) :-
+debug_types(exit,FunctionResult2).
+
 
 operator(+).
 operator(-).
@@ -873,6 +912,7 @@ char_type(A,alpha)},!.
 /**interpretstatement1(_Functions0, _Functions,_Query,_Vars1,_Vars2,false) :-
 	writeln1([false]).
 **/
+/**
 interpretstatement2(Value,_Vars,Value) :-
 	(number(Value);atom(Value)).
 interpretstatement2(Variable,Vars1,Value) :-
@@ -885,6 +925,7 @@ interpretstatement3(Value,_Vars,Value) :-
 	(number(Value);atom(Value)).
 interpretstatement3(Variable,Vars,Value) :-
         getvalue(Variable,Value,Vars).
+        **/
 getvalue(Variable,Value,Vars) :-
         ((not(isvar(Variable)),isvalstrorundef(Value),Variable=Value)->true;
         (isvar(Variable),isvalstrorundef(Value),getvar(Variable,Value,Vars))).
