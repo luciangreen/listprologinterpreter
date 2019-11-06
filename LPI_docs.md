@@ -245,7 +245,7 @@ even though the predicate itself is not a grammar predicate:
 		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
 ```
 
-* Predicates or predicates to modify to provide the function of string to list (test 15), split on character(s) (test 17), `intersection` and `minus` are in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a> or in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/philosophy/Put%20in%20lpiverify/he%20should%20identify%20different%20writers%20in%20the%20exposition.pl">plans</a>.
+* Predicates or predicates to modify to provide the function of string to list (test 15), split on character(s) (test 17), `intersection` and `minus` are in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a>.
 
 # Functional List Prolog (FLP)
 
@@ -378,3 +378,4 @@ test_types_cases(6,[[n,f],[[v,a]]],
 ],
 ```
 
+* For other examples, please see <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a>, <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_types.pl">lpiverify4_types.pl</a> (for examples with types) and <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open.pl">lpiverify4_open.pl</a> (for examples with open-ended results).
