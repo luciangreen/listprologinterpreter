@@ -18,6 +18,30 @@ writeln1(Term) :-
 	term_to_atom(Term,Atom),
 	writeln(Atom),!.
 	
+write1(Term) :-
+	term_to_atom(Term,Atom),
+	write(Atom),!.
+	
 shell1_s(Command) :-
  	atom_string(Command1,Command),
 	shell1(Command1),!.
+	
+concat_list(A1,B):-
+	A1=[A|List],
+	concat_list(A,List,B),!.
+
+concat_list(A,[],A):-!.
+concat_list(A,List,B) :-
+	List=[Item|Items],
+	string_concat(A,Item,C),
+	concat_list(C,Items,B).
+
+append_list(A1,B):-
+	A1=[A|List],
+	append_list(A,List,B),!.
+
+append_list(A,[],A):-!.
+append_list(A,List,B) :-
+	List=[Item|Items],
+	append(A,[Item],C),
+	append_list(C,Items,B).

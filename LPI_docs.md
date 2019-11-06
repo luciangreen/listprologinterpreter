@@ -146,6 +146,14 @@ For example:
 
 * `[[n,stringtonumber],[Variable1,Variable2]]` e.g. `[[n,stringtonumber],["3",[v,b]]]` returns `[v,b]=3`
 
+* `[[n,random],[Variable1]]` e.g. `[[n,random],[[v,r]]]` returns e.g. `[v,r]=0.19232608946956326`
+
+* `[[n,length],[Variable1,Variable2]]` e.g. `[[n,length],[[1,2,3],[v,l]]]` returns `[v,l]=3`
+
+* `[[n,ceiling],[Variable1,Variable2]]` e.g. `[[n,ceiling],[0.19232608946956326,[v,c]]]` returns `[v,c]=1`
+
+* `[[n,date],[Year,Month,Day,Hour,Minute,Seconds]]` e.g. `[[n,date],[[v,year],[v,month],[v,day],[v,hour],[v,minute],[v,second]]]` returns e.g. `[v,year]=2019`, `[v,month]=11`, `[v,day]=6`, `[v,hour]=12`, `[v,minute]=15`, `[v,second]=20.23353409767151`.
+
 
 * See lpiverify4.pl for examples of rules (predicates without bodies) and calls to predicates.
 
@@ -345,7 +353,7 @@ test_types_cases(5,[[n,f],[[v,a],[v,b]]],
 ,[[[[v,a], 1],[[v,b], "a"]]]).
 ```
 
-* The following type statement tests any types, number and string types.
+* The following type statement tests any of number and string types.
 ```
 test_types_cases(6,[[n,f],[[v,a]]],
 [
@@ -358,3 +366,15 @@ test_types_cases(6,[[n,f],[[v,a]]],
 ]
 ,[[[[v,a], "a"]]]).
 ```
+
+* The following type statements test any types (including multiple types).
+```
+[
+        [[n,map],[[[t,brackets],[[t,predicatename],
+        [[t,brackets],[[t,any]]]]],
+        [t,number],[t,number]]],
+        
+        [[n,getitemn],[[t,number],[[t,list],[[t,any]]],[t,any]]]
+],
+```
+

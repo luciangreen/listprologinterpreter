@@ -868,26 +868,30 @@ debug_exit(Skip,[Function])
 ;     debug_fail(Skip,[Function])),!.
 
 
+debug_react(exitfail,99,false) :- writeln(" creep"). %% creep
+debug_react(call,115,true) :- turndebug(off), writeln(" skip"). %% skip
+debug_react(exitfail,97,false) :- writeln(" abort"),abort. %% abort
+
 debug_call(Skip,FunctionArguments1) :-
-(debug(on)->(writeln1([call,FunctionArguments1,"Press c to creep, s to skip or a to abort."]),(leash1(on)->true;((get_single_char(99)->true;(get_single_char(115))->(Skip=true,turndebug(off));((Skip=false,get_single_char(97))->abort;true)))));Skip=false).
+(debug(on)->(write1([call,FunctionArguments1,"Press c to creep, s to skip or a to abort."]),(leash1(on)->true;(get_single_char(Key),debug_react(_,Key,Skip))));Skip=false).
 
 debug_fail_fail(Skip) :-
 (debug(on)->(Skip=true->turndebug(on);true);true).
 
 debug_fail(Skip,FunctionArguments1) :-
-((Skip=true->turndebug(on);true),((debug(on)->(writeln1([fail,FunctionArguments1,"Press c to creep or a to abort."]),(leash1(on)->true;((get_single_char(97))->abort;true)));true),fail)).
+((Skip=true->turndebug(on);true),((debug(on)->(write1([fail,FunctionArguments1,"Press c to creep or a to abort."]),(leash1(on)->true;(get_single_char(Key),debug_react(exitfail,Key,_Skip))));true),fail)).
 
 debug_exit(Skip,FunctionResult2) :-
-((Skip=true->turndebug(on);true),((debug(on)->(writeln1([exit,FunctionResult2,"Press c to creep or a to abort."]),(leash1(on)->true;((get_single_char(97))->abort;true)));true))).
+((Skip=true->turndebug(on);true),((debug(on)->(write1([exit,FunctionResult2,"Press c to creep or a to abort."]),(leash1(on)->true;(get_single_char(Key),debug_react(exitfail,Key,_Skip))));true))).
 
 
 debug_types_call(FunctionArguments1) :-
 debug_types(call,FunctionArguments1).
 debug_types(Call,FunctionArguments1) :-
-(debug(on)->(writeln1([Call,FunctionArguments1,"Press c to creep or a to abort."]),(leash1(on)->true;((get_single_char(97))->abort;true)));true).
+(debug(on)->(writeln1([Call,FunctionArguments1]));true).
 
 debug_types_fail(FunctionArguments1) :-
-((debug(on)->(writeln1([fail,FunctionArguments1,"Press c to creep or a to abort."]),(leash1(on)->true;((get_single_char(97))->abort;true)));true),fail).
+((debug(on)->(writeln1([fail,FunctionArguments1]));true),fail).
 
 debug_types_exit(FunctionResult2) :-
 debug_types(exit,FunctionResult2).
