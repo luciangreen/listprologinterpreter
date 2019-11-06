@@ -868,21 +868,27 @@ debug_exit(Skip,[Function])
 ;     debug_fail(Skip,[Function])),!.
 
 
-debug_react(exitfail,99,false) :- writeln(" creep"). %% creep
-debug_react(call,115,true) :- turndebug(off), writeln(" skip"). %% skip
-debug_react(exitfail,97,false) :- writeln(" abort"),abort. %% abort
+debug_react(Status,115,true) :- Status=call, 
+turndebug(off), writeln(" skip"). %% skip
+debug_react(Status,97,false) :- writeln(" abort"),abort. %% abort
+debug_react(Status,A,false) :- ((Status=call,not(A=115),not(A=97))->true;
+(member_exit_fail(Status),not(A=97))), writeln(" creep"). %% creep
+
+member_call(call).
+member_exit_fail(exit).
+member_exit_fail(fail).
 
 debug_call(Skip,FunctionArguments1) :-
-(debug(on)->(write1([call,FunctionArguments1,"Press c to creep, s to skip or a to abort."]),(leash1(on)->true;(get_single_char(Key),debug_react(_,Key,Skip))));Skip=false).
+(debug(on)->(write1([call,FunctionArguments1,"Press c to creep, s to skip or a to abort."]),(leash1(on)->true;(get_single_char(Key),debug_react(call,Key,Skip))));Skip=false).
 
 debug_fail_fail(Skip) :-
 (debug(on)->(Skip=true->turndebug(on);true);true).
 
 debug_fail(Skip,FunctionArguments1) :-
-((Skip=true->turndebug(on);true),((debug(on)->(write1([fail,FunctionArguments1,"Press c to creep or a to abort."]),(leash1(on)->true;(get_single_char(Key),debug_react(exitfail,Key,_Skip))));true),fail)).
+((Skip=true->turndebug(on);true),((debug(on)->(write1([fail,FunctionArguments1,"Press c to creep or a to abort."]),(leash1(on)->true;(get_single_char(Key),debug_react(fail,Key,_Skip))));true),fail)).
 
 debug_exit(Skip,FunctionResult2) :-
-((Skip=true->turndebug(on);true),((debug(on)->(write1([exit,FunctionResult2,"Press c to creep or a to abort."]),(leash1(on)->true;(get_single_char(Key),debug_react(exitfail,Key,_Skip))));true))).
+((Skip=true->turndebug(on);true),((debug(on)->(write1([exit,FunctionResult2,"Press c to creep or a to abort."]),(leash1(on)->true;(get_single_char(Key),debug_react(exit,Key,_Skip))));true))).
 
 
 debug_types_call(FunctionArguments1) :-
