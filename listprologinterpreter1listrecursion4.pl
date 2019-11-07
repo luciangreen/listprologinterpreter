@@ -463,10 +463,14 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
 interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
         Body=[[[n,not],[Statement]]|Statements2
         ],
-	
+
+debug_call(Skip,[[n,not]]),
+        (	(not(interpretbody(Functions0,Functions,Vars1,_Vars3,[Statement],_Result22)), %% 2->1
+        ((_Result2=cut)->!;true))->
+debug_exit(Skip,[[n,not]])
+;     debug_fail(Skip,[[n,not]])),
 	%%writeln1(interpretbody(Functions0,Functions,Vars1,Vars3,[Statement],Result2)),
-	not(interpretbody(Functions0,Functions,Vars1,_Vars3,[Statement],_Result22)), %% 2->1
-        ((_Result2=cut)->!;true),
+
         interpretbody(Functions0,Functions,Vars1,Vars2,Statements2,_Result32),
         ((_Result3=cut)->!;true),
   %%()      logicalnot(Result2,Result4), 
@@ -605,15 +609,18 @@ debug_exit(Skip,[[n,variable],[Variable]])
 	interpretpart(is,Variable1,Vars1,Vars2),!.
 **/
 
+
 interpretstatement1(_F0,_Functions,[[n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 	isop(Operator),
 	interpretpart(is,Variable1,Variable2,Vars1,Vars2),!.
 
+/**
 interpretstatement1(_F0,_Functions,[[n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 %%writeln1(31),
         isop(Operator),
         interpretpart(is,Variable2,Variable1,Vars1,Vars2).
-	
+**/
+
 interpretstatement1(_F0,_Functions,[[n,Operator],[Variable2,Variable3,Variable1]],Vars1,Vars2,true,nocut) :-
 	operator(Operator),
 %%writeln1(4),
@@ -874,7 +881,6 @@ debug_react(Status,97,false) :- writeln(" abort"),abort. %% abort
 debug_react(Status,A,false) :- ((Status=call,not(A=115),not(A=97))->true;
 (member_exit_fail(Status),not(A=97))), writeln(" creep"). %% creep
 
-member_call(call).
 member_exit_fail(exit).
 member_exit_fail(fail).
 
@@ -912,7 +918,7 @@ comparisonoperator(>).
 comparisonoperator(>=).
 comparisonoperator(<).
 comparisonoperator(=<).
-comparisonoperator(=).
+%%comparisonoperator(=).
 comparisonoperator(=\=).
 
 
@@ -1019,6 +1025,8 @@ isvalstr(N) :-
 	isval(N);string(N).
 isvalempty(N) :-
 	isval(N);(N=empty).
+isempty(N) :-
+	N=empty.
 /**isvalstrempty(N) :-
 	isval(N);(string(N);N=empty).**/
 isvalstrempty(N) :-

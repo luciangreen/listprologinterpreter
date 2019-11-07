@@ -1402,6 +1402,7 @@ test(52,[[n,mainrole],[7,[v,c]]],
 
 %% c=f((g(2)), 1, 1)
 test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
+%%test(53,[[n,getitemn],[1,[1,2,3],[v,bb]]],
 [
         [[n,function],[[v,f1],[v,a],[v,b],[v,c]],":-",
         [
@@ -1432,6 +1433,7 @@ test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
 ]
 
 ,[[[[v,c], 5]]]).
+%%,[[[[v,bb], 1]]]).
 
 test(54,[[n,_],[[[n,function2],[2]],1,1,[v,c]]],
 [

@@ -3,13 +3,29 @@ interpretpart(is,Variable1,Variable2,Vars1,Vars2) :-
         %%getvalue(Value1,Value1A,Vars1),
 	%%isvalstr(Value1),
 	%%isvalstr(Value1A),
+	not(isempty(Value1)),
 	expression(Value1),
+	isempty(Value2),
+        val1emptyorvalsequal(Value2,Value1),
+	%%isval(Value2),
+debug_call(Skip,[[n,is],[Value1,variable]]),
+(        putvalue(Variable2,Value1,Vars1,Vars2)->
+debug_exit(Skip,[[n,is],[Value1,Value1]])
+;     debug_fail(Skip,[[n,is],[Value1,variable]])),!.
+
+interpretpart(is,Variable1,Variable2,Vars1,Vars2) :-
+        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        %%getvalue(Value1,Value1A,Vars1),
+	%%isvalstr(Value1),
+	%%isvalstr(Value1A),
+	isempty(Value1),
+	not(isempty(Value2)),
 	expression(Value2),
         val1emptyorvalsequal(Value1,Value2),
 	%%isval(Value2),
 debug_call(Skip,[[n,is],[variable,Value2]]),
 (        putvalue(Variable1,Value2,Vars1,Vars2)->
-debug_exit(Skip,[[n,is],[Variable1,Value2]])
+debug_exit(Skip,[[n,is],[Value2,Value2]])
 ;     debug_fail(Skip,[[n,is],[variable,Value2]])),!.
 		
 interpretpart(bracket1,Variable1,Variable2,Vars1,Vars2) :-
@@ -107,13 +123,16 @@ interpretpart(iscomparison,Operator,Variable1,Variable2,Vars1,Vars1) :-        g
 
 interpretpart(is,Variable1,Variable2,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
-        debug_call(Skip,[[n,=],[variable,Value2]]),
+        	not(isempty(Value1)),
+        	not(isempty(Value2)),
+        debug_call(Skip,[[n,=],[Value1,Value2]]),
         ((Value1A = Value2,
 		val1emptyorvalsequal(Value1,Value1A),
         putvalue(Variable1,Value1A,Vars1,Vars2))->
       debug_exit(Skip,[[n,=],[Value1A,Value2]])
-;     debug_fail(Skip,[[n,=],[variable,Value2]])),!.                        	
-                        	
+;     debug_fail(Skip,[[n,=],[Value1,Value2]])),!.                        	
+
+     	
 interpretpart(match1,Variable1,Variable2,Variable3,Vars1,Vars2) :-
 getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
         Value1 = [Value2A, Value3A],
