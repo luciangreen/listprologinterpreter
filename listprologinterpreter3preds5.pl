@@ -30,13 +30,13 @@ debug_exit(Skip,[[n,is],[Value2,Value2]])
 		
 interpretpart(bracket1,Variable1,Variable2,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
-debug_call(Skip,[[n,wrap],[Variable2,Value1A]]),
+debug_call(Skip,[[n,wrap],[Value1,Variable2]]),
 ((	Value1A = [Value1],
         val1emptyorvalsequal(Value2,Value1A),
         %%val1emptyorvalsequal(Value1A,Value2),
         putvalue(Variable2,Value1A,Vars1,Vars2))->
 debug_exit(Skip,[[n,wrap],[Value1A,Value1A]])
-;     debug_fail(Skip,[[n,wrap],[Variable2,Value1A]])),!.
+;     debug_fail(Skip,[[n,wrap],[Value1,Variable2]])),!.
 
 interpretpart(stringtonumber,Variable2,Variable1,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),

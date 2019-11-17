@@ -1090,7 +1090,7 @@ test(34,[[n,getitemn],[3,[1,2,3],[v,c]]],
         [       [[n,head],[[v,b],[v,c]]]
         ]],
         [[n,getitemn],[[v,a],[v,b],[v,c]],":-",
-        [       [[n,not],[[[n,=],[[v,a],0]]]],
+        [       [[n,not],[[[n,=],[[v,a],1]]]],
                 [[n,tail],[[v,b],[v,t]]],
                 [[n,-],[[v,a],1,[v,d]]],
                 [[n,getitemn],[[v,d],[v,t],[v,c]]]
@@ -1401,8 +1401,8 @@ test(52,[[n,mainrole],[7,[v,c]]],
 ,[[[[v,c], "mainrole"]]]).
 
 %% c=f((g(2)), 1, 1)
-test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
-%%test(53,[[n,getitemn],[1,[1,2,3],[v,bb]]],
+%%test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
+test(53,[[n,getitemn],[1,[1,2,3],[v,bb]]],
 [
         [[n,function],[[v,f1],[v,a],[v,b],[v,c]],":-",
         [
@@ -1425,15 +1425,15 @@ test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
         [       [[n,head],[[v,b],[v,c]]]
         ]],
         [[n,getitemn],[[v,a],[v,b],[v,c]],":-",
-        [       [[n,not],[[[n,=],[[v,a],0]]]],
+        [       [[n,not],[[[n,=],[[v,a],1]]]],
                 [[n,tail],[[v,b],[v,t]]],
                 [[n,-],[[v,a],1,[v,d]]],
                 [[n,getitemn],[[v,d],[v,t],[v,c]]]
         ]]
 ]
 
-,[[[[v,c], 5]]]).
-%%,[[[[v,bb], 1]]]).
+%%,[[[[v,c], 5]]]).
+,[[[[v,bb], 1]]]).
 
 test(54,[[n,_],[[[n,function2],[2]],1,1,[v,c]]],
 [
@@ -1458,7 +1458,7 @@ test(54,[[n,_],[[[n,function2],[2]],1,1,[v,c]]],
         [       [[n,head],[[v,b],[v,c]]]
         ]],
         [[n,getitemn],[[v,a],[v,b],[v,c]],":-",
-        [       [[n,not],[[[n,=],[[v,a],0]]]],
+        [       [[n,not],[[[n,=],[[v,a],1]]]],
                 [[n,tail],[[v,b],[v,t]]],
                 [[n,-],[[v,a],1,[v,d]]],
                 [[n,getitemn],[[v,d],[v,t],[v,c]]]

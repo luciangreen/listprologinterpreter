@@ -124,7 +124,7 @@ test_types_cases(7,[[n,map],[[[n,add],[[[n,add],[[[n,add],[1]]]]]],0,[v,d]]],
         [       [[n,head],[[v,b],[v,c]]]
         ]],
         [[n,getitemn],[[v,a],[v,b],[v,c]],":-",
-        [       [[n,not],[[[n,=],[[v,a],0]]]],
+        [       [[n,not],[[[n,=],[[v,a],1]]]],
                 [[n,tail],[[v,b],[v,t]]],
                 [[n,-],[[v,a],1,[v,d]]],
                 [[n,getitemn],[[v,d],[v,t],[v,c]]]
