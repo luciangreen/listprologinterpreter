@@ -61,6 +61,10 @@ tests the reverse predicate.
 
 See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/LPI_docs.md">List Prolog Documentation</a>.
 
+# TextToBreasoning Documentation
+
+See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/T2B_docs.md">TextToBreasoning Documentation</a>.
+
 # Versioning
 
 We will use SemVer for versioning.

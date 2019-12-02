@@ -1,1 +1,1 @@
-[[down,kitchen],[square,living]]
+[[and,office],[box,bedroom],[dash,hall],[down,kitchen],[drum,music],[line,bathroom],[paper,office],[person,garden],[plus,bedroom],[square,living]]

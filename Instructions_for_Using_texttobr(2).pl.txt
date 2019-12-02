@@ -242,18 +242,7 @@ Alternative to 6: It is recommended to replace the contents of file.txt with Lec
 
 Type the following commands in SWI-Prolog:
 
-
-[texttobr2].
-
-
-[texttobr]
-
-
-texttobr2.
-
-
-texttobr.
-
+* Note: see T2B_docs.md for instructions about running TextToBreasonings.
 
 Notes:
 

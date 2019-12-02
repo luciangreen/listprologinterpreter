@@ -1,1 +1,1 @@
-[[down,bin],[square,bin]]
+[[and,line],[box,checklist],[dash,box],[down,bin],[drum,checklist],[line,rack],[paper,wall],[person,flower],[plus,pillow],[square,bin]]

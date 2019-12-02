@@ -1,1 +1,1 @@
-[[down,knife],[square,scissors]]
+[[and,keyboard],[box,label],[dash,box],[down,knife],[drum,baton],[line,towel],[paper,pen],[person,parasol],[plus,sheet],[square,scissors]]
