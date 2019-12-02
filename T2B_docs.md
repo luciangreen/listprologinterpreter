@@ -58,7 +58,7 @@ follow instructions in <a href="https://github.com/luciangreen/listprologinterpr
 `texttobr(3,u,"abc",2).`
 * Breasons out the first two characters in "abc" ("a" and "b") 3 times.
 
-* (3) To breason out words, breathsonings (judgement adjectives and adverbs), rooms, parts of rooms, directions in rooms, objects to prepare for an action and objects to finish an action over a local machine, in the SWI-Prolog environment, enter:
+* (3) To breason out words, breathsonings (judgement adjectives and judgement adverbs), rooms, parts of rooms, directions in rooms, objects to prepare for an action and objects to finish an action over a local machine, in the SWI-Prolog environment, enter:
 `[load_texttobr].`
 
 * In the SWI-Prolog environment, enter:
@@ -67,7 +67,7 @@ follow instructions in <a href="https://github.com/luciangreen/listprologinterpr
 `texttobr2(u,u,u,u,true,false,false,false,false,false).`
 * where the first four arguments may be changed as in (1) above, and only words and breathsonings are breasoned out.
 `texttobr2(u,u,u,u,true,true,true,true,true,true).`
-* where the first four arguments may be changed as in (1) above, and words, breathsonings (judgement adjectives and adverbs), rooms, parts of rooms, directions in rooms, objects to prepare for an action and objects to finish an action are breasoned out.
+* where the first four arguments may be changed as in (1) above, and words, breathsonings (judgement adjectives and judgement adverbs), rooms, parts of rooms, directions in rooms, objects to prepare for an action and objects to finish an action are breasoned out.
 
 # Versioning
 
