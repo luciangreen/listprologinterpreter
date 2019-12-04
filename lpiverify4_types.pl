@@ -3,7 +3,7 @@
 %%:- use_module(library(time)).
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=8, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=10, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -160,3 +160,32 @@ test_types_cases(8,[[n,f],[[v,d],[v,a],[v,c]]],
         [[n,f],[1,[1,"a",2,"b"],1]]
 ]
 ,[[[[v,d], 1],[[v,a], [1,"a",2,"b"]],[[v,c], 1]]]).
+
+test_types_cases(9,[[n,f],[1,"a"]],
+[
+        [[n,f],[[t,a],[t,b]]],
+        [[t,a],[[t,number]]],
+        [[t,b],[[t,string]]]
+],
+[
+        [[n,f],[input,input]]
+],
+[
+        [[n,f],[1,"a"]]
+]
+,[[]]).
+
+test_types_cases(10,[[n,f],["a"]],
+[
+        [[n,f],[[t,a]]],
+        [[t,a],[[t,number]]],
+        [[t,a],[[t,string]]]
+],
+[
+        [[n,f],[input]]
+],
+[
+        [[n,f],["a"]]
+]
+,[[]]).
+
