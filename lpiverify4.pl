@@ -75,14 +75,8 @@ test(4,[[n,append1],[[v,a]]],
 %%writeln([eg5]),
 test(5,[[n,count],[1,[v,n]]],
 [
-        [[n,count],[1,2]],
-        [[n,count],[[v,n],[v,p]],":-",
-        [
-                [[n,not],[[[n,=],[[v,n],1]]]],
-                [[n,+],[[v,n],1,[v,m]]],
-                [[n,count],[[v,m],[v,p]]]
-        ]
-        ]
+        [[n,count],[1,2]]
+        
 ] ,[[[[v,n], 2]]]).
 %%writeln([eg6]),
 test(6,[[n,count],[0,[v,n]]],
@@ -245,6 +239,7 @@ test(14,[[n,grammar1],["[a]",[v,t]]],
 		  [[n,a],[[v,a],[v,a]]]
 
 ],[[[[v,t],["a"]]]]).
+
 
 test(15,[[n,grammar1],["[[aa,b],1]",[v,t]]],
 %%test(15,[[n,compound213],["","",[["a"],1],[v,t]]],

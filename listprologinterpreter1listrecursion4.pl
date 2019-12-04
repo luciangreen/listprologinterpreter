@@ -292,10 +292,11 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
 
 
 checktypes_inputs(Function,Vars1):-%%,TypeStatements1) :-
+%%trace,
 %%writeln(checktypes(Function,Vars1)),
-	((types(on))->(typestatements(TypeStatements1),
+	(types(on)->(typestatements(TypeStatements1),
 	modestatements(ModeStatements1),
-	checktypes0_inputs(Function,Vars1,TypeStatements1,ModeStatements1);true);true),!.
+	checktypes0_inputs(Function,Vars1,TypeStatements1,ModeStatements1));true),!.
 checktypes0_inputs(Function,Vars1,_TypeStatements1,_ModeStatements1) :- 
 	length(Vars1,L),L is 0,Vars1=[],
 	(types(on)->debug_types_call([Function,/,~,L,input,type,check]);true),
@@ -304,17 +305,16 @@ checktypes0_inputs(Function,Vars1,_TypeStatements1,_ModeStatements1) :-
 	(types(on)->debug_call(Skip,[Function,Vars1]);true),
 		
 	(types(on)->debug_exit(Skip,[Function,Vars1]);true),
-	(types(on)->debug_types_exit([Function,/,~,L,input,type,check]);true).
+	(types(on)->debug_types_exit([Function,/,~,L,input,type,check]);true),!.
 checktypes0_inputs(Function,Vars1,TypeStatements1,ModeStatements1) :-
 	length(Vars1,L),
 	(types(on)->debug_types_call([Function,/,~,L,input,type,check]);true),
 	
 	
-	(types(on)->
 	((member([Function|[TypeStatements2]],TypeStatements1),
 	member([Function|[ModeStatements2]],ModeStatements1),
 	extract_modes1(TypeStatements2,TypeStatements3,Vars1,Vars2,ModeStatements2),
-	debug_call(Skip,[Function,Vars2]);true),
+	(types(on)->debug_call(Skip,[Function,Vars2]);true),
 	checktypes1(Vars2,TypeStatements3,TypeStatements3,TypeStatements1))->
 	(
 	(types(on)->debug_exit(Skip,[Function,Vars2]);true),
@@ -323,11 +323,11 @@ checktypes0_inputs(Function,Vars1,TypeStatements1,ModeStatements1) :-
 ;(
 	(types(on)->debug_fail(Skip,[Function,Vars1]);true),
 
-(types(on)->debug_types_fail([Function,/,~,L,input,type,check]);true))).
+(types(on)->debug_types_fail([Function,/,~,L,input,type,check]);true))),!.
 
 extract_modes1(TypeStatements1,TypeStatements3,Vars1,Vars2,ModeStatements1) :-
 	%%TypeStatements1=[TypeStatements2|TypeStatements3],
-	extract_modes2(TypeStatements1,[],TypeStatements3,Vars1,[],Vars2,ModeStatements1).
+	extract_modes2(TypeStatements1,[],TypeStatements3,Vars1,[],Vars2,ModeStatements1),!.
 	%%TypeStatements3=[TypeStatements3a|TypeStatements3].
 extract_modes2([],TypeStatements2a,TypeStatements2a,[],Vars,Vars,[]) :- !.
 extract_modes2(TypeStatements1,TypeStatements2a,TypeStatements3,Vars1,Vars2,Vars3,ModeStatements1) :-
@@ -336,18 +336,18 @@ extract_modes2(TypeStatements1,TypeStatements2a,TypeStatements3,Vars1,Vars2,Vars
 	Vars1=[Vars11|Vars12],
 	append(TypeStatements2a,[TypeStatements2],TypeStatements4),
 	append(Vars2,[Vars11],Vars4),
-	extract_modes2(TypeStatements3a,TypeStatements4,TypeStatements3,Vars12,Vars4,Vars3,ModeStatements3).
+	extract_modes2(TypeStatements3a,TypeStatements4,TypeStatements3,Vars12,Vars4,Vars3,ModeStatements3),!.
 extract_modes2(TypeStatements1,TypeStatements2a,TypeStatements3,Vars1,Vars2,Vars3,ModeStatements1) :-
 	ModeStatements1=[output|ModeStatements3],
 	TypeStatements1=[_TypeStatements2|TypeStatements3a],
 	Vars1=[_Vars11|Vars12],
-	extract_modes2(TypeStatements3a,TypeStatements2a,TypeStatements3,Vars12,Vars2,Vars3,ModeStatements3).
+	extract_modes2(TypeStatements3a,TypeStatements2a,TypeStatements3,Vars12,Vars2,Vars3,ModeStatements3),!.
 
 
 checktypes(Function,Vars1):-%%,TypeStatements1) :-
 %%writeln(checktypes(Function,Vars1)),
-	((types(on))->(typestatements(TypeStatements1),
-	checktypes0(Function,Vars1,TypeStatements1);true);true),!.
+	(types(on)->(typestatements(TypeStatements1),
+	checktypes0(Function,Vars1,TypeStatements1));true),!.
 checktypes0(Function,Vars1,_TypeStatements1) :- 
 	length(Vars1,L),L is 0,Vars1=[],
 	(types(on)->debug_types_call([Function,/,L,type,check]);true),
@@ -356,7 +356,7 @@ checktypes0(Function,Vars1,_TypeStatements1) :-
 	(types(on)->debug_call(Skip,[Function,Vars1]);true),
 		
 	(types(on)->debug_exit(Skip,[Function,Vars1]);true),
-	(types(on)->debug_types_exit([Function,/,L,type,check]);true).
+	(types(on)->debug_types_exit([Function,/,L,type,check]);true),!.
 		
 checktypes0(Function,Vars1,TypeStatements1) :-
 	length(Vars1,L),
@@ -373,7 +373,7 @@ checktypes0(Function,Vars1,TypeStatements1) :-
 ;(
 	(types(on)->debug_fail(Skip,[Function,Vars1]);true),
 
-(types(on)->debug_types_fail([Function,/,L,type,check]);true))).
+(types(on)->debug_types_fail([Function,/,L,type,check]);true))),!.
 
 checktypes1([],[],_,_) :- !.
 
@@ -385,10 +385,12 @@ checktypes1([],[],_,_) :- !.
 (types(on)->debug_call(Skip,[[t,list],TypeStatements3]);true),
 
 	((checktypes3(Vars2,TypeStatements3,TypeStatements2,TypeStatements4))->
-		(types(on)->debug_exit(Skip,[[t,list],Vars2]);true)
+		((types(on)->debug_exit(Skip,[[t,list],Vars2]);true),
+		checktypes1(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4))
 ;     (types(on)->debug_fail(Skip,[[t,list],Vars2]);true)
-),
-	checktypes1(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4). %% ** in brac as well
+)
+%%not(variable_name(Vars2)),
+	. %% ** in brac as well
 
 checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
 %%writeln(checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4)),
@@ -408,9 +410,11 @@ checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
 (types(on)->debug_call(Skip,[[t,brackets],TypeStatements3]);true),
 	(([Vars2|Vars3]=Vars1,
 	checktypes1(Vars2,TypeStatements3,TypeStatements2,TypeStatements4))->
-		(types(on)->debug_exit(Skip,[[t,brackets],Vars1]);true)
-;     (types(on)->debug_fail(Skip,[[t,brackets],Vars1]);true)),
-	checktypes1(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4). %% ** in brac as well
+		((types(on)->debug_exit(Skip,[[t,brackets],Vars1]);true),
+		checktypes1(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4))
+;     (types(on)->debug_fail(Skip,[[t,brackets],Vars1]);true))
+%%not(variable_name(Vars2)),
+	,!. %% ** in brac as well
 
 /**checktypes1(Vars1,TypeStatements0,TypeStatements1,TypeStatements4) :-
 	((number(Vars1)->true);string(Vars1)->true;Vars1=[n,_]),
@@ -424,6 +428,7 @@ checktypes1(Vars1,TypeStatements0,TypeStatements1,TypeStatements4) :-
 	Vars1=[Vars2|Vars3],
 	TypeStatements0=[TypeStatements2|TypeStatements3],
 	checktypes2(Vars2,TypeStatements2,TypeStatements1,TypeStatements4),
+	%%not(variable_name(Vars2)),
 	checktypes1(Vars3,TypeStatements3,TypeStatements1,TypeStatements4).
 	
 checktypes2(Vars,TypeStatements1,_TypeStatements2,_C) :-
@@ -432,37 +437,38 @@ TypeStatements1=[t,number],
 (types(on)->debug_call(Skip,[[t,number],Vars]);true),
 	((number(Vars))->
 		(types(on)->debug_exit(Skip,[[t,number],Vars]);true)
-;     (types(on)->debug_fail(Skip,[[t,number],Vars]);true)),!.
+;     (types(on)->debug_fail(Skip,[[t,number],Vars]);true)).
 checktypes2(Vars,TypeStatements1,_TypeStatements2,_) :-
 TypeStatements1=[t,predicatename],
 (types(on)->debug_call(Skip,[[t,predicatename],Vars]);true),
 	((Vars=[n,_])->
 		(types(on)->debug_exit(Skip,[[t,predicatename],Vars]);true)
-;     (types(on)->debug_fail(Skip,[[t,predicatename],Vars]);true)),!.
+;     (types(on)->debug_fail(Skip,[[t,predicatename],Vars]);true)).
 
 checktypes2(Vars,TypeStatements1,_TypeStatements2,_) :-
 TypeStatements1=[t,string],
 (types(on)->debug_call(Skip,[[t,string],Vars]);true),
 	((string(Vars))->
 		(types(on)->debug_exit(Skip,[[t,string],Vars]);true)
-;     (types(on)->debug_fail(Skip,[[t,string],Vars]);true)),!.
+;     (types(on)->debug_fail(Skip,[[t,string],Vars]);true)).
 
 checktypes2(Vars,TypeStatements1,_TypeStatements2,_) :-
 TypeStatements1=[t,any],
 (types(on)->debug_call(Skip,[[t,any],Vars]);true),
 	((true)->
 		(types(on)->debug_exit(Skip,[[t,any],Vars]);true)
-;     (types(on)->debug_fail(Skip,[[t,any],Vars]);true)),!.
+;     (types(on)->debug_fail(Skip,[[t,any],Vars]);true)).
 
 checktypes2(Vars,TypeStatements1,TypeStatements2,TypeStatements4) :-
 TypeStatements1=[t,Type],(not(Type=list),not(Type=brackets),not(Type=number),not(Type=predicatename),not(Type=string),not(Type=any)),
 (types(on)->debug_call(Skip,[[t,Type],Vars]);true),
 	((
+	%%not(variable_name(Vars)),
 	member([[t,Type]|[TypeStatements3]],TypeStatements4),
 	(checktypes1(Vars,TypeStatements3,TypeStatements2,TypeStatements4)->true;
 		checktypes1([Vars],TypeStatements3,TypeStatements2,TypeStatements4)))->
 		(types(on)->debug_exit(Skip,[[t,Type],Vars]);true)
-;     (types(on)->debug_fail(Skip,[[t,Type],Vars]);true)),!.
+;     (types(on)->debug_fail(Skip,[[t,Type],Vars]);true)).
 
 /**
 checktypes2(Vars,TypeStatements1,TypeStatements2,TypeStatements4) :-
@@ -480,7 +486,7 @@ checktypes3(Vars,TypeStatements3,TypeStatements2,TypeStatements6) :-
 	%%TypeStatements3=[TypeStatements4|TypeStatements5],
 	%%findall(L10,(member(L10,L1),checktypes2(L10,TypeStatements4,TypeStatements2,TypeStatements6)),B),
 	checktypes1(L1,TypeStatements3,TypeStatements2,TypeStatements6),
-	checktypes3(L2,TypeStatements3,TypeStatements2,TypeStatements6).
+	checktypes3(L2,TypeStatements3,TypeStatements2,TypeStatements6),!.
 
 
 
@@ -954,16 +960,16 @@ member_exit_fail(exit).
 member_exit_fail(fail).
 
 debug_call(Skip,FunctionArguments1) :-
-(debug(on)->(write1([call,FunctionArguments1,"Press c to creep, s to skip or a to abort."]),(leash1(on)->true;(get_single_char(Key),debug_react(call,Key,Skip))));Skip=false).
+(debug(on)->(write1([call,FunctionArguments1,"Press c to creep, s to skip or a to abort."]),(leash1(on)->writeln("");(get_single_char(Key),debug_react(call,Key,Skip))));Skip=false).
 
 debug_fail_fail(Skip) :-
 (debug(on)->(Skip=true->turndebug(on);true);true).
 
 debug_fail(Skip,FunctionArguments1) :-
-((Skip=true->turndebug(on);true),((debug(on)->(write1([fail,FunctionArguments1,"Press c to creep or a to abort."]),(leash1(on)->true;(get_single_char(Key),debug_react(fail,Key,_Skip))));true),fail)).
+((Skip=true->turndebug(on);true),((debug(on)->(write1([fail,FunctionArguments1,"Press c to creep or a to abort."]),(leash1(on)->writeln("");(get_single_char(Key),debug_react(fail,Key,_Skip))));true),fail)).
 
 debug_exit(Skip,FunctionResult2) :-
-((Skip=true->turndebug(on);true),((debug(on)->(write1([exit,FunctionResult2,"Press c to creep or a to abort."]),(leash1(on)->true;(get_single_char(Key),debug_react(exit,Key,_Skip))));true))).
+((Skip=true->turndebug(on);true),((debug(on)->(write1([exit,FunctionResult2,"Press c to creep or a to abort."]),(leash1(on)->writeln("");(get_single_char(Key),debug_react(exit,Key,_Skip))));true))).
 
 
 debug_types_call(FunctionArguments1) :-
