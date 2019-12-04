@@ -3,14 +3,14 @@
 * Data to Types is an algorithm that converts data into a type statement, for example:
 
 ```
-?- data_to_types([1,"a",[1]],[],T).
-T = [[t, number], [t, string], [[t, brackets], [[[t, number]]]]].
+?- data_to_types([[1],"a",1],[],T).
+T = [[[t, brackets], [[t, number]]], [t, string], [t, number]].
 
 ?- data_to_types([1,["a"],1],[],T).
-T = [[t, number], [[t, brackets], [[[t, string]]]], [[t, number]]].
+T = [[t, number], [[t, brackets], [[t, string]]], [t, number]].
 
-?- data_to_types([[1],"a",1],[],T).
-T = [[[t, brackets], [[[t, number]]]], [[t, string], [t, number]]].
+?- data_to_types([1,"a",[1]],[],T).
+T = [[t, number], [t, string], [[t, brackets], [[t, number]]]].
 ```
 
 # Getting Started
