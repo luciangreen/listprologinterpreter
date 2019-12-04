@@ -311,11 +311,11 @@ checktypes0_inputs(Function,Vars1,TypeStatements1,ModeStatements1) :-
 	(types(on)->debug_types_call([Function,/,~,L,input,type,check]);true),
 	
 	
-	((member([Function|[TypeStatements2]],TypeStatements1),
+	(member([Function|[TypeStatements2]],TypeStatements1),
 	member([Function|[ModeStatements2]],ModeStatements1),
 	extract_modes1(TypeStatements2,TypeStatements3,Vars1,Vars2,ModeStatements2),
 	(types(on)->debug_call(Skip,[Function,Vars2]);true),
-	checktypes1(Vars2,TypeStatements3,TypeStatements3,TypeStatements1))->
+	((checktypes1(Vars2,TypeStatements3,TypeStatements3,TypeStatements1))->
 	(
 	(types(on)->debug_exit(Skip,[Function,Vars2]);true),
 	(types(on)->debug_types_exit([Function,/,~,L,input,type,check]);true))
@@ -323,7 +323,7 @@ checktypes0_inputs(Function,Vars1,TypeStatements1,ModeStatements1) :-
 ;(
 	(types(on)->debug_fail(Skip,[Function,Vars1]);true),
 
-(types(on)->debug_types_fail([Function,/,~,L,input,type,check]);true))),!.
+(types(on)->debug_types_fail([Function,/,~,L,input,type,check]);true)))),!.
 
 extract_modes1(TypeStatements1,TypeStatements3,Vars1,Vars2,ModeStatements1) :-
 	%%TypeStatements1=[TypeStatements2|TypeStatements3],
