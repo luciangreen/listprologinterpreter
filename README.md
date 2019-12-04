@@ -65,6 +65,10 @@ See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/LP
 
 See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/T2B_docs.md">TextToBreasoning Documentation</a>.
 
+# Data to Types Documentation
+
+See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/D2T_docs.md">Data to Types Documentation</a>.
+
 # Versioning
 
 We will use SemVer for versioning.
