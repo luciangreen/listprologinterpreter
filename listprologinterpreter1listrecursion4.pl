@@ -4,6 +4,8 @@
 :- dynamic cut/1.
 :- dynamic leash1/1.
 :- dynamic types/1.
+:- dynamic typestatements/1.
+:- dynamic modestatements/1.
 
 /** List Prolog Interpreter **/
 
@@ -11,11 +13,13 @@ interpret(Debug,Query,Functions1,Result) :-
 	retractall(types(_)),
  	assertz(types(off)),
 interpret11(Debug,Query,Functions1,Result).
-interpret(Debug,Query,TypeStatements,Functions1,Result) :-
+interpret(Debug,Query,TypeStatements,ModeStatements,Functions1,Result) :-
 	retractall(types(_)),
  	assertz(types(on)),
 	retractall(typestatements(_)),
  	assertz(typestatements(TypeStatements)),
+	retractall(modestatements(_)),
+ 	assertz(modestatements(ModeStatements)),
 interpret11(Debug,Query,Functions1,Result).
 interpret11(Debug,Query,Functions1,Result) :-
 %%writeln1([i1]),
@@ -46,10 +50,11 @@ member1(Query,Functions,Functions2,Vars8) :-
 	(Functions2=[[Function,Arguments2,":-",Body]|_Functions3]),
 	length(Arguments1,Length),
 	length(Arguments2,Length),
+
+checktypes_inputs(Function,Arguments1),
         
         %%writeln1(checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs)),
         checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),
-
         %%->ca2 
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
 debug_call(Skip,[Function,Arguments1]),
@@ -102,6 +107,9 @@ member12(Query,Functions,Functions2,Vars8) :-
         (Functions2=[[Function,Arguments2]|_Functions3]),
         length(Arguments1,Length),
         length(Arguments2,Length),
+        
+        checktypes_inputs(Function,Arguments1),
+
         checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
 	updatevars(FirstArgs,Vars1,[],Result),
@@ -151,6 +159,9 @@ member2(Query,Functions,Functions2,Vars8) :-
         (Functions2=[[Function,Arguments2,":-",Body]|_Functions3]),
         length(Arguments1,Length),
         length(Arguments2,Length),
+        
+        checktypes_inputs(Function,Arguments1),
+
         checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),
         
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
@@ -198,6 +209,9 @@ member22(Query,Functions,Functions2,Vars8) :-
         (Functions2=[[Function,Arguments2]|_Functions3]),
         length(Arguments1,Length),
         length(Arguments2,Length),
+        
+        checktypes_inputs(Function,Arguments1),
+
         checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
         updatevars(FirstArgs,Vars1,[],Result),
@@ -231,6 +245,7 @@ member23(Query,Functions,Functions2,Vars8) :-
 	Functions2=[_Function|Functions3],
 	member2(Query,Functions,Functions3,Vars8))
 	);(turncut(off)).
+	
 checkarguments([],[],Vars,Vars,FirstArgs,FirstArgs) :- !. 
 checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%
 %%writeln1(1),
@@ -275,12 +290,66 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
 %% checktypes([n,f],[1,"a"],[[[n,f],[[t,a],[t,b]]],[[t,a],[[t,number]]],[[t,b],[[t,string]]]]).
 %% Can write your own "any" type.
 
+
+checktypes_inputs(Function,Vars1):-%%,TypeStatements1) :-
+%%writeln(checktypes(Function,Vars1)),
+	((types(on))->(typestatements(TypeStatements1),
+	modestatements(ModeStatements1),
+	checktypes0_inputs(Function,Vars1,TypeStatements1,ModeStatements1);true);true),!.
+checktypes0_inputs(Function,Vars1,_TypeStatements1,_ModeStatements1) :- 
+	length(Vars1,L),L is 0,Vars1=[],
+	(types(on)->debug_types_call([Function,/,~,L,input,type,check]);true),
+	
+	
+	(types(on)->debug_call(Skip,[Function,Vars1]);true),
+		
+	(types(on)->debug_exit(Skip,[Function,Vars1]);true),
+	(types(on)->debug_types_exit([Function,/,~,L,input,type,check]);true).
+checktypes0_inputs(Function,Vars1,TypeStatements1,ModeStatements1) :-
+	length(Vars1,L),
+	(types(on)->debug_types_call([Function,/,~,L,input,type,check]);true),
+	
+	
+	(types(on)->
+	((member([Function|[TypeStatements2]],TypeStatements1),
+	member([Function|[ModeStatements2]],ModeStatements1),
+	extract_modes1(TypeStatements2,TypeStatements3,Vars1,Vars2,ModeStatements2),
+	debug_call(Skip,[Function,Vars2]);true),
+	checktypes1(Vars2,TypeStatements3,TypeStatements3,TypeStatements1))->
+	(
+	(types(on)->debug_exit(Skip,[Function,Vars2]);true),
+	(types(on)->debug_types_exit([Function,/,~,L,input,type,check]);true))
+	
+;(
+	(types(on)->debug_fail(Skip,[Function,Vars1]);true),
+
+(types(on)->debug_types_fail([Function,/,~,L,input,type,check]);true))).
+
+extract_modes1(TypeStatements1,TypeStatements3,Vars1,Vars2,ModeStatements1) :-
+	%%TypeStatements1=[TypeStatements2|TypeStatements3],
+	extract_modes2(TypeStatements1,[],TypeStatements3,Vars1,[],Vars2,ModeStatements1).
+	%%TypeStatements3=[TypeStatements3a|TypeStatements3].
+extract_modes2([],TypeStatements2a,TypeStatements2a,[],Vars,Vars,[]) :- !.
+extract_modes2(TypeStatements1,TypeStatements2a,TypeStatements3,Vars1,Vars2,Vars3,ModeStatements1) :-
+	ModeStatements1=[input|ModeStatements3],
+	TypeStatements1=[TypeStatements2|TypeStatements3a],
+	Vars1=[Vars11|Vars12],
+	append(TypeStatements2a,[TypeStatements2],TypeStatements4),
+	append(Vars2,[Vars11],Vars4),
+	extract_modes2(TypeStatements3a,TypeStatements4,TypeStatements3,Vars12,Vars4,Vars3,ModeStatements3).
+extract_modes2(TypeStatements1,TypeStatements2a,TypeStatements3,Vars1,Vars2,Vars3,ModeStatements1) :-
+	ModeStatements1=[output|ModeStatements3],
+	TypeStatements1=[_TypeStatements2|TypeStatements3a],
+	Vars1=[_Vars11|Vars12],
+	extract_modes2(TypeStatements3a,TypeStatements2a,TypeStatements3,Vars12,Vars2,Vars3,ModeStatements3).
+
+
 checktypes(Function,Vars1):-%%,TypeStatements1) :-
 %%writeln(checktypes(Function,Vars1)),
 	((types(on))->(typestatements(TypeStatements1),
 	checktypes0(Function,Vars1,TypeStatements1);true);true),!.
 checktypes0(Function,Vars1,_TypeStatements1) :- 
-L is 0,Vars1=[],
+	length(Vars1,L),L is 0,Vars1=[],
 	(types(on)->debug_types_call([Function,/,L,type,check]);true),
 	
 	
@@ -877,7 +946,7 @@ debug_exit(Skip,[Function])
 
 debug_react(Status,115,true) :- Status=call, 
 turndebug(off), writeln(" skip"). %% skip
-debug_react(Status,97,false) :- writeln(" abort"),abort. %% abort
+debug_react(_Status,97,false) :- writeln(" abort"),abort. %% abort
 debug_react(Status,A,false) :- ((Status=call,not(A=115),not(A=97))->true;
 (member_exit_fail(Status),not(A=97))), writeln(" creep"). %% creep
 
