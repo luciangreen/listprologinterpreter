@@ -83,7 +83,7 @@ debug_call(Skip,[Function,Arguments1]),
 	(%%Query=[Function,_Arguments1],
 	%%Functions2=[[Function,_Arguments2,":-",_Body]|Functions3], %% make like previous trunk?
 	member11(Query,Functions,Functions2,Vars8))
-	);(turncut(off)%%,Result=[]
+	);(turncut(off),fail%%,Result=[]
 	).
 member11(Query,Functions,Functions2,Result) :-
 %%writeln1([m11]),
@@ -99,7 +99,7 @@ member11(Query,Functions,Functions2,Result) :-
 	(%%Query=[Function],
 	%%Functions2=[[Function]|Functions3],
 	member12(Query,Functions,Functions2,Result))
-	);(turncut(off)).
+	);(turncut(off),fail).
 member12(Query,Functions,Functions2,Vars8) :-
 %%writeln1([m12]),
 	cut(off)->(
@@ -129,7 +129,7 @@ member12(Query,Functions,Functions2,Vars8) :-
 	(%%Query=[Function,_Arguments1],
 	%%Functions2=[[Function,_Arguments2]|Functions3],
 	member13(Query,Functions,Functions2,Vars8))
-	);(turncut(off)).
+	);(turncut(off),fail).
 member13(Query,Functions,Functions2,Result) :-
 %%writeln1([m13]),
 	cut(off)->(
@@ -143,7 +143,7 @@ member13(Query,Functions,Functions2,Result) :-
 	(%%Query=[Function],
 	Functions2=[_Function|Functions3],
 	member1(Query,Functions,Functions3,Result))
-	);(turncut(off)).
+	);(turncut(off),fail).
 interpret2(Query,Functions1,Functions2,Result) :-
 %%writeln1(i2),
 %%writeln1(["%%interpret2 Query",Query,"Functions1",Functions1,"Functions2",Functions2]),
@@ -186,7 +186,7 @@ debug_call(Skip,[Function,Arguments1]),
 	(%%Query=[Function,_Arguments1],
 	%%Functions2=[[Function,_Arguments2,":-",_Body]|Functions3],
 	member21(Query,Functions,Functions2,Vars8))
-	);(turncut(off)).
+	);(turncut(off),fail).
 member21(Query,Functions,Functions2,Result) :-
 %%writeln1([m21]),
 	cut(off)->(
@@ -201,7 +201,7 @@ member21(Query,Functions,Functions2,Result) :-
 	(%%Query=[Function],
 	%%Functions2=[[Function]|Functions3],
 	member22(Query,Functions,Functions2,Result))
-	);(turncut(off)).
+	);(turncut(off),fail).
 member22(Query,Functions,Functions2,Vars8) :-
 %%writeln1([m22]),
 	cut(off)->(
@@ -231,7 +231,7 @@ member22(Query,Functions,Functions2,Vars8) :-
 	(%%Query=[Function,_Arguments1],
 	%%Functions2=[[Function,_Arguments2]|Functions3],
 	member23(Query,Functions,Functions2,Vars8))
-	);(turncut(off)).
+	);(turncut(off),fail).
 member23(Query,Functions,Functions2,Vars8) :-
 %%writeln1([m23]),
 	cut(off)->(
@@ -244,7 +244,7 @@ member23(Query,Functions,Functions2,Vars8) :-
 	(%%Query=[Function],
 	Functions2=[_Function|Functions3],
 	member2(Query,Functions,Functions3,Vars8))
-	);(turncut(off)).
+	);(turncut(off),fail).
 	
 checkarguments([],[],Vars,Vars,FirstArgs,FirstArgs) :- !. 
 checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%
@@ -522,12 +522,13 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
 	
 		not(predicate_or_rule_name(Statements1)),
 %%writeln1(interpretbody(Functions0,Functions,Vars1,Vars3,[Statement],Result2)),
-	interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],_Result2), %% 2->1
+	interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2), %% 2->1
+        ((Result2=cut)->!;true),
 
-	interpretbody(Functions0,Functions,Vars3,Vars4,Statements1a,_Result22), %% 2->1
-        %%((Result2=cut)->!;true),
-        interpretbody(Functions0,Functions,Vars4,Vars2,Statements2,_Result3),
-       %% ((Result3=cut)->!;true),
+	interpretbody(Functions0,Functions,Vars3,Vars4,Statements1a,Result22), %% 2->1
+        ((Result22=cut)->!;true),
+        interpretbody(Functions0,Functions,Vars4,Vars2,Statements2,Result3),
+       ((Result3=cut)->!;true),
   %%()      logicalnot(Result2,Result4), 
 %%()	(logicalconjunction(Result1,Result4,Result3)->true;(Result1=false)),
 	!.
@@ -540,14 +541,14 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
         ],
 
 debug_call(Skip,[[n,not]]),
-        (	(not(interpretbody(Functions0,Functions,Vars1,_Vars3,[Statement],_Result22)), %% 2->1
-        ((_Result2=cut)->!;true))->
+        (	(not(interpretbody(Functions0,Functions,Vars1,_Vars3,[Statement],Result22)))-> %% 2->1
+        %%((Result22=cut)->!;true)),%%->
 debug_exit(Skip,[[n,not]])
 ;     debug_fail(Skip,[[n,not]])),
 	%%writeln1(interpretbody(Functions0,Functions,Vars1,Vars3,[Statement],Result2)),
 
-        interpretbody(Functions0,Functions,Vars1,Vars2,Statements2,_Result32),
-        ((_Result3=cut)->!;true),
+        interpretbody(Functions0,Functions,Vars1,Vars2,Statements2,Result32),
+        ((Result32=cut)->!;true),
   %%()      logicalnot(Result2,Result4), 
 %%()	(logicalconjunction(Result1,Result4,Result3)->true;(Result1=false)),
 	!.
@@ -555,14 +556,16 @@ debug_exit(Skip,[[n,not]])
 	
 
 
-interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result0) :-
         Body=[[[n,or],[Statements1,Statements2]]|Statements3],
-        (interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],_Result2); %% *** changed from 1 to Result2
+        ((interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result1),
+        ((Result1=cut)->!;true)); %% *** changed from 1 to Result2
 	%%,((Value1=cut)->!;true));
-        interpretbody(Functions0,Functions,Vars1,Vars3,[Statements2],_Result2)),%%!. *** changed from 1 to Result2
+        interpretbody(Functions0,Functions,Vars1,Vars3,[Statements2],Result2)),%%!. *** changed from 1 to Result2
+        ((Result2=cut)->!;true),
 
-        interpretbody(Functions0,Functions,Vars3,Vars2,Statements3,_Result3),
-        %%((Result3=cut)->!;true),
+        interpretbody(Functions0,Functions,Vars3,Vars2,Statements3,Result3),
+        ((Result3=cut)->!;true),
         %%logicalconjunction(Result1,Result2,Result3),
         !.
 
@@ -573,10 +576,15 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
 
 interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
         Body=[[[n,"->"],[Statements1,Statements2]]|Statements3],
-        (interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],_Result2)-> 
-                interpretbody(Functions0,Functions,Vars3,Vars4,[Statements2],_Result22)),
+        ((interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2),
+                ((Result2=cut)->!;true))
+-> 
+                (interpretbody(Functions0,Functions,Vars3,Vars4,[Statements2],Result22),
+                 ((Result22=cut)->!;true))),
 
-        interpretbody(Functions0,Functions,Vars4,Vars2,Statements3,_Result3),
+        interpretbody(Functions0,Functions,Vars4,Vars2,Statements3,Result3),
+               ((Result3=cut)->!;true),
+
         !.
 
 
@@ -584,11 +592,15 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
 
 interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
         Body=[[[n,"->"],[Statements1,Statements2,Statements2a]]|Statements3],
-        (interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],_Result2)-> 
-                interpretbody(Functions0,Functions,Vars3,Vars4,[Statements2],_Result22);
-                interpretbody(Functions0,Functions,Vars1,Vars4,[Statements2a],_Result23)),
+        ((interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2),
+           ((Result2=cut)->!;true))-> 
+                (interpretbody(Functions0,Functions,Vars3,Vars4,[Statements2],Result22),
+                ((Result22=cut)->!;true));
+                (interpretbody(Functions0,Functions,Vars1,Vars4,[Statements2a],Result23),
+                ((Result23=cut)->!;true))),
 
-        interpretbody(Functions0,Functions,Vars4,Vars2,Statements3,_Result3),
+        interpretbody(Functions0,Functions,Vars4,Vars2,Statements3,Result3),
+        ((Result3=cut)->!;true),
         !.
 
 

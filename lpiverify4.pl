@@ -3,7 +3,7 @@
 %%:- use_module(library(time)).
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=58, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=59, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -1201,13 +1201,12 @@ test(41,[[n,substring],[[1,2,3,4],[2,3]]],
 	             [[[n,not],[[[n,=],[[v,b],[]]]]],
 	             [[n,fail]]]],
         [[n,substring],[[v,a],[v,b]],":-",
-                [[[n,head],[[v,a],[v,ah]]],
-                [[n,tail],[[v,a],[v,at]]],
-                [[n,"->"],[[[n,listhead],[[v,at],[v,bt]]],
+                [[[n,tail],[[v,a],[v,at]]],
+                [[n,"->"],[[[n,listhead],[[v,a],[v,b]]],
                         [[n,true]],
                         [[n,substring],[[v,at],[v,b]]]]]]],
 
-        [[n,listhead],[[], [v,l]]],
+        [[n,listhead],[[v,l],[]]],
         [[n,listhead],[[v,a],[v,b]],":-",
                 [[[n,head],[[v,a],[v,ah]]],
                 [[n,tail],[[v,a],[v,at]]],
@@ -1396,8 +1395,8 @@ test(52,[[n,mainrole],[7,[v,c]]],
 ,[[[[v,c], "mainrole"]]]).
 
 %% c=f((g(2)), 1, 1)
-%%test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
-test(53,[[n,getitemn],[1,[1,2,3],[v,bb]]],
+test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
+%%test(53,[[n,getitemn],[1,[1,2,3],[v,bb]]],
 [
         [[n,function],[[v,f1],[v,a],[v,b],[v,c]],":-",
         [
@@ -1427,8 +1426,8 @@ test(53,[[n,getitemn],[1,[1,2,3],[v,bb]]],
         ]]
 ]
 
-%%,[[[[v,c], 5]]]).
-,[[[[v,bb], 1]]]).
+,[[[[v,c], 5]]]).
+%%,[[[[v,bb], 1]]]).
 
 test(54,[[n,_],[[[n,function2],[2]],1,1,[v,c]]],
 [
@@ -1540,3 +1539,10 @@ test(58,[[n,findall],[[n,a_to_c],["a","b","a"],[],[v,d]]],
 ,[[[[v,d], ["c","c"]]]]).
 
 
+test(59,[[n,count],[1,[v,n]]],
+[
+        [[n,count],[1,2],":-",[[[n,cut]]]],
+        [[n,count],[1,3]]
+
+        
+] ,[[[[v,n], 2]]]).
