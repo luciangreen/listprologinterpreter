@@ -2,6 +2,8 @@
 
 %%:- use_module(library(time)).
 
+%% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
+
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
 test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=10, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
@@ -10,6 +12,8 @@ test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	(interpret(Debug,Query,Types,Modes,Functions,Result)->(Score3 is Score1+1,writeln([test_types,NTotal3,passed]));(Score3=Score1,writeln([test_types,NTotal3,failed]))),
 	writeln(""),
 	test_types(Debug,NTotal3,NTotal2,Score3,Score2),!.
+
+%% Test individual cases, Debug=trace=on or off, N=case number, Passed=output=result
 
 test_types1(Debug,N,Passed) :-
 	test_types_cases(N,Query,Types,Modes,Functions,Result),
