@@ -59,7 +59,8 @@ follow instructions in <a href="https://github.com/luciangreen/listprologinterpr
 * Breasons out the first two characters in "abc" ("a" and "b") 3 times.
 
 * (3) To breason out words, breathsonings (judgement adjectives and judgement adverbs), rooms, parts of rooms, directions in rooms, objects to prepare for an action and objects to finish an action over a local machine, in the SWI-Prolog environment, enter:
-`[load_texttobr].`
+`[meditationnoreplace].`
+`['texttobrall2'].`
 
 * In the SWI-Prolog environment, enter:
 `texttobr2(u,u,u,u,false,false,false,false,false,false).`
