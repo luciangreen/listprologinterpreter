@@ -5,11 +5,13 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=60, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=69, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
-	(interpret(Debug,Query,Functions,Result)->(Score3 is Score1+1,writeln([test,NTotal3,passed]));(Score3=Score1,writeln([test,NTotal3,failed]))),
+	(interpret(Debug,Query,Functions,Result)
+	%%writeln1(Result2
+	->(Score3 is Score1+1,writeln([test,NTotal3,passed]));(Score3=Score1,writeln([test,NTotal3,failed]))),
 	writeln(""),
 	test(Debug,NTotal3,NTotal2,Score3,Score2),!.
 
@@ -17,8 +19,9 @@ test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 
 test1(Debug,N,Passed) :-
 	test(N,Query,Functions,Result),
-	((interpret(Debug,Query,Functions,Result1),%%writeln(Result1),
-	Result=Result1)->(Passed=passed,writeln([test,N,passed]));(Passed=failed,writeln([test,N,failed]))),!.
+	((interpret(Debug,Query,Functions,Result)%%writeln(Result1),
+	%%Result=Result1
+	)->(Passed=passed,writeln([test,N,passed]));(Passed=failed,writeln([test,N,failed]))),!.
 
 
 %%writeln([eg1]),
@@ -1632,6 +1635,40 @@ test(62,[[n,add],[[1],[2,3],[v,l]]],
         ]
 ],[[[[v, l], [1,2,3]]]]).
 
+test(63,[[n,add],[1,[v,b]]],
+[
+        [[n,add],[2,3]],
+        [[n,add],[1,[v,b]],":-",
+        [       [[n,add],[2,[v,b]]]]]
+],[[[[v, b], 3]]]).
+
+
+test(64,[[n,add0],[[1,2],[v,b]]],
+[
+	     [[n,add2],[[v,a],[v,b]],":-",
+        [       [[n,=],[[v,a],[]]],
+                [[n,=],[[v,b],[]]]]],
+        [[n,add3],[[v,a],[v,b]],":-",
+        [       [[n,tail],[[v,a],[v,b]]]]],
+        
+        [[n,add0],[[v,a],[v,b]],":-",
+        [       [[n,1],[[v,a],[v,c]]],
+                [[n,=],[[v,c],[v,b]]]]],
+        
+        [[n,1],[[v,a],[v,b]],":-",
+        [       [[n,add2],[[v,a],[v,c]]],
+                [[n,=],[[v,c],[v,b]]]]],
+        [[n,1],[[v,a],[v,b]],":-",
+        [       [[n,add3],[[v,a],[v,c]]],
+                [[n,1],[[v,c],[v,d]]],
+                [[n,=],[[v,d],[v,b]]]]]
+],[[[[v, b], []]]]).
+
+test(65,[[n,add0],[[1],[v,b]]],
+[[[n,add3],[[v,a],[v,b]],":-",[[[n,tail],[[v,a],[v,b]]]]],[[n,add0],[[v,a],[v,b]],":-",[[[n,add3],[[v,a],[v,c]]],[[n,=],[[v,c],[v,b]]]]]]
+,[[[[v, b], []]]]).
+
+/**
 %%[[1],[2,3],[1,2,3]]],[[],[1,2,3],[1,2,3]]]
 
 test(63,[[n,add],[1,2,[v,l]]],
@@ -1642,17 +1679,110 @@ test(63,[[n,add],[1,2,[v,l]]],
         [       [[n,-],[[v,a],[v,b],[v,c]]]]]
 ],[[[[v, l], 3]], [[[v, l], -1]]]).
 
-test(64,[[n,add],[[1,2,3],3,[],[v,a]]],
+test(64,[[n,add],[[1,2,3],3,[],[v,l],[v,t],[v,t],[v,th],[v,th],[v,o],[v,o]]],
 [
-        [[n,add],[[],[v,b],[v,c],[v,c]]],
-        [[n,add],[[v,b],[v,c],[v,d],[v,e]],":-",
-        [       [[n,head],[[v,b],[v,f]]],
-                [[n,tail],[[v,b],[v,g]]],
-                [[n,+],[[v,f],[v,c],[v,h]]],
-                [[n,wrap],[[v,h],[v,i]]],
-                [[n,append],[[v,d],[v,i],[v,j]]],
-                [[n,add],[[v,g],[v,c],[v,j],[v,e]]]
+        [[n,add],[[],[v,th],[v,l],[v,l],[v,t],[v,t],[v,th],[v,th],[v,o],[v,o]]],
+        [[n,add],[[v,l],[v,th],[v,m],[v,n],[v,t],[v,th],[v,o]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,+],[[v,h],[v,th],[v,h0]]],
+                [[n,wrap],[[v,h0],[v,h1]]],
+                [[n,append],[[v,m],[v,h1],[v,o]]],
+                [[n,add],[[v,t],[v,th],[v,o],[v,n],[v,t],[v,t],[v,th],[v,th],[v,o],[v,o]]]
         ]
         ]
-],[[[[v,a], [4,5,6]]]]).
+],[[[[v,l], [4,5,6]],[[v,t],888],[[v,th],888],[[v,o],888]]]).
 
+%% do separate i,o to group of last 3 vars
+%% separate i,o
+
+
+test(65,[[n,add3],[[v,a],[v,b]]],
+[
+[[n,add1],[1]],
+[[n,add2],[[v,a],[v,b]],":-",
+[       [[n,+],[[v,a],1,[v,b]]]]],
+[[n,add3],[[v,a],[v,b]],":-",
+[       [[n,+],[[v,a],1,[v,b]]]]],
+
+
+%% give functional function base case name as arg, which it can move around using cawp not cawmp
+
+%% fibonacci
+
+
+%% change back lpi, cawp verify
+**/
+
+test(66,[[n,addorsubtract1],[2,1,1]],
+[
+        [[n,addorsubtract1],[[v,a],[v,b],[v,c]],":-",
+        [       %%[[n,or],[[[n,addorsubtract2],[[v,a],[v,b],[v,c]]],
+        						%%[[n,true]],
+        						[[n,addorsubtract2],[[v,a],[v,b],[v,d]]],%%]
+        						[[n,=],[[v,d],[v,c]]]
+        ]
+        ],
+        [[n,addorsubtract2],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,+],[[v,a],[v,b],[v,d]]],%%]
+        						[[n,=],[[v,d],[v,c]]]
+        ]
+        ],
+        [[n,addorsubtract2],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,-],[[v,a],[v,b],[v,d]]],%%]
+        						[[n,=],[[v,d],[v,c]]]
+        ]
+        ]        
+],[[]]).
+
+test(67,[[n,addorsubtract1],[2,1,1]],
+[
+        [[n,addorsubtract1],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,or],[[[n,addorsubtract2],[[v,a],[v,b],[v,c]]],
+        						%%[[n,true]],
+        						[[n,addorsubtract3],[[v,a],[v,b],[v,c]]]]]
+        ]
+        ],
+        [[n,addorsubtract2],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,+],[[v,a],[v,b],[v,c]]]
+        ]
+        ],
+        [[n,addorsubtract3],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,-],[[v,a],[v,b],[v,c]]]
+        ]
+        ]        
+],[[]]).
+
+
+test(68,[[n,addorsubtract1],[2,1,1]],
+[
+        [[n,addorsubtract1],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,"->"],[[[n,addorsubtract2],[[v,a],[v,b],[v,c]]],
+        						[[n,true]],
+        						[[n,addorsubtract3],[[v,a],[v,b],[v,c]]]]]
+        ]
+        ],
+        [[n,addorsubtract2],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,+],[[v,a],[v,b],[v,c]]]
+        ]
+        ],
+        [[n,addorsubtract3],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,-],[[v,a],[v,b],[v,c]]]
+        ]
+        ]        
+],[[]]).
+
+
+test(69,[[n,add0],[2,1]],
+[        
+        [[n,add0],[[v,a],[v,b]],":-",
+        [       [[n,1],[[v,a],[v,b]]]]],
+        
+        [[n,1],[[v,a],[v,b]],":-",
+        [       [[n,+],[[v,a],1,[v,c]]],
+                [[n,=],[[v,c],[v,b]]]]],
+
+        [[n,1],[[v,a],[v,b]],":-",
+        [       [[n,-],[[v,a],1,[v,c]]],
+                [[n,=],[[v,c],[v,b]]]]]
+],[[]]).
