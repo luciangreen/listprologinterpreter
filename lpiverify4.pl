@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=69, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=75, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -1772,7 +1772,6 @@ test(68,[[n,addorsubtract1],[2,1,1]],
         ]        
 ],[[]]).
 
-
 test(69,[[n,add0],[2,1]],
 [        
 	[[n,add0],[[v,a],[v,b]],":-",
@@ -1855,50 +1854,7 @@ test(74,[[n,add0],[[1,2],[v,c]]],
 	[[n,=],[[v,d],[v,b]]]]]]
 ,[[[[v,c],[]]]]).
 
-test(75,[[n,add0],[[1,2],[v,c]]],
-[[[n,add2],[[v,a],[v,b]],":-",
-	[[[n,=],[[v,a],[]]],
-	[[n,=],[[v,b],[]]]]],
-[[n,add3],[[v,a],[v,b]],":-",
-	[[[n,tail],[[v,a],[v,b]]]]],
-[[n,add1],[[v,a],[v,b]],":-",
-	[[[n,add2],[[v,a],[v,c]]],
-	[[n,=],[[v,c],[v,b]]]]],
-
-[[n,add0],[[v,a],[v,b]],":-",
-	[[[n,add1],[[v,a],[v,c]]],
-	[[n,=],[[v,c],[v,b]]]]],
-[[n,add0],[[v,a],[v,b]],":-",
-	[[[n,add3],[[v,a],[v,c]]],
-	[[n,add0],[[v,c],[v,d]]],
-	[[n,=],[[v,d],[v,b]]]]]],
-[[[[v,c],[]]]]).
-
-test(76,[[n,add0],[[1,2],[v,c]]],
-[[[n,add3],[[v,a],[v,b]],":-",[[[n,tail],[[v,a],[v,b]]]]],
-[[n,add0],[[v,a],[v,b]],":-",[[[n,add3],[[v,a],[v,c]]],[[n,add0],[[v,c],[v,d]]],[[n,=],[[v,d],[v,b]]]]]],
-[[[[v,c],[]]]]).
-
-test(77,[[n,add0],[[1,2],[v,c]]],
-[[[n,add3],[[v,a],[v,b]],":-",[[[n,tail],[[v,a],[v,b]]]]],[[n,add0],[[v,a],[v,b]],":-",[[[n,add0],[[v,a],[v,c]]],[[n,add3],[[v,c],[v,d]]],[[n,=],[[v,d],[v,b]]]]]]**
-[[[[v,c],[]]]]).
-
-test(78,[[n,add0],[[1,2,3],[v,c]]],
-[[[n,add3],[[v,a],[v,b]],":-",
-	[[[n,tail],[[v,a],[v,b]]]]],
-[[n,add2],[[v,a],[v,b]],":-",
-	[[[n,=],[[v,a],[]]],
-	[[n,=],[[v,b],[]]]]],
-[[n,add0],[[v,a],[v,b]],":-",
-	[[[n,add2],[[v,a],[v,c]]],
-	[[n,=],[[v,c],[v,b]]]]],
-[[n,add0],[[v,a],[v,b]],":-",
-	[[[n,add3],[[v,a],[v,c]]],
-	[[n,add0],[[v,c],[v,d]]],
-	[[n,=],[[v,d],[v,b]]]]]],
-[[[[v,c],[]]]]).
-
-test(79,[[n,add0],[[1,2,3],[v,c]]],
+test(75,[[n,add0],[[],[v,c]]],
 [[[n,add2],[[v,a],[v,b]],":-",
 	[[[n,=],[[v,a],[]]],
 	[[n,=],[[v,b],[]]]]],
@@ -1906,5 +1862,3 @@ test(79,[[n,add0],[[1,2,3],[v,c]]],
 	[[[n,add2],[[v,a],[v,c]]],
 	[[n,=],[[v,a],[v,b]]]]]],
 [[[[v,c],[]]]]).
-
-
