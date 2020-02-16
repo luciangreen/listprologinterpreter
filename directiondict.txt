@@ -1,1 +1,0 @@
-[[and,display],[box,cupboard],[dash,rug],[down,board],[drum,stand],[line,rack],[paper,box],[person,grass],[plus,blanket],[square,folder]]

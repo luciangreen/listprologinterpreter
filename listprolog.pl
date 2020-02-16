@@ -9,5 +9,5 @@
 %%:- include('cawpverify.pl').
 %%:- include('rcawp.pl').
 %%:- include('rcaw.pl').
-:- include('texttobr2.pl').
+%%:- include('texttobr2.pl').
 :- include('la_strings.pl').

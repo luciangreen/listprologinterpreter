@@ -154,6 +154,8 @@ For example:
 
 * `[[n,date],[Year,Month,Day,Hour,Minute,Seconds]]` e.g. `[[n,date],[[v,year],[v,month],[v,day],[v,hour],[v,minute],[v,second]]]` returns e.g. `[v,year]=2019`, `[v,month]=11`, `[v,day]=6`, `[v,hour]=12`, `[v,minute]=15`, `[v,second]=20.23353409767151`.
 
+* `[[n,sqrt],[Variable1,Variable2]]` e.g. `[[n,ceiling],[4,[v,c]]]` returns `[v,c]=2`
+
 
 * See lpiverify4.pl for examples of rules (predicates without bodies) and calls to predicates.
 

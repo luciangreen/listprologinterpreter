@@ -1,1 +1,0 @@
-[[and,table],[box,table],[dash,floor],[down,table],[drum,percussion],[line,clotheshorse],[paper,table],[person,lawn],[plus,bed],[square,table]]

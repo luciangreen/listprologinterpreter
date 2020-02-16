@@ -12,6 +12,8 @@ None
 
 # Installing
 
+* Please download and install SWI-Prolog for your machine at https://www.swi-prolog.org/build/.
+
 * Download the repository to your machine.
 In the SWI-Prolog environment, enter:
 `['listprolog'].`    
@@ -61,9 +63,9 @@ tests the reverse predicate.
 
 See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/LPI_docs.md">List Prolog Documentation</a>.
 
-# TextToBreasoning Documentation
+# Text to Breasonings
 
-See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/T2B_docs.md">TextToBreasoning Documentation</a>.
+<a href="https://github.com/luciangreen/Text-to-Breasonings">Text to Breasonings</a> now has its own repository.
 
 # Data to Types Documentation
 
@@ -80,14 +82,3 @@ Lucian Green - Initial programmer - <a href="https://www.lucianacademy.com/">Luc
 # License
 
 I licensed this project under the BSD3 License - see the LICENSE.md file for details
-
-# Addendum
-
-Please read <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/Setting_up_a_VPS_with_TextToBr.txt">"Setting up a VPS with TextToBr.txt"</a> to set up a VPS with TextToBr.
-
-<a href="https://github.com/luciangreen/listprologinterpreter/blob/master/rcaw.paste">rcaw.paste</a> added - this can be run each day to meet daily regimen requirements, such as preventing unwanted thoughts (<a href="https://github.com/luciangreen/listprologinterpreter/blob/master/mindreadtestsec.pl">mindreadtestsec.pl</a>), giving meditators thoughts (<a href="https://github.com/luciangreen/listprologinterpreter/blob/master/mindreadingcaw.pl">mindreadingcaw.pl</a>) and giving thoughts about psychoanalysis (<a href="https://github.com/luciangreen/listprologinterpreter/blob/master/mindreadtestpsychiatrist.pl">mindreadtestpsychiatrist.pl</a>).
-
-### Caution:
-
-follow instructions in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/Instructions_for_Using_texttobr(2).pl.txt">Instructions for Using texttobr(2)</a> when using texttobr, texttobr2 or mind reader to avoid medical problems.
-
