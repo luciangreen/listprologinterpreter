@@ -24,7 +24,7 @@ To run all tests, enter:
 
 To run a specific test:
 `test1(off,TestNumber,Passed).`
-where TestNumber is the test number from lpiverify4.pl.
+where TestNumber is the test number from <a href="lpiverify4.pl">lpiverify4.pl</a>.
 
 Example of an end to end test
 The query `test1(off,1,Passed).`
