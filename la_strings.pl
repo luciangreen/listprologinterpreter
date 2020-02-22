@@ -26,6 +26,19 @@ shell1_s(Command) :-
  	atom_string(Command1,Command),
 	shell1(Command1),!.
 	
+shell1(Command) :-
+				(bash_command(Command,_)->
+					true;
+					(writeln(["Failed shell1 command: ",Command]),abort)
+				).
+
+bash_command(Command, Output) :-
+        setup_call_cleanup(process_create(path(bash),
+                ['-c', Command],
+                [stdout(pipe(Out))]),
+        read_string(Out, _, Output),
+        close(Out)).
+
 concat_list(A1,B):-
 	A1=[A|List],
 	concat_list(A,List,B),!.
