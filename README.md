@@ -77,7 +77,7 @@ See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/D2
 * Move `lpi-api.pl` to the root (`/username/` or `~` on a server) of your machine.
 * Re-enter the paths to your Prolog files in it.
 * Enter `[lpi-api.pl]` in SWI-Prolog and `server(8000).`.
-* On a local host access the algorithm at `http://127.0.0.1:8000` and replaced 127.0.0.1 with your server address on a server.
+* On a local host access the algorithm at `http://127.0.0.1:8000` and replace 127.0.0.1 with your server address on a server.
 
 # Versioning
 
