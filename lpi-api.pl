@@ -7,7 +7,7 @@
 :- use_module(library(http/http_client)).
 :- http_handler('/', web_form, []).
 
-:- include('Dropbox/GitHub/Sandbox/listprolog.pl').
+:- include('files/listprolog.pl').
 
 server(Port) :-
         http_server(http_dispatch, [port(Port)]).
