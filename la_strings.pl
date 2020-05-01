@@ -58,3 +58,13 @@ append_list(A,List,B) :-
 	List=[Item|Items],
 	append(A,[Item],C),
 	append_list(C,Items,B).
+
+append_list2(A1,B):-
+	A1=[A|List],
+	append_list2(A,List,B),!.
+
+append_list2(A,[],A):-!.
+append_list2(A,List,B) :-
+	List=[Item|Items],
+	append(A,Item,C),
+	append_list2(C,Items,B).
