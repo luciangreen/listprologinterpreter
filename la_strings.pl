@@ -39,6 +39,7 @@ bash_command(Command, Output) :-
         read_string(Out, _, Output),
         close(Out)).
 
+concat_list([],""):-!.
 concat_list(A1,B):-
 	A1=[A|List],
 	concat_list(A,List,B),!.
@@ -59,6 +60,7 @@ append_list(A,List,B) :-
 	append(A,[Item],C),
 	append_list(C,Items,B).
 
+append_list2([],[]):-!.
 append_list2(A1,B):-
 	A1=[A|List],
 	append_list2(A,List,B),!.
