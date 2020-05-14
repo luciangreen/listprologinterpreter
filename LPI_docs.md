@@ -380,7 +380,7 @@ test_types_cases(6,[[n,f],[[v,a]]],
 ],
 ```
 
-* Mode Statements
+# Mode Statements
 
 In the following,
 ```
@@ -398,6 +398,6 @@ test_types_cases(2,[[n,function],[[v,a],[v,b],[v,c]]],
 ,[[[[v,a], 1],[[v,b], "a"],[[v,c], [n,a]]]]).
 ```
 
-`[[[n,function],[output,output,output]]],` is the mode statement, which must follow the type statements (although these are optional).  The Mode Statement specifies whether the variable takes input or gives output.
+`[[[n,function],[output,output,output]]],` is the mode statement, which must follow the type statement (although these are optional).  The Mode Statement specifies whether each of the variables takes input or gives output.
 
 * For other examples, please see <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a>, <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_types.pl">lpiverify4_types.pl</a> (for examples with types) and <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open.pl">lpiverify4_open.pl</a> (for examples with open-ended results).
