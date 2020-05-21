@@ -84,6 +84,10 @@ See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/D2
 * Enter `[lpi-api.pl]` in SWI-Prolog and `server(8000).`.
 * On a local host access the algorithm at `http://127.0.0.1:8000` and replace 127.0.0.1 with your server address on a server.
 
+# Diagram of List Prolog Converters
+
+<img src="https://www.lucianacademy.com/files/Philosophy/LucianGreensPhilosophyMay2020/Diagram%20of%20List%20Prolog%20Converters.png" alt="Diagram of List Prolog Converters">
+
 # Versioning
 
 We will use SemVer for versioning.
