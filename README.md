@@ -88,6 +88,8 @@ See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/D2
 
 <img src="https://www.lucianacademy.com/files/Philosophy/LucianGreensPhilosophyMay2020/Diagram%20of%20List%20Prolog%20Converters.png" alt="Diagram of List Prolog Converters">
 
+See the <a href="https://github.com/luciangreen">list of repositories by luciangreen</a> for these.
+
 # Versioning
 
 We will use SemVer for versioning.
