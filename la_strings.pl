@@ -70,3 +70,6 @@ append_list2(A,List,B) :-
 	List=[Item|Items],
 	append(A,Item,C),
 	append_list2(C,Items,B).
+
+list(A,_,_) :-
+	(A=[_|_]->true;A=[]),!.

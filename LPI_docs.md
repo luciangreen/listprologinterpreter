@@ -291,7 +291,7 @@ test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
 
 # Type Statements
 
-* Functions may have strong types, which are checked after exiting functions.  So far, any type statement with the name and arity of the function may match data for a call to that function.
+* Functions may have strong types, which check inputted values when calling a function and check all values when exiting a function.  So far, any type statement with the name and arity of the function may match data for a call to that function.
 
 * The user may optionally enter types after the query. The following type statement tests number, string and predicate name types.
 
