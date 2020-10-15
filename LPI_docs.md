@@ -295,6 +295,9 @@ test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
 
 * The user may optionally enter types after the query. The following type statement tests number, string and predicate name types.
 
+* Note: Mode statements, described in the next section, are required after Type Statements.
+
+
 ```
 test_types_cases(2,[[n,function],[[v,a],[v,b],[v,c]]],
 [[[n,function],[[t,number],[t,string],[t,predicatename]]]],
