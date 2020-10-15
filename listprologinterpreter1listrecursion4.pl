@@ -380,7 +380,7 @@ checktypes1([],[],_,_) :- !.
 	checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
 %%writeln(checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4)),
 	Vars1=[Vars2|Vars3],
-	list(Vars2,_,_),
+	list1(Vars2,_,_),
 	TypeStatements1=[[[t,list]|[TypeStatements3]]|TypeStatements4a],
 (types(on)->debug_call(Skip,[[t,list],TypeStatements3]);true),
 

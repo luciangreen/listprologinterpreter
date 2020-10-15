@@ -71,5 +71,5 @@ append_list2(A,List,B) :-
 	append(A,Item,C),
 	append_list2(C,Items,B).
 
-list(A,_,_) :-
+list1(A,_,_) :-
 	(A=[_|_]->true;A=[]),!.
