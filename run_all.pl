@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=75, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=1, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 %% Finds the alg given i/o
 	NTotal3 is NTotal1+1,
