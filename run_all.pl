@@ -22,21 +22,29 @@ test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 test1(Debug,N,Passed) :-
 	functions(Functions),
 	test(N,Query,Function1,Result),
-	(((findall([Function,R],(member(Function,Functions),interpret(Debug,Query,Function,R)),Rs),%%writeln(Rs),
+	(((findall([Function,R],(member(Function,Functions),interpret(Debug,Query,Function,R)
+	
+	%%,writeln1(R)
+	
+	),Rs),%%writeln(Rs),
+	%%writeln1([Function1,Result,Rs]),
+	%%member([Function1,Result],Rs)),
 	member([Function1,Result],Rs))
+	%%Function1=Function10,Result=Result0
 	%%Result=Result1
 	)->(Passed=passed,writeln([test,N,passed]));(Passed=failed,writeln([test,N,failed]))),!.
 
 functions([
-[
-[[n,reverse],[[],[v,l],[v,l]]],
-[[n,reverse],[[v,l],[v,m],[v,n]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,wrap],[[v,h],[v,h1]]],[[n,append],[[v,h1],[v,m],[v,o]]],[[n,reverse],[[v,t],[v,o],[v,n]]]]]
+/**
+[%% reverse
+[[n,a],[[],[v,l],[v,l]]],
+[[n,a],[[v,l],[v,m],[v,n]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,wrap],[[v,h],[v,h1]]],[[n,append],[[v,h1],[v,m],[v,o]]],[[n,a],[[v,t],[v,o],[v,n]]]]]
 ],
-[
-[[n,intersection1],[[],[v,a],[v,l],[v,l]]],
-[[n,intersection1],[[v,l1],[v,l2],[v,l3a],[v,l3]],":-",[[[n,head],[[v,l1],[v,i1]]],[[n,tail],[[v,l1],[v,l4]]],[[n,intersection2],[[v,i1],[v,l2],[],[v,l5]]],[[n,append],[[v,l3a],[v,l5],[v,l6]]],[[n,intersection1],[[v,l4],[v,l2],[v,l6],[v,l3]]]]],
+[ %% intersection
+[[n,a],[[],[v,a],[v,l],[v,l]]],
+[[n,a],[[v,l1],[v,l2],[v,l3a],[v,l3]],":-",[[[n,head],[[v,l1],[v,i1]]],[[n,tail],[[v,l1],[v,l4]]],[[n,intersection2],[[v,i1],[v,l2],[],[v,l5]]],[[n,append],[[v,l3a],[v,l5],[v,l6]]],[[n,a],[[v,l4],[v,l2],[v,l6],[v,l3]]]]],
 [[n,intersection2],[[v,a],[],[v,l],[v,l]]],
-[[n,intersection2],[[v,i1],[v,l1],[v,l2],[v,l3]],":-",[[[n,head],[[v,l1],[v,i1]]],[[n,tail],[[v,l1],[v,l4]]],[[n,wrap],[[v,i1],[v,i11]]],[[n,append],[[v,l2],[v,i11],[v,l5]]],[[n,intersection2],[[v,i1],[v,l4],[v,l5],[v,l3]]]]],
+[[n,intersection2],[[v,i1],[v,l1],[v,l2],[v,l3]],":-",[[[n,head],[[v,l1],[v,i1]]],[[n,tail],[[v,l1],[v,l4]]],[[n,wrap],[[v,i1],[v,i11]]],[[n,append],[[v,l2],[v,i11],[v,l3]]]]],%%,[[n,intersection2],[[v,i1],[v,l4],[v,l5],[v,l3]]]]],
 [[n,intersection2],[[v,i1],[v,l1],[v,l2],[v,l3]],":-",[[[n,head],[[v,l1],[v,i2]]],[[n,tail],[[v,l1],[v,l4]]],[[n,not],[[[n,=],[[v,i1],[v,i2]]]]],[[n,intersection2],[[v,i1],[v,l4],[v,l2],[v,l3]]]]]
 ],
 [
@@ -53,20 +61,24 @@ functions([
 [[n,mutuallyexclusive],[[],[v,l]]],
 [[n,mutuallyexclusive],[[v,l],[v,m]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,membera3],[[v,m],[v,h]]],[[n,mutuallyexclusive],[[v,t],[v,m]]]]],
 [[n,membera3],[[],[v,l]]],
-[[n,membera3],[[v,l],[v,m]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,not],[[[n,=],[[v,m],[v,h]]]]],[[n,membera3],[[v,t],[v,m]]]]],
-[[n,duplicates],[[],[v,l],[v,s],[v,s]]]
+[[n,membera3],[[v,l],[v,m]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,not],[[[n,=],[[v,m],[v,h]]]]],[[n,membera3],[[v,t],[v,m]]]]]
 ],
-[
-[[n,duplicates],[[v,l],[v,m],[v,s1],[v,s2]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,member],[[v,m],[v,h]]],[[n,"->"],[[[n,deletea2],[[v,m],[v,h],[v,m1]]],[[n,true]],[[n,=],[[v,m],[v,m1]]]]],[[n,wrap],[[v,h],[v,h1]]],[[n,append],[[v,s1],[v,h1],[v,s3]]],[[n,duplicates],[[v,t],[v,m1],[v,s3],[v,s2]]]]],
-[[n,duplicates],[[v,l],[v,m],[v,s1],[v,s2]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,not],[[[n,membera4],[[v,m],[v,h]]]]],[[n,duplicates],[[v,t],[v,m],[v,s1],[v,s2]]]]],
+**/
+[ % duplicates
+[[n,a],[[],[v,l],[v,s],[v,s]]],
+[[n,a],[[v,l],[v,m],[v,s1],[v,s2]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,member],[[v,m],[v,h]]],[[n,"->"],[[[n,deletea2],[[v,m],[v,h],[v,m1]]],[[n,true]],[[n,=],[[v,m],[v,m1]]]]],[[n,wrap],[[v,h],[v,h1]]],[[n,append],[[v,s1],[v,h1],[v,s3]]],[[n,a],[[v,t],[v,m1],[v,s3],[v,s2]]]]],
+[[n,a],[[v,l],[v,m],[v,s1],[v,s2]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,not],[[[n,membera4],[[v,m],[v,h]]]]],[[n,a],[[v,t],[v,m],[v,s1],[v,s2]]]]],
 [[n,deletea2],[[],[v,l],[v,m1]],":-",[[[n,fail]]]],
 [[n,deletea2],[[v,l],[v,m],[v,t]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,=],[[v,m],[v,h]]]]],
-[[n,deletea2],[[v,l],[v,m],[v,m1]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,not],[[[n,=],[[v,m],[v,h]]]]],[[n,deletea2],[[v,t],[v,m],[v,m1]]]]]
-],
-[
-[[n,membera4],[[],[v,l]],":-",[[[n,fail]]]],
+[[n,deletea2],[[v,l],[v,m],[v,m1]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,not],[[[n,=],[[v,m],[v,h]]]]],[[n,deletea2],[[v,t],[v,m],[v,m1]]]]],[[n,membera4],[[],[v,l]],":-",[[[n,fail]]]],
 [[n,membera4],[[v,l],[v,h]],":-",[[[n,head],[[v,l],[v,h]]]]],
-[[n,membera4],[[v,l],[v,m]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,not],[[[n,=],[[v,m],[v,h]]]]],[[n,membera4],[[v,t],[v,m]]]]],
+[[n,membera4],[[v,l],[v,m]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,not],[[[n,=],[[v,m],[v,h]]]]],[[n,membera4],[[v,t],[v,m]]]]]
+]
+
+/**,
+[[n,substring],[[],[]]],
+[[n,substring],[[],[v,b]],":-",[[[n,not],[[[n,=],[[v,b],[]]]]],[[n,fail]]]],
+
 [[n,substring],[[],[]]],
 [[n,substring],[[],[v,b]],":-",[[[n,not],[[[n,=],[[v,b],[]]]]],[[n,fail]]]],
 %%[[n,substring],[[v,a],[v,b]],":-",[[[n,tail],[[v,a],[v,at]]],[[n,"->"],[[[n,listhead],[[v,a],[v,b]]],[[[n,true]]],[[[n,substring],[[v,at],[v,b]]]]]]]],
@@ -77,24 +89,40 @@ functions([
 [[n,listhead],[[v,a],[v,b]],":-",[[[n,head],[[v,a],[v,ah]]],[[n,tail],[[v,a],[v,at]]],[[n,head],[[v,b],[v,ah]]],[[n,tail],[[v,b],[v,bt]]],[[n,listhead],[[v,at],[v,bt]]]]]%%,
 %%[[n,listhead],[[v,a],[v,b]],":-",[[[n,head],[[v,a],[v,ah]]],[[n,tail],[[v,a],[v,at]]],[[n,head],[[v,b],[v,ah]]],[[n,tail],[[v,b],[v,bt]]],[[n,listhead],[[v,at],[v,bt]]]]]
 ]
+**/
 ]).
 	
 
 %%writeln([eg1]),
-test(1,[[n,intersection1],[[["select,dash"],["neiey,person"],["neiey,person"]],[["select,dash"],["neiey,person"],["neiey,person"]],[],[v,c]]],
+test(1,[[n,a],[[["select,dash"],["neiey,person"],["neiey,person"]],[["select,dash"],["neiey,person"],["neiey,person"]],[],[v,c]]],
 
-[
-[[n,intersection1],[[],[v,a],[v,l],[v,l]]],
-[[n,intersection1],[[v,l1],[v,l2],[v,l3a],[v,l3]],":-",[[[n,head],[[v,l1],[v,i1]]],[[n,tail],[[v,l1],[v,l4]]],[[n,intersection2],[[v,i1],[v,l2],[],[v,l5]]],[[n,append],[[v,l3a],[v,l5],[v,l6]]],[[n,intersection1],[[v,l4],[v,l2],[v,l6],[v,l3]]]]],
+[ % intersection
+[[n,a],[[],[v,a],[v,l],[v,l]]],
+[[n,a],[[v,l1],[v,l2],[v,l3a],[v,l3]],":-",[[[n,head],[[v,l1],[v,i1]]],[[n,tail],[[v,l1],[v,l4]]],[[n,intersection2],[[v,i1],[v,l2],[],[v,l5]]],[[n,append],[[v,l3a],[v,l5],[v,l6]]],[[n,a],[[v,l4],[v,l2],[v,l6],[v,l3]]]]],
 [[n,intersection2],[[v,a],[],[v,l],[v,l]]],
-[[n,intersection2],[[v,i1],[v,l1],[v,l2],[v,l3]],":-",[[[n,head],[[v,l1],[v,i1]]],[[n,tail],[[v,l1],[v,l4]]],[[n,wrap],[[v,i1],[v,i11]]],[[n,append],[[v,l2],[v,i11],[v,l5]]],[[n,intersection2],[[v,i1],[v,l4],[v,l5],[v,l3]]]]],
+[[n,intersection2],[[v,i1],[v,l1],[v,l2],[v,l3]],":-",[[[n,head],[[v,l1],[v,i1]]],[[n,tail],[[v,l1],[v,l4]]],[[n,wrap],[[v,i1],[v,i11]]],[[n,append],[[v,l2],[v,i11],[v,l3]]]]],%%[[n,intersection2],[[v,i1],[v,l4],[v,l5],[v,l3]]]]],
 [[n,intersection2],[[v,i1],[v,l1],[v,l2],[v,l3]],":-",[[[n,head],[[v,l1],[v,i2]]],[[n,tail],[[v,l1],[v,l4]]],[[n,not],[[[n,=],[[v,i1],[v,i2]]]]],[[n,intersection2],[[v,i1],[v,l4],[v,l2],[v,l3]]]]]
 ]
-,[[[[v,c], [["select,dash"],["neiey,person"],["neiey,person"],["neiey,person"],["neiey,person"]]]]]).
+,[[[[v,c], [["select,dash"],["neiey,person"],["neiey,person"]]]]]).
+
+
+test(2,[[n,a],[[["select,dash"],["neiey,person"],["neiey,person"],["neiey,person"],["neiey,person"]],[["select,dash"],["neiey,person"],["neiey,person"],["neiey,person"],["neiey,person"]],[],[v,c]]],
+
+[ % duplicates
+[[n,a],[[],[v,l],[v,s],[v,s]]],
+[[n,a],[[v,l],[v,m],[v,s1],[v,s2]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,member],[[v,m],[v,h]]],[[n,"->"],[[[n,deletea2],[[v,m],[v,h],[v,m1]]],[[n,true]],[[n,=],[[v,m],[v,m1]]]]],[[n,wrap],[[v,h],[v,h1]]],[[n,append],[[v,s1],[v,h1],[v,s3]]],[[n,a],[[v,t],[v,m1],[v,s3],[v,s2]]]]],
+[[n,a],[[v,l],[v,m],[v,s1],[v,s2]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,not],[[[n,membera4],[[v,m],[v,h]]]]],[[n,a],[[v,t],[v,m],[v,s1],[v,s2]]]]],
+[[n,deletea2],[[],[v,l],[v,m1]],":-",[[[n,fail]]]],
+[[n,deletea2],[[v,l],[v,m],[v,t]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,=],[[v,m],[v,h]]]]],
+[[n,deletea2],[[v,l],[v,m],[v,m1]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,not],[[[n,=],[[v,m],[v,h]]]]],[[n,deletea2],[[v,t],[v,m],[v,m1]]]]],
+[[n,membera4],[[],[v,l]],":-",[[[n,fail]]]],
+[[n,membera4],[[v,l],[v,h]],":-",[[[n,head],[[v,l],[v,h]]]]],
+[[n,membera4],[[v,l],[v,m]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,not],[[[n,=],[[v,m],[v,h]]]]],[[n,membera4],[[v,t],[v,m]]]]]
+],
+
+[[[[v,c],[["select,dash"],["neiey,person"],["neiey,person"],["neiey,person"],["neiey,person"]]]]]).
 
 /**
-[[n,duplicates],[[["select,dash"],["neiey,person"],["neiey,person"],["neiey,person"],["neiey,person"]],[["select,dash"],["neiey,person"],["neiey,person"],["neiey,person"],["neiey,person"]],[],[["select,dash"],["neiey,person"],["neiey,person"],["neiey,person"],["neiey,person"]]]],
-
 [[n,minus1],[[["select,dash"],["neiey,person"],["neiey,person"],["neiey,person"],["neiey,person"]],[["select,dash"],["neiey,person"],["neiey,person"],["neiey,person"],["neiey,person"]],[]]],
 
 [[n,reverse],[[["select,dash"],["neiey,person"],["neiey,person"]],[],[["neiey,person"],["neiey,person"],["select,dash"]]]],
