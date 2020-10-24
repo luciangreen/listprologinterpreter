@@ -245,7 +245,7 @@ to_variable_name(Var,Name1) :-
 variable_name([v,_Name]) :- !.
 predicate_or_rule_name([n,_Name]) :- !.
 predicate_or_rule([[n,_Name]|_Variables]) :- !.
-islist(A) :- list(A,_,_),!.
+islist(A) :- list1(A,_,_),!.
 variables([]) :- !.
 variables(Variables1) :-
 	Variables1=[Variable|Variables2],
