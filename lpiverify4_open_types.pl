@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_open_types(Debug,NTotal,Score) :- test_open_types(Debug,0,NTotal,0,Score),!.
-test_open_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=1, !.
+test_open_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=3, !.
 test_open_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_open_types_cases(NTotal3,Query,Types,Modes,Functions),
