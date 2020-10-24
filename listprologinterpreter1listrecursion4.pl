@@ -327,9 +327,12 @@ checktypes0_inputs(Function,Vars1,TypeStatements1,ModeStatements1) :-
 
 extract_modes1(TypeStatements1,TypeStatements3,Vars1,Vars2,ModeStatements1) :-
 	%%TypeStatements1=[TypeStatements2|TypeStatements3],
+	%%trace,
+	%%writeln1([TypeStatements1,ModeStatements1]),
 	extract_modes2(TypeStatements1,[],TypeStatements3,Vars1,[],Vars2,ModeStatements1),!.
 	%%TypeStatements3=[TypeStatements3a|TypeStatements3].
 extract_modes2([],TypeStatements2a,TypeStatements2a,[],Vars,Vars,[]) :- !.
+%%extract_modes2(_,TypeStatements2a,TypeStatements2a,[],Vars,Vars,[]) :- !.
 extract_modes2(TypeStatements1,TypeStatements2a,TypeStatements3,Vars1,Vars2,Vars3,ModeStatements1) :-
 	ModeStatements1=[input|ModeStatements3],
 	TypeStatements1=[TypeStatements2|TypeStatements3a],
@@ -735,6 +738,10 @@ interpretstatement1(_F0,_Functions,[[n,equals2],[Variable1,[Variable2,Variable3]
 %%writeln1(5),
         interpretpart(match2,Variable1,Variable2,Variable3,Vars1,Vars2).
 
+interpretstatement1(_F0,_Functions,[[n,equals3],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+%%writeln1(5),
+        interpretpart(match3,Variable1,Variable2,Vars1,Vars2).
+
 %%interpretstatement1(_F0,_Functions,[[Variable2,Variable3]=Variable1],Vars1,Vars2,true,nocut) :-
 %%writeln1(51),
 %%        interpretpart(match,Variable1,Variable2,Variable3,Vars1,Vars2).
@@ -797,6 +804,9 @@ interpretstatement1(_F0,_Functions,[[n,ceiling],[Variable1,Variable2]],Vars1,Var
 
 interpretstatement1(_F0,_Functions,[[n,date],[Year,Month,Day,Hour,Minute,Seconds]],Vars1,Vars2,true,nocut) :-
         interpretpart(date,Year,Month,Day,Hour,Minute,Seconds,Vars1,Vars2).
+
+interpretstatement1(_F0,_Functions,[[n,round],[N1,N2]],Vars1,Vars2,true,nocut) :-
+        interpretpart(round,N1,N2,Vars1,Vars2).
 
 /***
 interpretstatement1(Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-

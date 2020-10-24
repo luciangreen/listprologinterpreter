@@ -153,6 +153,15 @@ interpretpart(match2,Variable1,Variable2,Variable3,Vars1,Vars2) :-
       (debug_exit(Skip,[[n,=],[[Value2,Value3],[Value2,Value3]]])
 ;     debug_fail(Skip,[[n,=],[variable,[Value2,Value3]]]))),!.                        	
 
+interpretpart(match3,Variable1,Variable2,Vars1,Vars2) :-
+        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        Value1A = Value2,
+        debug_call(Skip,[[n,=],[variable,Value2]]),
+        ((val1emptyorvalsequal(Value1,Value1A),
+        putvalue(Variable1,Value1A,Vars1,Vars2))->
+      (debug_exit(Skip,[[n,=],[Value2,Value2]])
+;     debug_fail(Skip,[[n,=],[variable,Value2]]))),!.                        	
+
 interpretpart(delete,Variable1,Variable2,Variable3,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
         debug_call(Skip,[[n,delete],[Value1,Value2,variable3]]),
@@ -218,6 +227,15 @@ interpretpart(ceiling,Variable1,Variable2,Vars1,Vars2) :-        getvalues(Varia
         putvalue(Variable2,Value2A,Vars1,Vars2))->
       debug_exit(Skip,[[n,ceiling],[Value1,Value2A]])
 ;     debug_fail(Skip,[[n,ceiling],[Value1,variable]])),!.
+
+interpretpart(round,Variable1,Variable2,Vars1,Vars2) :-  
+        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        debug_call(Skip,[[n,round],[Value1,variable2]]),
+        ((Value2A is round(Value1),
+        val1emptyorvalsequal(Value2,Value2A),
+        putvalue(Variable2,Value2A,Vars1,Vars2))->
+      debug_exit(Skip,[[n,round],[Value1,Value2A]])
+;     debug_fail(Skip,[[n,round],[Value1,variable2]])),!.                        	
 
 interpretpart(stringconcat,Terminal,Phrase2,Phrase1,Vars1,Vars2) :-
 	%%Variables1=[Terminal,Phrase1,Phrase2], %% terminal can be v or "a"

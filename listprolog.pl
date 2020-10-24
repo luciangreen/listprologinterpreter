@@ -5,6 +5,7 @@
 :- include('lpiverify4.pl').
 :- include('lpiverify4_open.pl').
 :- include('lpiverify4_types.pl').
+:- include('lpiverify4_open_types.pl').
 %%:- include('caw5 copy 12.pl').
 %%:- include('cawpverify.pl').
 %%:- include('rcawp.pl').

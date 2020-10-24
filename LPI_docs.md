@@ -104,6 +104,8 @@ For example:
 # Documentation of Commands
 
 
+* `[[n,IsOp],[Variable1,Variable2,Variable3]]` e.g. `[[n,+],[1,2,[v,b]]]]` returns `[v,b]=3` where `IsOp` may be `+`,`-`,`*` or `/`.
+
 * `[[n,cut]]` - behaves like swipl's ! (doesn't allow backtracking forward or back past it)
 
 * `[[n,true]]` - behaves like true
@@ -125,6 +127,8 @@ For example:
 * `[[n,equals1],[Variable1,[Variable2,Variable3]]]` e.g. `[[n,equals1],[["a","b"],[[v,a],[v,b]]]]` returns `[v,a]="a"` and `[v,b]="b"`
 
 * `[[n,equals2],[Variable1,[Variable2,Variable3]]]` e.g. `[[n,equals2],[[v,a],["a","b"]]]` returns `[v,a]=["a","b"]`
+
+* `[[n,equals3],[Variable1,Variable2]]` e.g. `[[n,equals3],[[v,a],[1,2,3]]]` returns `[v,a]=[1,2,3]`
 
 * `[[n,wrap],[Variable1,Variable2]]` e.g. `[[n,wrap],["a",[v,b]]]` returns `[v,b]=["a"]`
 
@@ -155,6 +159,8 @@ For example:
 * `[[n,date],[Year,Month,Day,Hour,Minute,Seconds]]` e.g. `[[n,date],[[v,year],[v,month],[v,day],[v,hour],[v,minute],[v,second]]]` returns e.g. `[v,year]=2019`, `[v,month]=11`, `[v,day]=6`, `[v,hour]=12`, `[v,minute]=15`, `[v,second]=20.23353409767151`.
 
 * `[[n,sqrt],[Variable1,Variable2]]` e.g. `[[n,ceiling],[4,[v,c]]]` returns `[v,c]=2`
+
+* `[[n,round],[Variable1,Variable2]]` e.g. `[[n,round],[1.5,[v,c]]]` returns `[v,c]=2`
 
 
 * See lpiverify4.pl for examples of rules (predicates without bodies) and calls to predicates.
@@ -405,4 +411,4 @@ test_types_cases(2,[[n,function],[[v,a],[v,b],[v,c]]],
 
 `[[[n,function],[output,output,output]]],` is the mode statement, which must follow the type statement (although these are optional).  The Mode Statement specifies whether each of the variables takes input or gives output.
 
-* For other examples, please see <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a>, <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_types.pl">lpiverify4_types.pl</a> (for examples with types) and <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open.pl">lpiverify4_open.pl</a> (for examples with open-ended results).
+* For other examples, please see <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a>, <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_types.pl">lpiverify4_types.pl</a> (for examples with types), <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open.pl">lpiverify4_open.pl</a> (for examples with open-ended results) and <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open_types.pl">lpiverify4_open_types.pl</a> (for examples with open-ended results with types).
