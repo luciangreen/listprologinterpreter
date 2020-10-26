@@ -162,9 +162,9 @@ For example:
 
 * `[[n,round],[Variable1,Variable2]]` e.g. `[[n,round],[1.5,[v,c]]]` returns `[v,c]=2`
 
-* `[[n,equals4],[Variable1,Variable2]]` e.g. `[[n,equals4],[[v,c],"|",[v,d]],[1,2,3]]` returns `[v,c]=1` and `[v,d]=[2,3]`.  Lists may be in either order.  Multiple items are allowed in the head of the list, there may be lists within lists, lists with pipes must have the same number of items in the head in each list, or no pipe in the other list.
+* `[[n,equals4],[Variable1,Variable2]]` e.g. `[[n,equals4],[[[v,c],"|",[v,d]],[1,2,3]]` returns `[v,c]=1` and `[v,d]=[2,3]`.  You may use either order (i.e. a=1 or 1=a).  Multiple items are allowed in the head of the list, there may be lists within lists, and lists with pipes must have the same number of items in the head in each list, or no pipe in the other list.
 
-* `[[n,findall],[Variable1,Variable2,Variable3]]` e.g. `[n,=],[[v,a],[1,2,3]],[[n,findall],[[v,a1],[[n,member2],[[v,a],[v,a1]]],[v,b]]]` returns `[v,b]=[1,2,3]`
+* `[[n,findall],[Variable1,Variable2,Variable3]]` e.g. `[[n,=],[[v,a],[1,2,3]]],[[n,findall],[[v,a1],[[n,member2],[[v,a],[v,a1]]],[v,b]]]` returns `[v,b]=[1,2,3]`
 
 
 * See lpiverify4.pl for examples of rules (predicates without bodies) and calls to predicates.
