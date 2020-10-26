@@ -162,6 +162,19 @@ interpretpart(match3,Variable1,Variable2,Vars1,Vars2) :-
       (debug_exit(Skip,[[n,=],[Value2,Value2]])
 ;     debug_fail(Skip,[[n,=],[variable,Value2]]))),!.                        	
 
+interpretpart(match4,Variable1,Variable2,Vars1,Vars2) :-
+        debug_call(Skip,[[n,equals4],[Variable1,Variable2]]),
+        %%trace,
+        (match4(Variable1,Variable2,Vars1,Vars2)
+        
+        %%Value1A = Value2,
+        %%((val1emptyorvalsequal(Value1,Value1A),
+        %%putvalue(Variable1,Value1A,Vars1,Vars2))
+        ->
+      (debug_exit(Skip,[[n,equals4],[Variable1,Variable2]])
+;     debug_fail(Skip,[[n,equals4],[Variable1,Variable2]]))),!.                        	
+
+
 interpretpart(delete,Variable1,Variable2,Variable3,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
         debug_call(Skip,[[n,delete],[Value1,Value2,variable3]]),
@@ -349,3 +362,182 @@ replace_empty_with_empty_set(A,B,C) :-
 	replace_empty_with_empty_set(Items,D,C),!.
 removebrackets([[Value]],Value) :-!.
 removebrackets(Value,Value).
+
+
+match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
+) :-
+	split_into_head_and_tail(Variable1,Head1a,Tail1a,Pipe1,Head_is_list_of_lists1),
+	(single_item(Head1a) -> L1 = 1 ; length(Head1a,L1)),
+	split_into_head_and_tail(Variable2,Head2a,Tail2a,Pipe2,Head_is_list_of_lists2),
+	(%%trace,
+	(Head_is_list_of_lists1->(true);Head_is_list_of_lists2=true)->(
+	%%writeln(here1),
+		Head1=Head1a,Tail1=Tail1a,
+		Head2=Head2a,Tail2=Tail2a,%%notrace,
+		%%trace,
+	match4_list(Head1,Head2,Vars1,Vars3),
+	match4_terminal(Tail1,Tail2,Vars3,Vars2)
+	%%[Value3]=Value5,Value4=[Value6|Value6a],
+	%%maplist(append,[[Value5,Value6,Value6a]],Value2)
+	%%,notrace
+	);
+
+	(single_item(Head2a) -> L2 = 1 ; length(Head2a,L2)),
+	((Pipe1=true,Pipe2=false)->
+		(split_by_number_of_items(Variable2,L1,Head2,Tail2),
+		Head1=Head1a,Tail1=Tail1a);
+	((Pipe1=false,Pipe2=true)->
+		(split_by_number_of_items(Variable1,L2,Head1,Tail1),
+		Head2=Head2a,Tail2=Tail2a);
+	(Pipe1=false,Pipe2=false,L1=L2,
+		Head1=Head1a,Tail1=Tail1a),
+		Head2=Head2a,Tail2=Tail2a))
+	, % *1
+	%%trace,
+	%%writeln(here2),
+	match4_list(Head1,Head2,Vars1,Vars3),
+	match4_terminal(Tail1,Tail2,Vars3,Vars2)
+	%%,notrace
+	%%(Top_flag=true->(trace,[Value3]=Value5);Value3=Value5),(Value4=[]->(Value6=[],Val6a=[]);[Value6|Val6a]=Value4),
+	
+	%%maplist(append,[[Value1,Value5]],[Value2a]),
+	%%(Top_flag=true->(append(Value2a,Value6,Value61),
+	%%append(Value61,Val6a,Value2));maplist(append,[[Value2a,Value6,Val6a]],[Value2]))%%,
+	%%append(Value2a,Value4,Value2)
+	)
+	%%,notrace
+	,!.
+
+split_into_head_and_tail(Variable,Head1,Tail1,Pipe,Head_is_list_of_lists) :-
+	((append(Head2,["|"|Tail2],Variable),
+	(is_list(Head2),head_is_list_of_lists(Head2,Head_is_list_of_lists),(length(Head2,1) -> Head2=[Head1] ; 
+		Head2=Head1)),Tail2=[Tail1],Pipe=true)->true;
+	%%(
+	((is_list(Variable),not(variable_name(Variable)),
+	Variable=[Head1|Tail1],Pipe=false,head_is_list_of_lists(Head1,Head_is_list_of_lists))->true;
+	(Head1=Variable,Tail1=[],Pipe=false,head_is_list_of_lists(Head1,Head_is_list_of_lists)))),!.
+	%%(.%%->true;
+	%%([Head]=Variable,Tail=[]))).
+	
+%% [a,b|c]=[A|B].
+%%A = a,
+%%B = [b|c].
+%% not supported, in future.
+
+%% *1 only accept multiple items in head when other is |-less list, otherwise same number of items in head
+%% ?- [1,2,3]=[A,B|C].
+%% A = 1,
+%% B = 2,
+%% C = [3].
+
+%% what about - v
+/**
+?- [[A],C|B]=[[1],2,3,4].
+A = 1,
+C = 2,
+B = [3, 4].
+**/
+
+%% need to detect if head is a compound, flag and process it
+head_is_list_of_lists(Head2,true) :-
+	[Head3]=Head2,member(A,Head3),((A=[v,_] -> true; is_list(A))).
+head_is_list_of_lists(_,false) :- !.
+
+
+split_by_number_of_items(List,N2,List10,List2) :-
+	%%N2 is N1-1,
+	length(List1,N2),
+	append(List1,List2,List),
+	(List1=[_] -> List1=[List10] ; List1=List10).
+	
+match4_list([],[],Vars,Vars) :- !.
+match4_list(Head1,Head2,Vars1,Vars2) :-
+	not(variable_name(Head1)),
+	not(variable_name(Head2)),
+	Head1=[Head1a|Head1b],
+	Head2=[Head2a|Head2b],
+	match4(Head1a,Head2a,Vars1,Vars3%%,false
+	),
+	match4_list(Head1b,Head2b,Vars3,Vars2).
+match4_list(Head1,Head2,Vars1,Vars2) :-
+	match4_terminal(Head1,Head2,Vars1,Vars2).%%,
+	%%append(Value1,[Value3],Value2).
+
+match4_terminal([],[],Vars,Vars) :- !.
+match4_terminal(Variable1,Variable2,Vars1,Vars2) :-
+	%%is_list(Variable1),length(Variable1,1),
+	%%is_list(Variable2),length(Variable2,1),
+	%%trace,
+	[Variable1a]=Variable1,
+	[Variable2a]=Variable2,
+	single_item(Variable1a),
+	single_item(Variable2a),
+	%%notrace,
+match4_terminal(Variable1a,Variable2a,Vars1,Vars2).%%,
+	%%append(Value1,[[Value3]],Value2).
+
+match4_terminal(Variable1,Variable2,Vars1,Vars2) :-%%trace,
+	%%single_item(Variable1),
+	%%single_item(Variable2),
+   getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+   %% what if there is a var in a compound term? - may need different code in getvalues
+        ((Value1A = Value2,
+        val1emptyorvalsequal(Value1,Value1A),
+        putvalue(Variable1,Value1A,Vars1,Vars2),%%bracket_if_single(Value1A,Value1A2),
+        append11(Value1a,[Value1A2],Value2a))->true;
+        ((Value2A = Value1,
+        val1emptyorvalsequal(Value2,Value2A),
+        putvalue(Variable2,Value2A,Vars1,Vars2),%%bracket_if_single(Value2A,Value2A2),
+        append11(Value1a,[Value2A2],Value2a))->true;
+	     fail
+	     %% assumes both A and B in A=B are instantiated, 
+	     %% can be changed later.
+	     )).
+
+bracket_if_single(Value1A,Value1A) :-
+	is_list(Value1A),!.
+bracket_if_single(Value1A,[Value1A]) :-
+	single_item(Value1A),!.
+	
+single_item(A) :- predicate_or_rule_name(A),!.
+single_item(A) :- variable_name(A),!.
+single_item(A) :- string(A),!.
+single_item(A) :- number(A),!.
+
+append11(empty,A,A) :- !.
+append11(A,B,C) :- append(A,B,C).
+
+/** match4
+
+from bracketed head:
+
+match4([[[v,a],[v,c]],"|",[v,b]],[[1,2],3,4],[],V).          V = [[[v, a], 1], [[v, c], 2], [[v, b], [3, 4]]].
+
+                                                              match4([[v,a],"|",[v,b]],[1,2,3,4],[],V).
+V = [[[v, a], 1], [[v, b], [2, 3, 4]]].
+
+match4([[v,a],[v,c],"|",[v,b],[v,d]],[1,2,3,4],[],V).
+should be false
+
+match4([[[v,a]],[v,c],"|",[v,b]],[[1],2,3,4],[],V).
+V = [[[v, a], 1], [[v, c], 2], [[v, b], [3, 4]]].
+
+
+                                                              match4([[v,a],"|",[v,b]],[[1,2],3,4],[],V).
+V = [[[v, a], [1, 2]], [[v, b], [3, 4]]].
+
+match4([[[v,a],"|",[v,d]],[v,c],"|",[v,b]],[[1,5],2,3,4],[],V).
+V = [[[v, a], 1], [[v, d], [5]], [[v, c], 2], [[v, b], [3, 4]]].
+
+match4([[v,a],"|",[v,b]],[[1,2],3,4],[],V).
+V = [[[v, a], [1, 2]], [[v, b], [3, 4]]].
+
+match4([[v,a],"|",[[v,b]]],[1,2],[],V).                             V = [[[v, a], 1], [[v, b], 2]].
+
+match4([[v,a]],[1],[],V).                                    
+V = [[[v, a], 1]].
+
+match4([[v,a],[v,b]],[1,2],[],V).                            
+V = [[[v, a], 1], [[v, b], 2]].
+
+**/

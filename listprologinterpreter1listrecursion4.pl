@@ -496,7 +496,7 @@ checktypes3(Vars,TypeStatements3,TypeStatements2,TypeStatements6) :-
 
 
 
-interpretbody(_Functions1,_Functions2,Vars,Vars,[],true) :- !.
+interpretbody(_Functions1,_Functions2,Vars,Vars,[],true) :- true.%%!.
 
 
 
@@ -534,7 +534,7 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
        ((Result3=cut)->!;true),
   %%()      logicalnot(Result2,Result4), 
 %%()	(logicalconjunction(Result1,Result4,Result3)->true;(Result1=false)),
-	!.
+	true.%%!.
 
 
 
@@ -554,7 +554,7 @@ debug_exit(Skip,[[n,not]])
         ((Result32=cut)->!;true),
   %%()      logicalnot(Result2,Result4), 
 %%()	(logicalconjunction(Result1,Result4,Result3)->true;(Result1=false)),
-	!.
+	true.%%!.
 	
 	
 
@@ -570,7 +570,7 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result0) :-
         interpretbody(Functions0,Functions,Vars3,Vars2,Statements3,Result3),
         ((Result3=cut)->!;true),
         %%logicalconjunction(Result1,Result2,Result3),
-        !.
+        	true.%%!.
 
 
 	%%,((Value=cut)->!;true)).
@@ -588,7 +588,7 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
         interpretbody(Functions0,Functions,Vars4,Vars2,Statements3,Result3),
                ((Result3=cut)->!;true),
 
-        !.
+        	true.%%!.
 
 
 
@@ -604,7 +604,7 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,_Result1) :-
 
         interpretbody(Functions0,Functions,Vars4,Vars2,Statements3,Result3),
         ((Result3=cut)->!;true),
-        !.
+        	true.%%!.
 
 
 interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
@@ -618,7 +618,7 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
 	interpretbody(Functions0,Functions2,Vars3,Vars2,Statements,Result3),
 	%%((Result3=cut)->!;true),
 %%writeln1(["here4"]),
-	logicalconjunction(Result1,Result2,Result3),!.
+	logicalconjunction(Result1,Result2,Result3)	,true.%%,!.
 %%writeln1([Result1,Result2,Result3]).
 turncut(State1) :-
 	cut(State2),
@@ -741,6 +741,11 @@ interpretstatement1(_F0,_Functions,[[n,equals2],[Variable1,[Variable2,Variable3]
 interpretstatement1(_F0,_Functions,[[n,equals3],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 %%writeln1(5),
         interpretpart(match3,Variable1,Variable2,Vars1,Vars2).
+
+
+interpretstatement1(_F0,_Functions,[[n,equals4],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+%%writeln1(5),
+        interpretpart(match4,Variable1,Variable2,Vars1,Vars2),!.
 
 %%interpretstatement1(_F0,_Functions,[[Variable2,Variable3]=Variable1],Vars1,Vars2,true,nocut) :-
 %%writeln1(51),
@@ -888,6 +893,26 @@ interpretstatement1(_Grammar,_Grammar2,[[n,grammar_part],[Variable1,Variable2,Va
 %%writeln1("h1/10"),
 %%trace,%%%%****
 	interpretpart(grammar_part,[Variable1,Variable2,Variable3],Vars1,Vars2).
+
+interpretstatement1(Functions0,Functions,[[n,findall],[Variable1,Body,Variable3]],Vars1,Vars2,true,nocut) :-
+%%writeln1(interpretstatement1(Functions0,Functions,[[n,findall],[Variable1,Body,Variable3]],Vars1,Vars2,true,nocut)),
+%%writeln1("h1/10"),
+%%trace,%%%%****
+	%%trace,
+	debug_call(Skip,[[n,findall],[Variable1,Body,Variable3]]),
+((
+	findall(Value3,(
+	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],Result2), %% 2->1
+	((Result2=cut)->!;true),
+	interpretstatement1(Functions0,Functions,[[n,equals4],[Variable1,Variable3]],Vars3,Vars2,true,nocut),
+	getvalue(Variable3,Value3,Vars2)
+	),Value3a),
+	putvalue(Variable3,Value3a,Vars1,Vars2)
+        )->
+debug_exit(Skip,[[n,findall],[Variable1,Body,Value3a]])
+;     debug_fail(Skip,[[n,findall],[Variable1,Body,Variable3]])).
+
+	%%interpretpart(findall,[Variable1,Variable3],Vars3,Vars2).
 
 /***
         Query1=[[n,grammar_part]|Arguments],

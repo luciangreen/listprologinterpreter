@@ -19,8 +19,8 @@ test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 
 test1(Debug,N,Passed) :-
 	test(N,Query,Functions,Result),
-	((interpret(Debug,Query,Functions,Result)%%writeln(Result1),
-	%%Result=Result1
+	((interpret(Debug,Query,Functions,Result1),%%writeln(Result1),
+	Result=Result1
 	)->(Passed=passed,writeln([test,N,passed]));(Passed=failed,writeln([test,N,failed]))),!.
 
 
@@ -1873,4 +1873,24 @@ test(76,[[n,implies_2],[1,[v,b]]],
         ]]
         
 ],[[[[v,b],2]]]).
+
+test(77,[[n,findall1],[[1,2,3],[v,b]]],
+
+[
+        [[n,findall1],[[v,a],[v,b]],":-",
+        [       [[n,findall],[[v,a1],[[n,member2],[[v,a],[v,a1]]],
+                [v,b]]]
+        ]]
+        
+],[[[[v,b],[1,2,3]]]]).
+
+test(78,[[n,member2a],[[1,2,3],[v,b]]],
+
+[
+        [[n,member2a],[[v,a],[v,b]],":-",
+        [[[n,member2],[[v,a],[v,b]]]
+        ]]
+        
+        
+],[[[[v,b],1]],[[[v,b],2]],[[[v,b],3]]]).
 
