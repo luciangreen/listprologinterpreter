@@ -19,8 +19,8 @@ test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 
 test1(Debug,N,Passed) :-
 	test(N,Query,Functions,Result),
-	((interpret(Debug,Query,Functions,Result1),%%writeln(Result1),
-	Result=Result1
+	((interpret(Debug,Query,Functions,Result)%%writeln(Result1),
+	%%Result=Result1
 	)->(Passed=passed,writeln([test,N,passed]));(Passed=failed,writeln([test,N,failed]))),!.
 
 
