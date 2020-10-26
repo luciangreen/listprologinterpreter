@@ -490,7 +490,7 @@ match4_terminal(Variable1,Variable2,Vars1,Vars2) :-%%trace,
         putvalue(Variable2,Value2A,Vars1,Vars2),%%bracket_if_single(Value2A,Value2A2),
         append11(Value1a,[Value2A2],Value2a))->true;
 	     fail
-	     %% assumes both A and B in A=B are instantiated, 
+	     %% assumes either or both A and B in A=B are instantiated, 
 	     %% can be changed later.
 	     )).
 
