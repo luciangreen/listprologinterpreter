@@ -364,11 +364,16 @@ removebrackets([[Value]],Value) :-!.
 removebrackets(Value,Value).
 
 
+%% 1=2 items: if doesn't contain "|" in first level, then match4 list x, terminal
+
+match4(Variable1,Variable2,Vars1,Vars2) :-
+	match4_list(Variable1,Variable2,Vars1,Vars2).
 match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 ) :-
 	split_into_head_and_tail(Variable1,Head1a,Tail1a,Pipe1,Head_is_list_of_lists1),
 	(single_item(Head1a) -> L1 = 1 ; length(Head1a,L1)),
 	split_into_head_and_tail(Variable2,Head2a,Tail2a,Pipe2,Head_is_list_of_lists2),
+	(single_item(Head2a) -> L2 = 1 ; length(Head2a,L2)),
 	(%%trace,
 	(Head_is_list_of_lists1->(true);Head_is_list_of_lists2=true)->(
 	%%writeln(here1),
@@ -382,7 +387,6 @@ match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 	%%,notrace
 	);
 
-	(single_item(Head2a) -> L2 = 1 ; length(Head2a,L2)),
 	((Pipe1=true,Pipe2=false)->
 		(split_by_number_of_items(Variable2,L1,Head2,Tail2),
 		Head1=Head1a,Tail1=Tail1a);
@@ -539,5 +543,7 @@ V = [[[v, a], 1]].
 
 match4([[v,a],[v,b]],[1,2],[],V).                            
 V = [[[v, a], 1], [[v, b], 2]].
+                                                              match4([[v,a],[v,b]],[[1,3],2],[],V).
+V = [[[v, a], [1, 3]], [[v, b], 2]] 
 
 **/
