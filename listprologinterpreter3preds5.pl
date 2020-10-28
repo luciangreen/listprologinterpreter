@@ -348,22 +348,6 @@ string_concat(TerminalValue2,Phrase2Value1,Phrase1Value11))->true;
         	(debug_call(Skip,[[n,grammar_part],[variable1,variable2,variable3]]),
         (debug_fail(Skip,[[n,grammar_part],[variable1,variable2,variable3]])))),!.
         	
-interpretpart(maplist,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2) :-  
-
-        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
-        getvalues(Variable3,Variable4,Value3,Value4,Vars1),
-
-        debug_call(Skip,[[n,maplist],[Value1,Value2,Value3,variable]]),
-	%%A=..[a,1]
-	((
-	map(Value1,Value2,Value3,Value4A,Vars1),
-
-%%interpretstatement1(Functions0,Functions,[[Value1,Value2]],Vars1,Vars2,true,nocut),
-        
-        val1emptyorvalsequal(Value4,Value4A),
-        putvalue(Variable4,Value4A,Vars1,Vars2))->
-      debug_exit(Skip,[[n,maplist],[Value1,Value2,Value3,Value4A]])
-;     debug_fail(Skip,[[n,maplist],[Value1,Value2,Value3,variable]])),!.                        	
 
         	
 
