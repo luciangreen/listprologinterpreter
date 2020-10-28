@@ -912,6 +912,15 @@ interpretstatement1(Functions0,Functions,[[n,findall],[Variable1,Body,Variable3]
 debug_exit(Skip,[[n,findall],[Variable1,Body,Value3a]])
 ;     debug_fail(Skip,[[n,findall],[Variable1,Body,Variable3]])).
 
+
+interpretstatement1(Functions0,Functions,[[n,string_from_file],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+
+        interpretpart(string_from_file,Variable1,Variable2,Vars1,Vars2).
+
+interpretstatement1(Functions0,Functions,[[n,maplist],[Variable1,Variable2,Variable3,Variable4]],Vars1,Vars2,true,nocut) :-
+
+        interpretpart(maplist,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2).
+
 	%%interpretpart(findall,[Variable1,Variable3],Vars3,Vars2).
 
 /***

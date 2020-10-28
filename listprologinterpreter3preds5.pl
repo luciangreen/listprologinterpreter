@@ -250,6 +250,40 @@ interpretpart(round,Variable1,Variable2,Vars1,Vars2) :-
       debug_exit(Skip,[[n,round],[Value1,Value2A]])
 ;     debug_fail(Skip,[[n,round],[Value1,variable2]])),!.                        	
 
+interpretpart(string_from_file,Variable1,Variable2,Vars1,Vars2) :-  
+
+        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+
+        debug_call(Skip,[[n,string_from_file],[variable,Value2]]),
+	%%A=..[a,1]
+	((phrase_from_file_s(string_g(String00a),Value2),
+	string_codes(Value1A,String00a),
+%%interpretstatement1(Functions0,Functions,[[Value1,Value2]],Vars1,Vars2,true,nocut),
+        
+        val1emptyorvalsequal(Value1,Value1A),
+        putvalue(Variable2,Value1A,Vars1,Vars2))->
+      debug_exit(Skip,[[n,string_from_file],[Value1A,Value2]])
+;     debug_fail(Skip,[[n,string_from_file],[variable,Value2]])),!.                        	
+
+
+interpretpart(maplist,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2) :-  
+
+        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        getvalues(Variable3,Variable4,Value3,Value4,Vars1),
+
+        debug_call(Skip,[[n,maplist],[Value1,Value2,Value3,variable]]),
+	%%A=..[a,1]
+	((
+	map(Value1,Value2,Value3,Value4A,Vars1),
+
+%%interpretstatement1(Functions0,Functions,[[Value1,Value2]],Vars1,Vars2,true,nocut),
+        
+        val1emptyorvalsequal(Value4,Value4A),
+        putvalue(Variable4,Value4A,Vars1,Vars2))->
+      debug_exit(Skip,[[n,maplist],[Value1,Value2,Value3,Value4A]])
+;     debug_fail(Skip,[[n,maplist],[Value1,Value2,Value3,variable]])),!.                        	
+
+
 interpretpart(stringconcat,Terminal,Phrase2,Phrase1,Vars1,Vars2) :-
 	%%Variables1=[Terminal,Phrase1,Phrase2], %% terminal can be v or "a"
         ((getvalues2([Terminal,Phrase1,Phrase2],
@@ -314,7 +348,23 @@ string_concat(TerminalValue2,Phrase2Value1,Phrase1Value11))->true;
         	(debug_call(Skip,[[n,grammar_part],[variable1,variable2,variable3]]),
         (debug_fail(Skip,[[n,grammar_part],[variable1,variable2,variable3]])))),!.
         	
-        	
+interpretpart(maplist,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2) :-  
+
+        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        getvalues(Variable3,Variable4,Value3,Value4,Vars1),
+
+        debug_call(Skip,[[n,maplist],[Value1,Value2,Value3,variable]]),
+	%%A=..[a,1]
+	((
+	map(Value1,Value2,Value3,Value4A,Vars1),
+
+%%interpretstatement1(Functions0,Functions,[[Value1,Value2]],Vars1,Vars2,true,nocut),
+        
+        val1emptyorvalsequal(Value4,Value4A),
+        putvalue(Variable4,Value4A,Vars1,Vars2))->
+      debug_exit(Skip,[[n,maplist],[Value1,Value2,Value3,Value4A]])
+;     debug_fail(Skip,[[n,maplist],[Value1,Value2,Value3,variable]])),!.                        	
+
         	
 
 getvalues(Variable1,Variable2,Value1,Value2,Vars) :-
@@ -324,6 +374,15 @@ getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars) :-
         getvalue(Variable1,Value1,Vars),
         getvalue(Variable2,Value2,Vars),
         getvalue(Variable3,Value3,Vars).
+        /**
+getvalues2(Variable1,Variable2,Value1,Value2,Vars) :-
+        getvalue2(Variable1,Value1,Vars),
+        getvalue2(Variable2,Value2,Vars).
+getvalues2(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars) :-
+        getvalue2(Variable1,Value1,Vars),
+        getvalue2(Variable2,Value2,Vars),
+        getvalue2(Variable3,Value3,Vars).
+**/
 val1emptyorvalsequal(empty,_Value) :- !.
 val1emptyorvalsequal(Value,Value) :-
 	not(Value=empty).
@@ -455,6 +514,7 @@ split_by_number_of_items(List,N2,List10,List2) :-
 	(List1=[_] -> List1=[List10] ; List1=List10).
 	
 match4_list([],[],Vars,Vars) :- !.
+
 match4_list(Head1,Head2,Vars1,Vars2) :-
 	not(variable_name(Head1)),
 	not(variable_name(Head2)),
@@ -467,6 +527,24 @@ match4_list(Head1,Head2,Vars1,Vars2) :-
 	match4_terminal(Head1,Head2,Vars1,Vars2).%%,
 	%%append(Value1,[Value3],Value2).
 
+
+match4_list(Head1,Head2,Vars1,Vars2) :-
+	variable_name(Head1),
+	not(variable_name(Head2)),
+	getvalue(Head1,Value1,Vars1),not(Value1=empty),
+	match4(Value1,Head2,Vars1,Vars2).
+match4_list(Head1,Head2,Vars1,Vars2) :-
+	not(variable_name(Head1)),
+	variable_name(Head2),
+	getvalue(Head2,Value2,Vars1),not(Value2=empty),
+	match4(Head1,Value2,Vars1,Vars2).
+match4_list(Head1,Head2,Vars1,Vars2) :-
+	variable_name(Head1),
+	variable_name(Head2),
+	getvalue(Head1,Value1,Vars1),not(Value1=empty),
+	getvalue(Head2,Value2,Vars1),not(Value2=empty),
+	match4(Value1,Value2,Vars1,Vars2).
+	
 match4_terminal([],[],Vars,Vars) :- !.
 match4_terminal(Variable1,Variable2,Vars1,Vars2) :-
 	%%is_list(Variable1),length(Variable1,1),
@@ -487,12 +565,14 @@ match4_terminal(Variable1,Variable2,Vars1,Vars2) :-%%trace,
    %% what if there is a var in a compound term? - may need different code in getvalues
         ((Value1A = Value2,
         val1emptyorvalsequal(Value1,Value1A),
-        putvalue(Variable1,Value1A,Vars1,Vars2),%%bracket_if_single(Value1A,Value1A2),
-        append11(Value1a,[Value1A2],Value2a))->true;
+        putvalue(Variable1,Value1A,Vars1,Vars2)%%bracket_if_single(Value1A,Value1A2),
+        %%append11(Value1a,[Value1A],Value2a)
+        )->true;
         ((Value2A = Value1,
         val1emptyorvalsequal(Value2,Value2A),
-        putvalue(Variable2,Value2A,Vars1,Vars2),%%bracket_if_single(Value2A,Value2A2),
-        append11(Value1a,[Value2A2],Value2a))->true;
+        putvalue(Variable2,Value2A,Vars1,Vars2)%%,%%bracket_if_single(Value2A,Value2A2),
+        %%append11(Value1a,[Value2A],Value2a)
+        )->true;
 	     fail
 	     %% assumes either or both A and B in A=B are instantiated, 
 	     %% can be changed later.
@@ -547,3 +627,12 @@ V = [[[v, a], 1], [[v, b], 2]].
 V = [[[v, a], [1, 3]], [[v, b], 2]] 
 
 **/
+
+map(_F,[],L,L,_).
+map(F,L,M1,N,Vars1):-not((L=[])),L=[H|T],
+
+	interpretstatement1(_Functions0,_Functions,[F,[H,M1,[v,sys1]]],Vars1,Vars2,true,nocut),
+	getvalue([v,sys1],M2,Vars2),
+	
+%%(F,(M1,H,M2)),
+map(F,T,M2,N,Vars1).
