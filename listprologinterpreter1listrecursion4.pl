@@ -745,7 +745,19 @@ interpretstatement1(_F0,_Functions,[[n,equals3],[Variable1,Variable2]],Vars1,Var
 
 interpretstatement1(_F0,_Functions,[[n,equals4],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 %%writeln1(5),
-        interpretpart(match4,Variable1,Variable2,Vars1,Vars2),!.
+%%trace,
+         remember_and_turn_off_debug(Debug),
+ 	
+         interpretpart(match4,Variable1,Variable2,Vars1,Vars5,_),
+         
+         interpretpart(match4,Variable1,[v,sys1],Vars5,Vars4,_),
+         	        
+  	  	  getvalue([v,sys1],Value3,Vars4),
+ 	  	  
+ 	  	  turn_back_debug(Debug),
+ 
+ 
+        interpretpart(match4,Variable1,Variable2,Vars1,Vars2,Value3),!.
 
 %%interpretstatement1(_F0,_Functions,[[Variable2,Variable3]=Variable1],Vars1,Vars2,true,nocut) :-
 %%writeln1(51),
@@ -904,8 +916,16 @@ interpretstatement1(Functions0,Functions,[[n,findall],[Variable1,Body,Variable3]
 	findall(Value3,(
 	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],Result2), %% 2->1
 	((Result2=cut)->!;true),
-	interpretstatement1(Functions0,Functions,[[n,equals4],[Variable1,Variable3]],Vars3,Vars2,true,nocut),
-	getvalue(Variable3,Value3,Vars2)
+	
+	 remember_and_turn_off_debug(Debug),
+
+        interpretpart(match4,Variable1,[v,sys1],Vars3,Vars2,_),
+
+%%interpretstatement1(Functions0,Functions,[[n,equals4],[Variable1,Variable3]],Vars3,Vars2,true,nocut),
+	getvalue([v,sys1],Value3,Vars2),
+	
+	 turn_back_debug(Debug)
+
 	),Value3a),
 	putvalue(Variable3,Value3a,Vars1,Vars2)
         )->
@@ -1270,3 +1290,10 @@ strip(Arguments1,Result2,Result3) :-
         isvar(Variable),
         append(Result2,[Value],Result4),
         strip(Arguments2,Result4,Result3).
+
+
+ remember_and_turn_off_debug(Debug) :-
+ 	debug(Debug),retractall(debug(_)),assertz(debug(off)).
+ 
+ turn_back_debug(Debug) :-
+ 	retractall(debug(_)),assertz(debug(Debug)).

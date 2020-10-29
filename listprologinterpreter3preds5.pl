@@ -162,7 +162,7 @@ interpretpart(match3,Variable1,Variable2,Vars1,Vars2) :-
       (debug_exit(Skip,[[n,=],[Value2,Value2]])
 ;     debug_fail(Skip,[[n,=],[variable,Value2]]))),!.                        	
 
-interpretpart(match4,Variable1,Variable2,Vars1,Vars2) :-
+interpretpart(match4,Variable1,Variable2,Vars1,Vars2,Note) :-
         debug_call(Skip,[[n,equals4],[Variable1,Variable2]]),
         %%trace,
         (match4(Variable1,Variable2,Vars1,Vars2)
@@ -171,7 +171,7 @@ interpretpart(match4,Variable1,Variable2,Vars1,Vars2) :-
         %%((val1emptyorvalsequal(Value1,Value1A),
         %%putvalue(Variable1,Value1A,Vars1,Vars2))
         ->
-      (debug_exit(Skip,[[n,equals4],[Variable1,Variable2]])
+      (debug_exit(Skip,[[n,equals4],[Note,Note]])
 ;     debug_fail(Skip,[[n,equals4],[Variable1,Variable2]]))),!.                        	
 
 
