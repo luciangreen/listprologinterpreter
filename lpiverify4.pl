@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=80, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=90, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -1925,3 +1925,126 @@ test(80,[[n,equals41],[[v,a],[v,d],[v,c],[v,b]]],
         ]]
         
 ],[[[[v, a], 1], [[v, d], [5]], [[v, c], 2], [[v, b], [3, 4]]]]).
+
+
+test(81,[[n,equals41],[[v,a],[v,c],[v,b]]],
+
+[
+        [[n,equals41],[[v,a],[v,c],[v,b]],":-",
+        [       [[n,equals4],[[[[v,a],[v,c]],"|",[v,b]],[[1,2],3,4]]]
+        ]]
+        
+],[[[[v, a], 1], [[v, c], 2], [[v, b], [3, 4]]]]).
+
+test(82,[[n,equals41],[[v,a],[v,b]]],
+
+[
+        [[n,equals41],[[v,a],[v,b]],":-",
+        [       [[n,equals4],[[[v,a],"|",[v,b]],[1,2,3,4]]]
+        ]]
+        
+],[[[[v, a], 1], [[v, b], [2, 3, 4]]]]).
+
+test(83,[[n,equals41]],
+
+[
+        [[n,equals41],":-",
+        [       [[n,equals4],[[[v,a],[v,c],"|",[v,b],[v,d]],[1,2,3,4]]]
+        ]]
+        
+],[]).
+
+test(84,[[n,equals41],[[v,a],[v,c],[v,b]]],
+
+[
+        [[n,equals41],[[v,a],[v,c],[v,b]],":-",
+        [       [[n,equals4],[[[[v,a]],[v,c],"|",[v,b]],[[1],2,3,4]]]
+        ]]
+        
+],[[[[v, a], 1], [[v, c], 2], [[v, b], [3, 4]]]]).
+
+test(85,[[n,equals41],[[v,a],[v,b]]],
+
+[
+        [[n,equals41],[[v,a],[v,b]],":-",
+        [       [[n,equals4],[[[v,a],"|",[v,b]],[[1,2],3,4]]]
+        ]]
+        
+],[[[[v, a], [1, 2]], [[v, b], [3, 4]]]]).
+
+test(86,[[n,equals41],[[v,a],[v,b]]],
+
+[
+        [[n,equals41],[[v,a],[v,b]],":-",
+        [       [[n,equals4],[[[v,a],"|",[[v,b]]],[1,2]]]
+        ]]
+        
+],[[[[v, a], 1], [[v, b], 2]]]).
+
+test(87,[[n,equals41],[[v,a]]],
+
+[
+        [[n,equals41],[[v,a]],":-",
+        [       [[n,equals4],[[[v,a]],[1]]]
+        ]]
+        
+],[[[[v, a], 1]]]).
+
+test(88,[[n,equals41],[[v,a],[v,b]]],
+
+[
+        [[n,equals41],[[v,a],[v,b]],":-",
+        [       [[n,equals4],[[[v,a],[v,b]],[1,2]]]
+        ]]
+        
+],[[[[v, a], 1], [[v, b], 2]]]).
+
+test(89,[[n,equals41],[[v,a],[v,b]]],
+
+[
+        [[n,equals41],[[v,a],[v,b]],":-",
+        [       [[n,equals4],[[[v,a],[v,b]],[[1,3],2]]]
+        ]]
+        
+],[[[[v, a], [1, 3]], [[v, b], 2]]]).
+
+
+test(90,[[n,equals41]],
+
+[
+        [[n,equals41],":-",
+        [       [[n,equals4],[[[v,a],[v,c],"|",[v,b],"|",[v,d]],[1,2,3,4]]]
+        ]]
+        
+],[]).
+
+/**
+match4([[[v,a],[v,c]],"|",[v,b]],[[1,2],3,4],[],V).          V = [[[v, a], 1], [[v, c], 2], [[v, b], [3, 4]]].
+v
+                                                              match4([[v,a],"|",[v,b]],[1,2,3,4],[],V).
+V = [[[v, a], 1], [[v, b], [2, 3, 4]]].
+v
+match4([[v,a],[v,c],"|",[v,b],[v,d]],[1,2,3,4],[],V).
+should be false
+*another with two pipes
+
+match4([[[v,a]],[v,c],"|",[v,b]],[[1],2,3,4],[],V).
+V = [[[v, a], 1], [[v, c], 2], [[v, b], [3, 4]]].
+v
+
+                                                              match4([[v,a],"|",[v,b]],[[1,2],3,4],[],V).
+V = [[[v, a], [1, 2]], [[v, b], [3, 4]]].
+
+v
+
+match4([[v,a],"|",[[v,b]]],[1,2],[],V).                             V = [[[v, a], 1], [[v, b], 2]].
+v
+match4([[v,a]],[1],[],V).                                    
+V = [[[v, a], 1]].
+v
+match4([[v,a],[v,b]],[1,2],[],V).                            
+V = [[[v, a], 1], [[v, b], 2]].
+                                                              match4([[v,a],[v,b]],[[1,3],2],[],V).
+V = [[[v, a], [1, 3]], [[v, b], 2]] 
+
+**/
