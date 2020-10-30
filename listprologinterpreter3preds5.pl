@@ -418,7 +418,7 @@ match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 	split_into_head_and_tail(Variable2,Head2a,Tail2a,Pipe2,Head_is_list_of_lists2),
 	(single_item(Head2a) -> L2 = 1 ; length(Head2a,L2)),
 	(%%trace,
-	(Head_is_list_of_lists1->(true);Head_is_list_of_lists2=true)->(
+	(Head_is_list_of_lists1=true->true;Head_is_list_of_lists2=true)->(
 	%%writeln(here1),
 		Head1=Head1a,Tail1=Tail1a,
 		Head2=Head2a,Tail2=Tail2a,%%notrace,
@@ -487,7 +487,12 @@ B = [3, 4].
 
 %% need to detect if head is a compound, flag and process it
 head_is_list_of_lists(Head2,true) :-
-	[Head3]=Head2,member(A,Head3),((A=[v,_] -> true; is_list(A))).
+	%%trace,
+	([Head3]=Head2->true;(%%notrace,
+	fail)),findall(A,
+	(member(A,Head3),((A=[v,_] -> true; is_list(A)))),B),
+	%%trace,writeln(Head2).%%
+	is_list(Head3),length(Head3,L),length(B,L),!.
 head_is_list_of_lists(_,false) :- !.
 
 
