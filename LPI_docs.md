@@ -166,6 +166,9 @@ For example:
 
 * `[[n,findall],[Variable1,Variable2,Variable3]]` e.g. `[[n,equals3],[[v,a],[1,2,3]]],[[n,findall],[[v,a1],[[n,member2],[[v,a],[v,a1]]],[v,b]]]` returns `[v,b]=[1,2,3]`
 
+* `[[n,string_from_file],[Variable1,Variable2]]` e.g. `[[n,string_from_file],[[v,a],"file.txt"]]` returns `[v,a]="Hello World"`
+
+* `[[n,maplist],[Variable1,Variable2,Variable3,Variable4]]` e.g. `[[n,maplist],[[n,+],[1,2,3],0,[v,b]]]` returns `[v,b]=6`
 
 * See lpiverify4.pl for examples of rules (predicates without bodies) and calls to predicates.
 
