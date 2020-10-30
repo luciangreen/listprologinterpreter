@@ -410,6 +410,7 @@ removebrackets(Value,Value).
 %% 1=2 items: if doesn't contain "|" in first level, then match4 list x, terminal
 
 match4(Variable1,Variable2,Vars1,Vars2) :-
+%%trace,
 	match4_list(Variable1,Variable2,Vars1,Vars2).
 match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 ) :-
@@ -424,7 +425,7 @@ match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 		Head2=Head2a,Tail2=Tail2a,%%notrace,
 		%%trace,
 	match4_list(Head1,Head2,Vars1,Vars3),
-	match4_terminal(Tail1,Tail2,Vars3,Vars2)
+	match4(Tail1,Tail2,Vars3,Vars2)
 	%%[Value3]=Value5,Value4=[Value6|Value6a],
 	%%maplist(append,[[Value5,Value6,Value6a]],Value2)
 	%%,notrace
@@ -443,7 +444,7 @@ match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 	%%trace,
 	%%writeln(here2),
 	match4_list(Head1,Head2,Vars1,Vars3),
-	match4_terminal(Tail1,Tail2,Vars3,Vars2)
+	match4(Tail1,Tail2,Vars3,Vars2)
 	%%,notrace
 	%%(Top_flag=true->(trace,[Value3]=Value5);Value3=Value5),(Value4=[]->(Value6=[],Val6a=[]);[Value6|Val6a]=Value4),
 	
@@ -458,7 +459,8 @@ match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 split_into_head_and_tail(Variable,Head1,Tail1,Pipe,Head_is_list_of_lists) :-
 	((append(Head2,["|"|Tail2],Variable),
 	(is_list(Head2),head_is_list_of_lists(Head2,Head_is_list_of_lists),(length(Head2,1) -> Head2=[Head1] ; 
-		Head2=Head1)),Tail2=[Tail1],Pipe=true)->true;
+		Head2=Head1)),%%trace,
+		Tail2=[Tail1],Pipe=true)->true;
 	%%(
 	((is_list(Variable),not(variable_name(Variable)),
 	Variable=[Head1|Tail1],Pipe=false,head_is_list_of_lists(Head1,Head_is_list_of_lists))->true;
