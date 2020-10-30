@@ -939,7 +939,7 @@ interpretstatement1(Functions0,Functions,[[n,string_from_file],[Variable1,Variab
 
 interpretstatement1(Functions0,Functions,[[n,maplist],[Variable1,Variable2,Variable3,Variable4]],Vars1,Vars2,true,nocut) :-
 
-        interpretpart(maplist,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2).
+        interpretpart(maplist,Functions0,Functions,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2).
 
 	%%interpretpart(findall,[Variable1,Variable3],Vars3,Vars2).
 

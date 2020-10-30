@@ -266,7 +266,7 @@ interpretpart(string_from_file,Variable1,Variable2,Vars1,Vars2) :-
 ;     debug_fail(Skip,[[n,string_from_file],[variable,Value2]])),!.                        	
 
 
-interpretpart(maplist,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2) :-  
+interpretpart(maplist,Functions0,Functions,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2) :-  
 
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
         getvalues(Variable3,Variable4,Value3,Value4,Vars1),
@@ -274,7 +274,7 @@ interpretpart(maplist,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2) :-
         debug_call(Skip,[[n,maplist],[Value1,Value2,Value3,variable]]),
 	%%A=..[a,1]
 	((
-	map(Value1,Value2,Value3,Value4A,Vars1),
+	map(Functions0,Functions,Value1,Value2,Value3,Value4A,Vars1),
 
 %%interpretstatement1(Functions0,Functions,[[Value1,Value2]],Vars1,Vars2,true,nocut),
         
@@ -617,11 +617,11 @@ V = [[[v, a], [1, 3]], [[v, b], 2]]
 
 **/
 
-map(_F,[],L,L,_).
-map(F,L,M1,N,Vars1):-not((L=[])),L=[H|T],
+map(_,_,_F,[],L,L,_).
+map(Functions0,Functions,F,L,M1,N,Vars1):-not((L=[])),L=[H|T],
 
-	interpretstatement1(_Functions0,_Functions,[F,[H,M1,[v,sys1]]],Vars1,Vars2,true,nocut),
+	interpretstatement1(Functions0,Functions,[F,[H,M1,[v,sys1]]],Vars1,Vars2,true,nocut),
 	getvalue([v,sys1],M2,Vars2),
 	
 %%(F,(M1,H,M2)),
-map(F,T,M2,N,Vars1).
+map(Functions0,Functions,F,T,M2,N,Vars1).
