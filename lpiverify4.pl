@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=92, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=95, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -19,8 +19,8 @@ test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 
 test1(Debug,N,Passed) :-
 	test(N,Query,Functions,Result),
-	((interpret(Debug,Query,Functions,Result)%%writeln(Result1),
-	%%Result=Result1
+	((interpret(Debug,Query,Functions,Result1),%%writeln(Result1),
+	Result=Result1
 	)->(Passed=passed,writeln([test,N,passed]));(Passed=failed,writeln([test,N,failed]))),!.
 
 
@@ -2036,3 +2036,32 @@ test(92,[[n,equals41],[[v,a],[v,b],[v,d]]],
         
 ],[[[[v, a], 1], [[v, b], 2],[[v, d], [3,4]]]]).
 
+test(93,[[n,maplist1],[[[1],[2],[3]],[v,b]]],
+
+[
+        [[n,maplist1],[[v,a],[v,b]],":-",
+        [       [[n,maplist],[[n,append],[v,a],[],[v,b]]]
+        ]]
+
+        
+],[[[[v,b],[1,2,3]]]]).
+
+test(94,[[n,maplist1],[[[[1]],[[2]],[[3]]],[v,b]]],
+
+[
+        [[n,maplist1],[[v,a],[v,b]],":-",
+        [       [[n,maplist],[[n,append],[v,a],[],[v,b]]]
+        ]]
+
+        
+],[[[[v,b],[[1],[2],[3]]]]]).
+
+test(95,[[n,findall1],[[1,2,3],[v,b]]],
+
+[
+        [[n,findall1],[[v,a],[v,b]],":-",
+        [       [[n,findall],[[[v,a1],[v,a1]],[[n,member2],[[v,a],[v,a1]]],
+                [v,b]]]
+        ]]
+        
+],[[[[v,b],[[1,1],[2,2],[3,3]]]]]).

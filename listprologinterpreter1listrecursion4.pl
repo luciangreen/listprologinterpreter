@@ -751,7 +751,7 @@ interpretstatement1(_F0,_Functions,[[n,equals4],[Variable1,Variable2]],Vars1,Var
          interpretpart(match4,Variable1,Variable2,Vars1,Vars5,_),
          
          interpretpart(match4,Variable1,[v,sys1],Vars5,Vars4,_),
-         	        
+
   	  	  getvalue([v,sys1],Value3,Vars4),
  	  	  
  	  	  turn_back_debug(Debug),
@@ -910,7 +910,7 @@ interpretstatement1(Functions0,Functions,[[n,findall],[Variable1,Body,Variable3]
 %%writeln1(interpretstatement1(Functions0,Functions,[[n,findall],[Variable1,Body,Variable3]],Vars1,Vars2,true,nocut)),
 %%writeln1("h1/10"),
 %%trace,%%%%****
-	%%trace,
+%%	trace,
 	debug_call(Skip,[[n,findall],[Variable1,Body,Variable3]]),
 ((
 	findall(Value3,(
@@ -918,9 +918,10 @@ interpretstatement1(Functions0,Functions,[[n,findall],[Variable1,Body,Variable3]
 	((Result2=cut)->!;true),
 	
 	 remember_and_turn_off_debug(Debug),
+	%%trace,
 
         interpretpart(match4,Variable1,[v,sys1],Vars3,Vars2,_),
-
+%%writeln1(        interpretpart(match4,Variable1,[v,sys1],Vars3,Vars2,_)),
 %%interpretstatement1(Functions0,Functions,[[n,equals4],[Variable1,Variable3]],Vars3,Vars2,true,nocut),
 	getvalue([v,sys1],Value3,Vars2),
 	

@@ -410,6 +410,23 @@ removebrackets(Value,Value).
 %% 1=2 items: if doesn't contain "|" in first level, then match4 list x, terminal
 
 match4(Variable1,Variable2,Vars1,Vars2) :-
+	variable_name(Variable2),
+	getvalue(Variable2,Value2,Vars1),
+	not(variable_name(Variable1)),
+	is_list(Variable1),
+	findall(Value1,(member(A,Variable1),getvalue(A,Value1,Vars1)),X),
+	val1emptyorvalsequal(Value2,X),
+	putvalue(Variable2,X,Vars1,Vars2).
+match4(Variable1,Variable2,Vars1,Vars2) :-
+	variable_name(Variable1),
+	getvalue(Variable1,Value1,Vars1),
+	not(variable_name(Variable2)),
+	is_list(Variable2),
+	findall(Value2,(member(A,Variable2),getvalue(A,Value2,Vars1)),X),
+	val1emptyorvalsequal(Value1,X),
+	putvalue(Variable1,X,Vars1,Vars2).
+
+match4(Variable1,Variable2,Vars1,Vars2) :-
 %%trace,
 	match4_list(Variable1,Variable2,Vars1,Vars2).
 match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
@@ -515,6 +532,9 @@ match4_list(Head1,Head2,Vars1,Vars2) :-
 	),
 	match4_list(Head1b,Head2b,Vars3,Vars2).
 match4_list(Head1,Head2,Vars1,Vars2) :-
+%%trace,
+	%%single_item(Head1),
+	%%single_item(Head2),
 	match4_terminal(Head1,Head2,Vars1,Vars2).%%,
 	%%append(Value1,[Value3],Value2).
 
@@ -622,7 +642,7 @@ V = [[[v, a], [1, 3]], [[v, b], 2]]
 map(_,_,_F,[],L,L,_).
 map(Functions0,Functions,F,L,M1,N,Vars1):-not((L=[])),L=[H|T],
 
-	interpretstatement1(Functions0,Functions,[F,[H,M1,[v,sys1]]],Vars1,Vars2,true,nocut),
+	interpretstatement1(Functions0,Functions,[F,[M1,H,[v,sys1]]],Vars1,Vars2,true,nocut),
 	getvalue([v,sys1],M2,Vars2),
 	
 %%(F,(M1,H,M2)),
