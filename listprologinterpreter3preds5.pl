@@ -416,7 +416,8 @@ match4(Variable1,Variable2,Vars1,Vars2) :-
 	is_list(Variable1),
 	findall(Value1,(member(A,Variable1),getvalue(A,Value1,Vars1)),X),
 	val1emptyorvalsequal(Value2,X),
-	putvalue(Variable2,X,Vars1,Vars2).
+	putvalue(Variable2,X,Vars1,Vars2),
+	length(Variable1,L),length(X,L).
 match4(Variable1,Variable2,Vars1,Vars2) :-
 	variable_name(Variable1),
 	getvalue(Variable1,Value1,Vars1),
@@ -424,7 +425,9 @@ match4(Variable1,Variable2,Vars1,Vars2) :-
 	is_list(Variable2),
 	findall(Value2,(member(A,Variable2),getvalue(A,Value2,Vars1)),X),
 	val1emptyorvalsequal(Value1,X),
-	putvalue(Variable1,X,Vars1,Vars2).
+	putvalue(Variable1,X,Vars1,Vars2),
+	length(Variable2,L),length(X,L).
+
 
 match4(Variable1,Variable2,Vars1,Vars2) :-
 %%trace,
