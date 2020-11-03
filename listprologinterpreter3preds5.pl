@@ -508,7 +508,19 @@ match4_10(Variable1,Variable2,Vars1,Vars2) :-
 %%trace,
 	match4(Variable1,X,Vars1,Vars2).
 	
+match4_10(Variable1,Variable2,Vars1,Vars2) :-
+%%trace,
+	not(variable_name(Variable1)),
+	is_list(Variable1),
+	%%findall(Value1,(
 	
+	%%interpretpart(match4,Variable1,[v,sys1],Vars1,Vars3,_),
+	%%getvalue([v,sys1],Value1,Vars3)
+	
+	getvalue_match(Variable1,X,Vars1),
+
+	match4(X,Variable2,Vars1,Vars2).
+
 	
 
 match4(Variable1,Variable2,Vars1,Vars2) :-
