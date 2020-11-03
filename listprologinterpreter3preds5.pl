@@ -409,12 +409,35 @@ removebrackets(Value,Value).
 
 %% 1=2 items: if doesn't contain "|" in first level, then match4 list x, terminal
 
+getvalue_match(Variable1,Value1,Vars1) :-
+not(Variable1="|"),
+	single_item(Variable1),
+	getvalue(Variable1,Value1,Vars1),!.
+getvalue_match([],[],_Vars1) :- !.
+getvalue_match(Variable1,Value1,Vars1) :-
+not(member("|",Variable1)),
+	not(single_item(Variable1)),
+	Variable1=[Variable1a|Variable1b],
+	getvalue_match(Variable1a,Value1a,Vars1),
+	getvalue_match(Variable1b,Value1b,Vars1),
+	append([Value1a],Value1b,Value1).
+	
+
+
 match4(Variable1,Variable2,Vars1,Vars2) :-
+%%trace,
 	variable_name(Variable2),
 	getvalue(Variable2,Value2,Vars1),
 	not(variable_name(Variable1)),
 	is_list(Variable1),
-	findall(Value1,(member(A,Variable1),getvalue(A,Value1,Vars1)),X),
+	%%findall(Value1,(
+	
+	%%interpretpart(match4,Variable1,[v,sys1],Vars1,Vars3,_),
+	%%getvalue([v,sys1],Value1,Vars3)
+	
+	getvalue_match(Variable1,X,Vars1),
+	%%member(A,Variable1),getvalue(A,Value1,Vars1)
+	%%),X),
 	val1emptyorvalsequal(Value2,X),
 	putvalue(Variable2,X,Vars1,Vars2),
 	length(Variable1,L),length(X,L).
@@ -423,7 +446,8 @@ match4(Variable1,Variable2,Vars1,Vars2) :-
 	getvalue(Variable1,Value1,Vars1),
 	not(variable_name(Variable2)),
 	is_list(Variable2),
-	findall(Value2,(member(A,Variable2),getvalue(A,Value2,Vars1)),X),
+	%%findall(Value2,(member(A,Variable2),getvalue(A,Value2,Vars1)),X),
+	getvalue_match(Variable2,X,Vars1),
 	val1emptyorvalsequal(Value1,X),
 	putvalue(Variable1,X,Vars1,Vars2),
 	length(Variable2,L),length(X,L).
@@ -573,7 +597,7 @@ match4_terminal(Variable1a,Variable2a,Vars1,Vars2).%%,
 	%%append(Value1,[[Value3]],Value2).
 
 match4_terminal(Variable1,Variable2,Vars1,Vars2) :-%%trace,
-	%%single_item(Variable1),
+	%%single_item(Variable1), %% may be [1,2]
 	%%single_item(Variable2),
    getvalues(Variable1,Variable2,Value1,Value2,Vars1),
    %% what if there is a var in a compound term? - may need different code in getvalues
@@ -599,8 +623,14 @@ bracket_if_single(Value1A,[Value1A]) :-
 	
 single_item(A) :- predicate_or_rule_name(A),!.
 single_item(A) :- variable_name(A),!.
+single_item(A) :- A="|",fail,!.
 single_item(A) :- string(A),!.
 single_item(A) :- number(A),!.
+
+is_value_match(A) :- predicate_or_rule_name(A),!.
+is_value_match(A) :- A="|",fail,!.
+is_value_match(A) :- string(A),!.
+is_value_match(A) :- number(A),!.
 
 append11(empty,A,A) :- !.
 append11(A,B,C) :- append(A,B,C).
