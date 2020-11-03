@@ -164,7 +164,7 @@ interpretpart(match3,Variable1,Variable2,Vars1,Vars2) :-
 
 interpretpart(match4,Variable1,Variable2,Vars1,Vars2,Note) :-
         debug_call(Skip,[[n,equals4],[Variable1,Variable2]]),
-        %%trace,
+        %trace,
         (match4_2(Variable1,Variable2,Vars1,Vars2)
         
         %%Value1A = Value2,
@@ -599,15 +599,20 @@ match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 	%%,notrace
 	,!.
 
-split_into_head_and_tail(Variable,Head1,Tail1,Pipe,Head_is_list_of_lists) :-
-	((append(Head2,["|"|Tail2],Variable),
+split_into_head_and_tail(Variable,Head1c,Tail1c,Pipe,Head_is_list_of_lists) :-
+	%%Variable=[[v, a], "|", [v, d]]->trace,%%((
+	(((
+	append(Head2,["|"|Tail2],Variable) %%-> notrace;notrace)
+	),
 	(is_list(Head2),head_is_list_of_lists(Head2,Head_is_list_of_lists),(length(Head2,1) -> Head2=[Head1] ; 
 		Head2=Head1)),%%trace,
 		Tail2=[Tail1],Pipe=true)->true;
 	%%(
 	((is_list(Variable),not(variable_name(Variable)),
 	Variable=[Head1|Tail1],Pipe=false,head_is_list_of_lists(Head1,Head_is_list_of_lists))->true;
-	(Head1=Variable,Tail1=[],Pipe=false,head_is_list_of_lists(Head1,Head_is_list_of_lists)))),!.
+	(Head1=Variable,Tail1=[],Pipe=false,head_is_list_of_lists(Head1,Head_is_list_of_lists)))),
+	(Head1=empty->Head1c=[];Head1=Head1c),
+	(Tail1=empty->Tail1c=[];Tail1=Tail1c),!.
 	%%(.%%->true;
 	%%([Head]=Variable,Tail=[]))).
 	
@@ -654,6 +659,8 @@ match4_list(Head1,Head2,Vars1,Vars2) :-
 	not(variable_name(Head2)),
 	Head1=[Head1a|Head1b],
 	Head2=[Head2a|Head2b],
+	not(Head1a="|"),
+	not(Head2a="|"),
 	match4(Head1a,Head2a,Vars1,Vars3%%,false
 	),
 	match4_list(Head1b,Head2b,Vars3,Vars2).
@@ -668,10 +675,12 @@ match4_list(Head1,Head2,Vars1,Vars2) :-
 match4_list(Head1,Head2,Vars1,Vars2) :-
 	variable_name(Head1),
 	not(variable_name(Head2)),
+	not(Head2="|"),
 	getvalue(Head1,Value1,Vars1),not(Value1=empty),
 	match4(Value1,Head2,Vars1,Vars2).
 match4_list(Head1,Head2,Vars1,Vars2) :-
 	not(variable_name(Head1)),
+	not(Head1="|"),
 	variable_name(Head2),
 	getvalue(Head2,Value2,Vars1),not(Value2=empty),
 	match4(Head1,Value2,Vars1,Vars2).
