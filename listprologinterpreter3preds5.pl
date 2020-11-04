@@ -407,7 +407,8 @@ removebrackets([[Value]],Value) :-!.
 removebrackets(Value,Value).
 
 
-%% 1=2 items: if doesn't contain "|" in first level, then match4 list x, terminal
+%% bc in a=bc
+%%: if doesn't contain "|" in first level, then match4 list x, terminal
 
 
 getvalue_match(Variable1,Value1,Vars1) :-
