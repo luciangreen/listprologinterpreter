@@ -92,8 +92,8 @@ debug_call(Skip,[[n,member],[Value1,Value2]]),
 
 interpretpart(member2,Variable1,Variable2,Vars1,Vars2) :-
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
-debug_call(Skip,[[n,member2],[Value1,Value2]]),
 	((Value2=empty,((member(Value2a,Value1),
+	debug_call(Skip,[[n,member2],[Value1,Value2]]),
 	putvalue(Variable2,Value2a,Vars1,Vars2)))),
       debug_exit(Skip,[[n,member2],[Value1,Value2a]])).
 %%;     %%debug_fail(Skip,[[n,member2],[Value1,Value2]])),!.
