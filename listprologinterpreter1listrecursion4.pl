@@ -6,6 +6,7 @@
 :- dynamic types/1.
 :- dynamic typestatements/1.
 :- dynamic modestatements/1.
+:- dynamic findall_sys/1.
 
 /** List Prolog Interpreter **/
 
@@ -37,6 +38,8 @@ interpret1(Debug,Query,Functions1,Functions2,Result) :-
    assertz(cut(off)),
 	retractall(leash1(_)),
    assertz(leash1(off)), %% Should normally be off
+  	retractall(findall_sys(_)),
+ 	assertz(findall_sys(1)),
 	%%writeln1(member1(Query,Functions1,Functions2,Result)),
 	member1(Query,Functions1,Functions2,Result).
 %%member1([_,R],_,[],R).
@@ -914,16 +917,16 @@ interpretstatement1(Functions0,Functions,[[n,findall],[Variable1,Body,Variable3]
 	debug_call(Skip,[[n,findall],[Variable1,Body,Variable3]]),
 ((
 	findall(Value3,(
-	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],Result2), %% 2->1
-	((Result2=cut)->!;true),
+	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],_Result2), %% 2->1
+	%%((Result2=cut)->!;true),
 	
 	 remember_and_turn_off_debug(Debug),
 	%%trace,
-
-        interpretpart(match4,Variable1,[v,sys1],Vars3,Vars2,_),
+find_findall_sys(Findall_sys_name),
+        interpretpart(match4,Variable1,[v,Findall_sys_name],Vars3,Vars2,_),
 %%writeln1(        interpretpart(match4,Variable1,[v,sys1],Vars3,Vars2,_)),
 %%interpretstatement1(Functions0,Functions,[[n,equals4],[Variable1,Variable3]],Vars3,Vars2,true,nocut),
-	getvalue([v,sys1],Value3,Vars2),
+	getvalue([v,Findall_sys_name],Value3,Vars2),
 	
 	 turn_back_debug(Debug)
 
@@ -1298,3 +1301,11 @@ strip(Arguments1,Result2,Result3) :-
  
  turn_back_debug(Debug) :-
  	retractall(debug(_)),assertz(debug(Debug)).
+
+find_findall_sys(Name2) :-
+	findall_sys(N1),
+	concat_list(["findall_sys_",N1],Name1),
+	atom_string(Name2,Name1),
+	N2 is N1+1,
+	retractall(findall_sys(_)),
+ 	assertz(findall_sys(N2)).
