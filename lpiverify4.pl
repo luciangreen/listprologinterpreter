@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=104, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=105, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -2158,7 +2158,45 @@ test(104,[[n,findall1],[[[1,11,111],[2,22,222],[3,33,333]],[v,b]]],
 ],[[[[v,b],[[1,11,111],[2,22,222],[3,33,333]]]]]).
 
 
+test(105,[[n,member2a],[[1,11,111],[v,b]]],
 
+[
+        [[n,member2a],[[v,a],[v,b]],":-",
+        [       [[n,member2],[[v,a],[v,b]]],[[n,cut]]]
+        ]
+        
+],[[[[v,b],1]]]).
+
+/**
+
+test(105a,[[n,findall1],[[[1,11,111],[2,22,222],[3,33,333]],[v,b]]],
+
+[
+        [[n,findall1],[[v,a],[v,b]],":-",
+        [       [[n,findall],[[v,b1],[[[n,member2],[[v,a],[v,a1]]],
+                [[n,cut]],
+        
+        [[n,findall],[[v,a2],[[n,member2],[[v,a1],[v,a2]]],
+                [v,b1]]]
+                ],
+                
+                [v,b]]]
+        ]]
+        
+],[[[[v,b],[[1,11,111]]]]]).
+
+test(105b,[[n,findall1],[[1,2,3],[v,b]]],
+
+[
+        [[n,findall1],[[v,a],[v,b]],":-",
+        [       [[n,findall],[[[v,a1],[v,a1]],[[[n,member2],[[v,a],[v,a1]]],[[n,cut]]],
+                [v,b]]]
+        ]]
+        
+],[[[[v,b],[[1,1]]]]]).
+
+
+**/
 
 
 
