@@ -2169,6 +2169,8 @@ test(105,[[n,member2a],[[1,11,111],[v,b]]],
 
 /**
 
+%% Need to analyse body, test whether cut is after a statement, cut results
+
 test(105a,[[n,findall1],[[[1,11,111],[2,22,222],[3,33,333]],[v,b]]],
 
 [
