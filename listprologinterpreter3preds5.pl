@@ -1,4 +1,6 @@
 interpretpart(is,Variable1,Variable2,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("is",Dbw_is),
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
         %%getvalue(Value1,Value1A,Vars1),
 	%%isvalstr(Value1),
@@ -8,12 +10,14 @@ interpretpart(is,Variable1,Variable2,Vars1,Vars2) :-
 	isempty(Value2),
         val1emptyorvalsequal(Value2,Value1),
 	%%isval(Value2),
-debug_call(Skip,[[n,is],[Value1,variable]]),
+debug_call(Skip,[[Dbw_n,Dbw_is],[Value1,variable]]),
 (        putvalue(Variable2,Value1,Vars1,Vars2)->
-debug_exit(Skip,[[n,is],[Value1,Value1]])
-;     debug_fail(Skip,[[n,is],[Value1,variable]])),!.
+debug_exit(Skip,[[Dbw_n,Dbw_is],[Value1,Value1]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_is],[Value1,variable]])),!.
 
 interpretpart(is,Variable1,Variable2,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("is",Dbw_is),
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
         %%getvalue(Value1,Value1A,Vars1),
 	%%isvalstr(Value1),
@@ -23,85 +27,100 @@ interpretpart(is,Variable1,Variable2,Vars1,Vars2) :-
 	expression(Value2),
         val1emptyorvalsequal(Value1,Value2),
 	%%isval(Value2),
-debug_call(Skip,[[n,is],[variable,Value2]]),
+debug_call(Skip,[[Dbw_n,Dbw_is],[variable,Value2]]),
 (        putvalue(Variable1,Value2,Vars1,Vars2)->
-debug_exit(Skip,[[n,is],[Value2,Value2]])
-;     debug_fail(Skip,[[n,is],[variable,Value2]])),!.
+debug_exit(Skip,[[Dbw_n,Dbw_is],[Value2,Value2]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_is],[variable,Value2]])),!.
 		
 interpretpart(bracket1,Variable1,Variable2,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("wrap",Dbw_wrap),
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
-debug_call(Skip,[[n,wrap],[Value1,Variable2]]),
+debug_call(Skip,[[Dbw_n,Dbw_wrap],[Value1,Variable2]]),
 ((	Value1A = [Value1],
         val1emptyorvalsequal(Value2,Value1A),
         %%val1emptyorvalsequal(Value1A,Value2),
         putvalue(Variable2,Value1A,Vars1,Vars2))->
-debug_exit(Skip,[[n,wrap],[Value1A,Value1A]])
-;     debug_fail(Skip,[[n,wrap],[Value1,Variable2]])),!.
+debug_exit(Skip,[[Dbw_n,Dbw_wrap],[Value1A,Value1A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_wrap],[Value1,Variable2]])),!.
 
 interpretpart(stringtonumber,Variable2,Variable1,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("stringtonumber",Dbw_stringtonumber),
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
 	%%Value1A = [Value2],
-debug_call(Skip,[[n,stringtonumber],[Value2,value]]),
+debug_call(Skip,[[Dbw_n,Dbw_stringtonumber],[Value2,value]]),
 	((((Value2=""->true;Value2=empty)->Value1="";
 	number_string(Value1A,Value2)),
         val1emptyorvalsequal(Value1,Value1A),
         %%val1emptyorvalsequal(Value1A,Value2),
         putvalue(Variable1,Value1A,Vars1,Vars2))->
-debug_exit(Skip,[[n,stringtonumber],[Value2,Value1A]])
-;     debug_fail(Skip,[[n,stringtonumber],[Value2,value]])),!.
+debug_exit(Skip,[[Dbw_n,Dbw_stringtonumber],[Value2,Value1A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_stringtonumber],[Value2,value]])),!.
 
 
 interpretpart(bracket2,Variable1,Variable2,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("unwrap",Dbw_unwrap),
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
-debug_call(Skip,[[n,unwrap],[variable,Value2]]),
+debug_call(Skip,[[Dbw_n,Dbw_unwrap],[variable,Value2]]),
         (([Value2A] = Value1,
         val1emptyorvalsequal(Value2,Value2A),
         %%val1emptyorvalsequal(Value2A,Value1),
         putvalue(Variable2,Value2A,Vars1,Vars2))->
-      debug_exit(Skip,[[n,unwrap],[Value1,Value2A]])
-;     debug_fail(Skip,[[n,unwrap],[variable,Value2]])),!.
+      debug_exit(Skip,[[Dbw_n,Dbw_unwrap],[Value1,Value2A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_unwrap],[variable,Value2]])),!.
         	
 interpretpart(head,Variable1,Variable2,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("head",Dbw_head),
 	getvalues(Variable1,Variable2,Value1,Value2,Vars1),
-debug_call(Skip,[[n,head],[Value1,variable]]),
+debug_call(Skip,[[Dbw_n,Dbw_head],[Value1,variable]]),
 	((Value1=[Value1A|_Rest],
         val1emptyorvalsequal(Value2,Value1A),
         putvalue(Variable2,Value1A,Vars1,Vars2))->
-      debug_exit(Skip,[[n,head],[Value1,Value1A]])
-;     debug_fail(Skip,[[n,head],[Value1,variable]])),!.
+      debug_exit(Skip,[[Dbw_n,Dbw_head],[Value1,Value1A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_head],[Value1,variable]])),!.
         	
 interpretpart(tail,Variable1,Variable2,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("tail",Dbw_tail),
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
-debug_call(Skip,[[n,tail],[Value1,variable]]),
+debug_call(Skip,[[Dbw_n,Dbw_tail],[Value1,variable]]),
         ((Value1=[_Head|Value1A],
 	%%removebrackets(Value1A,Value1B), 
         val1emptyorvalsequal(Value2,Value1A),
         putvalue(Variable2,Value1A,Vars1,Vars2))->
-      debug_exit(Skip,[[n,tail],[Value1,Value1A]])
-;     debug_fail(Skip,[[n,tail],[Value1,variable]])),!.
+      debug_exit(Skip,[[Dbw_n,Dbw_tail],[Value1,Value1A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_tail],[Value1,variable]])),!.
         	
 interpretpart(member,Variable1,Variable2,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("member",Dbw_member),
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
-debug_call(Skip,[[n,member],[Value1,Value2]]),
+debug_call(Skip,[[Dbw_n,Dbw_member],[Value1,Value2]]),
   	(((not(Value2=empty)->member(Value2,Value1),
 	(member(Value3,Value1),
 	putvalue(Variable2,Value3,Vars1,Vars2)%%,Vars2=Vars1
 	)))->
-      debug_exit(Skip,[[n,member],[Value1,Value3]])
-;     debug_fail(Skip,[[n,member],[Value1,Value2]])),!.
+      debug_exit(Skip,[[Dbw_n,Dbw_member],[Value1,Value3]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_member],[Value1,Value2]])),!.
 
 interpretpart(member2,Variable1,Variable2,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("member2",Dbw_member2),
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
 	((Value2=empty,((member(Value2a,Value1),
-	debug_call(Skip,[[n,member2],[Value1,Value2]]),
+	debug_call(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2]]),
 	putvalue(Variable2,Value2a,Vars1,Vars2)))),
-      debug_exit(Skip,[[n,member2],[Value1,Value2a]])).
+      debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2a]])).
 %%;     %%debug_fail(Skip,[[n,member2],[Value1,Value2]])),!.
 %%		((debug(on)->(writeln1([fail,[[n,member2],[Value1,value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail))))).
 
 interpretpart(isop,Operator,Variable1,Variable2,Variable3,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
 getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
-        debug_call(Skip,[[n,Operator],[Value2,Value3,variable]]),
+        debug_call(Skip,[[Dbw_n,Operator],[Value2,Value3,variable]]),
 	((isvalempty(Value1),
 	isval(Value2),
 	isval(Value3),
@@ -109,61 +128,69 @@ getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
         Value1A is Expression,
         val1emptyorvalsequal(Value1,Value1A),
         putvalue(Variable1,Value1A,Vars1,Vars2))->
-      debug_exit(Skip,[[n,Operator],[Value2,Value3,Value1A]])
-;     debug_fail(Skip,[[n,Operator],[Value2,Value3,variable]])),!.
+      debug_exit(Skip,[[Dbw_n,Operator],[Value2,Value3,Value1A]])
+;     debug_fail(Skip,[[Dbw_n,Operator],[Value2,Value3,variable]])),!.
 
-interpretpart(iscomparison,Operator,Variable1,Variable2,Vars1,Vars1) :-        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
-        debug_call(Skip,[[n,Operator],[Value1,Value2]]),
+interpretpart(iscomparison,Operator,Variable1,Variable2,Vars1,Vars1) :-
+get_lang_word("n",Dbw_n),
+        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        debug_call(Skip,[[Dbw_n,Operator],[Value1,Value2]]),
 	((isval(Value1),
 	isval(Value2),
 	Expression=..[Operator,Value1,Value2],
         Expression)->
-      debug_exit(Skip,[[n,Operator],[Value1,Value2]])
-;     debug_fail(Skip,[[n,Operator],[Value1,Value2]])),!.
+      debug_exit(Skip,[[Dbw_n,Operator],[Value1,Value2]])
+;     debug_fail(Skip,[[Dbw_n,Operator],[Value1,Value2]])),!.
 
 interpretpart(is,Variable1,Variable2,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
         	not(isempty(Value1)),
         	not(isempty(Value2)),
-        debug_call(Skip,[[n,=],[Value1,Value2]]),
+        debug_call(Skip,[[Dbw_n,=],[Value1,Value2]]),
         ((Value1A = Value2,
 		val1emptyorvalsequal(Value1,Value1A),
         putvalue(Variable1,Value1A,Vars1,Vars2))->
-      debug_exit(Skip,[[n,=],[Value1A,Value2]])
-;     debug_fail(Skip,[[n,=],[Value1,Value2]])),!.                        	
+      debug_exit(Skip,[[Dbw_n,=],[Value1A,Value2]])
+;     debug_fail(Skip,[[Dbw_n,=],[Value1,Value2]])),!.                        	
 
      	
 interpretpart(match1,Variable1,Variable2,Variable3,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
 getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
         Value1 = [Value2A, Value3A],
-        debug_call(Skip,[[n,=],[[Value2A,Value3A],[variable1,variable2]]]),
+        debug_call(Skip,[[Dbw_n,=],[[Value2A,Value3A],[variable1,variable2]]]),
         ((val1emptyorvalsequal(Value2,Value2A),
         val1emptyorvalsequal(Value3,Value3A),
         putvalue(Variable2,Value2A,Vars1,Vars3),
         putvalue(Variable3,Value3A,Vars3,Vars2))->
-      debug_exit(Skip,[[n,=],[[Value2A, Value3A],[Value2A, Value3A]]])
-;     debug_fail(Skip,[[n,=],[[Value2A,Value3A],[variable1,variable2]]])),!.                        	
+      debug_exit(Skip,[[Dbw_n,=],[[Value2A, Value3A],[Value2A, Value3A]]])
+;     debug_fail(Skip,[[Dbw_n,=],[[Value2A,Value3A],[variable1,variable2]]])),!.                        	
 		
 interpretpart(match2,Variable1,Variable2,Variable3,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
         getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
         Value1A = [Value2, Value3],
-        debug_call(Skip,[[n,=],[variable,[Value2,Value3]]]),
+        debug_call(Skip,[[Dbw_n,=],[variable,[Value2,Value3]]]),
         ((val1emptyorvalsequal(Value1,Value1A),
         putvalue(Variable1,Value1A,Vars1,Vars2))->
-      (debug_exit(Skip,[[n,=],[[Value2,Value3],[Value2,Value3]]])
-;     debug_fail(Skip,[[n,=],[variable,[Value2,Value3]]]))),!.                        	
+      (debug_exit(Skip,[[Dbw_n,=],[[Value2,Value3],[Value2,Value3]]])
+;     debug_fail(Skip,[[Dbw_n,=],[variable,[Value2,Value3]]]))),!.                        	
 
 interpretpart(match3,Variable1,Variable2,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
         Value1A = Value2,
-        debug_call(Skip,[[n,=],[variable,Value2]]),
+        debug_call(Skip,[[Dbw_n,=],[variable,Value2]]),
         ((val1emptyorvalsequal(Value1,Value1A),
         putvalue(Variable1,Value1A,Vars1,Vars2))->
-      (debug_exit(Skip,[[n,=],[Value2,Value2]])
-;     debug_fail(Skip,[[n,=],[variable,Value2]]))),!.                        	
+      (debug_exit(Skip,[[Dbw_n,=],[Value2,Value2]])
+;     debug_fail(Skip,[[Dbw_n,=],[variable,Value2]]))),!.                        	
 
 interpretpart(match4,Variable1,Variable2,Vars1,Vars2,Note) :-
-        debug_call(Skip,[[n,equals4],[Variable1,Variable2]]),
+get_lang_word("n",Dbw_n),
+get_lang_word("equals4",Dbw_equals4),
+        debug_call(Skip,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]]),
         %trace,
         (match4_2(Variable1,Variable2,Vars1,Vars2)
         
@@ -171,34 +198,40 @@ interpretpart(match4,Variable1,Variable2,Vars1,Vars2,Note) :-
         %%((val1emptyorvalsequal(Value1,Value1A),
         %%putvalue(Variable1,Value1A,Vars1,Vars2))
         ->
-      (debug_exit(Skip,[[n,equals4],[Note,Note]])
-;     debug_fail(Skip,[[n,equals4],[Variable1,Variable2]]))),!.                        	
+      (debug_exit(Skip,[[Dbw_n,Dbw_equals4],[Note,Note]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]]))),!.                        	
 
 
 interpretpart(delete,Variable1,Variable2,Variable3,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("delete",Dbw_delete),
         getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
-        debug_call(Skip,[[n,delete],[Value1,Value2,variable3]]),
+        debug_call(Skip,[[Dbw_n,Dbw_delete],[Value1,Value2,variable3]]),
         ((delete(Value1,Value2,Value3A),
         val1emptyorvalsequal(Value3,Value3A),
         putvalue(Variable3,Value3A,Vars1,Vars2))->
-      debug_exit(Skip,[[n,delete],[Value1,Value2,Value3A]])
-;     debug_fail(Skip,[[n,delete],[Value1,Value2,variable3]])),!.                        	
+      debug_exit(Skip,[[Dbw_n,Dbw_delete],[Value1,Value2,Value3A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_delete],[Value1,Value2,variable3]])),!.                        	
 
 interpretpart(append,Variable1,Variable2,Variable3,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("append",Dbw_append),
         	
         getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
-        debug_call(Skip,[[n,append],[Value1,Value2,variable3]]),
+        debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,variable3]]),
         ((append1(Value1,Value2,Value3A),
         val1emptyorvalsequal(Value3,Value3A),
         putvalue(Variable3,Value3A,Vars1,Vars2))->
-      debug_exit(Skip,[[n,append],[Value1,Value2,Value3A]])
-;     debug_fail(Skip,[[n,append],[Value1,Value2,variable3]])),!.                        	
+      debug_exit(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,Value3A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,variable3]])),!.                        	
 
 interpretpart(date,Year,Month,Day,Hour,Minute,Seconds,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("date",Dbw_date),
         	
         getvalues(Year,Month,Day,YearValueA,MonthValueA,DayValueA,Vars1),
         getvalues(Hour,Minute,Seconds,HourValueA,MinuteValueA,SecondsValueA,Vars1),
-        debug_call(Skip,[[n,date],[[variable1,variable2,variable3,variable4,variable5,variable6]]]),
+        debug_call(Skip,[[Dbw_n,Dbw_date],[[variable1,variable2,variable3,variable4,variable5,variable6]]]),
         ((get_time(TS),stamp_date_time(TS,date(YearValueB,MonthValueB,DayValueB,HourValueB,MinuteValueB,SecondsValueB,_A,_TZ,_False),local),
         val1emptyorvalsequal(YearValueA,YearValueB),
         val1emptyorvalsequal(MonthValueA,MonthValueB),
@@ -212,49 +245,62 @@ interpretpart(date,Year,Month,Day,Hour,Minute,Seconds,Vars1,Vars2) :-
         putvalue(Hour,HourValueB,Vars5,Vars6),      	
         putvalue(Minute,MinuteValueB,Vars6,Vars7),      	
         putvalue(Seconds,SecondsValueB,Vars7,Vars2))->
-      debug_exit(Skip,[[n,date],[YearValueB,MonthValueB,DayValueB,HourValueB,MinuteValueB,SecondsValueB]])
-;     debug_fail(Skip,[[n,date],[variable1,variable2,variable3,variable4,variable5,variable6]])),!.
+      debug_exit(Skip,[[Dbw_n,Dbw_date],[YearValueB,MonthValueB,DayValueB,HourValueB,MinuteValueB,SecondsValueB]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_date],[variable1,variable2,variable3,variable4,variable5,variable6]])),!.
 
-interpretpart(random,Variable1,Vars1,Vars2) :-        getvalue(Variable1,Value1,Vars1),
-        debug_call(Skip,[[n,random],[variable]]),
+interpretpart(random,Variable1,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("random",Dbw_random),
+        getvalue(Variable1,Value1,Vars1),
+        debug_call(Skip,[[Dbw_n,Dbw_random],[variable]]),
    ((random(Value1A),
         val1emptyorvalsequal(Value1,Value1A),
         putvalue(Variable1,Value1A,Vars1,Vars2))->      	
-      debug_exit(Skip,[[n,random],[Value1A]])
-;     debug_fail(Skip,[[n,random],[variable]])),!.
+      debug_exit(Skip,[[Dbw_n,Dbw_random],[Value1A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_random],[variable]])),!.
 
-interpretpart(length,Variable1,Variable2,Vars1,Vars2) :-        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
-        debug_call(Skip,[[n,length],[Value1,variable]]),
+interpretpart(length,Variable1,Variable2,Vars1,Vars2) :- 
+get_lang_word("n",Dbw_n),
+get_lang_word("length",Dbw_length),
+       getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        debug_call(Skip,[[Dbw_n,Dbw_length],[Value1,variable]]),
 	((islist(Value1),
    length(Value1,Value2A),
         val1emptyorvalsequal(Value2,Value2A),
         putvalue(Variable2,Value2A,Vars1,Vars2))->
-      debug_exit(Skip,[[n,length],[Value1,Value2A]])
-;     debug_fail(Skip,[[n,length],[Value1,variable]])),!.
+      debug_exit(Skip,[[Dbw_n,Dbw_length],[Value1,Value2A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_length],[Value1,variable]])),!.
 
-interpretpart(ceiling,Variable1,Variable2,Vars1,Vars2) :-        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
-        debug_call(Skip,[[n,ceiling],[Value1,variable]]),
+interpretpart(ceiling,Variable1,Variable2,Vars1,Vars2) :- 
+get_lang_word("n",Dbw_n),
+get_lang_word("ceiling",Dbw_ceiling),
+       getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        debug_call(Skip,[[Dbw_n,Dbw_ceiling],[Value1,variable]]),
 	((isval(Value1),
    ceiling(Value1,Value2A),
         val1emptyorvalsequal(Value2,Value2A),
         putvalue(Variable2,Value2A,Vars1,Vars2))->
-      debug_exit(Skip,[[n,ceiling],[Value1,Value2A]])
-;     debug_fail(Skip,[[n,ceiling],[Value1,variable]])),!.
+      debug_exit(Skip,[[Dbw_n,Dbw_ceiling],[Value1,Value2A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_ceiling],[Value1,variable]])),!.
 
-interpretpart(round,Variable1,Variable2,Vars1,Vars2) :-  
+interpretpart(round,Variable1,Variable2,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("round",Dbw_round),
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
-        debug_call(Skip,[[n,round],[Value1,variable2]]),
+        debug_call(Skip,[[Dbw_n,Dbw_round],[Value1,variable2]]),
         ((Value2A is round(Value1),
         val1emptyorvalsequal(Value2,Value2A),
         putvalue(Variable2,Value2A,Vars1,Vars2))->
-      debug_exit(Skip,[[n,round],[Value1,Value2A]])
-;     debug_fail(Skip,[[n,round],[Value1,variable2]])),!.                        	
+      debug_exit(Skip,[[Dbw_n,Dbw_round],[Value1,Value2A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_round],[Value1,variable2]])),!.                        	
 
 interpretpart(string_from_file,Variable1,Variable2,Vars1,Vars2) :-  
+get_lang_word("n",Dbw_n),
+get_lang_word("string_from_file",Dbw_string_from_file),
 
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
 
-        debug_call(Skip,[[n,string_from_file],[variable,Value2]]),
+        debug_call(Skip,[[Dbw_n,Dbw_string_from_file],[variable,Value2]]),
 	%%A=..[a,1]
 	((phrase_from_file_s(string_g(String00a),Value2),
 	string_codes(Value1A,String00a),
@@ -262,16 +308,18 @@ interpretpart(string_from_file,Variable1,Variable2,Vars1,Vars2) :-
         
         val1emptyorvalsequal(Value1,Value1A),
         putvalue(Variable2,Value1A,Vars1,Vars2))->
-      debug_exit(Skip,[[n,string_from_file],[Value1A,Value2]])
-;     debug_fail(Skip,[[n,string_from_file],[variable,Value2]])),!.                        	
+      debug_exit(Skip,[[Dbw_n,Dbw_string_from_file],[Value1A,Value2]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_string_from_file],[variable,Value2]])),!.                        	
 
 
-interpretpart(maplist,Functions0,Functions,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2) :-  
+interpretpart(maplist,Functions0,Functions,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("maplist",Dbw_maplist),
 
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
         getvalues(Variable3,Variable4,Value3,Value4,Vars1),
 
-        debug_call(Skip,[[n,maplist],[Value1,Value2,Value3,variable]]),
+        debug_call(Skip,[[Dbw_n,Dbw_maplist],[Value1,Value2,Value3,variable]]),
 	%%A=..[a,1]
 	((
 	map(Functions0,Functions,Value1,Value2,Value3,Value4A,Vars1),
@@ -280,11 +328,13 @@ interpretpart(maplist,Functions0,Functions,Variable1,Variable2,Variable3,Variabl
         
         val1emptyorvalsequal(Value4,Value4A),
         putvalue(Variable4,Value4A,Vars1,Vars2))->
-      debug_exit(Skip,[[n,maplist],[Value1,Value2,Value3,Value4A]])
-;     debug_fail(Skip,[[n,maplist],[Value1,Value2,Value3,variable]])),!.                        	
+      debug_exit(Skip,[[Dbw_n,Dbw_maplist],[Value1,Value2,Value3,Value4A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_maplist],[Value1,Value2,Value3,variable]])),!.                        	
 
 
 interpretpart(stringconcat,Terminal,Phrase2,Phrase1,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("stringconcat",Dbw_stringconcat),
 	%%Variables1=[Terminal,Phrase1,Phrase2], %% terminal can be v or "a"
         ((getvalues2([Terminal,Phrase1,Phrase2],
         	[],[TerminalValue1,Phrase1Value1,Phrase2Value1],Vars1,[],[Flag1,Flag2,_Flag3]), %% prolog vars, list of vars, [v]=[prolog var]
@@ -302,16 +352,18 @@ string_concat(TerminalValue2,Phrase2Value1,Phrase1Value1))->true;
         (Flag1=true->TerminalValue3=variable1;TerminalValue3=TerminalValue1),
         (Flag2=true->Phrase1Value3=variable2;Phrase1Value3=Phrase1Value1))->
 
-(debug_call(Skip,[[n,stringconcat],[TerminalValue3,Phrase1Value3,Phrase2]]),	
+(debug_call(Skip,[[Dbw_n,Dbw_stringconcat],[TerminalValue3,Phrase1Value3,Phrase2]]),	
 
-debug_exit(Skip,[[n,stringconcat],[TerminalValue1,Phrase1Value1,Phrase2Value1]])
+debug_exit(Skip,[[Dbw_n,Dbw_stringconcat],[TerminalValue1,Phrase1Value1,Phrase2Value1]])
         	);
         	
-        	(debug_call(Skip,[[n,stringconcat],[variable1,variable2,variable3]]),
-        	debug_fail(Skip,[[n,stringconcat],[variable1,variable2,variable3]])
+        	(debug_call(Skip,[[Dbw_n,Dbw_stringconcat],[variable1,variable2,variable3]]),
+        	debug_fail(Skip,[[Dbw_n,Dbw_stringconcat],[variable1,variable2,variable3]])
         	)),!.
         	
 interpretpart(grammar_part,Variables1,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("grammar_part",Dbw_grammar_part),
 	((Variables1=[Terminal,Phrase1,Phrase2], %% terminal can be v or "a"
         %%terminal(Terminal),
         getvalues2([Terminal,Phrase1,Phrase2],
@@ -342,11 +394,11 @@ string_concat(TerminalValue2,Phrase2Value1,Phrase1Value11))->true;
         putvalue(Phrase1,Phrase1Value1,Vars4,Vars2),
         (Flag1=true->TerminalValue3=variable1;TerminalValue3=TerminalValue1),
         (Flag2=true->Phrase1Value3=variable2;Phrase1Value3=Phrase1Value1))->
-        	(debug_call(Skip,[[n,grammar_part],[TerminalValue3,Phrase1Value3,Phrase2]]),
-        	debug_exit(Skip,[[n,grammar_part],[TerminalValue1,Phrase1Value1,Phrase2Value1]]));
+        	(debug_call(Skip,[[Dbw_n,Dbw_grammar_part],[TerminalValue3,Phrase1Value3,Phrase2]]),
+        	debug_exit(Skip,[[Dbw_n,Dbw_grammar_part],[TerminalValue1,Phrase1Value1,Phrase2Value1]]));
 
-        	(debug_call(Skip,[[n,grammar_part],[variable1,variable2,variable3]]),
-        (debug_fail(Skip,[[n,grammar_part],[variable1,variable2,variable3]])))),!.
+        	(debug_call(Skip,[[Dbw_n,Dbw_grammar_part],[variable1,variable2,variable3]]),
+        (debug_fail(Skip,[[Dbw_n,Dbw_grammar_part],[variable1,variable2,variable3]])))),!.
         	
 
         	
@@ -370,7 +422,7 @@ getvalues2(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars) :-
 val1emptyorvalsequal(empty,_Value) :- !.
 val1emptyorvalsequal(Value,Value) :-
 	not(Value=empty).
-isop(is).
+isop(Is):-get_lang_word("is",Is).
 isop(=).
 stringconcat1([],Item,Item) :-
 	!.
@@ -638,10 +690,11 @@ B = [3, 4].
 
 %% need to detect if head is a compound, flag and process it
 head_is_list_of_lists(Head2,true) :-
+get_lang_word("v",Dbw_v),
 	%%trace,
 	([Head3]=Head2->true;(%%notrace,
 	fail)),findall(A,
-	(member(A,Head3),((A=[v,_] -> true; is_list(A)))),B),
+	(member(A,Head3),((A=[v,_] -> true; (A=[Dbw_v,_] ;is_list(A))))),B),
 	%%trace,writeln(Head2).%%
 	is_list(Head3),length(Head3,L),length(B,L),!.
 head_is_list_of_lists(_,false) :- !.
@@ -782,10 +835,13 @@ V = [[[v, a], [1, 3]], [[v, b], 2]]
 **/
 
 map(_,_,_F,[],L,L,_).
-map(Functions0,Functions,F,L,M1,N,Vars1):-not((L=[])),L=[H|T],
+map(Functions0,Functions,F,L,M1,N,Vars1):-
+get_lang_word("v",Dbw_v),
+get_lang_word("sys1",Dbw_sys1),
+not((L=[])),L=[H|T],
 
-	interpretstatement1(Functions0,Functions,[F,[M1,H,[v,sys1]]],Vars1,Vars2,true,nocut),
-	getvalue([v,sys1],M2,Vars2),
+	interpretstatement1(Functions0,Functions,[F,[M1,H,[Dbw_v,Dbw_sys1]]],Vars1,Vars2,true,nocut),
+	getvalue([Dbw_v,Dbw_sys1],M2,Vars2),
 	
 %%(F,(M1,H,M2)),
 map(Functions0,Functions,F,T,M2,N,Vars1).

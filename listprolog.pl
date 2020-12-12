@@ -12,3 +12,6 @@
 %%:- include('rcaw.pl').
 %%:- include('texttobr2.pl').
 :- include('la_strings.pl').
+:- include('../Languages/lang_db_generator.pl').
+:- include('lpiverify4-fr.pl').
+

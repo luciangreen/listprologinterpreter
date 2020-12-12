@@ -56,17 +56,20 @@ convert_to_grammar_part1(Grammar1,Grammar2,Grammar3,Grammar5) :-
 
 convert_to_grammar_part11([],Grammar1,Grammar1,_EndGrammar1,_EndGrammar1,_Grammar2,_Grammar2,_EndGrammar2,_EndGrammar2) :- !.
 convert_to_grammar_part11(Grammar1,Grammar2,Grammar3,_EndGrammar1,_EndGrammar2,Grammara2,Grammara3,_EndGrammara1,_EndGrammara2) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("vgp1",Dbw_vgp1),
+get_lang_word("vgp2",Dbw_vgp2),
 	Grammar1=[Grammar4|Grammar5],
-	(Grammar4=[[n,Name],Variables1,"->",Body1]->true;
-	(Grammar4=[[n,Name],"->",Body1],Variables1=[])),
+	(Grammar4=[[Dbw_n,Name],Variables1,"->",Body1]->true;
+	(Grammar4=[[Dbw_n,Name],"->",Body1],Variables1=[])),
 	%%((maplist(no_calls,Body1))-> %% this is a base case
 	%%append([[v,vgp],[v,vgp]],Variables1,Variables2);
-	append([[v,vgp1],[v,vgp2]],Variables1,Variables3)
+	append([[Dbw_v,Dbw_vgp1],[Dbw_v,Dbw_vgp2]],Variables1,Variables3)
 	%%)
 	,
 	member(Item1,Body1),call_or_terminal(Item1),	%% If not, operator expected.
 	%%append([[n,Name]],Variables2,Variables3),
-	Grammar6=[[n,Name],Variables3,":-"],
+	Grammar6=[[Dbw_n,Name],Variables3,":-"],
 	convert_to_grammar_part20(Body1,1,2,2,[],Body2),
 	append(Grammar6,[Body2],Grammar7), %% 7 to 8 x
 	
@@ -110,8 +113,10 @@ duplicate(Grammar1,Grammar2,Grammar3) :-
 	duplicate(Grammar5,Grammar6,Grammar3).
 
 	
-basecasecondition(Variables3,[n,Name],Item1) :-
-	not((Item1=[[n,Name],Item2|_Rest2],length(Variables3,Length),length(Item2,Length))).
+basecasecondition(Variables3,[Dbw_n,Name],Item1) :-
+get_lang_word("n",Dbw_n),
+
+	not((Item1=[[Dbw_n,Name],Item2|_Rest2],length(Variables3,Length),length(Item2,Length))).
 
 no_calls(Item) :-
 	not(call1(Item)),!.
@@ -149,8 +154,10 @@ convert_to_grammar_part2(Body1,FirstVar1,SecondVar,SecondVarParent,Body2,Body3) 
 		convert_to_grammar_part32t(Body1,FirstVar1,SecondVar,SecondVarParent,Body2,Body3)), !.
 
 convert_to_grammar_part2(Body1,FirstVar,SecondVar,SecondVarParent,Body2,Body3) :-
+get_lang_word("n",Dbw_n),
+get_lang_word("code",Dbw_code),
 	Body1=[Item|Rest1],
-	Item=[[n,code]|Rest2],
+	Item=[[Dbw_n,Dbw_code]|Rest2],
 	append(Body2,Rest2,Body4),
 	convert_to_grammar_part2(Rest1,FirstVar,SecondVar,SecondVarParent,Body4,Body3),!.
 
@@ -163,19 +170,21 @@ convert_to_grammar_part31(Body1,FirstVar,SecondVar,SecondVarParent,Body2,Body3) 
 	convert_to_grammar_part311(Item1,FirstVar,SecondVarParent,Body2,Body4),
 	convert_to_grammar_part2(Rest1,FirstVar,SecondVar,SecondVarParent,Body4,Body3), !.
 
-convert_to_grammar_part311([[n,RuleName]],FirstVar1,SecondVarParent,Body2,Body3) :-
+convert_to_grammar_part311([[Dbw_n,RuleName]],FirstVar1,SecondVarParent,Body2,Body3) :-
+get_lang_word("n",Dbw_n),
 	to_variable_name(FirstVar1,FirstVarName),
 	to_variable_name(SecondVarParent,SecondVarParentName),
-	Item=[[n,RuleName],[FirstVarName,SecondVarParentName]],
+	Item=[[Dbw_n,RuleName],[FirstVarName,SecondVarParentName]],
 	%%append([[n,grammar_part]],[Call],Item),
 	append(Body2,[Item],Body3),!.
 
-convert_to_grammar_part311([[n,RuleName]|[Variables1]],FirstVar1,SecondVarParent,Body2,Body3) :-
+convert_to_grammar_part311([[Dbw_n,RuleName]|[Variables1]],FirstVar1,SecondVarParent,Body2,Body3) :-
+get_lang_word("n",Dbw_n),
 	variables(Variables1),
 	to_variable_name(FirstVar1,FirstVarName),
 	to_variable_name(SecondVarParent,SecondVarParentName),
 	append([FirstVarName,SecondVarParentName],Variables1,Call),
-	append([[n,RuleName]],[Call],Item2),
+	append([[Dbw_n,RuleName]],[Call],Item2),
 	append(Body2,[Item2],Body3),!.
 
 convert_to_grammar_part32(Body1,FirstVar1,SecondVar,SecondVarParent,Body2,Body3) :-
@@ -183,23 +192,25 @@ convert_to_grammar_part32(Body1,FirstVar1,SecondVar,SecondVarParent,Body2,Body3)
 	convert_to_grammar_part321(Item1,Rest1,FirstVar1,SecondVar,SecondVarParent,Body2,Body3),!.
 
 convert_to_grammar_part321(Item1,Rest1,FirstVar1,SecondVar1,SecondVarParent,Body2,Body3) :-
-	Item1=[[n,RuleName]],
+get_lang_word("n",Dbw_n),
+	Item1=[[Dbw_n,RuleName]],
 	to_variable_name(FirstVar1,FirstVarName),
 	to_variable_name(SecondVar1,SecondVarName),
 	Call=[FirstVarName,SecondVarName],
-	append([[n,RuleName]],[Call],Item2),
+	append([[Dbw_n,RuleName]],[Call],Item2),
 	append(Body2,[Item2],Body4),
 	FirstVar2 is SecondVar1,
 	SecondVar2 is SecondVar1+1,
 	convert_to_grammar_part2(Rest1,FirstVar2,SecondVar2,SecondVarParent,Body4,Body3),!.
 
 convert_to_grammar_part321(Item1,Rest1,FirstVar1,SecondVar1,SecondVarParent,Body2,Body3) :-
-	Item1=[[n,RuleName]|[Variables1]],
+get_lang_word("n",Dbw_n),
+	Item1=[[Dbw_n,RuleName]|[Variables1]],
 	variables(Variables1),
 	to_variable_name(FirstVar1,FirstVarName),
 	to_variable_name(SecondVar1,SecondVarName),
 	append([FirstVarName,SecondVarName],Variables1,Call),
-	append([[n,RuleName]],[Call],Item2),
+	append([[Dbw_n,RuleName]],[Call],Item2),
 	append(Body2,[Item2],Body4),
 	FirstVar2 is SecondVar1,
 	SecondVar2 is SecondVar1+1,
@@ -213,10 +224,11 @@ convert_to_grammar_part31t(Body1,FirstVar,SecondVar,SecondVarParent,Body2,Body3)
 	convert_to_grammar_part2(Rest1,FirstVar,SecondVar,SecondVarParent,Body4,Body3), !.
 
 convert_to_grammar_part311t(Item1,FirstVar1,SecondVarParent,Body2,Body3) :-
+get_lang_word("n",Dbw_n),
 	to_variable_name(FirstVar1,FirstVarName),
 	to_variable_name(SecondVarParent,SecondVarParentName),
 	Call=[Item1,FirstVarName,SecondVarParentName],
-	append([[n,grammar_part]],[Call],Item2),
+	append([[Dbw_n,grammar_part]],[Call],Item2),
 	append(Body2,[Item2],Body3),!.
 
 convert_to_grammar_part32t(Body1,FirstVar1,SecondVar,SecondVarParent,Body2,Body3) :-
@@ -224,10 +236,11 @@ convert_to_grammar_part32t(Body1,FirstVar1,SecondVar,SecondVarParent,Body2,Body3
 	convert_to_grammar_part321t(Item1,Rest1,FirstVar1,SecondVar,SecondVarParent,Body2,Body3),!.
 
 convert_to_grammar_part321t(Item1,Rest1,FirstVar1,SecondVar1,SecondVarParent,Body2,Body3) :-
+get_lang_word("n",Dbw_n),
 	to_variable_name(FirstVar1,FirstVarName),
 	to_variable_name(SecondVar1,SecondVarName),
 	Call=[Item1,FirstVarName,SecondVarName],
-	append([[n,grammar_part]],[Call],Item2),
+	append([[Dbw_n,grammar_part]],[Call],Item2),
 	append(Body2,[Item2],Body4),
 	FirstVar2 is SecondVar1,
 	SecondVar2 is SecondVar1+1,
@@ -240,11 +253,15 @@ last_call_or_terminal2(Body1) :-
 	last_call_or_terminal2(Body2),!.
 	
 to_variable_name(Var,Name1) :-
+get_lang_word("v",Dbw_v),
 	atom_concat(vgp,Var,Name2),
-	Name1=[v,Name2],!.
-variable_name([v,_Name]) :- !.
-predicate_or_rule_name([n,_Name]) :- !.
-predicate_or_rule([[n,_Name]|_Variables]) :- !.
+	Name1=[Dbw_v,Name2],!.
+variable_name([Dbw_v,_Name]) :- 
+get_lang_word("v",Dbw_v),!.
+predicate_or_rule_name([Dbw_n1,_Name]) :- %trace,
+get_lang_word("n",Dbw_n),Dbw_n=Dbw_n1,!.
+predicate_or_rule([[Dbw_n,_Name]|_Variables]) :- 
+get_lang_word("n",Dbw_n),!.
 islist(A) :- list1(A,_,_),!.
 variables([]) :- !.
 variables(Variables1) :-
@@ -257,11 +274,21 @@ terminal(Item1) :-
 	([Item2]=Item1->true;Item2=Item1),
 		(variable_name(Item2)->true;string(Item2)),!.
 code(Item) :-
-	(Item=[[n,code]|_Rest]->true;Item=[n,code]),!.
-call1(Item) :- (Item=[[n,_PredicateName]|_Variables]->true;Item=[n,_PredicateName]),not(code(Item)),!.
-call_not_grammar([[n,PredicateName]|_Variables]) :- not(PredicateName=grammar),not(PredicateName=grammar_part),!.
-call_grammar_part([[n,grammar_part]|_Variables]) :- !.
-name([n,_Name]):-!.
+get_lang_word("n",Dbw_n),
+get_lang_word("code",Dbw_code),
+	(Item=[[Dbw_n,Dbw_code]|_Rest]->true;Item=[Dbw_n,Dbw_code]),!.
+call1(Item) :- 
+get_lang_word("n",Dbw_n),
+(Item=[[Dbw_n,_PredicateName]|_Variables]->true;Item=[Dbw_n,_PredicateName]),not(code(Item)),!.
+call_not_grammar([[Dbw_n,PredicateName]|_Variables]) :- 
+get_lang_word("n",Dbw_n),
+get_lang_word("grammar",Dbw_grammar),
+not(PredicateName=Dbw_grammar),not(PredicateName=grammar_part),!.
+call_grammar_part([[Dbw_n,Dbw_grammar_part]|_Variables]) :- 
+get_lang_word("n",Dbw_n),
+get_lang_word("grammar_part",Dbw_grammar_part),!.
+name([Dbw_n,_Name]):-
+get_lang_word("n",Dbw_n),!.
 call_or_terminal(Item) :-
 	terminal(Item)->true;call1(Item),!.
 	
