@@ -12,8 +12,6 @@ The <a href="https://github.com/luciangreen/Languages">Languages repository</a> 
 
 # Installation from List Prolog Package Manager (LPPM)
 
-* Please download and install SWI-Prolog for your machine at https://www.swi-prolog.org/build/.
-
 * Optionally, you can install from LPPM by installing <a href="https://www.swi-prolog.org/build/">SWI-Prolog</a> for your machine, downloading the <a href="https://github.com/luciangreen/List-Prolog-Package-Manager">LPPM Repository</a>,
 ```
 git clone https://github.com/luciangreen/List-Prolog-Package-Manager.git
