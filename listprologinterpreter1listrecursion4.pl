@@ -38,7 +38,7 @@ interpret(Debug,Query,TypeStatements,ModeStatements,Functions1,Result) :-
 interpret11(Debug,Query,Functions1,Result).
 
 interpret11(Debug,Query,Functions1,Result) :-
-	((not(lang(Lang1))
+	((not(lang(_Lang1))
 	%var(Lang1)
 	)->
 	(retractall(lang(_)),
@@ -49,6 +49,7 @@ interpret11(Debug,Query,Functions1,Result) :-
 %%writeln1([i1]),
 	%%writeln1(convert_to_grammar_part1(Functions1,[],Functions2,_)),
 	convert_to_grammar_part1(Functions1,[],Functions2,_),
+	%%writeln1(Functions2),
 	%%writeln1(Functions2),
 	%%pp3(Functions2),
 	%%writeln1(interpret1(Debug,Query,Functions2,Functions2,Result)),
@@ -333,10 +334,10 @@ checktypes0_inputs(Function,Vars1,_TypeStatements1,_ModeStatements1) :-
 	(types(on)->debug_call(Skip,[Function,Vars1]);true),
 		
 	(types(on)->debug_exit(Skip,[Function,Vars1]);true),
-	(types(on)->(get_lang_word("input type check",Input_type_check),debug_types_exit([Function,/,~,L,Input_type_check]));true),!.
+	(types(on)->(debug_types_exit([Function,/,~,L,Input_type_check]));true),!.
 checktypes0_inputs(Function,Vars1,TypeStatements1,ModeStatements1) :-
 	length(Vars1,L),
-	(types(on)->(get_lang_word("input type check",Input_type_check),debug_types_call([Function,/,~,L,Input_type_check]));true),
+	(types(on)->(debug_types_call([Function,/,~,L,Input_type_check]));true),
 	
 	
 	(member([Function|[TypeStatements2]],TypeStatements1),
@@ -346,12 +347,12 @@ checktypes0_inputs(Function,Vars1,TypeStatements1,ModeStatements1) :-
 	((checktypes1(Vars2,TypeStatements3,TypeStatements3,TypeStatements1))->
 	(
 	(types(on)->debug_exit(Skip,[Function,Vars2]);true),
-	(types(on)->(get_lang_word("input type check",Input_type_check),debug_types_exit([Function,/,~,L,Input_type_check]));true))
+	(types(on)->(debug_types_exit([Function,/,~,L,Input_type_check]));true))
 	
 ;(
 	(types(on)->debug_fail(Skip,[Function,Vars1]);true),
 
-(types(on)->(get_lang_word("input type check",Input_type_check),debug_types_fail([Function,/,~,L,Input_type_check]));true)))),!.
+(types(on)->(debug_types_fail([Function,/,~,L,Input_type_check]));true)))),!.
 
 extract_modes1(TypeStatements1,TypeStatements3,Vars1,Vars2,ModeStatements1) :-
 	%%TypeStatements1=[TypeStatements2|TypeStatements3],
@@ -380,18 +381,19 @@ checktypes(Function,Vars1):-%%,TypeStatements1) :-
 	(types(on)->(typestatements(TypeStatements1),
 	checktypes0(Function,Vars1,TypeStatements1));true),!.
 checktypes0(Function,Vars1,_TypeStatements1) :- 
+	get_lang_word("Type check",Type_check),
 	length(Vars1,L),L is 0,Vars1=[],
-	(types(on)->(get_lang_word("Type check",Type_check),debug_types_call([Function,/,L,Type_check]));true),
+	(types(on)->(debug_types_call([Function,/,L,Type_check]));true),
 	
 	
 	(types(on)->debug_call(Skip,[Function,Vars1]);true),
 		
 	(types(on)->debug_exit(Skip,[Function,Vars1]);true),
-	(types(on)->(get_lang_word("Type check",Type_check),debug_types_exit([Function,/,L,Type_check]));true),!.
+	(types(on)->(debug_types_exit([Function,/,L,Type_check]));true),!.
 		
 checktypes0(Function,Vars1,TypeStatements1) :-
 	length(Vars1,L),
-	(types(on)->(get_lang_word("Type check",Type_check),debug_types_call([Function,/,L,Type_check]));true),
+	(types(on)->(debug_types_call([Function,/,L,Type_check]));true),
 	
 	
 	(types(on)->debug_call(Skip,[Function,Vars1]);true),
@@ -399,12 +401,12 @@ checktypes0(Function,Vars1,TypeStatements1) :-
 	checktypes1(Vars1,TypeStatements2,TypeStatements2,TypeStatements1))->
 	(
 	(types(on)->debug_exit(Skip,[Function,Vars1]);true),
-	(types(on)->(get_lang_word("Type check",Type_check),debug_types_exit([Function,/,L,Type_check]));true))
+	(types(on)->(debug_types_exit([Function,/,L,Type_check]));true))
 	
 ;(
 	(types(on)->debug_fail(Skip,[Function,Vars1]);true),
 
-(types(on)->(get_lang_word("Type check",Type_check),debug_types_fail([Function,/,L,Type_check]));true))),!.
+(types(on)->(debug_types_fail([Function,/,L,Type_check]));true))),!.
 
 checktypes1([],[],_,_) :- !.
 
@@ -415,12 +417,12 @@ get_lang_word("list",Dbw_list),
 	Vars1=[Vars2|Vars3],
 	list1(Vars2,_,_),
 	TypeStatements1=[[[T,Dbw_list]|[TypeStatements3]]|TypeStatements4a],
-(types(on)->(get_lang_word("t",T),get_lang_word("list",Dbw_list),debug_call(Skip,[[T,Dbw_list],TypeStatements3]));true),
+(types(on)->(debug_call(Skip,[[T,Dbw_list],TypeStatements3]));true),
 
 	((checktypes3(Vars2,TypeStatements3,TypeStatements2,TypeStatements4))->
-		((types(on)->(get_lang_word("t",T),get_lang_word("list",Dbw_list),debug_exit(Skip,[[T,Dbw_list],Vars2]));true),
+		((types(on)->(debug_exit(Skip,[[T,Dbw_list],Vars2]));true),
 		checktypes1(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4))
-;     (types(on)->(get_lang_word("t",T),get_lang_word("list",Dbw_list),debug_fail(Skip,[[T,Dbw_list],Vars2]));true)
+;     (types(on)->(debug_fail(Skip,[[T,Dbw_list],Vars2]));true)
 )
 %%not(variable_name(Vars2)),
 	. %% ** in brac as well
@@ -477,7 +479,7 @@ TypeStatements1=[T,Dbw_number],
 ;     (types(on)->debug_fail(Skip,[[T,Dbw_number],Vars]);true)).
 checktypes2(Vars,TypeStatements1,_TypeStatements2,_) :-
 	get_lang_word("t",T),get_lang_word("predicate name",Dbw_predicatename),
-	get_lang_word("n",Dbw_n),
+	get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 
 TypeStatements1=[T,Dbw_predicatename],
 (types(on)->debug_call(Skip,[[T,Dbw_predicatename],Vars]);true),
@@ -633,7 +635,7 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result0) :-
 
 
 interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
-	get_lang_word("n",Dbw_n),
+	get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 
 
         Body=[[[Dbw_n,"->"],[Statements1,Statements2]]|Statements3],
@@ -654,7 +656,7 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
 
 
 interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
-	get_lang_word("n",Dbw_n),
+	get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 
         Body=[[[Dbw_n,"->"],[Statements1,Statements2,Statements2a]]|Statements3],
         ((interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2)
@@ -720,14 +722,14 @@ false(false).
 %%	.
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_cut]],Vars,Vars,true,cut) :- 
-get_lang_word("n",Dbw_n),
-get_lang_word("cut",Dbw_cut),!.
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("cut",Dbw_cut1),Dbw_cut1=Dbw_cut,!.
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_true]],Vars,Vars,_,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("true",Dbw_true),!.
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("true",Dbw_true1),Dbw_true1=Dbw_true,!.
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_fail]],Vars,Vars,_,nocut) :- 
-get_lang_word("n",Dbw_n),
-get_lang_word("fail",Dbw_fail),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("fail",Dbw_fail1),Dbw_fail1=Dbw_fail,
 fail.
 
 /**
@@ -743,8 +745,8 @@ interpretstatement1(Functions0,Functions,[[n,or],[Statement1,Statement2]],Vars1,
 **/
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_atom],[Variable]],Vars,Vars,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("atom",Dbw_atom),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("atom",Dbw_atom1),Dbw_atom1=Dbw_atom,
 
 	getvalue(Variable,Value,Vars),
 debug_call(Skip,[[Dbw_n,Dbw_atom],[Value]]),
@@ -753,8 +755,8 @@ debug_exit(Skip,[[Dbw_n,Dbw_atom],[Value]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_atom],[Value]])),!.
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_string],[Variable]],Vars,Vars,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("string",Dbw_string),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("string",Dbw_string1),Dbw_string=Dbw_string1,
 
         getvalue(Variable,Value,Vars),
 debug_call(Skip,[[Dbw_n,Dbw_string],[Value]]),
@@ -763,8 +765,8 @@ debug_exit(Skip,[[Dbw_n,Dbw_string],[Value]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_string],[Value]])),!.
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_number],[Variable]],Vars,Vars,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("number",Dbw_number),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("number",Dbw_number1),Dbw_number1=Dbw_number,
         getvalue(Variable,Value,Vars),
 debug_call(Skip,[[Dbw_n,Dbw_number],[Value]]),
 	(number(Value)->
@@ -772,8 +774,8 @@ debug_exit(Skip,[[Dbw_n,Dbw_number],[Value]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_number],[Value]])),!.
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_letters],[Variable]],Vars,Vars,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("letters",Dbw_letters),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("letters",Dbw_letters1),Dbw_letters1=Dbw_letters,
 
         getvalue(Variable,Value,Vars),
 debug_call(Skip,[[Dbw_n,Dbw_letters],[Value]]),
@@ -783,8 +785,8 @@ debug_exit(Skip,[[Dbw_n,Dbw_letters],[Value]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_letters],[Value]])),!.
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_variable],[Variable]],Vars,Vars,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("variable",Dbw_variable),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("variable",Dbw_variable1),Dbw_variable1=Dbw_variable,
 
 debug_call(Skip,[[Dbw_n,Dbw_variable],[Variable]]),
         (isvar(Variable)->
@@ -798,7 +800,7 @@ debug_exit(Skip,[[Dbw_n,Dbw_variable],[Variable]])
 
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 	isop(Operator),
 	interpretpart(is,Variable1,Variable2,Vars1,Vars2),!.
 
@@ -810,13 +812,13 @@ interpretstatement1(_F0,_Functions,[[n,Operator],[Variable1,Variable2]],Vars1,Va
 **/
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Operator],[Variable2,Variable3,Variable1]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 	operator(Operator),
 %%writeln1(4),
         interpretpart(isop,Operator,Variable1,Variable2,Variable3,Vars1,Vars2).
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 	comparisonoperator(Operator),
 %%writeln1(4),
         interpretpart(iscomparison,Operator,Variable1,Variable2,Vars1,Vars2).
@@ -831,29 +833,29 @@ get_lang_word("n",Dbw_n),
 **/
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_equals1],[Variable1,[Variable2,Variable3]]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("equals1",Dbw_equals1),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("equals1",Dbw_equals11),Dbw_equals11=Dbw_equals1,
 
 %%writeln1(5),
         interpretpart(match1,Variable1,Variable2,Variable3,Vars1,Vars2).
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_equals2],[Variable1,[Variable2,Variable3]]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("equals2",Dbw_equals2),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("equals2",Dbw_equals21),Dbw_equals21=Dbw_equals2,
 
 %%writeln1(5),
         interpretpart(match2,Variable1,Variable2,Variable3,Vars1,Vars2).
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_equals3],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("equals3",Dbw_equals3),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("equals3",Dbw_equals31),Dbw_equals31=Dbw_equals3,
 %%writeln1(5),
         interpretpart(match3,Variable1,Variable2,Vars1,Vars2).
 
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("equals4",Dbw_equals4),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("equals4",Dbw_equals41),Dbw_equals41=Dbw_equals4,
 get_lang_word("v",Dbw_v),
 get_lang_word("sys1",Dbw_sys1),
 %%writeln1(5),
@@ -876,61 +878,61 @@ get_lang_word("sys1",Dbw_sys1),
 %%        interpretpart(match,Variable1,Variable2,Variable3,Vars1,Vars2).
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_wrap],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("wrap",Dbw_wrap),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("wrap",Dbw_wrap1),Dbw_wrap1=Dbw_wrap,
 %%writeln1(52), wrap
 %%writeln([[n,wrap],[Variable1,Variable2]]),
         interpretpart(bracket1,Variable1,Variable2,Vars1,Vars2).
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_unwrap],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("unwrap",Dbw_unwrap),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("unwrap",Dbw_unwrap1),Dbw_unwrap1=Dbw_unwrap,
 %%writeln1(53), unwrap
         interpretpart(bracket2,Variable1,Variable2,Vars1,Vars2).
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_head],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("head",Dbw_head),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("head",Dbw_head1),Dbw_head1=Dbw_head,
 
 %%writeln1(6),
         interpretpart(head,Variable1,Variable2,Vars1,Vars2).
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_tail],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("tail",Dbw_tail),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("tail",Dbw_tail1),Dbw_tail1=Dbw_tail,
 %%writeln1(61),
         interpretpart(tail,Variable1,Variable2,Vars1,Vars2).
 
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_member],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("member",Dbw_member),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("member",Dbw_member1),Dbw_member1=Dbw_member,
 %%writeln1(8),
         interpretpart(member,Variable1,Variable2,Vars1,Vars2).
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("member2",Dbw_member2),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("member2",Dbw_member21),Dbw_member21=Dbw_member2,
 %%writeln1(8),
         interpretpart(member2,Variable1,Variable2,Vars1,Vars2).
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_delete],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("delete",Dbw_delete),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("delete",Dbw_delete1),Dbw_delete1=Dbw_delete,
 %%writeln1(),
         interpretpart(delete,Variable1,Variable2,Variable3,Vars1,Vars2).
 %%** all in form f,[1,1,etc], including + with 0,1
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_append],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("append",Dbw_append),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("append",Dbw_append1),Dbw_append1=Dbw_append,
 %%writeln1(9),
         interpretpart(append,Variable1,Variable2,Variable3,Vars1,Vars2).
 
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_stringconcat],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("stringconcat",Dbw_stringconcat),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("stringconcat",Dbw_stringconcat1),Dbw_stringconcat1=Dbw_stringconcat,
 
         interpretpart(stringconcat,Variable1,Variable2,Variable3,Vars1,Vars2).
 
@@ -940,33 +942,33 @@ get_lang_word("stringconcat",Dbw_stringconcat),
         interpretpart(grammar_part,Variables2,Vars1,Vars2),!.**/
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_stringtonumber],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("stringtonumber",Dbw_stringtonumber),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("stringtonumber",Dbw_stringtonumber1),Dbw_stringtonumber1=Dbw_stringtonumber,
         interpretpart(stringtonumber,Variable1,Variable2,Vars1,Vars2).
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_random],[Variable1]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("random",Dbw_random),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("random",Dbw_random1),Dbw_random1=Dbw_random,
         interpretpart(random,Variable1,Vars1,Vars2).
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_length],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("length",Dbw_length),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("length",Dbw_length1),Dbw_length1=Dbw_length,
         interpretpart(length,Variable1,Variable2,Vars1,Vars2).
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_ceiling],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("ceiling",Dbw_ceiling),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("ceiling",Dbw_ceiling1),Dbw_ceiling1=Dbw_ceiling,
         interpretpart(ceiling,Variable1,Variable2,Vars1,Vars2).
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_date],[Year,Month,Day,Hour,Minute,Seconds]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("date",Dbw_date),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("date",Dbw_date1),Dbw_date1=Dbw_date,
         interpretpart(date,Year,Month,Day,Hour,Minute,Seconds,Vars1,Vars2).
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_round],[N1,N2]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("round",Dbw_round),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("round",Dbw_round1),Dbw_round1=Dbw_round,
         interpretpart(round,N1,N2,Vars1,Vars2).
 
 /***
@@ -1046,16 +1048,16 @@ Vars2=[Phrase2|Vars4],
 ***/
 
 interpretstatement1(_Grammar,_Grammar2,[[Dbw_n,Dbw_grammar_part],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("grammar_part",Dbw_grammar_part),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("grammar_part",Dbw_grammar_part1),Dbw_grammar_part1=Dbw_grammar_part,
 
 %%writeln1("h1/10"),
 %%trace,%%%%****
 	interpretpart(grammar_part,[Variable1,Variable2,Variable3],Vars1,Vars2).
 
 interpretstatement1(Functions0,Functions,[[Dbw_n,Dbw_findall],[Variable1,Body,Variable3]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("findall",Dbw_findall),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("findall",Dbw_findall1),Dbw_findall1=Dbw_findall,
 get_lang_word("v",Dbw_v),
 
 
@@ -1094,13 +1096,13 @@ debug_exit(Skip,[[Dbw_n,Dbw_findall],[Variable1,Body,Value3a]])
 
 
 interpretstatement1(_Functions0,_Functions,[[Dbw_n,Dbw_string_from_file],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("string_from_file",Dbw_string_from_file),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("string_from_file",Dbw_string_from_file1),Dbw_string_from_file1=Dbw_string_from_file,
         interpretpart(string_from_file,Variable1,Variable2,Vars1,Vars2).
 
 interpretstatement1(Functions0,Functions,[[Dbw_n,Dbw_maplist],[Variable1,Variable2,Variable3,Variable4]],Vars1,Vars2,true,nocut) :-
-get_lang_word("n",Dbw_n),
-get_lang_word("maplist",Dbw_maplist),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("maplist",Dbw_maplist1),Dbw_maplist1=Dbw_maplist,
 
         interpretpart(maplist,Functions0,Functions,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2).
 
@@ -1481,7 +1483,7 @@ strip(Arguments1,Result2,Result3) :-
 
 find_findall_sys(Name2) :-
 	findall_sys(N1),
-	concat_list(["findall_sys_",N1],Name1),
+	concat_list(["findall_sys",N1],Name1),
 	get_lang_word(Name1,Name2),
 	%atom_string(Name2,Name1),
 	N2 is N1+1,
