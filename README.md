@@ -8,7 +8,7 @@ Please read the following instructions on how to install the project on your com
 
 # Prerequisites
 
-<a href="https://github.com/luciangreen/Languages">Languages repository</a>.
+The <a href="https://github.com/luciangreen/Languages">Languages repository</a> enables List Prolog Interpreter to be run in different languages.
 
 # Installation from List Prolog Package Manager (LPPM)
 
