@@ -16,6 +16,7 @@ international_interpret([lang,Lang],Debug,Query,Functions1,Result) :-
 	retractall(lang(_)),
  	assertz(lang(Lang)),
 	interpret(Debug,Query,Functions1,Result).
+	
 international_interpret([lang,Lang],Debug,Query,TypeStatements,ModeStatements,Functions1,Result) :-
 	retractall(lang(_)),
  	assertz(lang(Lang)),
@@ -26,14 +27,8 @@ interpret(Debug,Query,Functions1,Result) :-
 	retractall(types(_)),
  	assertz(types(off)),
 interpret11(Debug,Query,Functions1,Result).
-interpret(Debug,Query,TypeStatements,ModeStatements,Functions1,Result) :-
-	lang(Lang1),
-	(var(Lang1)->
-	(retractall(lang(_)),
- 	assertz(lang("en")));
-	true),
-	load_lang_db,
 
+interpret(Debug,Query,TypeStatements,ModeStatements,Functions1,Result) :-
 	retractall(types(_)),
  	assertz(types(on)),
 	retractall(typestatements(_)),
@@ -41,7 +36,16 @@ interpret(Debug,Query,TypeStatements,ModeStatements,Functions1,Result) :-
 	retractall(modestatements(_)),
  	assertz(modestatements(ModeStatements)),
 interpret11(Debug,Query,Functions1,Result).
+
 interpret11(Debug,Query,Functions1,Result) :-
+	((not(lang(Lang1))
+	%var(Lang1)
+	)->
+	(retractall(lang(_)),
+ 	assertz(lang("en")));
+	true),
+	load_lang_db,
+
 %%writeln1([i1]),
 	%%writeln1(convert_to_grammar_part1(Functions1,[],Functions2,_)),
 	convert_to_grammar_part1(Functions1,[],Functions2,_),
