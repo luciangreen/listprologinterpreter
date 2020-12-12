@@ -10,7 +10,13 @@ Please read the following instructions on how to install the project on your com
 
 The <a href="https://github.com/luciangreen/Languages">Languages repository</a> enables List Prolog Interpreter to be run in different languages.
 
-<a href="https://github.com/luciangreen/culturaltranslationtool">Cultural Translation Tool</a>
+<a href="https://github.com/luciangreen/culturaltranslationtool">Cultural Translation Tool</a>. Requires Translation Shell:
+
+You may need to install gawk using Homebrew.
+
+Install <a href="https://github.com/soimort/translate-shell">Translation Shell</a> on Mac, etc.
+Change line in ctt.pl
+`concat_list(["../../../trans ",FromLang,":",ToLang," '",Input1,"'"],F),` to correct location of <a href="https://github.com/soimort/translate-shell">trans</a>
 
 # Installation from List Prolog Package Manager (LPPM)
 
