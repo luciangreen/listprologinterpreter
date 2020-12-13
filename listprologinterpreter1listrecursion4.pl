@@ -478,7 +478,7 @@ TypeStatements1=[T,Dbw_number],
 		(types(on)->debug_exit(Skip,[[T,Dbw_number],Vars]);true)
 ;     (types(on)->debug_fail(Skip,[[T,Dbw_number],Vars]);true)).
 checktypes2(Vars,TypeStatements1,_TypeStatements2,_) :-
-	get_lang_word("t",T),get_lang_word("predicate name",Dbw_predicatename),
+	get_lang_word("t",T),get_lang_word("predicatename",Dbw_predicatename),
 	get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 
 TypeStatements1=[T,Dbw_predicatename],
@@ -912,6 +912,7 @@ get_lang_word("member",Dbw_member1),Dbw_member1=Dbw_member,
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+%trace,
 get_lang_word("member2",Dbw_member21),Dbw_member21=Dbw_member2,
 %%writeln1(8),
         interpretpart(member2,Variable1,Variable2,Vars1,Vars2).

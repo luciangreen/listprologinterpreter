@@ -4,14 +4,14 @@ testopen(_Debug,NTotal,NTotal) :- NTotal=2, !.
 testopen(Debug,NTotal1,NTotal2) :-
 	NTotal3 is NTotal1+1,
 	testopen_cases(NTotal3,Query,Functions),
-	((interpret(Debug,Query,Functions,Result),not(Result=[]))->(writeln([test,NTotal3,result,Result]),writeln([test,NTotal3,passed]));(writeln([test,NTotal3,failed]))),
+	((international_interpret([lang,"en"],Debug,Query,Functions,Result),not(Result=[]))->(writeln([test,NTotal3,result,Result]),writeln([test,NTotal3,passed]));(writeln([test,NTotal3,failed]))),
 	writeln(""),
 	testopen(Debug,NTotal3,NTotal2),!.
 
 %% Test individual cases, Debug=trace=on or off, N=case number
 testopen1(Debug,N) :-
 	testopen_cases(N,Query,Functions),
-((interpret(Debug,Query,Functions,Result),not(Result=[]))->(writeln([test,N,result,Result]),writeln([test,N,passed]));(writeln([test,N,failed]))),!.
+((international_interpret([lang,"en"],Debug,Query,Functions,Result),not(Result=[]))->(writeln([test,N,result,Result]),writeln([test,N,passed]));(writeln([test,N,failed]))),!.
 
 testopen_cases(1,[[n,datetime],[[v,year],[v,month],[v,day],[v,hour],[v,minute],[v,second]]],
 
