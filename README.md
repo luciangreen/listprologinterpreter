@@ -15,7 +15,7 @@ The <a href="https://github.com/luciangreen/Languages">Languages repository</a> 
 You may need to install gawk using Homebrew.
 
 Install <a href="https://github.com/soimort/translate-shell">Translation Shell</a> on Mac, etc.
-Change line in ctt.pl
+Change line in culturaltranslationtool/ctt.pl
 `concat_list(["../../../trans ",FromLang,":",ToLang," '",Input1,"'"],F),` to correct location of <a href="https://github.com/soimort/translate-shell">trans</a>
 
 # Installation from List Prolog Package Manager (LPPM)
