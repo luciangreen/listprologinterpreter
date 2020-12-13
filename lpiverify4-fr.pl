@@ -46,13 +46,13 @@ test-fr(2,[["n","liste de cartes 1"],[[1,2,3],["v",b]]],
 ],[[[["v",b],6]]]).
 
 
-test-fr(3,[["n","Trouver tout 1"],[[[1,11,111],[2,22,222],[3,33,333]],["v",b]]],
+test-fr(3,[["n","trouver tout 1"],[[[1,11,111],[2,22,222],[3,33,333]],["v",b]]],
 
 [
-        [["n","Trouver tout 1"],[["v",a],["v",b]],":-",
-        [       [["n","Trouver tout"],[["v",b1],[[["n","membre 2"],[["v",a],["v",a1]]],
+        [["n","trouver tout 1"],[["v",a],["v",b]],":-",
+        [       [["n","trouver tout"],[["v",b1],[[["n","membre 2"],[["v",a],["v",a1]]],
         
-        [["n","Trouver tout"],[["v",a2],[["n","membre 2"],[["v",a1],["v",a2]]],
+        [["n","trouver tout"],[["v",a2],[["n","membre 2"],[["v",a1],["v",a2]]],
                 ["v",b1]]]],
                 
                 ["v",b]]]
