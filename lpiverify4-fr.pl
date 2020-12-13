@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 i_test(Debug,NTotal,Score) :- i_test(Debug,0,NTotal,0,Score),!.
-i_test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=3, !.
+i_test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=4, !.
 i_test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test-fr(NTotal3,Query,Functions,Result),
