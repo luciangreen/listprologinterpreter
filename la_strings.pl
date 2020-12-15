@@ -50,6 +50,17 @@ concat_list(A,List,B) :-
 	string_concat(A,Item,C),
 	concat_list(C,Items,B).
 
+atom_concat_list([],""):-!.
+atom_concat_list(A1,B):-
+	A1=[A|List],
+	atom_concat_list(A,List,B),!.
+
+atom_concat_list(A,[],A):-!.
+atom_concat_list(A,List,B) :-
+	List=[Item|Items],
+	atom_concat(A,Item,C),
+	atom_concat_list(C,Items,B).
+
 append_list(A1,B):-
 	A1=[A|List],
 	append_list(A,List,B),!.
