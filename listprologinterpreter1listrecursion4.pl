@@ -1240,19 +1240,6 @@ get_lang_word("exit",Dbw_exit),
 debug_types(Dbw_exit,FunctionResult2).
 
 
-operator(+).
-operator(-).
-operator(*).
-operator(/).
-
-comparisonoperator(>).
-comparisonoperator(>=).
-comparisonoperator(<).
-comparisonoperator(=<).
-%%comparisonoperator(=).
-comparisonoperator(=\=).
-
-
 word1([])-->[].
 word1([A|As]) --> [A],word1(As),{%%atom_codes(A,AC),
 char_type(A,alpha)},!.
