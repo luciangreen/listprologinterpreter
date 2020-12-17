@@ -77,6 +77,27 @@ test(7,[[n,reverse],[[1,2,3],[],[v,l]]],
 ```
 tests the reverse predicate.
 
+To run all tests (main, types, open and open types) in any language:
+```
+test_all00("en2",off,NTotal,Score).
+```
+
+To run a test from one of main, types, open or open types, run one of:
+```
+test_all01(test,            4,"en2",off,1,Passed).
+test_all01(test_types_cases,6,"en2",off,1,Passed).
+test_all01(testopen_cases,  3,"en2",off,1,Passed).
+test_all01(test_open_types, 5,"en2",off,1,Passed).
+```
+where 1 is replaced with the test number from
+```
+lpiverify4.pl
+lpiverify4_types.pl
+lpiverify4_open.pl
+lpiverify4_open_types.pl
+```
+respectively.
+
 # Documentation
 
 See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/LPI_docs.md">List Prolog Documentation</a>.
