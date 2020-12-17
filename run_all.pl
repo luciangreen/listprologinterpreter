@@ -1,27 +1,27 @@
-%% test(Debug[on/off],Total,Score).
+%% test_run_all(Debug[on/off],Total,Score).
 
 %%:- use_module(library(time)).
 
-%% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
+%% test_run_all cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
-test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=1, !.
-test(Debug,NTotal1,NTotal2,Score1,Score2) :-
+test_run_all(Debug,NTotal,Score) :- test_run_all(Debug,0,NTotal,0,Score),!.
+test_run_all(_Debug,NTotal,NTotal,Score,Score) :- NTotal=1, !.
+test_run_all(Debug,NTotal1,NTotal2,Score1,Score2) :-
 %% Finds the alg given i/o
 	NTotal3 is NTotal1+1,
 	functions(Functions),
-	test(NTotal3,Query,Function1,Result),
+	test_run_all(NTotal3,Query,Function1,Result),
 	((findall([Function,R],(member(Function,Functions),interpret(Debug,Query,Function,R)),Rs),member([Function1,Result],Rs))
 	%%writeln1(Result2
-	->(Score3 is Score1+1,writeln([test,NTotal3,passed]));(Score3=Score1,writeln([test,NTotal3,failed]))),
+	->(Score3 is Score1+1,writeln([test_run_all,NTotal3,passed]));(Score3=Score1,writeln([test_run_all,NTotal3,failed]))),
 	writeln(""),
-	test(Debug,NTotal3,NTotal2,Score3,Score2),!.
+	test_run_all(Debug,NTotal3,NTotal2,Score3,Score2),!.
 
-%% Test individual cases, Debug=trace=on or off, N=case number, Passed=output=result
+%% test_run_all individual cases, Debug=trace=on or off, N=case number, Passed=output=result
 
 test1(Debug,N,Passed) :-
 	functions(Functions),
-	test(N,Query,Function1,Result),
+	test_run_all(N,Query,Function1,Result),
 	(((findall([Function,R],(member(Function,Functions),interpret(Debug,Query,Function,R)
 	
 	%%,writeln1(R)
@@ -32,7 +32,7 @@ test1(Debug,N,Passed) :-
 	member([Function1,Result],Rs))
 	%%Function1=Function10,Result=Result0
 	%%Result=Result1
-	)->(Passed=passed,writeln([test,N,passed]));(Passed=failed,writeln([test,N,failed]))),!.
+	)->(Passed=passed,writeln([test_run_all,N,passed]));(Passed=failed,writeln([test_run_all,N,failed]))),!.
 
 functions([
 /**
@@ -94,7 +94,7 @@ functions([
 	
 
 %%writeln([eg1]),
-test(1,[[n,a],[[["select,dash"],["neiey,person"],["neiey,person"]],[["select,dash"],["neiey,person"],["neiey,person"]],[],[v,c]]],
+test_run_all(1,[[n,a],[[["select,dash"],["neiey,person"],["neiey,person"]],[["select,dash"],["neiey,person"],["neiey,person"]],[],[v,c]]],
 
 [ % intersection
 [[n,a],[[],[v,a],[v,l],[v,l]]],
@@ -106,7 +106,7 @@ test(1,[[n,a],[[["select,dash"],["neiey,person"],["neiey,person"]],[["select,das
 ,[[[[v,c], [["select,dash"],["neiey,person"],["neiey,person"]]]]]).
 
 
-test(2,[[n,a],[[["select,dash"],["neiey,person"],["neiey,person"],["neiey,person"],["neiey,person"]],[["select,dash"],["neiey,person"],["neiey,person"],["neiey,person"],["neiey,person"]],[],[v,c]]],
+test_run_all(2,[[n,a],[[["select,dash"],["neiey,person"],["neiey,person"],["neiey,person"],["neiey,person"]],[["select,dash"],["neiey,person"],["neiey,person"],["neiey,person"],["neiey,person"]],[],[v,c]]],
 
 [ % duplicates
 [[n,a],[[],[v,l],[v,s],[v,s]]],
