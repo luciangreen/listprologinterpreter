@@ -16,4 +16,5 @@
 :- include('lpiverify4-fr.pl').
 :- include('operators.pl').
 :- include('lpiverify4_test_lang_all.pl').
+:- include('lpiverify4_test_bt_lang_all.pl').
 :- include('../Languages/make_docs.pl').

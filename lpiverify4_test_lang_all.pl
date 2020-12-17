@@ -32,8 +32,8 @@ test_all00(Lang,Debug,NTotal,Score) :-
 	writeln([lpiverify4_open_types,S4,/,NT4,passed]),
 	writeln(""),	writeln(""),
 
-	NTotal=NT1+NT2+NT3+NT4,
-	Score=S1+S2+S3+S4.
+	NTotal is NT1+NT2+NT3+NT4,
+	Score is S1+S2+S3+S4.
 	
 test_all0(Test,Arity,Lang,Debug,NTotal,Score) :-
 	functor(Test2,Test,Arity),
