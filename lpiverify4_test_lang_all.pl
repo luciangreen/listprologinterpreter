@@ -20,15 +20,15 @@ test_all00(Lang,Debug,NTotal,Score) :-
 	writeln([lpiverify4,S1,/,NT1,passed]),
 	writeln(""),	writeln(""),
 	
-	test_all000(test_types_cases,6,Lang,Debug,NT2,S2),
+	test_all0(test_types_cases,6,Lang,Debug,NT2,S2),
 	writeln([lpiverify4_types,S2,/,NT2,passed]),
 	writeln(""),	writeln(""),
 	
-	test_all000(testopen_cases,3,Lang,Debug,NT3,S3),
+	test_all0(testopen_cases,3,Lang,Debug,NT3,S3),
 	writeln([lpiverify4_open,S3,/,NT3,passed]),
 	writeln(""),	writeln(""),
 
-	test_all000(test_open_types_cases,5,Lang,Debug,NT4,S4),
+	test_all0(test_open_types_cases,5,Lang,Debug,NT4,S4),
 	writeln([lpiverify4_open_types,S4,/,NT4,passed]),
 	writeln(""),	writeln(""),
 

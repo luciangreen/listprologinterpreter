@@ -364,14 +364,16 @@ extract_modes1(TypeStatements1,TypeStatements3,Vars1,Vars2,ModeStatements1) :-
 extract_modes2([],TypeStatements2a,TypeStatements2a,[],Vars,Vars,[]) :- !.
 %%extract_modes2(_,TypeStatements2a,TypeStatements2a,[],Vars,Vars,[]) :- !.
 extract_modes2(TypeStatements1,TypeStatements2a,TypeStatements3,Vars1,Vars2,Vars3,ModeStatements1) :-
-	ModeStatements1=[input|ModeStatements3],
+	get_lang_word("input",Input),
+	ModeStatements1=[Input|ModeStatements3],
 	TypeStatements1=[TypeStatements2|TypeStatements3a],
 	Vars1=[Vars11|Vars12],
 	append(TypeStatements2a,[TypeStatements2],TypeStatements4),
 	append(Vars2,[Vars11],Vars4),
 	extract_modes2(TypeStatements3a,TypeStatements4,TypeStatements3,Vars12,Vars4,Vars3,ModeStatements3),!.
 extract_modes2(TypeStatements1,TypeStatements2a,TypeStatements3,Vars1,Vars2,Vars3,ModeStatements1) :-
-	ModeStatements1=[output|ModeStatements3],
+	get_lang_word("output",Output),
+	ModeStatements1=[Output|ModeStatements3],
 	TypeStatements1=[_TypeStatements2|TypeStatements3a],
 	Vars1=[_Vars11|Vars12],
 	extract_modes2(TypeStatements3a,TypeStatements2a,TypeStatements3,Vars12,Vars2,Vars3,ModeStatements3),!.
