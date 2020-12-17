@@ -17,19 +17,19 @@ test_all00(Lang,Debug,NTotal,Score) :-
 	assertz(lang(Lang)),
 
 	test_all0(test,4,Lang,Debug,NT1,S1),
-	writeln([lpiverify4.pl,S1,/,NT1,passed]),
+	writeln([lpiverify4,S1,/,NT1,passed]),
 	writeln(""),	writeln(""),
 	
 	test_all000(test_types_cases,6,Lang,Debug,NT2,S2),
-	writeln([lpiverify4_types.pl,S2,/,NT2,passed]),
+	writeln([lpiverify4_types,S2,/,NT2,passed]),
 	writeln(""),	writeln(""),
 	
 	test_all000(testopen_cases,3,Lang,Debug,NT3,S3),
-	writeln([lpiverify4_open.pl,S3,/,NT3,passed]),
+	writeln([lpiverify4_open,S3,/,NT3,passed]),
 	writeln(""),	writeln(""),
 
 	test_all000(test_open_types_cases,5,Lang,Debug,NT4,S4),
-	writeln([lpiverify4_open_types.pl,S4,/,NT4,passed]),
+	writeln([lpiverify4_open_types,S4,/,NT4,passed]),
 	writeln(""),	writeln(""),
 
 	NTotal=NT1+NT2+NT3+NT4,

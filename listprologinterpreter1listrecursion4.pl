@@ -49,8 +49,8 @@ interpret11(Debug,Query,Functions1,Result) :-
 %%writeln1([i1]),
 	%%writeln1(convert_to_grammar_part1(Functions1,[],Functions2,_)),
 	convert_to_grammar_part1(Functions1,[],Functions2,_),
-	%%writeln1(Functions2),
-	%%writeln1(Functions2),
+	%trace,
+	%writeln1(Functions2),
 	%%pp3(Functions2),
 	%%writeln1(interpret1(Debug,Query,Functions2,Functions2,Result)),
 	findall(Result1,interpret1(Debug,Query,Functions2,Functions2,Result1),Result).
@@ -337,6 +337,7 @@ checktypes0_inputs(Function,Vars1,_TypeStatements1,_ModeStatements1) :-
 	(types(on)->(debug_types_exit([Function,/,~,L,Input_type_check]));true),!.
 checktypes0_inputs(Function,Vars1,TypeStatements1,ModeStatements1) :-
 	length(Vars1,L),
+	get_lang_word("input type check",Input_type_check),
 	(types(on)->(debug_types_call([Function,/,~,L,Input_type_check]));true),
 	
 	
@@ -861,7 +862,7 @@ get_lang_word("sys1",Dbw_sys1),
 %%writeln1(5),
 %%trace,
          remember_and_turn_off_debug(Debug),
- 	
+ 	%trace,
          interpretpart(match4,Variable1,Variable2,Vars1,Vars5,_),
          
          interpretpart(match4,Variable1,[Dbw_v,Dbw_sys1],Vars5,Vars4,_),
@@ -1048,9 +1049,10 @@ Vars2=[Phrase2|Vars4],
 	Vars8=[])))),!.
 ***/
 
-interpretstatement1(_Grammar,_Grammar2,[[Dbw_n,Dbw_grammar_part],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
+interpretstatement1(_Grammar,_Grammar2,[[Dbw_n,grammar_part],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
-get_lang_word("grammar_part",Dbw_grammar_part1),Dbw_grammar_part1=Dbw_grammar_part,
+%get_lang_word("grammar_part",Dbw_grammar_part1),Dbw_grammar_part1=Dbw_grammar_part,
+
 
 %%writeln1("h1/10"),
 %%trace,%%%%****

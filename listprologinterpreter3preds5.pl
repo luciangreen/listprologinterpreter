@@ -190,6 +190,7 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 interpretpart(match4,Variable1,Variable2,Vars1,Vars2,Note) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("equals4",Dbw_equals4),
+%trace,
         debug_call(Skip,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]]),
         %trace,
         (match4_2(Variable1,Variable2,Vars1,Vars2)
@@ -363,7 +364,8 @@ debug_exit(Skip,[[Dbw_n,Dbw_stringconcat],[TerminalValue1,Phrase1Value1,Phrase2V
         	
 interpretpart(grammar_part,Variables1,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
-get_lang_word("grammar_part",Dbw_grammar_part),
+%get_lang_word("grammar_part",Dbw_grammar_part),
+
 	((Variables1=[Terminal,Phrase1,Phrase2], %% terminal can be v or "a"
         %%terminal(Terminal),
         getvalues2([Terminal,Phrase1,Phrase2],
@@ -394,11 +396,11 @@ string_concat(TerminalValue2,Phrase2Value1,Phrase1Value11))->true;
         putvalue(Phrase1,Phrase1Value1,Vars4,Vars2),
         (Flag1=true->TerminalValue3=variable1;TerminalValue3=TerminalValue1),
         (Flag2=true->Phrase1Value3=variable2;Phrase1Value3=Phrase1Value1))->
-        	(debug_call(Skip,[[Dbw_n,Dbw_grammar_part],[TerminalValue3,Phrase1Value3,Phrase2]]),
-        	debug_exit(Skip,[[Dbw_n,Dbw_grammar_part],[TerminalValue1,Phrase1Value1,Phrase2Value1]]));
+        	(debug_call(Skip,[[Dbw_n,grammar_part],[TerminalValue3,Phrase1Value3,Phrase2]]),
+        	debug_exit(Skip,[[Dbw_n,grammar_part],[TerminalValue1,Phrase1Value1,Phrase2Value1]]));
 
-        	(debug_call(Skip,[[Dbw_n,Dbw_grammar_part],[variable1,variable2,variable3]]),
-        (debug_fail(Skip,[[Dbw_n,Dbw_grammar_part],[variable1,variable2,variable3]])))),!.
+        	(debug_call(Skip,[[Dbw_n,grammar_part],[variable1,variable2,variable3]]),
+        (debug_fail(Skip,[[Dbw_n,grammar_part],[variable1,variable2,variable3]])))),!.
         	
 
         	
@@ -694,7 +696,7 @@ get_lang_word("v",Dbw_v),
 	%%trace,
 	([Head3]=Head2->true;(%%notrace,
 	fail)),findall(A,
-	(member(A,Head3),((A=[v,_] -> true; (A=[Dbw_v,_] ;is_list(A))))),B),
+	(member(A,Head3),((A=[v,_] -> true; ((A=[Dbw_v,_] -> true;is_list(A)))))),B),
 	%%trace,writeln(Head2).%%
 	is_list(Head3),length(Head3,L),length(B,L),!.
 head_is_list_of_lists(_,false) :- !.

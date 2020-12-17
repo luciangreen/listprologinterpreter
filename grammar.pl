@@ -56,7 +56,8 @@ convert_to_grammar_part1(Grammar1,Grammar2,Grammar3,Grammar5) :-
 
 convert_to_grammar_part11([],Grammar1,Grammar1,_EndGrammar1,_EndGrammar1,_Grammar2,_Grammar2,_EndGrammar2,_EndGrammar2) :- !.
 convert_to_grammar_part11(Grammar1,Grammar2,Grammar3,_EndGrammar1,_EndGrammar2,Grammara2,Grammara3,_EndGrammara1,_EndGrammara2) :-
-get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("v",Dbw_v),
+get_lang_word("n",Dbw_n),
 get_lang_word("vgp1",Dbw_vgp1),
 get_lang_word("vgp2",Dbw_vgp2),
 	Grammar1=[Grammar4|Grammar5],
@@ -254,8 +255,9 @@ last_call_or_terminal2(Body1) :-
 	
 to_variable_name(Var,Name1) :-
 get_lang_word("v",Dbw_v),
-	atom_concat(vgp,Var,Name2),
-	Name1=[Dbw_v,Name2],!.
+	string_concat("vgp",Var,Name2),
+	get_lang_word(Name2,Dbw_vgp1),
+	Name1=[Dbw_v,Dbw_vgp1],!.
 variable_name([Dbw_v,_Name]) :- 
 get_lang_word("v",Dbw_v1),Dbw_v1=Dbw_v,!.
 predicate_or_rule_name([Dbw_n1,_Name]) :- %trace,
@@ -284,9 +286,10 @@ call_not_grammar([[Dbw_n,PredicateName]|_Variables]) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("grammar",Dbw_grammar),
 not(PredicateName=Dbw_grammar),not(PredicateName=grammar_part),!.
-call_grammar_part([[Dbw_n,Dbw_grammar_part]|_Variables]) :- 
+call_grammar_part([[Dbw_n,grammar_part]|_Variables]) :- 
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
-get_lang_word("grammar_part",Dbw_grammar_part1),Dbw_grammar_part1=Dbw_grammar_part,!.
+%get_lang_word("grammar_part",Dbw_grammar_part1),Dbw_grammar_part1=Dbw_grammar_part,
+!.
 name([Dbw_n,_Name]):-
 get_lang_word("n",Dbw_n1),Dbw_n1,Dbw_n,!.
 call_or_terminal(Item) :-
