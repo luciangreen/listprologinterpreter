@@ -106,3 +106,4 @@ test_all000(test_open_types_cases,Debug,NTotal3,Score1,Score3,Lang) :-
 
 
 ((international_interpret([lang,Lang],Debug,Query1,Types1,Modes1,Functions1,Result),not(Result=[]))->(Score3 is Score1+1,writeln([test_open_types,NTotal3,result,Result]),writeln([test_open_types,NTotal3,passed]));(Score3=Score1,writeln([test_open_types,NTotal3,failed]))).
+

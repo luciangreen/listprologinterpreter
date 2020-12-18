@@ -11,7 +11,7 @@ test_run_all(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	functions(Functions),
 	test_run_all(NTotal3,Query,Function1,Result),
-	((findall([Function,R],(member(Function,Functions),interpret(Debug,Query,Function,R)),Rs),member([Function1,Result],Rs))
+	((findall([Function,R],(member(Function,Functions),international_interpret([lang,"en"],Debug,Query,Function,R)),Rs),member([Function1,Result],Rs))
 	%%writeln1(Result2
 	->(Score3 is Score1+1,writeln([test_run_all,NTotal3,passed]));(Score3=Score1,writeln([test_run_all,NTotal3,failed]))),
 	writeln(""),
@@ -22,7 +22,7 @@ test_run_all(Debug,NTotal1,NTotal2,Score1,Score2) :-
 test1(Debug,N,Passed) :-
 	functions(Functions),
 	test_run_all(N,Query,Function1,Result),
-	(((findall([Function,R],(member(Function,Functions),interpret(Debug,Query,Function,R)
+	(((findall([Function,R],(member(Function,Functions),international_interpret([lang,"en"],Debug,Query,Function,R)
 	
 	%%,writeln1(R)
 	
