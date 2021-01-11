@@ -1158,11 +1158,63 @@ interpretpart(grammar_part,Vars9,[],Result1),
 	!.
 **/
 
-interpretstatement1(Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
+interpretstatement1(_Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
 get_lang_word("v",Dbw_v),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 
 %%writeln1("h1/10"),
-        Query1=[Function,Arguments],%%not(Function=[n,grammar]->true;Function=[n,grammar_part]), ****
+
+
+        (Query1=[[Dbw_n,Dbw_call],[[lang,Lang],Debug,[Function,Arguments],Functions%,Result
+        ]]),
+        %%not(Function=[n,grammar]->true;Function=[n,grammar_part]), ****
+%%writeln1(["Arguments",Arguments,"Vars1",Vars1]),
+        %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
+        (Function=[Dbw_v,_]->
+        (append([Function],Arguments,Arguments1),
+        substitutevarsA1(Arguments1,Vars1,[],Vars3,[],FirstArgs),
+        Vars3=[Function1|Vars31],
+        Query2=[Function1,Vars31]);
+        (substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
+%%writeln1([substitutevarsA1,arguments,Arguments,vars1,Vars1,vars3,Vars3,firstargs,FirstArgs]),
+        Query2=[Function,Vars3])), %% Bodyvars2?
+%%        	debug(on)->writeln1([call,[Function,[Vars3]]]),
+%%writeln1(["Query2",Query2,"Functions0",Functions0]),
+        
+        
+        %interpret2(Query2,Functions0,Functions0,Result1), 
+        
+        international_interpret([lang,Lang],Debug,Query2,Functions,Result1a),
+	member(Result1,Result1a),
+
+
+	updatevars2(FirstArgs,Result1,[],Vars5),
+	updatevars3(Vars1,Vars5,Vars6),
+	reverse(Vars6,[],Vars7),
+	((not(Vars7=[])->
+	%%Vars7=[Var71|Vars72],
+	unique1(Vars7,[],Vars8)
+);(
+%%writeln1(here1),
+	Vars8=[])).        
+
+
+        
+        interpretstatement1(Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
+get_lang_word("v",Dbw_v),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
+
+%%writeln1("h1/10"),
+
+
+
+        (Query1=[[Dbw_n,Dbw_call],[Function,Arguments]]->true;
+Query1=[Function,Arguments]),
+
+%trace,
+        %%not(Function=[n,grammar]->true;Function=[n,grammar_part]), ****
 %%writeln1(["Arguments",Arguments,"Vars1",Vars1]),
         %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
         (Function=[Dbw_v,_]->
