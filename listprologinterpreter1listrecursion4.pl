@@ -395,6 +395,7 @@ checktypes0(Function,Vars1,_TypeStatements1) :-
 	(types(on)->(debug_types_exit([Function,/,L,Type_check]));true),!.
 		
 checktypes0(Function,Vars1,TypeStatements1) :-
+	get_lang_word("Type check",Type_check),
 	length(Vars1,L),
 	(types(on)->(debug_types_call([Function,/,L,Type_check]));true),
 	
