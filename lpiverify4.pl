@@ -2217,12 +2217,11 @@ test(107,[[n,call1b],[[1,11,111],[v,b]]],
 
 [
         [[n,call1b],[[v,a],[v,b]],":-",
-        [       [[n,call],[[lang,"en"],off,[[n,member2a],[[v,a],[v,b]]],
+        [       [[n,call],[[lang,same],same,[[n,member2a],[[v,a],[v,b]]],
 [[[n,member2a],[[v,a],[v,b]],":-",
         [       [[n,member2],[[v,a],[v,b]]],[[n,cut]]]
         ]]]]]]       
         
 ],[[[[v,b],1]]]).
-
 
 

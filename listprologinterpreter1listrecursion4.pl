@@ -1166,8 +1166,19 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 %%writeln1("h1/10"),
 
 
-        (Query1=[[Dbw_n,Dbw_call],[[lang,Lang],Debug,[Function,Arguments],Functions%,Result
-        ]]),
+        ((Query1=[[Dbw_n,Dbw_call],[[lang,Lang1],Debug1,[Function,Arguments],Functions%,Result
+        ]],Tm=off)->true;
+        (Query1=[[Dbw_n,Dbw_call],[[lang,Lang1],Debug1,[Function,Arguments],Types,Modes,Functions%,Result
+        ]],Tm=on)),        
+        
+        lang(Lang2a),
+        types(Types2a),
+		  (Types2a=on->(typestatements(TypeStatements2a),
+		  modestatements(ModeStatements2a));true),
+		  
+        (Lang1=same->lang(Lang2);Lang2=Lang1),
+        (Debug1=same->debug(Debug2);Debug2=Debug1),
+        
         %%not(Function=[n,grammar]->true;Function=[n,grammar_part]), ****
 %%writeln1(["Arguments",Arguments,"Vars1",Vars1]),
         %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
@@ -1185,8 +1196,22 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         
         %interpret2(Query2,Functions0,Functions0,Result1), 
         
-        international_interpret([lang,Lang],Debug,Query2,Functions,Result1a),
-	member(Result1,Result1a),
+(Tm=off->international_interpret([lang,Lang2],Debug2,Query2,Functions,Result1a),
+	member(Result1,Result1a);
+	international_interpret([lang,Lang2],Debug2,Query2,Types,Modes,Functions,Result1a),
+	member(Result1,Result1a)),
+
+	retractall(lang(_)),
+ 	assertz(lang(Lang2a)),
+
+	retractall(types(_)),
+ 	assertz(types(Types2a)),
+
+		  (Types2a=on->(
+		  	retractall(typestatements(_)),
+ 	assertz(typestatements(TypeStatements2a)),
+	retractall(modestatements(_)),
+ 	assertz(modestatements(ModeStatements2a)));true),
 
 
 	updatevars2(FirstArgs,Result1,[],Vars5),

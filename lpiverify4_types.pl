@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=10, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=11, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -192,4 +192,23 @@ test_types_cases(10,[[n,f],["a"]],
         [[n,f],["a"]]
 ]
 ,[[]]).
+
+test_types_cases(11,[[n,call1b],[[1,11,111],[v,b]]],
+        [[[n,call1b],[[[t,brackets],[[t,number],[t,number],[t,number]]],[t,number]]]],
+        [[[n,call1b],[input,output]]],
+
+[
+        [[n,call1b],[[v,a],[v,b]],":-",
+        [       [[n,call],[[lang,same],same,[[n,member2a],[[v,a],[v,b]]],
+        [[[n,member2a],[[[t,brackets],[[t,number],[t,number],[t,number]]],[t,number]]]],
+        [[[n,member2a],[input,output]]],
+
+[[[n,member2a],[[v,a],[v,b]],":-",
+        [       [[n,member2],[[v,a],[v,b]]],[[n,cut]]]
+        ]]]],
+        [[n,cut]]]]       
+        
+],[[[[v,b],1]]]).
+
+
 
