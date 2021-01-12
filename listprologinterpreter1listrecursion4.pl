@@ -1197,10 +1197,9 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         
         %interpret2(Query2,Functions0,Functions0,Result1), 
         
-(Tm=off->international_interpret([lang,Lang2],Debug2,Query2,Functions,Result1a),
-	member(Result1,Result1a);
-	international_interpret([lang,Lang2],Debug2,Query2,Types,Modes,Functions,Result1a),
-	member(Result1,Result1a)),
+(Tm=off->international_interpret([lang,Lang2],Debug2,Query2,Functions,Result1a);
+	international_interpret([lang,Lang2],Debug2,Query2,Types,Modes,Functions,Result1a)),
+	member(Result1,Result1a),
 
 	retractall(lang(_)),
  	assertz(lang(Lang2a)),
