@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=12, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=13, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -229,4 +229,14 @@ test_types_cases(12,[[n,call1b],[[1,11,111],[v,b]]],
 ],[[[[v,b],1]]]).
 
 
+
+test_types_cases(13,[[n,person],["not-care",[v,output]]],
+        [[[n,person],[[t,string],[t,string]]]],
+        [[[n,person],[input,output]]],
+
+[
+        [[n,person],["care","care"]],     
+        [[n,person],[[v,a],"justice to care"]]    
+        
+],[[[[v,output],"justice to care"]]]).
 
