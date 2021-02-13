@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=13, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=21, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -240,3 +240,118 @@ test_types_cases(13,[[n,person],["not-care",[v,output]]],
         
 ],[[[[v,output],"justice to care"]]]).
 
+% ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Dereconstruction 3 of 4.txt",0,algorithms,"24.   *I prepared to be an expert on the brain.  I did this by writing about neuroscience.  First I wrote about food.  Second, I wrote about activity.  Third, I wrote about sleep.  In this way, I prepared to be an expert on the brain by writing about neuroscience."]
+
+test_types_cases(14,[[n,neuroscience],["**","***",[v,output]]],
+        [[[n,neuroscience],[[t,string],[t,string],[t,number]]]],
+        [[[n,neuroscience],[input,input,output]]],
+
+[
+        [[n,neuroscience],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,string_length],[[v,a],[v,a1]]],
+                [[n,string_length],[[v,b],[v,b1]]],
+                [[n,+],[[v,a1],[v,b1],[v,c]]]
+        ]]
+        
+],[[[[v,output],5]]]).
+
+% ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Blue Nature 1 of 4.txt",0,algorithms,"9.     *I prepared to connect together main points from cliques.  I did this by writing on something interesting to do with the song.  First, I identified the topic.  Second, I constructed an aphohedron from all the song’s parts.  Third, I thought of interconnections between clique nodes from the randomly broken down aphohedron.  In this way, I prepared to connect together main points from cliques by writing on something interesting to do with the song."]
+
+test_types_cases(15,[[n,connect_cliques],[[["a",1],[1,2],[2,"b"]],[["a",3],[3,4],[4,"b"]],[v,output]]],
+        [[[n,connect_cliques],[[t,list2],[t,list2],[t,list2]]],
+        [[t,list2],[[[t,list],[[t,set]]]]],
+        [[t,set],[[[t,list],[[t,item]]]]],
+        [[t,item],[[t,number]]],
+        [[t,item],[[t,string]]]],
+        [[[n,connect_cliques],[input,input,output]]],
+
+[
+        [[n,connect_cliques],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,append],[[v,a],[v,b],[v,c]]]
+        ]]        
+],[[[[v,output],[["a",1],[1,2],[2,"b"],["a",3],[3,4],[4,"b"]]]]]).
+
+/**
+test_types_cases(16,[[n,a],[[1,[1,[1]]]]],
+        [[[n,a],[[t,b2]]],
+        [[t,b2],[[t,number]]],
+        [[t,b2],[[t,number],[t,b2]]]],
+        [[[n,a],[input]]],
+
+[
+        [[n,a],[[v,a]],":-",
+        [       [[n,true]]
+        ]]        
+],[[]]).
+**/
+
+% ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Children, H1, Earning Jobs and Protection in Jobs 3 of 4.txt",0,algorithms,"24.     *I prepared to watch the insect eat a fruit.  I did this by feeding it the raspberry.  First, I lifted the raspberry on a fork.  Second, I placed it in the airlock.  Third, I unlocked the airlock’s den side to feed the raspberry to the mosquitoes.  In this way, I prepared to watch the insect eat a fruit by feeding it the raspberry."]
+
+
+test_types_cases(16,[[n,insect_food],["food",[v,stomach]]],
+        [[[n,insect_food],[[t,string],[t,string]]]],
+        [[[n,insect_food],[input,output]]],
+
+[
+        [[n,insect_food],[[v,mouth],[v,mouth]]]
+],[[[[v,stomach],"food"]]]).
+
+% ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Drawing connections 1 of 4.txt",0,algorithms,"9.     I prepared to distance myself from *.  I did this by shelling the snow pea.  First, I read that Winston Churchill asked that if funding was diverted from arts then what would we be fighting for?  Second, I determined that arts was the conclusion from defence, not vice versa.  Third, I determined that arts is necessary rather than defence.  In this way, I prepared to distance myself from * by shelling the snow pea."]
+
+test_types_cases(17,[[n,distance_myself],[2,[v,distance]]],
+        [[[n,distance_myself],[[t,number],[t,number]]]],
+        [[[n,distance_myself],[input,output]]],
+
+        [[[n,distance_myself],[[v,a],[v,b]],":-",
+        [       [[n,*],[[v,a],2,[v,b]]]
+        ]]       
+],[[[[v,distance],4]]]).
+
+% ["Short Arguments","Nut_and_Bolt.txt",0,algorithms,"13. *I prepared to want the baby.  I did this by synthesising the chemistry of the reproductive system with the nut and bolt.  First, I found the baby.  Second, I found the parents.  Third, I bolted the baby to the parents."]
+
+test_types_cases(18,[[n,want_baby],["yes","yes","yes",[v,result]]],
+        [[[n,want_baby],[[t,string],[t,string],[t,string],[t,string]]]],
+        [[[n,want_baby],[input,input,input,output]]],
+
+        [[[n,want_baby],[[v,money],[v,as],[v,parents_in_academia],[v,result]],":-",
+        [       [[n,=],[[v,money],"yes"]],
+                [[n,=],[[v,as],"yes"]],
+                [[n,=],[[v,parents_in_academia],"yes"]],
+                [[n,=],["yes",[v,result]]]
+                
+        ]]       
+],[[[[v,result],"yes"]]]).
+
+% ["Short Arguments","Competition 3.txt",0,algorithms,"28. I explored losing as well.  I agreed with the competition.  I found the competitor.  * I saw he was weaker.  I agreed with (was stronger than) him."]
+
+test_types_cases(19,[[n,saw_weaker],[1,0,[v,result]]],
+        [[[n,saw_weaker],[[t,number],[t,number],[t,number]]]],
+        [[[n,saw_weaker],[input,input,output]]],
+
+        [[[n,saw_weaker],[[v,my_value],[v,his_value],[v,result]],":-",
+        [       [[n,>],[[v,my_value],[v,his_value]]],
+                [[n,=],[1,[v,result]]]
+
+        ]]       
+],[[[[v,result],1]]]).
+
+
+% ["Time Travel","Interesting histories to visit 4.txt",0,algorithms,"*Interesting histories to visit 4"]
+
+test_types_cases(20,[[n,visit_staged_history],["us",[v,staged_history]]],
+        [[[n,visit_staged_history],[[t,string],[t,string]]]],
+        [[[n,visit_staged_history],[input,output]]],
+
+[
+        [[n,visit_staged_history],[[v,now],[v,now]]]
+],[[[[v,staged_history],"us"]]]).
+
+% ["Fundamentals of Pedagogy and Pedagogy Indicators","FUNDAMENTALS OF PEDAGOGY by Lucian Green Time to Prepare 2 of 4.txt",0,algorithms,"11. *The teacher prepared to represent being interested in a lesson by “dotting it on”. He did this by climbing the rope ladder. First, he found the correct ladder. Second, he tested that the ladder was about to start. Third, he climbed the ladder with his arms and legs. In this way, the teacher prepared to represent being interested in a lesson by “dotting it on” by climbing the rope ladder."]
+
+test_types_cases(21,[[n,memorise_point],["point",[v,memory_out]]],
+        [[[n,memorise_point],[[t,string],[t,string]]]],
+        [[[n,memorise_point],[input,output]]],
+
+[
+        [[n,memorise_point],[[v,memory_in],[v,memory_in]]]
+],[[[[v,memory_out],"point"]]]).

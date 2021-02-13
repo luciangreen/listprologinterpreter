@@ -332,6 +332,17 @@ get_lang_word("maplist",Dbw_maplist),
       debug_exit(Skip,[[Dbw_n,Dbw_maplist],[Value1,Value2,Value3,Value4A]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_maplist],[Value1,Value2,Value3,variable]])),!.                        	
 
+interpretpart(string_length,Variable1,Variable2,Vars1,Vars2) :- 
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("string_length",Dbw_string_length),
+       getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        debug_call(Skip,[[Dbw_n,Dbw_string_length],[Value1,variable]]),
+	((string(Value1),
+   string_length(Value1,Value2A),
+        val1emptyorvalsequal(Value2,Value2A),
+        putvalue(Variable2,Value2A,Vars1,Vars2))->
+      debug_exit(Skip,[[Dbw_n,Dbw_string_length],[Value1,Value2A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_string_length],[Value1,variable]])),!.
 
 interpretpart(stringconcat,Terminal,Phrase2,Phrase1,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,

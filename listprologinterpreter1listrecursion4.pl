@@ -1112,6 +1112,12 @@ get_lang_word("maplist",Dbw_maplist1),Dbw_maplist1=Dbw_maplist,
 
         interpretpart(maplist,Functions0,Functions,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2).
 
+
+interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_string_length],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("string_length",Dbw_string_length1),Dbw_string_length1=Dbw_string_length,
+        interpretpart(string_length,Variable1,Variable2,Vars1,Vars2).
+
 	%%interpretpart(findall,[Variable1,Variable3],Vars3,Vars2).
 
 /***

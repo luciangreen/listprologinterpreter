@@ -170,6 +170,8 @@ For example:
 
 * `[[n,maplist],[Variable1,Variable2,Variable3,Variable4]]` e.g. `[[n,maplist],[[n,+],[1,2,3],0,[v,b]]]` returns `[v,b]=6`
 
+* `[[n,string_length],[Variable1,Variable2]]` e.g. `[[n,string_length],["abc",[v,b]]` returns `[v,b]=3`
+
 * See lpiverify4.pl for examples of rules (predicates without bodies) and calls to predicates.
 
 
@@ -328,7 +330,7 @@ test_types_cases(2,[[n,function],[[v,a],[v,b],[v,c]]],
 * The following type statement tests number and list types.
 ```
 test_types_cases(1,[[n,function],[1,1,[v,c]]],
-[[[n,function],[[[t,list],[[t,number]]]]]],
+[[[n,function],[[t,number],[t,number],[t,number]]]],
 [
         [[n,function],[[v,a],[v,b],[v,c]],":-",
         [
