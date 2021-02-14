@@ -409,3 +409,19 @@ test_types_cases(22,[[n,function],[[["a","b"],["b","c"]]]],
 [[n,length],[[v,t],[v,m2],[v,n]]]]]],
 [[]]).
 
+
+% recursive types
+
+test_types_cases(23,[[n,connect_cliques],[[["a",1],[1,2],[2,"b"]],[["a",3],[3,4],[4,"b"]],[v,output]]],
+        [[[n,connect_cliques],[[t,list2],[t,list2],[t,list2]]],
+        [[t,item],[[t,number]]],
+        [[t,item],[[t,string]]],
+        [[t,list2],[[[t,list],[[t,item]]]]],
+        [[t,list2],[[[t,list],[[t,list2]]]]]],
+        [[[n,connect_cliques],[input,input,output]]],
+
+[
+        [[n,connect_cliques],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,append],[[v,a],[v,b],[v,c]]]
+        ]]        
+],[[[[v,output],[["a",1],[1,2],[2,"b"],["a",3],[3,4],[4,"b"]]]]]).
