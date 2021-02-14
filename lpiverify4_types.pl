@@ -355,3 +355,57 @@ test_types_cases(21,[[n,memorise_point],["point",[v,memory_out]]],
 [
         [[n,memorise_point],[[v,memory_in],[v,memory_in]]]
 ],[[[[v,memory_out],"point"]]]).
+
+
+test_types_cases(22,[[n,function],[[["a","b"],["b","c"]]]],
+        [[[n,function],[[[t,list],[[t,list2]]]]],
+        [[t,list2],[[t,string],[t,string]]],
+        [[n,reverse],[[[t,list],[[t,list2]]],[[t,list],[[t,list2]]],[[t,list],[[t,list2]]]]],
+        [[n,function2],[[[t,list],[[t,list2]]],[t,string],[t,string]]],
+        [[n,length],[[[t,list],[[t,list2]]],[t,number],[t,number]]]],
+        
+        [[[n,function],[input]],
+        [[n,reverse],[input,input,output]],
+        [[n,function2],[input,input,input]],
+        %[[n,length],[input,input,input]],
+        [[n,length],[input,input,output]]],
+
+[[[n,function],[[v,a]],":-",
+[[[n,length],[[v,a],0,[v,b]]],
+[[n,=],[[v,b],1]]]],
+
+[[n,function],[[v,a]],":-",
+[[[n,head],[[v,a],[v,d]]],
+[[n,equals1],[[v,d],[[v,e],[v,f]]]],
+[[n,reverse],[[v,a],[],[v,a1]]],
+[[n,head],[[v,a1],[v,d1]]],
+[[n,equals1],[[v,d1],[[v,e1],[v,f1]]]],
+[[n,function2],[[v,a],[v,f],[v,f1]]]]],
+
+[[n,reverse],[[],[v,l],[v,l]]],
+
+[[n,reverse],[[v,l],[v,m],[v,n]],":-",
+[[[n,head],[[v,l],[v,h]]],
+[[n,tail],[[v,l],[v,t]]],
+[[n,wrap],[[v,h],[v,h1]]],
+[[n,append],[[v,h1],[v,m],[v,o]]],
+[[n,reverse],[[v,t],[v,o],[v,n]]]]],
+
+[[n,function2],[[v,a],[v,b],[v,f]],":-",
+[[[n,member2],[[v,a],[v,d]]],
+[[n,equals1],[[v,d],[[v,b],[v,f]]]]]],
+
+[[n,function2],[[v,a],[v,b],[v,c]],":-",
+[[[n,member2],[[v,a],[v,d]]],
+[[n,equals1],[[v,d],[[v,b],[v,f]]]],
+[[n,function2],[[v,d],[v,f],[v,c]]]]],
+
+[[n,length],[[],[v,l],[v,l]]],
+
+[[n,length],[[v,l],[v,m1],[v,n]],":-",
+[[[n,not],[[[n,=],[[v,l],[]]]]],
+[[n,tail],[[v,l],[v,t]]],
+[[n,+],[[v,m1],1,[v,m2]]],
+[[n,length],[[v,t],[v,m2],[v,n]]]]]],
+[[]]).
+
