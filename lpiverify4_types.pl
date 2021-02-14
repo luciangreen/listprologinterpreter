@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=21, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=22, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -356,6 +356,7 @@ test_types_cases(21,[[n,memorise_point],["point",[v,memory_out]]],
         [[n,memorise_point],[[v,memory_in],[v,memory_in]]]
 ],[[[[v,memory_out],"point"]]]).
 
+% ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Hours Prayer 1 of 4.txt",0,algorithms,"8.    *I prepared to endorse Nietzsche’s brilliance.  I did this by writing Alexius Meinong’s probable comments on the Medicine blog.  First, I called it Anarchy 3.  Second, I liked brilliance.  Third, I liked Nietzsche’s brilliance.  In this way, I prepared to endorse Nietzsche’s brilliance by writing Alexius Meinong’s probable comments on the Medicine blog."]
 
 test_types_cases(22,[[n,function],[[["a","b"],["b","c"]]]],
         [[[n,function],[[[t,list],[[t,list2]]]]],
@@ -367,7 +368,6 @@ test_types_cases(22,[[n,function],[[["a","b"],["b","c"]]]],
         [[[n,function],[input]],
         [[n,reverse],[input,input,output]],
         [[n,function2],[input,input,input]],
-        %[[n,length],[input,input,input]],
         [[n,length],[input,input,output]]],
 
 [[[n,function],[[v,a]],":-",
