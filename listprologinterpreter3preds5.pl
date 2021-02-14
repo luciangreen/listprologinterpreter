@@ -344,6 +344,33 @@ get_lang_word("string_length",Dbw_string_length),
       debug_exit(Skip,[[Dbw_n,Dbw_string_length],[Value1,Value2A]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_string_length],[Value1,variable]])),!.
 
+interpretpart(sort,Variable1,Variable2,Vars1,Vars2) :- 
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("sort",Dbw_sort),
+       getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        debug_call(Skip,[[Dbw_n,Dbw_sort],[Value1,variable]]),
+	((is_list(Value1),
+   sort(Value1,Value2A),
+        val1emptyorvalsequal(Value2,Value2A),
+        putvalue(Variable2,Value2A,Vars1,Vars2))->
+      debug_exit(Skip,[[Dbw_n,Dbw_sort],[Value1,Value2A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_sort],[Value1,variable]])),!.
+
+interpretpart(intersection,Variable1,Variable2,Variable3,Vars1,Vars2) :- 
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("intersection",Dbw_intersection),
+       getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
+        debug_call(Skip,[[Dbw_n,Dbw_intersection],[Value1,Value2,variable]]),
+	((is_list(Value1),is_list(Value2),
+   intersection(Value1,Value2,Value3A),
+        val1emptyorvalsequal(Value3,Value3A),
+        putvalue(Variable3,Value3A,Vars1,Vars2))->
+      debug_exit(Skip,[[Dbw_n,Dbw_intersection],[Value1,Value2,Value3A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_intersection],[Value1,Value2,variable]])),!.
+
+
+
+
 interpretpart(stringconcat,Terminal,Phrase2,Phrase1,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("stringconcat",Dbw_stringconcat),

@@ -172,6 +172,10 @@ For example:
 
 * `[[n,string_length],[Variable1,Variable2]]` e.g. `[[n,string_length],["abc",[v,b]]` returns `[v,b]=3`
 
+* `[[n,sort],[Variable1,Variable2]]` e.g. `[[n,sort],[[1,3,2],[v,b]]` returns `[v,b]=[1,2,3]`
+
+* `[[n,intersection],[Variable1,Variable2]]` e.g. `[[n,intersection],[[1,3,2],[3,4,5],[v,b]]` returns `[v,b]=[3]`
+
 * See lpiverify4.pl for examples of rules (predicates without bodies) and calls to predicates.
 
 

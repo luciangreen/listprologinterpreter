@@ -1118,6 +1118,16 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("string_length",Dbw_string_length1),Dbw_string_length1=Dbw_string_length,
         interpretpart(string_length,Variable1,Variable2,Vars1,Vars2).
 
+interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_sort],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("sort",Dbw_sort1),Dbw_sort1=Dbw_sort,
+        interpretpart(sort,Variable1,Variable2,Vars1,Vars2).
+
+interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_intersection],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("intersection",Dbw_intersection1),Dbw_intersection1=Dbw_intersection,
+        interpretpart(intersection,Variable1,Variable2,Variable3,Vars1,Vars2).
+
 	%%interpretpart(findall,[Variable1,Variable3],Vars3,Vars2).
 
 /***

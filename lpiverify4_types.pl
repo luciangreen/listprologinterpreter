@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=23, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=24, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -425,3 +425,34 @@ test_types_cases(23,[[n,connect_cliques],[[["a",1],[1,2],[2,"b"]],[["a",3],[3,4]
         [       [[n,append],[[v,a],[v,b],[v,c]]]
         ]]        
 ],[[[[v,output],[["a",1],[1,2],[2,"b"],["a",3],[3,4],[4,"b"]]]]]).
+
+% ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Finite Data will be a Solution in Conglish 2 of 4.txt",0,algorithms,"17.    *I prepared to judge the way the other person was speaking.  I did this by watching the diareasoner identify the speech rate in her partner.  First, I counted the number of words over the time.  Second, I counted the number of minutes.  Third, I calculated the speech rate to equal the number of words divided by the number of minutes.  In this way, I prepared to judge the way the other person was speaking by watching the diareasoner identify the speech rate in her partner."]
+
+test_types_cases(25,[[n,way_of_speaking1],[["high-pitched","smiling"],[v,way]]],
+        [[[n,way_of_speaking1],[[[t,list],[[t,string]]],[[t,list],[[t,string]]]]],
+[[n,way_of_speaking],[[t,string],[t,string]]]],
+        [[[n,way_of_speaking1],[input,output]],
+        [[n,way_of_speaking],[input,output]]],
+
+[
+        [[n,way_of_speaking1],[[v,properties],[v,expression]],":-",
+        [[[n,equals4],[[v,properties],[[v,item1a],[v,item1b]]]],
+               [[n,findall],[[v,item2],
+         [[[n,way_of_speaking],[[v,item1a],[v,item2]]]],
+         %[[n,=],[[v,item1],[v,item1a]]]],
+        [v,items2a]]],
+         [[n,sort],[[v,items2a],[v,items2a1]]],
+              [[n,findall],[[v,item2],
+         [[[n,way_of_speaking],[[v,item1b],[v,item2]]]],
+         %[[n,=],[[v,item1],[v,item1b]]]],
+        [v,items2b]]],
+        [[n,sort],[[v,items2b],[v,items2b1]]],
+        [[n,intersection],[[v,items2a1],[v,items2b1],[v,expression]]]
+        ]],        
+        [[n,way_of_speaking],["high-pitched","happy"]],
+        [[n,way_of_speaking],["high-pitched","unhappy"]],
+        [[n,way_of_speaking],["low-pitched","angry"]],
+        [[n,way_of_speaking],["smiling","happy"]],
+        [[n,way_of_speaking],["frowning","sad"]]
+],[[[[v,way],["happy"]]]]).
+
