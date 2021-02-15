@@ -456,3 +456,4 @@ test_types_cases(25,[[n,way_of_speaking1],[["high-pitched","smiling"],[v,way]]],
         [[n,way_of_speaking],["frowning","sad"]]
 ],[[[[v,way],["happy"]]]]).
 
+

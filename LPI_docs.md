@@ -355,10 +355,10 @@ test_types_cases(3,[[n,function],[[v,a]]],
 ,[[[[v,a], [1]]]]).
 ```
 
-* The following type statement tests recursive list, number and string types.
+* The following type statement tests number and string types.
 ```
 test_types_cases(4,[[n,f],[[v,a],[v,b],[v,c],[v,d]]],
-[[[n,f],[[[t,list],[[t,number],[t,string]]]]]],
+[[[n,f],[[t,number],[t,string],[t,number],[t,string]]]],
 [
         [[n,f],[1,"a",2,"b"]]
 ]
