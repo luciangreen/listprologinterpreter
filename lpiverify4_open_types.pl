@@ -125,3 +125,27 @@ test_open_types_cases(3,[[n,function],[[v,a]]],
 ]
 ).
 
+
+% ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Drawing connections 3 of 4.txt",0,algorithms,"23.   *I prepared to cultivate people.  I did this by writing 16 250 breasoning areas of study influenced by Plato’s forms about Popology.  First, I equated Plato’s forms with Lucianic Popology, by equating people with objects.  Second, I equated the names of Plato’s forms with an agreed with argument, by writing simulations of people are in people’s minds.  Third, I equated the functions of Plato’s forms with a positive argument, by writing people are stronger than objects.  In this way, I prepared to cultivate people by writing 16 250 breasoning areas of study influenced by Plato’s forms about Popology."]
+
+% read do you create the person, do you switch them on to existing for the rest of their life?
+
+
+test_open_types_cases(4,[[n,cultivate_person],[[v,a],[v,b]]],
+        [[[n,cultivate_person],[[t,string],[t,string]]]],
+        [[[n,cultivate_person],[output,output]]],
+
+[
+        [[n,cultivate_person],[[v,a],[v,b]],":-",
+        [        
+        %% do you create the person
+
+                [[n,read_string],[[v,a]]],
+                
+        %% do you switch them on to existing for the rest of their life?
+                [[n,read_string],[[v,b]]]
+
+                
+        ]]
+]).
+

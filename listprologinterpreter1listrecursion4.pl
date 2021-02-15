@@ -1128,6 +1128,11 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("intersection",Dbw_intersection1),Dbw_intersection1=Dbw_intersection,
         interpretpart(intersection,Variable1,Variable2,Variable3,Vars1,Vars2).
 
+interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_read_string],[Variable1]],Vars1,Vars2,true,nocut) :-
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("read_string",Dbw_read_string1),Dbw_read_string1=Dbw_read_string,
+        interpretpart(read_string,Variable1,Vars1,Vars2).
+
 	%%interpretpart(findall,[Variable1,Variable3],Vars3,Vars2).
 
 /***

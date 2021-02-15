@@ -369,6 +369,17 @@ get_lang_word("intersection",Dbw_intersection),
 ;     debug_fail(Skip,[[Dbw_n,Dbw_intersection],[Value1,Value2,variable]])),!.
 
 
+interpretpart(read_string,Variable1,Vars1,Vars2) :- 
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("read_string",Dbw_read_string),
+       getvalue(Variable1,Value1,Vars1),
+        debug_call(Skip,[[Dbw_n,Dbw_read_string],[variable]]),
+	((read_string(user_input, "\n", "\r", _End1, Value1A),
+        val1emptyorvalsequal(Value1,Value1A),
+        putvalue(Variable1,Value1A,Vars1,Vars2))->
+      debug_exit(Skip,[[Dbw_n,Dbw_read_string],[Value1A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_read_string],[variable]])),!.
+
 
 
 interpretpart(stringconcat,Terminal,Phrase2,Phrase1,Vars1,Vars2) :-
