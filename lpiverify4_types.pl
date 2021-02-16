@@ -456,4 +456,18 @@ test_types_cases(25,[[n,way_of_speaking1],[["high-pitched","smiling"],[v,way]]],
         [[n,way_of_speaking],["frowning","sad"]]
 ],[[[[v,way],["happy"]]]]).
 
+% ["Time Travel","Space Flight 2.txt",0,algorithms,"32. *The space ship algorithm automated meditation before space jumps and when it detected pedagogy help."]
 
+% The time around the time to time travel to was mind read.
+
+% choose greater than 10 time units (=10) after the projectile has passed.
+
+test_types_cases(26,[[n,choose_time],[[-15,-10,-5,0,5,10,15],[v,time]]],
+        [[[n,choose_time],[[[t,list],[[t,number]]],[t,number]]]],
+        [[[n,choose_time],[input,output]]],
+
+[
+        [[n,choose_time],[[v,a],10],":-",
+        [       [[n,member],[[v,a],10]]
+        ]]        
+],[[[[v,time],10]]]).
