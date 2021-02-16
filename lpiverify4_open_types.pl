@@ -140,9 +140,12 @@ test_open_types_cases(4,[[n,cultivate_person],[[v,a],[v,b]]],
         [        
         %% do you create the person
 
+                [[n,writeln],["Do you create the person?"]],
                 [[n,read_string],[[v,a]]],
                 
         %% do you switch them on to existing for the rest of their life?
+                [[n,writeln],["Do you switch them on to existing for the rest of their life?"]],
+
                 [[n,read_string],[[v,b]]]
 
                 

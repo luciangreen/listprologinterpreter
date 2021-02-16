@@ -380,6 +380,36 @@ get_lang_word("read_string",Dbw_read_string),
       debug_exit(Skip,[[Dbw_n,Dbw_read_string],[Value1A]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_read_string],[variable]])),!.
 
+interpretpart(writeln,Variable1,Vars1,Vars1) :- 
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("writeln",Dbw_writeln),
+       %getvalue(Variable1,Value1,Vars1),
+get_lang_word("v",Dbw_v),
+        
+        
+debug_call(Skip,[[Dbw_n,Dbw_writeln],[variable]]),
+	((%writeln(Value1)
+	
+	remember_and_turn_off_debug(Debug),
+	%%trace,
+find_findall_sys(Findall_sys_name),
+        interpretpart(match4,Variable1,[Dbw_v,Findall_sys_name],Vars1,Vars3,_),
+%%writeln1(        interpretpart(match4,Variable1,[v,sys1],Vars3,Vars2,_)),
+%%interpretstatement1(Functions0,Functions,[[n,equals4],[Variable1,Variable3]],Vars3,Vars2,true,nocut),
+	getvalue([Dbw_v,Findall_sys_name],Value3,Vars3),
+	
+	 turn_back_debug(Debug),
+	
+	writeln(Value3)
+	
+        %val1emptyorvalsequal(Value1,Value1A),
+        %putvalue(Variable1,Value1A,Vars1,Vars2)
+        )->
+      debug_exit(Skip,[[Dbw_n,Dbw_writeln],[Value3]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_writeln],[variable]])),!.
+
+
+
 
 
 interpretpart(stringconcat,Terminal,Phrase2,Phrase1,Vars1,Vars2) :-
