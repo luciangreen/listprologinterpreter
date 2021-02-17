@@ -348,6 +348,7 @@ test_types_cases(20,[[n,visit_staged_history],["us",[v,staged_history]]],
 
 % ["Fundamentals of Pedagogy and Pedagogy Indicators","FUNDAMENTALS OF PEDAGOGY by Lucian Green Time to Prepare 2 of 4.txt",0,algorithms,"11. *The teacher prepared to represent being interested in a lesson by “dotting it on”. He did this by climbing the rope ladder. First, he found the correct ladder. Second, he tested that the ladder was about to start. Third, he climbed the ladder with his arms and legs. In this way, the teacher prepared to represent being interested in a lesson by “dotting it on” by climbing the rope ladder."]
 
+
 test_types_cases(21,[[n,memorise_point],["point",[v,memory_out]]],
         [[[n,memorise_point],[[t,string],[t,string]]]],
         [[[n,memorise_point],[input,output]]],
@@ -357,6 +358,8 @@ test_types_cases(21,[[n,memorise_point],["point",[v,memory_out]]],
 ],[[[[v,memory_out],"point"]]]).
 
 % ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Hours Prayer 1 of 4.txt",0,algorithms,"8.    *I prepared to endorse Nietzsche’s brilliance.  I did this by writing Alexius Meinong’s probable comments on the Medicine blog.  First, I called it Anarchy 3.  Second, I liked brilliance.  Third, I liked Nietzsche’s brilliance.  In this way, I prepared to endorse Nietzsche’s brilliance by writing Alexius Meinong’s probable comments on the Medicine blog."]
+
+% trope chain
 
 test_types_cases(22,[[n,function],[[["a","b"],["b","c"]]]],
         [[[n,function],[[[t,list],[[t,list2]]]]],
