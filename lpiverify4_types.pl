@@ -463,7 +463,7 @@ test_types_cases(25,[[n,way_of_speaking1],[["high-pitched","smiling"],[v,way]]],
 
 % The time around the time to time travel to was mind read.
 
-% choose greater than 10 time units (=10) after the projectile has passed.
+% choose >= 10 time units after the projectile has passed.
 
 test_types_cases(26,[[n,choose_time],[[-15,-10,-5,0,5,10,15],[v,time]]],
         [[[n,choose_time],[[[t,list],[[t,number]]],[t,number]]]],
