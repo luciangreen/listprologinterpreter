@@ -488,3 +488,17 @@ test_types_cases(28,[[n,aimed],[[["bulls-eye","red"],["outer-ring","blue"]],"bul
                 [[n,equals4],[[v,d],[[v,b],[v,c]]]]
         ]]        
 ],[[[[v,object],"red"]]]).
+
+% ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Analysing characteristics of arguments 1 of 4.txt",0,algorithms,"Do the premises work in all cases?"]
+
+test_types_cases(29,[[n,verify_modus_ponens],[["a",["a","b"],"b"]]],
+        [[[n,verify_modus_ponens],[[[t,brackets],[[t,string],[[t,list],[[t,string],[t,string]]],[t,string]]]]]],
+        [[[n,verify_modus_ponens],[input]]],
+
+[
+        [[n,verify_modus_ponens],[[v,a]],":-",
+        [       [[n,equals4],[[v,a],[[v,a1],[[v,a1],[v,b1]],[v,b1]]]]
+        ]]        
+],[[]]).
+
+
