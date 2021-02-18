@@ -474,3 +474,17 @@ test_types_cases(26,[[n,choose_time],[[-15,-10,-5,0,5,10,15],[v,time]]],
         [       [[n,member],[[v,a],10]]
         ]]        
 ],[[[[v,time],10]]]).
+
+
+% ["Lecturer","Lecturer.txt",0,algorithms,"2. *I found what the person aimed for.  I wrote on hermeneutics.  I identified the discourse.  I grouped the topics into ideologies.  I grouped the ideas into ontologies."]
+
+test_types_cases(28,[[n,aimed],[[["bulls-eye","red"],["outer-ring","blue"]],"bulls-eye",[v,object]]],
+        [[[n,aimed],[[[t,list],[[[t,list],[[t,string],[t,string]]]]],[t,string],[t,string]]]],
+        [[[n,aimed],[input,input,output]]],
+
+[
+        [[n,aimed],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,member2],[[v,a],[v,d]]],
+                [[n,equals4],[[v,d],[[v,b],[v,c]]]]
+        ]]        
+],[[[[v,object],"red"]]]).
