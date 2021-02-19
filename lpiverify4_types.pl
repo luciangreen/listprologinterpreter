@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=25, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=30, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -501,4 +501,19 @@ test_types_cases(29,[[n,verify_modus_ponens],[["a",["a","b"],"b"]]],
         ]]        
 ],[[]]).
 
+
+% ["Short Arguments","Rebreasoning.txt",0,algorithms,"8. I prepared to verify the connection.  I did this by moving on to the next point.  First, I breasoned out the first point.  Second, I breasoned out the connection to the second point.  Third, I moved on to the second point."]
+
+% I prepared to work the connection out.
+
+test_types_cases(30,[[n,work_modus_ponens_out],[["a","b"],[v,mp]]],
+        [[[n,work_modus_ponens_out],[[[t,list],[[t,string]]],[[t,list],[[t,string]]]]]],
+        [[[n,work_modus_ponens_out],[input,output]]],
+
+[
+        [[n,work_modus_ponens_out],[[v,a],[v,c]],":-",
+        [       [[n,equals4],[[v,a],[[v,a1],[v,b1]]]],
+                [[n,equals4],[[v,c],[[v,a1],"->",[v,b1]]]]
+        ]]        
+],[[[[v,mp],["a","->","b"]]]]).
 
