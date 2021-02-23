@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=30, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=32, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -517,3 +517,41 @@ test_types_cases(30,[[n,work_modus_ponens_out],[["a","b"],[v,mp]]],
         ]]        
 ],[[[[v,mp],["a","->","b"]]]]).
 
+% ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Exploring opposites in Hamlet 2 of 4.txt",0,algorithms,"11.    *I prepared to experience the art forms of God (the master).  I did this by trusting God (the master).  First, I trusted the art of the master.  Second, I trusted the music of the master.  Third, I trusted the architecture of the master.  In this way, I prepared to experience the art forms of God (the master) by trusting God (the master)."]
+
+test_types_cases(31,[[n,art],[["I","ate","apple"],[v,art_form]]],
+        [[[n,art],[[[t,list],[[t,string]]],[[t,brackets],[[t,string],[[t,list],[[t,string]]]]]]]],
+        [[[n,art],[input,output]]],
+
+[
+        [[n,art],[[v,a],[v,c]],":-",
+        [       [[n,equals4],[[v,a],[[v,a1],[v,b1],[v,c1]]]],
+                [[n,equals4],[[v,c],[[v,b1],[[v,a1],[v,c1]]]]]
+        ]]        
+],[[[[v,art_form],["ate",["I","apple"]]]]]).
+
+% ["Fundamentals of Pedagogy and Pedagogy Indicators","FUNDAMENTALS OF PEDAGOGY by Lucian Green Time to Do 3 of 4.txt",0,algorithms,"28. The fun park visitor prepared to ride the helter skelter. He did this by licking the chocolate from his finger. First, he started from the base of his finger. Second, he spiraled his tongue upwards, licking all the chocolate from his finger on the way. Third, he stopped when he reached the top. In this way, the fun park visitor prepared to ride the helter skelter by licking the chocolate from his finger."]
+
+% Triangle train line
+
+test_types_cases(32,[[n,triangle_train],["Canterbury","Bambury"]],
+        [[[n,triangle_train],[[t,string],[t,string]]],
+        [[n,link],[[t,string],[t,string]]]],
+        [[[n,triangle_train],[input,input]],
+        [[n,link],[input,output]]],
+
+[
+        [[n,triangle_train],[[v,a],[v,b]],":-",
+        [       [[n,link],[[v,a],[v,b]]]]],
+        [[n,triangle_train],[[v,a],[v,b]],":-",
+        [       [[n,link],[[v,a],[v,c]]],
+                [[n,triangle_train],[[v,c],[v,b]]]
+        ]],
+        %[[n,link],["Canterbury","Bambury"]],
+        [[n,link],["Canterbury","Avignon"]],
+        [[n,link],["Bambury","Canterbury"]],
+        %[[n,link],["Bambury","Avignon"]],
+        [[n,link],["Avignon","Bambury"]]
+        %[[n,link],["Avignon","Canterbury"]]
+        
+],[[]]).

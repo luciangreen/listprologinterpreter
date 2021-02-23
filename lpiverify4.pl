@@ -2242,3 +2242,104 @@ test(108,[[n,call1b],[[1,11,111],[v,b]]],
         [[n,cut]]]]       
         
 ],[[[[v,b],1]]]).
+
+
+test(109,[[n,middle],[2,[v,b]]],
+[
+        [[n,middle],[[v,a],[v,b]],":-",
+        [       [[n,/],[[v,a],2,[v,b]]]
+        ]]       
+        
+],[[[[v,b],1]]]).
+
+test(110,[[n,level_with],[170,[v,b]]],
+[
+        [[n,level_with],[[v,a],[v,a]]]      
+        
+],[[[[v,b],170]]]).
+
+test(111,[[n,tra-las],[5,[v,a]]],
+[
+        [[n,tra-las],[[v,n],[v,a]],":-",
+        [       [[n,las],[[v,n],[],[v,b]]],
+                [[n,append],[["tra"],[v,b],[v,a]]]
+        ]],       
+
+        [[n,las],[0,[v,l],[v,l]]],
+        [[n,las],[[v,l],[v,m],[v,n]],":-",
+        [       [[n,-],[[v,l],1,[v,h]]],
+                [[n,append],[[v,m],["la"],[v,o]]],
+                [[n,las],[[v,h],[v,o],[v,n]]]
+        ]
+        ]
+        
+],[[[[v,a],["tra","la","la","la","la","la"]]]]).
+
+test(112,[[n,final-gong],[5,[v,a]]],
+[
+        [[n,final-gong],[[v,n],[v,a]],":-",
+        [       [[n,-],[[v,n],1,[v,n1]]],
+                [[n,dashes],[[v,n1],[],[v,b]]],
+                [[n,append],[[v,b],["gong"],[v,a]]]
+        ]],       
+
+        [[n,dashes],[0,[v,l],[v,l]]],
+        [[n,dashes],[[v,l],[v,m],[v,n]],":-",
+        [       [[n,-],[[v,l],1,[v,h]]],
+                [[n,append],[[v,m],["-"],[v,o]]],
+                [[n,dashes],[[v,h],[v,o],[v,n]]]
+        ]
+        ]
+        
+],[[[[v,a],["-","-","-","-","gong"]]]]).
+
+test(113,[[n,bedroom-to-garden],["bedroom",[v,b]]],
+[
+        [[n,bedroom-to-garden],["bedroom","garden"]]      
+        
+],[[[[v,b],"garden"]]]).
+
+test(114,[[n,stop_at_top],[["-","-","-","top"],[v,a]]],
+[
+        [[n,stop_at_top],[[],"fail"]],
+        [[n,stop_at_top],[[v,l],"success"],":-",
+        [       [[n,head],[[v,l],"top"]]
+        ]],
+                [[n,stop_at_top],[[v,l],[v,n]],":-",
+        [       [[n,head],[[v,l],"-"]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,stop_at_top],[[v,t],[v,n]]]
+        ]
+        ]
+        
+],[[[[v,a],"success"]]]).
+
+
+test(115,[[n,episode_character],[[v,a]]],
+
+[
+        [[n,episode_character],[[v,ds3]],":-",
+        [        
+                [[n,findall],[[v,ds2],
+         [
+         [[n,member2],[[1,2,3,4],[v,l1]]],
+         				[[n,findall],[[v,ds1],
+         [
+         [[n,member2],[[1,2,3,4],[v,l2]]],
+         					[[n,findall],[[[v,l1],[v,l2],[v,l3],[v,d]],
+         [
+         [[n,member2],[[1,2,3,4],[v,l3]]],
+         [[n,equals4],[[v,line],["Level",[v,l1],[v,l2],[v,l3],
+         "Please write a detail."]]],
+         [[n,writeln],[[v,line]]],
+         [[n,read_string],[[v,d]]]],
+
+        [v,ds1]]]],
+         %[[n,=],[[v,item1],[v,item1b]]]],
+        [v,ds2]]]]
+        ,
+         %[[n,=],[[v,item1],[v,item1b]]]],
+        [v,ds3]]]
+    
+        ]]
+],[[[[v,a],"success"]]]).

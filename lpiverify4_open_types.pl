@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_open_types(Debug,NTotal,Score) :- test_open_types(Debug,0,NTotal,0,Score),!.
-test_open_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=3, !.
+test_open_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=6, !.
 test_open_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_open_types_cases(NTotal3,Query,Types,Modes,Functions),
@@ -152,3 +152,96 @@ test_open_types_cases(4,[[n,cultivate_person],[[v,a],[v,b]]],
         ]]
 ]).
 
+% ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Blue Nature 4 of 4.txt",0,algorithms,"31.    I prepared to give the song I am not a Peach and medicine degree away.  I did this by giving the woman the anti-depression song and anti-depression degree.  First, I gave the woman the anti-depression song.  Second, I gave the woman the anti-depression degree.  Third, I observed her as happy.  In this way, I prepared to give the song I am not a Peach and medicine degree away by giving the woman the anti-depression song and anti-depression degree."]
+
+% Prevents rumination
+
+test_open_types_cases(5,[[n,prevent_rumination],[[]]],
+        [[[n,prevent_rumination],[[[t,list],[[t,string]]]]]],
+        [[[n,prevent_rumination],[input]]],
+
+[
+        [[n,prevent_rumination],[[v,list]],":-",
+        [        
+
+                [[n,writeln],["What would you like to think about?"]],
+                [[n,read_string],[[v,item]]],
+
+                [[n,"->"],[[[n,member],[[v,list],[v,item]]],
+                
+                [[[n,writeln],["Please do not think of"]],
+                [[n,writeln],[[v,item]]],
+                [[n,writeln],["again."]],
+                [[n,=],[[v,list],[v,list2]]]],
+                
+                [[[n,wrap],[[v,item],[v,item2]]],
+                [[n,append],[[v,list],[v,item2],[v,list2]]]]]],
+
+                [[n,writeln],["Have you finished thinking (y/n)?"]],
+                [[n,read_string],[[v,y_n]]],
+
+                [[n,"->"],[[[n,=],[[v,y_n],"y"]],
+
+                [[n,true]],
+                
+                [[n,prevent_rumination],[[v,list2]]]]]
+        ]]
+]).
+
+% ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Yellow God 2 of 4.txt",0,algorithms,"12. I prepared to put through an A with a “negatable pressure cup appearance”, in other words negatably but in a way that is protected by meditation, placing a medical question on oneself (thinking of a dental drill, the medical question and a conclusion) for a child to be conceived, a job to be earned or an H1 to be supported. I did this by holding the dog model, like the pressure cup. First, I picked up the dog model. Second, I held it. Third, I placed it on the ground. In this way, I prepared to put through an A with a “negatable pressure cup appearance” by holding the dog model, like the pressure cup."]
+
+% Text to breasoning checklist
+
+test_open_types_cases(6,[[n,t2b_checklist],[[v,a],[v,b],[v,c]]],
+        [[[n,t2b_checklist],[[t,string],[t,string],[t,string]]]],
+        [[[n,t2b_checklist],[output,output,output]]],
+
+[
+        [[n,t2b_checklist],[[v,a],[v,b],[v,c]],":-",
+        [        
+                [[n,writeln],["Do you study education?"]],
+                [[n,read_string],[[v,a]]],
+
+                [[n,writeln],["Do you study medicine?"]],
+                [[n,read_string],[[v,b]]],
+
+                [[n,writeln],["Do you study meditation?"]],
+                [[n,read_string],[[v,c]]]
+        ]]
+]).
+
+% ["Fundamentals of Pedagogy and Pedagogy Indicators","FUNDAMENTALS OF PEDAGOGY by Lucian Green Part of Room 1 of 4.txt",0,algorithms,"6. The disabilities teacher student prepared to assess a “done-up” assignment (with a short story containing 64 departmental perspectives about it) and a “seen-as” version of “A” quality written by the student. He did this by placing the bird model in the hole. First, he lifted the bird model up. Second, he walked to the hole. Third, he placed it in the hole. In this way, the disabilities teacher student prepared to assess a “done-up” assignment and a “seen-as” version of “A” quality written by the student by placing the bird model in the hole."]
+
+test_open_types_cases(7,[[n,episode_character],[[v,a]]],
+        [[[n,episode_character],[[t,loop0]]],
+        [[t,loop0],[[[t,brackets],[[t,loop1],[t,loop1],[t,loop1],[t,loop1]]]]],
+        [[t,loop1],[[[t,brackets],[[t,loop2],[t,loop2],[t,loop2],[t,loop2]]]]],
+        [[t,loop2],[[[t,brackets],[[t,items],[t,items],[t,items],[t,items]]]]],
+        
+        [[t,items],[[t,number],[t,number],[t,number],[t,string]]]],
+        [[[n,episode_character],[output]]],
+
+[
+        [[n,episode_character],[[v,ds3]],":-",
+        [        
+                [[n,findall],[[v,ds2],
+         [
+         [[n,member2],[[1,2,3,4],[v,l1]]],
+         				[[n,findall],[[v,ds1],
+         [
+         [[n,member2],[[1,2,3,4],[v,l2]]],
+         					[[n,findall],[[[v,l1],[v,l2],[v,l3],[v,d]],
+         [
+         [[n,member2],[[1,2,3,4],[v,l3]]],
+         [[n,equals4],[[v,line],["Level",[v,l1],[v,l2],[v,l3],
+         "Please write a detail."]]],
+         [[n,writeln],[[v,line]]],
+         [[n,read_string],[[v,d]]]],
+
+        [v,ds1]]]],
+        [v,ds2]]]]
+        ,
+        [v,ds3]]]
+    
+        ]]
+]).
