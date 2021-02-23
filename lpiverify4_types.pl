@@ -555,3 +555,15 @@ test_types_cases(32,[[n,triangle_train],["Canterbury","Bambury"]],
         %[[n,link],["Avignon","Canterbury"]]
         
 ],[[]]).
+
+
+test_types_cases(33,[[n,wear],[["hat","head"],[v,c]]],
+        [[[n,wear],[[[t,brackets],[[t,string],[t,string]]],[[t,brackets],[[t,string],[t,string]]]]]],
+        [[[n,wear],[input,output]]],
+
+[
+        [[n,wear],[[v,c],[v,c]],":-",
+        [        
+                [[n,equals4],[[v,c],["hat","head"]]]
+        ]]
+],[[[[v,c],["hat","head"]]]]).

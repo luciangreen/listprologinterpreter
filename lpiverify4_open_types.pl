@@ -245,3 +245,84 @@ test_open_types_cases(7,[[n,episode_character],[[v,a]]],
     
         ]]
 ]).
+
+% I want to swim if I am hot
+
+test_open_types_cases(8,[[n,swim],[[v,c]]],
+        [[[n,swim],[[t,string]]]],
+        [[[n,swim],[output]]],
+
+[
+        [[n,swim],[[v,c]],":-",
+        [        
+                [[n,writeln],["Are you hot (y/n)?"]],
+                [[n,read_string],[[v,a]]],
+
+                [[n,"->"],[[[n,=],[[v,a],"y"]],
+                [[[n,writeln],["Would you like to go for a swim?"]],
+                [[n,read_string],[[v,b]]],
+                [[n,"->"],[[[n,=],[[v,b],"y"]],
+                [[n,=],[[v,c],"swim"]],
+                [[n,=],[[v,c],"no swim"]]]]],
+                
+                [[n,=],[[v,c],"no swim"]]]]                
+        ]]
+]).
+
+
+test_open_types_cases(9,[[n,recognise_above_waist],[[v,c]]],
+        [[[n,recognise_above_waist],[[t,string]]],
+        [[n,person],[[t,string],[t,string],[t,string],[t,string]]]],
+        [[[n,recognise_above_waist],[output]],
+        [[n,person],[input,input,input,output]]],
+
+[
+        [[n,recognise_above_waist],[[v,d1]],":-",
+        [        
+                [[n,writeln],["Does the person have a male chest (y/n)?"]],
+                [[n,read_string],[[v,a]]],
+                [[n,"->"],[[[n,=],[[v,a],"y"]],
+                [[n,=],[[v,a1],"male chest"]],
+                [[n,=],[[v,a1],"female chest"]]]],                
+
+                [[n,writeln],["Does the person have a male face (y/n)?"]],
+                [[n,read_string],[[v,b]]],
+                [[n,"->"],[[[n,=],[[v,b],"y"]],
+                [[n,=],[[v,b1],"male face"]],
+                [[n,=],[[v,b1],"female face"]]]],                
+
+                [[n,writeln],["What colour hair does the person have (brown/blonde/auburn)?"]],
+                [[n,read_string],[[v,c]]],
+                [[n,"->"],[[[n,=],[[v,c],"brown"]],
+                [[n,=],[[v,c1],"brown hair"]],
+                [[n,"->"],[[[n,=],[[v,c],"blonde"]],
+                [[n,=],[[v,c1],"blonde hair"]],
+                [[n,=],[[v,c1],"auburn hair"]]]]]],
+                
+                [[n,"->"],[[[n,person],[[v,a1],[v,b1],[v,c1],[v,d1]]],
+                [[n,true]],
+                [[n,=],[[v,d1],"Unknown"]]]]
+        ]],
+        
+        [[n,person],["male chest","male face","brown hair","Harry"]],
+        [[n,person],["female chest","female face","blonde hair","Susan"]],
+        [[n,person],["female chest","female face","auburn hair","April"]]
+]).
+
+
+test_open_types_cases(10,[[n,want_me],[[v,c]]],
+        [[[n,want_me],[[t,string]]]],
+        [[[n,want_me],[output]]],
+
+[
+        [[n,want_me],[[v,a1]],":-",
+        [        
+                [[n,writeln],["Do you want me for 1-food, 2-activity, 3-toy or 4-not want me?"]],
+                [[n,read_string],[[v,a]]],
+                [[n,"->"],[[[n,=],[[v,a],"4"]],
+                [[n,=],[[v,a1],"no"]],
+                [[n,=],[[v,a1],"yes"]]]]         
+        ]]
+
+]).
+
