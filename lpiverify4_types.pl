@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=33, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=34, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -567,3 +567,15 @@ test_types_cases(33,[[n,wear],[["hat","head"],[v,c]]],
                 [[n,equals4],[[v,c],["hat","head"]]]
         ]]
 ],[[[[v,c],["hat","head"]]]]).
+
+% ["Fundamentals of Pedagogy and Pedagogy Indicators","FUNDAMENTALS OF PEDAGOGY by Lucian Green Breathsonings 4 of 4.txt",0,algorithms,"41.   I loved planet meditation (books).  I did this by holding the reflection (philosophy) retreat.  First, I covered texts.  Second, I covered retreat details.  Third, I gave presents out.  In this way, I prepared to love planet meditation (books) by holding the reflection (philosophy) retreat."]
+
+%% travelling 10 space units and 15 time units in the maximum jump of 1 space unit and 1 time unit takes 10 space jumps and 15 time jumps
+
+test_types_cases(34,[[n,space_time_jump],[[10,15],[v,c]]],
+        [[[n,space_time_jump],[[[t,brackets],[[t,number],[t,number]]],[[t,brackets],[[t,number],[t,number]]]]]],
+        [[[n,space_time_jump],[input,output]]],
+
+[
+        [[n,space_time_jump],[[v,c],[v,c]]]
+],[[[[v,c],[10,15]]]]).
