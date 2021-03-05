@@ -416,6 +416,7 @@ checktypes1([],[],_,_) :- !.
 
 	checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
 get_lang_word("t",T),
+%trace,
 get_lang_word("list",Dbw_list),
 %%writeln(checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4)),
 	Vars1=[Vars2|Vars3],

@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_open_types(Debug,NTotal,Score) :- test_open_types(Debug,0,NTotal,0,Score),!.
-test_open_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=10, !.
+test_open_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=18, !.
 test_open_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_open_types_cases(NTotal3,Query,Types,Modes,Functions),
@@ -326,3 +326,161 @@ test_open_types_cases(10,[[n,want_me],[[v,c]]],
 
 ]).
 
+% ["Fundamentals of Pedagogy and Pedagogy Indicators","PEDAGOGY INDICATORS by Lucian Green Aigs for Pedagogy Helper 2 of 3.txt",0,algorithms,"24.   *The pedagogy helper was in natural law.  The pedagogy aigs helper was legally right.  The self examined the water line at different times.  The self was above it at those times.  The self offered the Aigs service."]
+
+% Check whether the algorithm/argument is classified under natural law.
+
+test_open_types_cases(11,[[n,natural_law],[[v,a1]]],
+        [[[n,natural_law],[[t,string]]]],
+        [[[n,natural_law],[output]]],
+
+[
+        [[n,natural_law],[[v,a1]],":-",
+        [        
+                [[n,writeln],["Is the idea from pedagogy, meditation or medicine (y/n)?"]],
+                [[n,read_string],[[v,a]]],
+                [[n,"->"],[[[n,=],[[v,a],"y"]],
+                [[n,=],[[v,a1],"true"]],
+                [[[n,writeln],["Does the idea not contain genetic modification of an organism, not include nuclear energy, and is compatible with natural-law (y/n)?"]],
+                [[n,read_string],[[v,b]]],
+                [[n,"->"],[[[n,=],[[v,b],"y"]],
+                [[n,=],[[v,a1],"true"]],
+                [[n,=],[[v,a1],"false"]]]]]]]                
+        ]]
+]).
+
+% ["Medicine","MEDICINE by Lucian Green Doctor Sutra 1 of 4.txt",0,algorithms,"3.    *The Vag prepared to keep on his own line. He did this by checking his indicator of his health. First, he stepped onto the line. Second, he walked along it. Third, he left the line. In this way, the Vag prepared to keep on his own line by checking his indicator of his health."]
+
+% Use headache medicine if you have a stress, not pathological headache.
+
+test_open_types_cases(12,[[n,headache_medicine],[[v,a1]]],
+        [[[n,headache_medicine],[[t,string]]]],
+        [[[n,headache_medicine],[output]]],
+
+[
+        [[n,headache_medicine],[[v,a1]],":-",
+        [        
+                [[n,writeln],["Do you have a stress, not pathological headache (y/n)?"]],
+                [[n,read_string],[[v,a]]],
+                [[n,"->"],[[[n,=],[[v,a],"n"]],
+                [[n,=],[[v,a1],"true"]],
+                [[n,=],[[v,a1],"false"]]]]                
+        ]]
+]).
+
+% ["Short Arguments","Competition.txt",0,algorithms,"7. *I liked breasonings and equality - and economic freedom.  I performed better by using the daily regimen to go to church (play the note).  Confidence blocks and blocks from lack of practice were cleared.  I maintained a high level of performance.  I functioned (played the note) positively.  "]
+
+% Would you like the same as someone else?
+
+test_open_types_cases(13,[[n,same],[[v,a1]]],
+        [[[n,same],[[t,string]]]],
+        [[[n,same],[output]]],
+
+[
+        [[n,same],[[v,a1]],":-",
+        [        
+                [[n,writeln],["Would you like the same as someone else?  What is it?"]],
+                [[n,read_string],[[v,a1]]]
+        ]]
+]).
+
+% ["Mind Reading","Mr other times 8.txt",0,algorithms,"[""Green, L 2021, <i>Mr other times 8</i>, Lucian Academy Press, Melbourne."",""Green, L 2021"",1,""*Mr other times 8"]
+
+% What would you like to remember?
+
+test_open_types_cases(14,[[n,remember],[[v,a1]]],
+        [[[n,remember],[[t,string]]]],
+        [[[n,remember],[output]]],
+
+[
+        [[n,remember],[[v,a1]],":-",
+        [        
+                [[n,writeln],["What would you like to remember?"]],
+                [[n,read_string],[[v,a1]]],
+                [[n,writeln],["Press <return> to display the memory?"]],
+                [[n,read_string],[[v,a2]]],
+                [[n,writeln],[[v,a1]]]
+        ]]
+]).
+
+% ["Medicine","MEDICINE by Lucian Green Panic attack prevented by deep breathing and sutra 1 of 4.txt",0,algorithms,"1a. *I prepared to identify and prevent class distinctions. I did this by writing the Box song argument. First, I wrote about the box. Second, I wrote about the specific. Third, I wrote about the general. In this way, I prepared to identify and prevent class distinctions by writing the Box song argument."]
+
+% Is the simulated intelligence a life form?
+
+test_open_types_cases(15,[[n,life],[[v,a1]]],
+        [[[n,life],[[t,string]]]],
+        [[[n,life],[output]]],
+
+[
+        [[n,life],[[v,a3]],":-",
+        [        
+                [[n,writeln],["Does the entity feel (y/n)?"]],
+                [[n,read_string],[[v,a1]]],
+                [[n,writeln],["Does the entity have human thoughts (y/n)?"]],
+                [[n,read_string],[[v,a2]]],
+                [[n,"->"],[[[[n,=],[[v,a1],"y"]],[[n,=],[[v,a2],"y"]]],
+                [[n,=],[[v,a3],"true"]],
+                [[n,=],[[v,a3],"false"]]]]
+
+        ]]
+]).
+
+% ["Medicine","MEDICINE by Lucian Green Quantum Box and Prayer 3 of 4.txt",0,algorithms,"27.   *I prepared to make sure that my day in the rooms was fine.  I did this by enjoying dialogue with the quantum box/prayer character.  First, I mentioned the first visible level of matter in the object to the character.  Second, I listened to the character negate that the level was problematic (say that it was fine).  Third, I repeated this for all the visible levels of matter in the object.  In this way, I prepared to make sure that my day in the rooms was fine by enjoying dialogue with the quantum box/prayer character."]
+
+test_open_types_cases(16,[[n,fifty_algorithms],[[v,a1]]],
+        [[[n,fifty_algorithms],[[t,string]]]],
+        [[[n,fifty_algorithms],[output]]],
+
+[
+        [[n,fifty_algorithms],[[v,a3]],":-",
+        [        
+                [[n,writeln],["What will you use the fifty algorithms for (e.g. politician, professor, actor or musician)?"]],
+                [[n,read_string],[[v,a3]]]
+
+        ]]
+]).
+
+% ["Short Arguments","Professor Algorithm - Student.txt",0,algorithms,"6. *I prepared to smile.  I did this by symbolising the verb.  First, I enjoyed the song.  Second, I rummaged in the Christmas sack.  Third, I pulled the theatrical mask out of the sack."]
+
+test_open_types_cases(17,[[n,prepare_to_smile],[[v,a1]]],
+        [[[n,prepare_to_smile],[[t,string]]]],
+        [[[n,prepare_to_smile],[output]]],
+
+[
+        [[n,prepare_to_smile],[[v,a3]],":-",
+        [        
+                [[n,writeln],["What do you find touching, lovely or inspiring about the person?"]],
+                [[n,read_string],[[v,a3]]]
+
+        ]]
+]).
+
+% ["Time Travel","Meditate to Time Travel 4.txt",0,algorithms,"49. *I meditated to avoid insider trading by time travelling."]
+
+test_open_types_cases(18,[[n,detect_insider_trading],[[v,a1]]],
+        [[[n,detect_insider_trading],[[t,string]]]],
+        [[[n,detect_insider_trading],[output]]],
+
+[
+        [[n,detect_insider_trading],[[v,a3]],":-",
+        [        
+                [[n,writeln],["After learning insider information, did you trade?"]],
+                [[n,read_string],[[v,a3]]]
+
+        ]]
+]).
+
+% ["Fundamentals of Pedagogy and Pedagogy Indicators","FUNDAMENTALS OF PEDAGOGY by Lucian Green X Dimension 2 of 4.txt",0,algorithms,"17.                 *I prepared to confirm the ability to breason in meditation.  I did this by unblocking not wanting to write breasonings in meditation.  First, I studied Nietzsche in Arts.  Second, I studied Creative Writing.  Third, I studied Education.  In this way, I prepared to confirm the ability to breason in meditation by unblocking not wanting to write breasonings in meditation."]
+
+test_open_types_cases(19,[[n,breason],[[v,a1]]],
+        [[[n,breason],[[t,string]]]],
+        [[[n,breason],[output]]],
+
+[
+        [[n,breason],[[v,a3]],":-",
+        [        
+                [[n,writeln],["If I told you a single way of satisfying the spiritual requirements to have a child, earn a high distinction and prevent quantum ailments such as headaches (where it would not be possible to do these things in other ways) would you be interested?"]],
+                [[n,read_string],[[v,a3]]]
+
+        ]]
+]).

@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=116, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=113, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -2344,28 +2344,3 @@ test(115,[[n,episode_character],[[v,a]]],
         ]]
 ],[[[[v,a],"success"]]]).
 
-% ["Time Travel","Help people with algorithms when time travelling 2.txt",0,algorithms,"17. I helped use program finder for all levels of the algorithm, with combination algorithm writer for the function in program finder when time travelling."]
-
-% program finder (pf)
-
-%test(116,[[n,function],[[[n,a]],[[a,5]],[],[v, result]]],
-test(116,[[n,function],[[[n,a],[n,a]],[[a,5],[a,5]],[],[v, result]]],
-
-[
-[[n,function],[[],[v,inputs2],[v,output],[v,output]]],
-
-[[n,function],[[v,input1],[v,inputs2],[v,inputs3],[v,output]],":-",
-[[[n,head],[[v,input1],[v,head]]],
-[[n,tail],[[v,input1],[v,tail]]],
-[[n,equals1],[[v,head],[[v,a],[v,b]]]],
-[[[n,atom],[[v,a]]],[[n,atom],[[v,b]]]],
-[[n,member2],[[v,inputs2],[v,inputs21]]],
-[[n,equals1],[[v,inputs21],[[v,b],[v,c]]]],
-[[[n,number],[[v,c]]]],
-[[n,equals2],[[v,item1],[[v,a],[v,c]]]],
-[[n,wrap],[[v,item1],[v,item1a]]],
-[[n,append],[[v,inputs3],[v,item1a],[v,item2]]],
-[[n,function],[[v,tail],[v,inputs2],[v,item2],[v,output]]]]]],
-
-%[[[[v, result], [[n, 5]]]]]).
-[[[[v, result], [[n, 5],[n, 5]]]]]).

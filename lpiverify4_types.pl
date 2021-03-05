@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=34, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=41, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -579,3 +579,107 @@ test_types_cases(34,[[n,space_time_jump],[[10,15],[v,c]]],
 [
         [[n,space_time_jump],[[v,c],[v,c]]]
 ],[[[[v,c],[10,15]]]]).
+
+
+% ["Short Arguments","Medicine - Quantum Box of Circulatory System 1.txt",0,algorithms,"5. *I used cardiovascular activity to maintain circulatory system flow."]
+
+test_types_cases(35,[[n,circulation],["heart1","cells"]],
+        [[[n,circulation],[[t,string],[t,string]]],
+        [[n,link],[[t,string],[t,string]]]],
+        [[[n,circulation],[input,input]],
+        [[n,link],[input,output]]],
+
+[
+        [[n,circulation],[[v,a],[v,b]],":-",
+        [       [[n,link],[[v,a],[v,b]]]]],
+        [[n,circulation],[[v,a],[v,b]],":-",
+        [       [[n,link],[[v,a],[v,c]]],
+                [[n,circulation],[[v,c],[v,b]]]
+        ]],
+        %[[n,link],["Canterbury","Bambury"]],
+        [[n,link],["heart1","lungs"]],
+        [[n,link],["lungs","heart2"]],
+        %[[n,link],["Bambury","Avignon"]],
+        [[n,link],["heart2","cells"]],
+        [[n,link],["cells","heart1"]]
+        
+],[[]]).
+
+% ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Philosophical Computational English 4 of 4.txt",0,algorithms,"32.   *I prepared to buy products that I added value to.  I did this by breasoning out 5 As per day for sales.  First, I trialled the product.  Second, I found a new use for the product.  Third I used the product for thus new use.  In this way, I prepared to buy products that I added value to by breasoning out 5 As per day for sales."]
+
+test_types_cases(36,[[n,stock_because_buy],["word processor",[v,c]]],
+        [[[n,stock_because_buy],[[t,string],[t,string]]]],
+        [[[n,stock_because_buy],[input,output]]],
+
+[
+        [[n,stock_because_buy],[[v,c],[v,c]]]
+],[[[[v,c],"word processor"]]]).
+
+% ["Lecturer","Lecturer - Recordings Pedagogy.txt",0,algorithms,"6. *The necessary amount of work didn't become a headache.  I prevented the muscle ache from recordings.  I used the quantum box to prevent muscle aches.  This included headaches.  I prevented body aches becoming headaches."]
+
+% The number of As of work equals the number of As in medicine
+
+test_types_cases(37,[[n,medicine_as],[3,[v,medicine_as]]],
+        [[[n,medicine_as],[[t,number],[t,number]]]],
+        [[[n,medicine_as],[input,output]]],
+
+[
+        [[n,medicine_as],[[v,as],[v,as]]]
+],[[[[v,medicine_as],3]]]).
+
+% ["Medicine","MEDICINE by Lucian Green Heart 2 of 4.txt",0,algorithms,"17.    *I prepared to go running. I did this by flexing the ball of my foot. First, I stood up. Second, I leant against a wall. Third, I performed a calf stretch. In this way, I prepared to go running by flexing the ball of my foot."]
+
+test_types_cases(38,[[n,run_checklist],["true","true","true",[v,run]]],
+        [[[n,run_checklist],[[t,string],[t,string],[t,string],[t,string]]]],
+        [[[n,run_checklist],[input,input,input,output]]],
+
+[
+        [[n,run_checklist],[[v,stretches],[v,water],[v,gear],[v,run]],":-",
+        [       [[n,=],[[v,stretches],"true"]],
+                [[n,=],[[v,water],"true"]],
+                [[n,=],[[v,gear],"true"]],
+                [[n,=],[[v,run],"true"]]
+        ]]
+],[[[[v,run],"true"]]]).
+
+
+% ["Fundamentals of Pedagogy and Pedagogy Indicators","FUNDAMENTALS OF PEDAGOGY by Lucian Green Time to Prepare 3 of 4.txt",0,algorithms,"27. *The bottler prepared to put a cork in the bottle. He did this by closing the refrigerator door. First, he pushed the door with his hand. Second, he lifted the latch. Third, he closed the door. In this way, the bottler prepared to put a cork in the bottle by closing the refrigerator door."]
+
+% fill or empty a bottle
+
+test_types_cases(39,[[n,fill_or_empty_bottle],["nothing",[v,a2]]],
+        [[[n,fill_or_empty_bottle],[[t,string],[t,string]]]],
+        [[[n,fill_or_empty_bottle],[input,output]]],
+
+[
+        [[n,fill_or_empty_bottle],["nothing","liquid"]],
+        [[n,fill_or_empty_bottle],["liquid","nothing"]]
+],[[[[v,a2],"liquid"]]]).
+
+% ["Lecturer","Lecturer Culturology.txt",0,algorithms,"3. *Reverse CAW was guessing the input and output.  Culturology is good.  I applied back-translation to an algorithm.  I found that reversing the algorithm resulted in the same result as the original.  Reverse interpret was CAW."]
+
+test_types_cases(40,[[n,guess_io],["+",[v,a2],[v,a3]]],
+        [[[n,guess_io],[[t,string],[[t,list],[[t,item]]],
+        [[t,list],[[t,item]]]]],
+        [[t,item],[[t,number]]],
+        [[t,item],[[t,string]]]],
+        [[[n,guess_io],[input,output,output]]],
+
+[
+        [[n,guess_io],["+",[1,1],[2]]],
+        [[n,guess_io],["-",[1,1],[0]]]
+],[[[[v,a2],[1,1]],[[v,a3],[2]]]]).
+
+% ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Order in Conglish 2 of 4.txt",0,algorithms,"15.   I prepared to order the Conglish subjects.  I did this by observing the marriage.  First, I observed the partner place the ring on his or her partner’s finger.  Second, I observed the couple say their vows.  Third, I observed the couple sign the wedding register.  In this way, I prepared to order the Conglish subjects by observing the marriage."]
+
+% Order strings by length
+
+test_types_cases(41,[[n,order_strings],[["***","*","**"],[v,ordered_strings]]],
+        [[[n,order_strings],[[[t,list],[[t,string]]],[[t,list],[[t,string]]]]]],
+        [[[n,order_strings],[input,output]]],
+
+[
+        [[n,order_strings],[[v,strings],[v,ordered_strings]],":-",
+        [       [[n,sort],[[v,strings],[v,ordered_strings]]]]]
+],[[[[v,ordered_strings],["*", "**", "***"]]]]).
+
