@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_open_types(Debug,NTotal,Score) :- test_open_types(Debug,0,NTotal,0,Score),!.
-test_open_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=18, !.
+test_open_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=20, !.
 test_open_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_open_types_cases(NTotal3,Query,Types,Modes,Functions),
@@ -484,3 +484,19 @@ test_open_types_cases(19,[[n,breason],[[v,a1]]],
 
         ]]
 ]).
+
+% ["Short Arguments","Simulated Intelligence 2.txt",0,algorithms,"14. *The man added to the simulation.  God (the man) took care of people in subsets of the simulation.  God found the subset of the simulation.  It was the place.  The man recorded them."]
+
+test_open_types_cases(20,[[n,add_to_simulation],[[v,a1]]],
+        [[[n,add_to_simulation],[[t,string]]]],
+        [[[n,add_to_simulation],[output]]],
+
+[
+        [[n,add_to_simulation],[[v,a3]],":-",
+        [        
+                [[n,writeln],["Do you add text to breasonings to the simulation?"]],
+                [[n,read_string],[[v,a3]]]
+
+        ]]
+]).
+
