@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=41, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=42, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -682,4 +682,16 @@ test_types_cases(41,[[n,order_strings],[["***","*","**"],[v,ordered_strings]]],
         [[n,order_strings],[[v,strings],[v,ordered_strings]],":-",
         [       [[n,sort],[[v,strings],[v,ordered_strings]]]]]
 ],[[[[v,ordered_strings],["*", "**", "***"]]]]).
+
+% ["Time Travel","Technologies in Times 1.txt",0,algorithms,"63. *The workings of DNA and RNA were examined in cloning for medicine."]
+
+% The sequences were the same.
+
+test_types_cases(42,[[n,same],[[1,2,3,4,5,6],[1,2,3,4,5,6]]],
+        [[[n,same],[[[t,list],[[t,number]]],[[t,list],[[t,number]]]]]],
+        [[[n,same],[input,input]]],
+
+[
+        [[n,same],[[v,sequence1],[v,sequence1]]]
+],[[]]).
 

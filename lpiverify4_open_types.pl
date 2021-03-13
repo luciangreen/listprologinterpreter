@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_open_types(Debug,NTotal,Score) :- test_open_types(Debug,0,NTotal,0,Score),!.
-test_open_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=20, !.
+test_open_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=23, !.
 test_open_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_open_types_cases(NTotal3,Query,Types,Modes,Functions),
@@ -497,6 +497,78 @@ test_open_types_cases(20,[[n,add_to_simulation],[[v,a1]]],
                 [[n,writeln],["Do you add text to breasonings to the simulation?"]],
                 [[n,read_string],[[v,a3]]]
 
+        ]]
+]).
+
+% ["Fundamentals of Pedagogy and Pedagogy Indicators","FUNDAMENTALS OF PEDAGOGY by Lucian Green X Dimension 3 of 4.txt",0,algorithms,"29.                 *I prepared to help Earth avoid catastrophe.  I did this by stating that I am peaceful.  First, I made vegan food available.  Second, I guided the number of children per family.  Third, I recommended green transport.  In this way, I prepared to help Earth avoid catastrophe by stating that I am peaceful."]
+
+% How will you make sure that the food tastes delicious?
+
+/**
+
+?- test_open_types1(off,21,R).
+How will you make sure that the food tastes delicious?
+|: I will use softer, fresh ingredients and use the best type of cold pressed extra virgin olive oil when cooking.
+[test_open_types,21,result,[[[[v,a1],I will use softer, fresh ingredients and use the best type of cold pressed extra virgin olive oil when cooking.]]]]
+[test_open_types,21,passed]
+R = passed.
+
+**/
+
+test_open_types_cases(21,[[n,delicious],[[v,a1]]],
+        [[[n,delicious],[[t,string]]]],
+        [[[n,delicious],[output]]],
+
+[
+        [[n,delicious],[[v,a3]],":-",
+        [        
+                [[n,writeln],["How will you make sure that the food tastes delicious?"]],
+                [[n,read_string],[[v,a3]]]
+
+        ]]
+]).
+
+% ["Creating and Helping Pedagogues","CREATE AND HELP PEDAGOGUES by Lucian Green Areas of Study to Create a Pedagogue 1 of 1.txt",0,algorithms,"1. *A peer should create a Pedagogue by writing 30 areas of study with 5 As, per student before they have the professor algorithm breasoned out for him or her. Have spiritual questions and answers set up to expand these breasonings, e.g. use the ways of thinking like breasonings, etc."]
+
+% Department algorithm filer
+
+/**
+?- test_open_types1(off,22,R).
+What department is the algorithm from?
+|: Popology
+What subject is the algorithm from?
+|: Interpreter
+What is a short description of the algorithm (2-3 words)?
+|: Verification of input, and output using a verify script.
+**/
+
+test_open_types_cases(22,[[n,department_filer],[[v,a1],[v,a2],[v,a3]]],
+        [[[n,department_filer],[[t,string],[t,string],[t,string]]]],
+        [[[n,department_filer],[output,output,output]]],
+
+[
+        [[n,department_filer],[[v,a1],[v,a2],[v,a3]],":-",
+        [        
+                [[n,writeln],["What department is the algorithm from?"]],
+                [[n,read_string],[[v,a1]]],
+                [[n,writeln],["What subject is the algorithm from?"]],
+                [[n,read_string],[[v,a2]]],
+                [[n,writeln],["What is a short description of the algorithm (2-3 words)?"]],
+                [[n,read_string],[[v,a3]]]
+        ]]
+]).
+
+% ["Short Arguments","Green_Sutra.txt",0,algorithms,"8. *I prepared to notice the Lucian Effect.  I did this by teaching others.  First, I taught the person.  Second, they taught someone else.  Third, I noticed the positive effects."]
+
+test_open_types_cases(23,[[n,lucian_effect],[[v,a1]]],
+        [[[n,lucian_effect],[[t,string]]]],
+        [[[n,lucian_effect],[output]]],
+
+[
+        [[n,lucian_effect],[[v,a1]],":-",
+        [        
+                [[n,writeln],["Would you like to silently repeat the Lucian mantra for twenty minutes twice per day, letting your thoughts become lighter and forgetting your stress?"]],
+                [[n,read_string],[[v,a1]]]
         ]]
 ]).
 
