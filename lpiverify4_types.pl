@@ -670,7 +670,7 @@ test_types_cases(40,[[n,guess_io],["+",[v,a2],[v,a3]]],
         [[n,guess_io],["-",[1,1],[0]]]
 ],[[[[v,a2],[1,1]],[[v,a3],[2]]]]).
 
-% ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Order in Conglish 2 of 4.txt",0,algorithms,"15.   I prepared to order the Conglish subjects.  I did this by observing the marriage.  First, I observed the partner place the ring on his or her partner’s finger.  Second, I observed the couple say their vows.  Third, I observed the couple sign the wedding register.  In this way, I prepared to order the Conglish subjects by observing the marriage."]
+% ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Order in Conglish 2 of 4.txt",0,algorithms,"15.   *I prepared to order the Conglish subjects.  I did this by observing the marriage.  First, I observed the partner place the ring on his or her partner’s finger.  Second, I observed the couple say their vows.  Third, I observed the couple sign the wedding register.  In this way, I prepared to order the Conglish subjects by observing the marriage."]
 
 % Order strings by length
 
