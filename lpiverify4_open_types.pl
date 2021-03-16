@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_open_types(Debug,NTotal,Score) :- test_open_types(Debug,0,NTotal,0,Score),!.
-test_open_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=23, !.
+test_open_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=24, !.
 test_open_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_open_types_cases(NTotal3,Query,Types,Modes,Functions),
@@ -572,3 +572,16 @@ test_open_types_cases(23,[[n,lucian_effect],[[v,a1]]],
         ]]
 ]).
 
+% ["Fundamentals of Pedagogy and Pedagogy Indicators","FUNDAMENTALS OF PEDAGOGY by Lucian Green Y Dimension 2 of 4.txt",0,algorithms,"19. *I prepared to grow.  I did this by eating the pear.  First, I shelled it.  Second, I sliced it.  Third, I ate it.  In this way, I prepared to grow by eating the pear."]
+
+test_open_types_cases(24,[[n,chinese_longevity_herbs],[[v,a1]]],
+        [[[n,chinese_longevity_herbs],[[t,string]]]],
+        [[[n,chinese_longevity_herbs],[output]]],
+
+[
+        [[n,chinese_longevity_herbs],[[v,a1]],":-",
+        [        
+                [[n,writeln],["Would you like to have Reishi Mushroom, Goji berries, Ginseng, He-Shou-Wu, Gotu Kola and Schisandra each day for longevity?"]],
+                [[n,read_string],[[v,a1]]]
+        ]]
+]).
