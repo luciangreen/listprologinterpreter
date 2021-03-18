@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=42, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=43, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -695,3 +695,17 @@ test_types_cases(42,[[n,same],[[1,2,3,4,5,6],[1,2,3,4,5,6]]],
         [[n,same],[[v,sequence1],[v,sequence1]]]
 ],[[]]).
 
+% ["Mind Reading","Mr other times 7.txt",0,algorithms,"57. *I responsibly chose an ontological value (side of the car that the steering wheel was on in the particular car) by mind reading the other time."]
+
+% Aus, UK - left hand traffic, US - right hand traffic
+
+test_types_cases(43,[[n,hand_traffic],["Australia",[v,a1]]],
+        [[[n,hand_traffic],[[t,string],[t,string]]]],
+        [[[n,hand_traffic],[input,output]]],
+
+[
+        [[n,hand_traffic],["Australia","left"]],
+        [[n,hand_traffic],["UK","left"]],
+        [[n,hand_traffic],["US","right"]]
+        
+],[[[[v,a1],"left"]]]).
