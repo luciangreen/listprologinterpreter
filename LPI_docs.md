@@ -337,7 +337,7 @@ test_types_cases(2,[[n,function],[[v,a],[v,b],[v,c]]],
 ,[[[[v,a], 1],[[v,b], "a"],[[v,c], [n,a]]]]).
 ```
 
-* The following type statement tests number and list types.
+* The following type statement tests number types.
 ```
 test_types_cases(1,[[n,function],[1,1,[v,c]]],
 [[[n,function],[[t,number],[t,number],[t,number]]]],
