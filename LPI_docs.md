@@ -230,23 +230,33 @@ which is triggered if the first base case is not matched.  It takes and returns 
 
 given the clause:
 ```
-		  [[n,compound21],[[v,t],[v,u]],"->",
-		  [[[n,a]],
-		  [[n,code],[[n,wrap],["a",[v,itemname1]]],
-		  [[n,append],[[v,t],[v,itemname1],[v,v]]]],
-		  [[n,compound212],[[v,v],[v,u]]]]],
+  [
+    [n,compound21],[[v,t],[v,u]],"->",
+    [
+      [[n,a]],
+      [[n,code],[[n,wrap],["a",[v,itemname1]]],
+        [[n,append],[[v,t],[v,itemname1],[v,v]]]
+      ],
+      [[n,compound212],[[v,v],[v,u]]]
+    ]
+  ],
 ```
 
 In it, `[[n,a]]` calls a grammar predicate called `"a"`.  `[[n,code],...]` is similar to `{}` in SWI-Prolog (it allows commands to be called within a grammar).  The code wraps a string and appends it to a list, before exiting code and calling the grammar predicate `compound212`.  `v` and `u` are not entry and exit strings, they are extra arguments, handled with `t` in the base cases 1 and 2 above.  The start of the entry string is matched with strings when [[n,a]] is called and any grammar predicates (outside `[[n,code],...]` i.e. `[[n,compound212],[[v,v],[v,u]]]` are given the rest of the entry string (an exit string), and this continues until the string ends at base case 1 or the string doesn't end at base case 2 and is processed in a later clause.
 
 * Sometimes there is another recursive clause, which calls itself:
 ```
-		  [[n,compound21],[[v,t],[v,u]],"->",
-		  [[[n,a]],",",
-		  [[n,compound21],[[],[v,compound1name]]],
-		  [[n,code],[[n,wrap],["a",[v,itemname1]]],
-		  [[n,append],[[v,t],[v,itemname1],[v,v]]],
-		  [[n,append],[[v,v],[v,compound1name],[v,u]]]]]],
+  [
+    [n,compound21],[[v,t],[v,u]],"->",
+    [
+      [[n,a]],",",
+      [[n,compound21],[[],[v,compound1name]]],
+      [[n,code],[[n,wrap],["a",[v,itemname1]]],
+        [[n,append],[[v,t],[v,itemname1],[v,v]]],
+        [[n,append],[[v,v],[v,compound1name],[v,u]]]
+      ]
+    ]
+  ],
 ```
 		  
 `[[n,a]]`, a call, could be substituted with `[v,b]`, however `[[n,a]]` would call a grammar predicate and `[v,b]` would return a character.
@@ -255,11 +265,16 @@ In it, `[[n,a]]` calls a grammar predicate called `"a"`.  `[[n,code],...]` is si
 
 E.g.:
 ```
-		  [[n,word21],[[v,t],[v,u]],"->",
-		  [[v,a],[[n,commaorrightbracketnext]],
-		  [[n,code],[[n,letters],[[v,a]]],
-		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
-		  [[n,word212],[[v,v],[v,u]]]]],
+  [
+    [n,word21],[[v,t],[v,u]],"->",
+    [
+      [v,a],[[n,commaorrightbracketnext]],
+      [[n,code],[[n,letters],[[v,a]]],
+        [[n,stringconcat],[[v,t],[v,a],[v,v]]]
+      ],
+      [[n,word212],[[v,v],[v,u]]]
+    ]
+  ],
 ```
 
 With `commaorrightbracketnext` (which looks ahead for a comma or `"]"`), it doesn't return true in `"a"` of `"ab,c"`
