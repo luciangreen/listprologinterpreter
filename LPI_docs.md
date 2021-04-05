@@ -208,7 +208,7 @@ test(8,[[n,grammar1],["apple"]],
 
 * Grammars may be recursive (see test 9 in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a>), i.e. they may repeat until triggering the base case.
 
-* Grammars may have extra arguments, placed after the other arguments.  The entry and exit string arguments are only used outside the grammar, and can be accessed, e.g.:
+* Grammars may have extra arguments, placed after the other arguments.  The entry and exit string arguments are only used outside the grammar, and can be accessed, e.g. `b` in:
 ```
 		  [[n,lookahead],[[v,a],[v,a],[v,b]],":-",
 		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
@@ -216,15 +216,17 @@ test(8,[[n,grammar1],["apple"]],
 Note: `":-"`, not `"->"`  
 		
 		
-* Base cases for recursive grammars require e.g.
+* Base case 1 for recursive grammars, which requires e.g.
 ```
 		  [[n,compound212],["","",[v,t],[v,t]]],
 ```
+which is triggered at the end of the string (`""`), taking and returning the extra argument `t`.
 
-and a "bottom case" in case it is not at the end of the string, e.g.:
+and a "bottom case" (base case 2) in case it is not at the end of the string, e.g.:
 ```
-		  [[n,compound212],[[v,u],[v,u],[v,t],[v,t]]],
+		  [[n,compound212],[[v,x],[v,x],[v,t],[v,t]]],
 ```
+which is triggered if the first base case is not matched.  It takes and returns `x` (the entry and exit strings) and the extra argument `t`.
 
 given the clause:
 ```
@@ -235,7 +237,7 @@ given the clause:
 		  [[n,compound212],[[v,v],[v,u]]]]],
 ```
 
-In it, `[[n,a]]` calls a grammar predicate called `"a"`.  `[[n,code],...]` is similar to `{}` in SWI-Prolog (it allows commands to be called within a grammar).  The code wraps a string and appends it to a list, before exiting code and calling the grammar predicate `compound212`.  `v` and `u` are not entry and exit strings, they are extra arguments, handled with `t` in the base cases above.
+In it, `[[n,a]]` calls a grammar predicate called `"a"`.  `[[n,code],...]` is similar to `{}` in SWI-Prolog (it allows commands to be called within a grammar).  The code wraps a string and appends it to a list, before exiting code and calling the grammar predicate `compound212`.  `v` and `u` are not entry and exit strings, they are extra arguments, handled with `t` in the base cases 1 and 2 above.  The start of the entry string is matched with strings when [[n,a]] is called and any grammar predicates (outside `[[n,code],...]` i.e. `[[n,compound212],[[v,v],[v,u]]]` are given the rest of the entry string (an exit string), and this continues until the string ends at base case 1 or the string doesn't end at base case 2 and is processed in a later clause.
 
 * Sometimes there is another recursive clause, which calls itself:
 ```
@@ -261,7 +263,7 @@ E.g.:
 ```
 
 With `commaorrightbracketnext` (which looks ahead for a comma or `"]"`), it doesn't return true in `"a"` of `"ab,c"`
-and goes to `"b"` instead as wanted.
+the when it is run and goes to `"b"` instead as wanted on another run.
 
 * Note, we can call `lookahead` as a grammar predicate:
 `[[n,lookahead],["ate"]]`
@@ -271,6 +273,7 @@ even though the predicate itself is not a grammar predicate:
 		  [[n,lookahead],[[v,a],[v,a],[v,b]],":-",
 		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
 ```
+where `[v,b]="ate"`.
 
 * Predicates or predicates to modify to provide the function of string to list (test 15), split on character(s) (test 17), `intersection` and `minus` are in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a>.
 
