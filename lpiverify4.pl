@@ -1401,7 +1401,7 @@ test(52,[[n,mainrole],[7,[v,c]]],
 	[[[n,not],[[[[n,=],[[v,shortcourses],7]]]]]]] ]       
 ,[[[[v,c], "mainrole"]]]).
 
-%% c=f((g(2)), 1, 1)
+%% c=f(g(2), 1, 1)
 test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
 %%test(53,[[n,getitemn],[1,[1,2,3],[v,bb]]],
 [
