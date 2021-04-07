@@ -242,7 +242,7 @@ given the clause:
   ],
 ```
 
-In it, `[[n,a]]` calls a grammar predicate called `"a"`.  `[[n,code],...]` is similar to `{}` in SWI-Prolog (it allows commands to be called within a grammar).  The code wraps a string and appends it to a list, before exiting code and calling the grammar predicate `compound212`.  `v` and `u` are not entry and exit strings, they are extra arguments, handled with `t` in the base cases 1 and 2 above.  The start of the entry string is matched with strings when [[n,a]] is called and any grammar predicates (outside `[[n,code],...]` i.e. `[[n,compound212],[[v,v],[v,u]]]` are given the rest of the entry string (an exit string), and this continues until the string ends at base case 1 or the string doesn't end at base case 2 and is processed in a later clause.
+In it, `[[n,a]]` calls a grammar predicate called `"a"`.  `[[n,code],...]` is similar to `{}` in SWI-Prolog (it allows commands to be called within a grammar).  The code wraps a string and appends it to a list, before exiting code and calling the grammar predicate `compound212`.  `v` and `u` are not entry and exit strings, they are extra arguments, handled with `t` in the base cases 1 and 2 above.  The start of the entry string is matched with strings when [[n,a]] is called and any grammar predicates (outside `[[n,code],...]` i.e. `[[n,compound212],[[v,v],[v,u]]]` are given the rest of the entry string (which is an exit string), and this continues until the string ends at base case 1 or the string doesn't end at base case 2 and is processed in a later clause.
 
 * Sometimes there is another recursive clause, which calls itself:
 ```
@@ -278,7 +278,7 @@ E.g.:
 ```
 
 With `commaorrightbracketnext` (which looks ahead for a comma or `"]"`), it doesn't return true in `"a"` of `"ab,c"`
-the when it is run and goes to `"b"` instead as wanted on another run.
+when it is run and goes to `"b"` instead as wanted on another run.
 
 * Note, we can call `lookahead` as a grammar predicate:
 `[[n,lookahead],["ate"]]`
@@ -298,7 +298,7 @@ where `[v,b]="ate"`.
 
 * In the following, `[[n,function],[[[n,function2],[2]],1,1,[v,c]]]` function2 is passed as a variable.  `[v,f11]` is replaced with the function name.
 ```
-%% c=f((g(2)), 1, 1)
+%% c=f(g(2), 1, 1)
 test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
 [
         [[n,function],[[v,f1],[v,a],[v,b],[v,c]],":-",
@@ -446,6 +446,6 @@ test_types_cases(2,[[n,function],[[v,a],[v,b],[v,c]]],
 ,[[[[v,a], 1],[[v,b], "a"],[[v,c], [n,a]]]]).
 ```
 
-`[[[n,function],[output,output,output]]],` is the mode statement, which must follow the type statement (although these are optional).  The Mode Statement specifies whether each of the variables takes input or gives output.
+`[[[n,function],[output,output,output]]],` is the mode statement, which must follow the type statement (although type and mode statements together are optional).  The Mode Statement specifies whether each of the variables takes input or gives output.
 
 * For other examples (including the list type), please see <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a>, <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_types.pl">lpiverify4_types.pl</a> (for examples with types), <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open.pl">lpiverify4_open.pl</a> (for examples with open-ended results) and <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open_types.pl">lpiverify4_open_types.pl</a> (for examples with open-ended results with types).
