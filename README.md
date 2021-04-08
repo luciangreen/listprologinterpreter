@@ -8,32 +8,40 @@ Please read the following instructions on how to install the project on your com
 
 # Prerequisites
 
-The <a href="https://github.com/luciangreen/Languages">Languages repository</a> enables List Prolog Interpreter to be run in different languages.
+* Please download and install SWI-Prolog for your machine at `https://www.swi-prolog.org/build/`.
 
-<a href="https://github.com/luciangreen/culturaltranslationtool">Cultural Translation Tool</a>. Requires Translation Shell:
+* You may need to install gawk using Homebrew.
 
-You may need to install gawk using Homebrew.
+* Install <a href="https://github.com/soimort/translate-shell">Translation Shell</a> on Mac, etc.
+Change line in
+```
+culturaltranslationtool/ctt.pl
+concat_list(["../../../trans ",FromLang,":",ToLang," '",Input1,"'"],F),
+```
+to correct location of <a href="https://github.com/soimort/translate-shell">trans</a>.
 
-Install <a href="https://github.com/soimort/translate-shell">Translation Shell</a> on Mac, etc.
-Change line in culturaltranslationtool/ctt.pl
-`concat_list(["../../../trans ",FromLang,":",ToLang," '",Input1,"'"],F),` to correct location of <a href="https://github.com/soimort/translate-shell">trans</a>
+# 1. Install manually
 
-# Installation from List Prolog Package Manager (LPPM)
+Download <a href="http://github.com/luciangreen/listprologinterpreter/">this repository</a>, the <a href="https://github.com/luciangreen/Languages">Languages repository</a> and <a href="https://github.com/luciangreen/culturaltranslationtool">Cultural Translation Tool</a>.
 
-* Optionally, you can install from LPPM by installing <a href="https://www.swi-prolog.org/build/">SWI-Prolog</a> for your machine, downloading the <a href="https://github.com/luciangreen/List-Prolog-Package-Manager">LPPM Repository</a>,
+# 2. Or Install from List Prolog Package Manager (LPPM)
+
+* Download the <a href="https://github.com/luciangreen/List-Prolog-Package-Manager">LPPM Repository</a>:
+
 ```
 git clone https://github.com/luciangreen/List-Prolog-Package-Manager.git
 cd List-Prolog-Package-Manager
 swipl
+['lppm'].
+lppm_install("luciangreen","listprologinterpreter")
+halt
 ```
-loading LPPM with `['lppm'].` then installing the package by running `lppm_install("luciangreen","listprologinterpreter").`.
 
-# Installing
+# Running
 
-* Please download and install SWI-Prolog for your machine at https://www.swi-prolog.org/build/.
-
-* Download the repository to your machine.
-In the SWI-Prolog environment, enter:
+* In Shell:
+`cd listprologinterpreter`
+`swipl`
 `['listprolog'].`    
 
 * Running the tests
