@@ -30,7 +30,7 @@ interpret(off,[[n,function],[1,1,[v,c]]],
 ```
 
 The result of the query is:
-`Result=[[[[v,c], 2]]]`  This is the list of non-deterministic results (i.e. ones that SWI-Prolog would return after pressing `";"`) containing the list of variable values.
+`Result=[[[[v,c], 2]]]`  This is the list of non-deterministic results (i.e. ones that SWI-Prolog would return after pressing `";"`) containing the list of variable values. [] is returned if the predicate is false and [[]] is returned if the predicate is true, but there are no results.
 
 
 # Documentation of Body Structures
@@ -173,8 +173,6 @@ For example:
 * `[[n,string_length],[Variable1,Variable2]]` e.g. `[[n,string_length],["abc",[v,b]]` returns `[v,b]=3`
 
 * `[[n,sort],[Variable1,Variable2]]` e.g. `[[n,sort],[[1,3,2],[v,b]]` returns `[v,b]=[1,2,3]`
-
-* `[[n,intersection],[Variable1,Variable2]]` e.g. `[[n,intersection],[[1,3,2],[3,4,5],[v,b]]` returns `[v,b]=[3]`
 
 * `[[n,intersection],[Variable1,Variable2]]` e.g. `[[n,intersection],[[1,3,2],[3,4,5],[v,b]]` returns `[v,b]=[3]`
 
@@ -448,4 +446,4 @@ test_types_cases(2,[[n,function],[[v,a],[v,b],[v,c]]],
 
 `[[[n,function],[output,output,output]]],` is the mode statement, which must follow the type statement (although type and mode statements together are optional).  The Mode Statement specifies whether each of the variables takes input or gives output.
 
-* For other examples (including the list type), please see <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a>, <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_types.pl">lpiverify4_types.pl</a> (for examples with types), <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open.pl">lpiverify4_open.pl</a> (for examples with open-ended results) and <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open_types.pl">lpiverify4_open_types.pl</a> (for examples with open-ended results with types).
+* For other examples, please see <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a>, <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_types.pl">lpiverify4_types.pl</a> (for examples with types, including the list type), <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open.pl">lpiverify4_open.pl</a> (for examples with open-ended results) and <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open_types.pl">lpiverify4_open_types.pl</a> (for examples with open-ended results with types).
