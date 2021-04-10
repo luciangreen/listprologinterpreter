@@ -22,7 +22,7 @@ to correct location of <a href="https://github.com/soimort/translate-shell">tran
 
 # 1. Install manually
 
-Download <a href="http://github.com/luciangreen/listprologinterpreter/">this repository</a>, the <a href="https://github.com/luciangreen/Languages">Languages repository</a> and <a href="https://github.com/luciangreen/culturaltranslationtool">Cultural Translation Tool</a>.
+Download <a href="http://github.com/luciangreen/listprologinterpreter/">this repository</a>, the <a href="https://github.com/luciangreen/Languages">Languages repository</a> (which enables List Prolog Interpreter to be run in different languages) and <a href="https://github.com/luciangreen/culturaltranslationtool">Cultural Translation Tool</a>.
 
 # 2. Or Install from List Prolog Package Manager (LPPM)
 
