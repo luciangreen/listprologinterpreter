@@ -13,7 +13,7 @@
 %%:- include('texttobr2.pl').
 :- include('la_strings.pl').
 %:- include('../Languages/lang_db_generator.pl'). % leave off, run separately through Languages
-:- include('lpiverify4-fr.pl').
+%:- include('lpiverify4-fr.pl').
 :- include('operators.pl').
 :- include('lpiverify4_test_lang_all.pl').
 :- include('lpiverify4_test_bt_lang_all.pl').
