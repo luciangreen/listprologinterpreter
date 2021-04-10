@@ -89,6 +89,7 @@ To run all tests (main, types, open and open types) in any language:
 ```
 test_all00("en2",off,NTotal,Score).
 ```
+where "en2" is an English language with e.g. `"concatenate strings"` instead of `stringconcat` (see available <a href="https://github.com/soimort/translate-shell">language codes</a>).
 
 To run a test from one of main, types, open or open types, run one of:
 ```
