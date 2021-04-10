@@ -152,7 +152,7 @@ See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/D2
 
 <img src="https://www.lucianacademy.com/files/Philosophy/LucianGreensPhilosophyMay2020/Diagram%20of%20List%20Prolog%20Converters.png" alt="Diagram of List Prolog Converters">
 
-See the <a href="https://github.com/luciangreen">list of repositories by luciangreen</a> for these.
+See <a href="https://github.com/luciangreen/Simple-List-Prolog-to-List-Prolog">Simple-List-Prolog-to-List-Prolog</a>, <a href="https://github.com/luciangreen/Prolog-to-List-Prolog">Prolog-to-List-Prolog (includes Prolog to Simple List Prolog)</a> and <a href="https://github.com/luciangreen/List-Prolog-to-Prolog-Converter">List-Prolog-to-Prolog-Converter</a>.
 
 # Versioning
 
