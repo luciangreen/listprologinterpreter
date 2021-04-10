@@ -176,8 +176,6 @@ For example:
 
 * `[[n,intersection],[Variable1,Variable2]]` e.g. `[[n,intersection],[[1,3,2],[3,4,5],[v,b]]` returns `[v,b]=[3]`
 
-* `[[n,intersection],[Variable1,Variable2]]` e.g. `[[n,intersection],[[1,3,2],[3,4,5],[v,b]]` returns `[v,b]=[3]`
-
 * `[[n,read_string],[Variable1]]` e.g. `[[n,read_string],[[v,a]]` asks for input and returns `[v,a]="hello"`
 
 * `[[n,writeln],[Variable1]]` e.g. `[[n,writeln],[[v,a]]` asks for input and returns `[v,a]="hello"`
