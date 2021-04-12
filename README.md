@@ -152,6 +152,24 @@ See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/D2
 
 <img src="https://www.lucianacademy.com/files/Philosophy/LucianGreensPhilosophyMay2020/Diagram%20of%20List%20Prolog%20Converters.png" alt="Diagram of List Prolog Converters">
 
+```
+* Above: Cycle of Normal Prolog e.g. a(B,C):-d(E),f. to Simple List Prolog e.g. 
+[[f1, [a, b, c, d, e], (:-),
+[[+, [a, b, f]],
+[+, [c, f, g]],
+[+, [d, g, h]],
+[=, [e, h]]]]]
+(Prolog-to-List-Prolog Converter), to List Prolog e.g.
+[
+[[n,function],[[v,a],[v,b],[v,c]],":-",
+[
+  [[n,+],[[v,a],[v,b],[v,c]]]
+  ]
+]
+]
+(Simple-List-Prolog-to-List-Prolog) back to Normal Prolog (List-Prolog-to-Prolog-Converter).
+```
+
 See <a href="https://github.com/luciangreen/Simple-List-Prolog-to-List-Prolog">Simple-List-Prolog-to-List-Prolog</a>, <a href="https://github.com/luciangreen/Prolog-to-List-Prolog">Prolog-to-List-Prolog (includes Prolog to Simple List Prolog)</a> and <a href="https://github.com/luciangreen/List-Prolog-to-Prolog-Converter">List-Prolog-to-Prolog-Converter</a>.
 
 # Versioning
