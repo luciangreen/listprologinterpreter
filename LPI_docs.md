@@ -187,6 +187,20 @@ For example:
 
 * List Prolog supports grammars, for example:
 
+* Grammars may be recursive (see test 9 in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a>), i.e. they may repeat until triggering the base case:
+
+```
+test(9,[[n,grammar1],["aaa"]],
+[
+	[[n,grammar1],[[v,s]],":-",[[[n,noun],[[v,s],""]]]],
+	[[n,noun],"->",[""]],
+	[[n,noun],"->",["a",[[n,noun]]]]
+	],
+[[]]).
+```
+
+* And:
+
 ```
 test(8,[[n,grammar1],["apple"]],
 [
@@ -290,46 +304,6 @@ where `[v,b]="ate"`.
 
 * Predicates or predicates to modify to provide the function of string to list (test 15), split on character(s) (test 17), `intersection` and `minus` are in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a>.
 
-# Functional List Prolog (FLP)
-
-* List Prolog has an optional functional mode.  In FLP, function calls may be passed as variables and functions may have strong types.
-
-* In the following, `[[n,function],[[[n,function2],[2]],1,1,[v,c]]]` function2 is passed as a variable.  `[v,f11]` is replaced with the function name.
-```
-%% c=f(g(2), 1, 1)
-test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
-[
-        [[n,function],[[v,f1],[v,a],[v,b],[v,c]],":-",
-        [
-                [[n,equals1],[[v,f1],[[v,f11],[v,f12]]]],
-                [[n,getitemn],[1,[v,f12],[v,bb]]],
-                [[v,f11],[[v,bb],[v,d],[v,f]]],
-                [[n,+],[[v,a],[v,b],[v,e]]],
-                [[n,+],[[v,e],[v,f],[v,g]]],
-                [[n,+],[[v,g],[v,d],[v,c]]]
-        ]
-        ],
-        [[n,function2],[[v,bb],[v,a],[v,f]],":-",
-        [
-                [[n,is],[[v,a],[v,bb]]],
-                [[n,is],[[v,f],1]]
-        ]
-        ],
-
-        [[n,getitemn],[1,[v,b],[v,c]],":-",
-        [       [[n,head],[[v,b],[v,c]]]
-        ]],
-        [[n,getitemn],[[v,a],[v,b],[v,c]],":-",
-        [       [[n,not],[[[n,=],[[v,a],0]]]],
-                [[n,tail],[[v,b],[v,t]]],
-                [[n,-],[[v,a],1,[v,d]]],
-                [[n,getitemn],[[v,d],[v,t],[v,c]]]
-        ]]
-]
-
-,[[[[v,c], 5]]]).
-```
-
 # Type Statements
 
 * Functions may have strong types, which check inputted values when calling a function and check all values when exiting a function.  So far, any type statement with the name and arity of the function may match data for a call to that function.
@@ -338,10 +312,29 @@ test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
 
 * Note: Mode statements, described in the next section, are required after Type Statements.
 
+* Type Statements may be recursive (see test 23 in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_types.pl">lpiverify4_types.pl</a>), i.e. they may repeat until triggering the base case:
+
+```
+test_types_cases(23,[[n,connect_cliques],[[["a",1],[1,2],[2,"b"]],[["a",3],[3,4],[4,"b"]],[v,output]]],
+[
+	[[n,connect_cliques],[[t,list2],[t,list2],[t,list2]]],
+	[[t,item],[[t,number]]],
+	[[t,item],[[t,string]]],
+	[[t,list2],[[[t,list],[[t,item]]]]],
+	[[t,list2],[[[t,list],[[t,list2]]]]]
+],
+	[[[n,connect_cliques],[input,input,output]]],
+	[[[n,connect_cliques],[[v,a],[v,b],[v,c]],":-",
+		[[[n,append],[[v,a],[v,b],[v,c]]]]]],
+[[[[v,output],[["a",1],[1,2],[2,"b"],["a",3],[3,4],[4,"b"]]]]]).
+```
+
+* Also:
 
 ```
 test_types_cases(2,[[n,function],[[v,a],[v,b],[v,c]]],
 [[[n,function],[[t,number],[t,string],[t,predicatename]]]],
+[[[n,function],[output,output,output]]],
 [
         [[n,function],[[v,a],[v,b],[v,c]],":-",
         [
@@ -357,6 +350,7 @@ test_types_cases(2,[[n,function],[[v,a],[v,b],[v,c]]],
 ```
 test_types_cases(1,[[n,function],[1,1,[v,c]]],
 [[[n,function],[[t,number],[t,number],[t,number]]]],
+[[[n,function],[input,input,output]]],
 [
         [[n,function],[[v,a],[v,b],[v,c]],":-",
         [
@@ -371,6 +365,7 @@ test_types_cases(1,[[n,function],[1,1,[v,c]]],
 ```
 test_types_cases(3,[[n,function],[[v,a]]],
 [[[n,function],[[[t,brackets],[[t,number]]]]]],
+[[[n,function],[output]]],
 [
         [[n,function],[[1]]]
 ]
@@ -381,6 +376,7 @@ test_types_cases(3,[[n,function],[[v,a]]],
 ```
 test_types_cases(4,[[n,f],[[v,a],[v,b],[v,c],[v,d]]],
 [[[n,f],[[t,number],[t,string],[t,number],[t,string]]]],
+[[[n,f],[output,output,output,output]]],
 [
         [[n,f],[1,"a",2,"b"]]
 ]
@@ -396,6 +392,9 @@ test_types_cases(5,[[n,f],[[v,a],[v,b]]],
         [[t,b],[[t,string]]]
 ],
 [
+        [[n,f],[output,output]]
+],
+[
         [[n,f],[1,"a"]]
 ]
 ,[[[[v,a], 1],[[v,b], "a"]]]).
@@ -408,6 +407,9 @@ test_types_cases(6,[[n,f],[[v,a]]],
         [[n,f],[[t,a]]],
         [[t,a],[[t,number]]],
         [[t,a],[[t,string]]]
+],
+[
+        [[n,f],[output]]
 ],
 [
         [[n,f],["a"]]
@@ -445,5 +447,93 @@ test_types_cases(2,[[n,function],[[v,a],[v,b],[v,c]]],
 ```
 
 `[[[n,function],[output,output,output]]],` is the mode statement, which must follow the type statement (although type and mode statements together are optional).  The Mode Statement specifies whether each of the variables takes input or gives output.
+
+# Functional List Prolog (FLP)
+
+* List Prolog has an optional functional mode.  In FLP, function calls may be passed as variables and functions may have strong types.
+
+* Functional algorithms may be recursive (see test 7 in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_types.pl">lpiverify4_types.pl</a>), i.e. they may repeat until triggering the base case:
+
+```
+test_types_cases(7,[[n,map],[[[n,add],[[[n,add],[[[n,add],[1]]]]]],0,[v,d]]],
+[
+	[[n,map],[[[t,brackets],[[t,predicatename],
+		[[t,brackets],[[t,number]]]]],[t,number],[t,number]]],	
+	[[n,map],[[[t,brackets],[[t,predicatename],
+		[[t,brackets],[[t,any]]]]],[t,number],[t,number]]],
+	[[n,add],[[t,number],[t,number],[t,number]]],
+	[[n,getitemn],[[t,number],[[t,list],[[t,any]]],[t,any]]]
+],
+
+[
+	[[n,map],[input,input,output]],
+                
+	[[n,add],[input,input,output]],
+        
+	[[n,getitemn],[input,input,output]]
+],
+
+[
+	[[n,map],[[v,f1],[v,l],[v,n]],":-",
+		[[[n,equals1],[[v,f1],[[v,f11],[v,f12]]]],
+		[[n,=],[[v,f11],[n,add]]],
+		[[n,getitemn],[1,[v,f12],[v,bb]]],
+		[[n,number],[[v,bb]]],
+		[[v,f11],[[v,l],[v,bb],[v,n]]]]],       
+	[[n,map],[[v,f1],[v,l],[v,n]],":-",
+		[[[n,equals1],[[v,f1],[[v,f11],[v,f12]]]],
+		[[n,=],[[v,f11],[n,add]]],
+		[[n,getitemn],[1,[v,f12],[v,bb]]],
+		[[v,f11],[[v,l],1,[v,l2]]],
+		[[n,map],[[v,bb],[v,l2],[v,n]]]]],
+	[[n,add],[[v,a],[v,b],[v,c]],":-",
+		[[n,+],[[v,a],[v,b],[v,c]]]],
+	[[n,getitemn],[1,[v,b],[v,c]],":-",
+		[[n,head],[[v,b],[v,c]]]],
+	[[n,getitemn],[[v,a],[v,b],[v,c]],":-",
+		[[[n,not],[[[n,=],[[v,a],1]]]],
+		[[n,tail],[[v,b],[v,t]]],
+		[[n,-],[[v,a],1,[v,d]]],
+		[[n,getitemn],[[v,d],[v,t],[v,c]]]]]
+],
+
+[[[[v,d], 3]]]).
+```
+
+* In the following, `[[n,function],[[[n,function2],[2]],1,1,[v,c]]]` function2 is passed as a variable.  `[v,f11]` is replaced with the function name.
+```
+%% c=f(g(2), 1, 1)
+test(53,[[n,function],[[[n,function2],[2]],1,1,[v,c]]],
+[
+        [[n,function],[[v,f1],[v,a],[v,b],[v,c]],":-",
+        [
+                [[n,equals1],[[v,f1],[[v,f11],[v,f12]]]],
+                [[n,getitemn],[1,[v,f12],[v,bb]]],
+                [[v,f11],[[v,bb],[v,d],[v,f]]],
+                [[n,+],[[v,a],[v,b],[v,e]]],
+                [[n,+],[[v,e],[v,f],[v,g]]],
+                [[n,+],[[v,g],[v,d],[v,c]]]
+        ]
+        ],
+        [[n,function2],[[v,bb],[v,a],[v,f]],":-",
+        [
+                [[n,is],[[v,a],[v,bb]]],
+                [[n,is],[[v,f],1]]
+        ]
+        ],
+
+        [[n,getitemn],[1,[v,b],[v,c]],":-",
+        [       [[n,head],[[v,b],[v,c]]]
+        ]],
+        [[n,getitemn],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,not],[[[n,=],[[v,a],0]]]],
+                [[n,tail],[[v,b],[v,t]]],
+                [[n,-],[[v,a],1,[v,d]]],
+                [[n,getitemn],[[v,d],[v,t],[v,c]]]
+        ]]
+]
+
+,[[[[v,c], 5]]]).
+```
 
 * For other examples, please see <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a>, <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_types.pl">lpiverify4_types.pl</a> (for examples with types, including the list type), <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open.pl">lpiverify4_open.pl</a> (for examples with open-ended results) and <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open_types.pl">lpiverify4_open_types.pl</a> (for examples with open-ended results with types).
