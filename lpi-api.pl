@@ -67,7 +67,7 @@ term_to_atom(Debug2,'off'),
 term_to_atom(Query2,Query1),
 term_to_atom(Functions2,Functions1),
 
-interpret(Debug2,Query2,Functions2,Result),
+international_interpret([lang,"en"],Debug2,Query2,Functions2,Result),
 																														%%format('</p><p>========~n', []),
 																															%%portray_clause
 																															portray_clause(Result),
