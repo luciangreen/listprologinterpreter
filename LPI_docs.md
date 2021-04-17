@@ -178,7 +178,7 @@ For example:
 
 * `[[n,read_string],[Variable1]]` e.g. `[[n,read_string],[[v,a]]` asks for input and returns `[v,a]="hello"`
 
-* `[[n,writeln],[Variable1]]` e.g. `[[n,writeln],[[v,a]]` asks for input and returns `[v,a]="hello"`
+* `[[n,writeln],[Variable1]]` e.g. `[[n,writeln],[[v,a]]` writes `[v,a]` which is `"hello"`
 
 * See lpiverify4.pl for examples of rules (predicates without bodies) and calls to predicates.
 
