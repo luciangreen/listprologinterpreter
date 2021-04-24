@@ -455,49 +455,73 @@ test_types_cases(2,[[n,function],[[v,a],[v,b],[v,c]]],
 * Functional algorithms may be recursive (see test 7 in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_types.pl">lpiverify4_types.pl</a>), i.e. they may repeat until triggering the base case:
 
 ```
-test_types_cases(7,[[n,map],[[[n,add],[[[n,add],[[[n,add],[1]]]]]],0,[v,d]]],
+test_types_cases(7,[[n,map],[[[n,add],[[[n,add],[[[n,add],1]]]]],0,[v,d]]],
 [
-	[[n,map],[[[t,brackets],[[t,predicatename],
-		[[t,brackets],[[t,number]]]]],[t,number],[t,number]]],	
-	[[n,map],[[[t,brackets],[[t,predicatename],
-		[[t,brackets],[[t,any]]]]],[t,number],[t,number]]],
-	[[n,add],[[t,number],[t,number],[t,number]]],
-	[[n,getitemn],[[t,number],[[t,list],[[t,any]]],[t,any]]]
-],
-
-[
-	[[n,map],[input,input,output]],
-                
-	[[n,add],[input,input,output]],
+        [[n,map],[[t,number],
+        [t,number],[t,number]]],
         
-	[[n,getitemn],[input,input,output]]
+        [[n,map],[[[t,brackets],[[t,predicatename],
+        [t,number]]],
+        [t,number],[t,number]]],
+        
+        [[n,map],[[[t,brackets],[[t,predicatename],
+        [[t,brackets],[[t,any]]]]],
+        [t,number],[t,number]]],
+        
+        [[n,add],[[t,number],[t,number],[t,number]]],
+        
+        [[n,getitemn],[[t,number],[[t,list],[[t,any]]],[t,any]]]
 ],
-
 [
-	[[n,map],[[v,f1],[v,l],[v,n]],":-",
-		[[[n,equals1],[[v,f1],[[v,f11],[v,f12]]]],
-		[[n,=],[[v,f11],[n,add]]],
-		[[n,getitemn],[1,[v,f12],[v,bb]]],
-		[[n,number],[[v,bb]]],
-		[[v,f11],[[v,l],[v,bb],[v,n]]]]],       
-	[[n,map],[[v,f1],[v,l],[v,n]],":-",
-		[[[n,equals1],[[v,f1],[[v,f11],[v,f12]]]],
-		[[n,=],[[v,f11],[n,add]]],
-		[[n,getitemn],[1,[v,f12],[v,bb]]],
-		[[v,f11],[[v,l],1,[v,l2]]],
-		[[n,map],[[v,bb],[v,l2],[v,n]]]]],
-	[[n,add],[[v,a],[v,b],[v,c]],":-",
-		[[n,+],[[v,a],[v,b],[v,c]]]],
-	[[n,getitemn],[1,[v,b],[v,c]],":-",
-		[[n,head],[[v,b],[v,c]]]],
-	[[n,getitemn],[[v,a],[v,b],[v,c]],":-",
-		[[[n,not],[[[n,=],[[v,a],1]]]],
-		[[n,tail],[[v,b],[v,t]]],
-		[[n,-],[[v,a],1,[v,d]]],
-		[[n,getitemn],[[v,d],[v,t],[v,c]]]]]
+        [[n,map],[input,input,output]],
+                
+        [[n,add],[input,input,output]],
+        
+        [[n,getitemn],[input,input,output]]
 ],
+[
+        [[n,map],[[v,f1],[v,n1],[v,n]],":-",
+        [        
+                [[n,number],[[v,f1]]],
+                [[n,add],[[v,n1],[v,f1],[v,n]]]
+        ]
+        ],       
+        [[n,map],[[v,f1],[v,l],[v,n]],":-",
+        [        
+                [[n,equals1],[[v,f1],[[v,f11],[v,bb]]]],
+                [[n,=],[[v,f11],[n,add]]],
+                [[n,number],[[v,bb]]],
+                [[v,f11],[[v,l],[v,bb],[v,n1]]],
+                [[v,f11],[[v,n1],[v,bb],[v,n]]]
+        ]
+        ],       
+        [[n,map],[[v,f1],[v,l],[v,n]],":-",
+        [        
+                [[n,equals1],[[v,f1],[[v,f11],[v,f12]]]],
+                [[n,=],[[v,f11],[n,add]]],
+                [[n,getitemn],[1,[v,f12],[v,bb]]],
+                [[v,f11],[[v,l],1,[v,l2]]],
+                [[n,map],[[v,bb],[v,l2],[v,n]]]
+        ]
+        ],
 
-[[[[v,d], 3]]]).
+        [[n,add],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,+],[[v,a],[v,b],[v,c]]]
+        ]],
+
+        [[n,getitemn],[1,[v,b],[v,c]],":-",
+        [       [[n,head],[[v,b],[v,c]]]
+        ]],
+        [[n,getitemn],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,not],[[[n,=],[[v,a],1]]]],
+                [[n,tail],[[v,b],[v,t]]],
+                [[n,-],[[v,a],1,[v,d]]],
+                [[n,getitemn],[[v,d],[v,t],[v,c]]]
+        ]]
+
+]
+
+,[[[[v,d], 4]]]).
 ```
 
 * In the following, `[[n,function],[[[n,function2],[2]],1,1,[v,c]]]` function2 is passed as a variable.  `[v,f11]` is replaced with the function name.
