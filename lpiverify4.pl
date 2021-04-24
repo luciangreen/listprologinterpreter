@@ -248,7 +248,7 @@ test(14,[[n,grammar1],["[a]",[v,t]]],
 ],[[[[v,t],["a"]]]]).
 
 
-test(15,[[n,grammar1],["[[aa,b],1]",[v,t]]],
+test(15,[[n,grammar1],["[[\"aa\",\"b\"],1]",[v,t]]],
 %%test(15,[[n,compound213],["","",[["a"],1],[v,t]]],
 
 [
@@ -290,7 +290,8 @@ test(15,[[n,grammar1],["[[aa,b],1]",[v,t]]],
 		  [[[n,number21],["",[v,u]]],[[n,code],
 		  [[n,stringtonumber],[[v,u],[v,t]]]]]],
 
-		  [[n,item],[[v,t]],"->",[[[n,word21],["",[v,t]]]]],
+		  [[n,item],[[v,t]],"->",["\"",[[n,word21],["",[v,t]]],
+		    "\""]],
 
 		  [[n,item],[[v,t]],"->",[[[n,compound],[[],[v,t]]]]],
 
@@ -319,7 +320,7 @@ test(15,[[n,grammar1],["[[aa,b],1]",[v,t]]],
 		  [[n,word212],[[v,u],[v,u],[v,t],[v,t]]],
 
 		  [[n,word21],[[v,t],[v,u]],"->",
-		  [[v,a],[[n,commaorrightbracketnext]],
+		  [[v,a],[[n,commaquoteorrightbracketnext]],
 		  [[n,code],[[n,letters],[[v,a]]],
 		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
 		  [[n,word212],[[v,v],[v,u]]]]],
@@ -337,6 +338,16 @@ test(15,[[n,grammar1],["[[aa,b],1]",[v,t]]],
 
 		  [[n,commaorrightbracketnext],"->",
 		  [[[n,lookahead],["]"]]]],
+		  
+		  [[n,commaquoteorrightbracketnext],"->",
+		  [[[n,lookahead],[","]]]],
+
+		  [[n,commaquoteorrightbracketnext],"->",
+		  [[[n,lookahead],["]"]]]],
+		  
+		  [[n,commaquoteorrightbracketnext],"->",
+		  [[[n,lookahead],["\""]]]],
+
 		  
 		  [[n,lookahead],[[v,a],[v,a],[v,b]],":-",
 		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
