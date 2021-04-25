@@ -180,6 +180,9 @@ For example:
 
 * `[[n,writeln],[Variable1]]` e.g. `[[n,writeln],[[v,a]]` writes `[v,a]` which is `"hello"`
 
+* `[[n,atom_string],[Variable1,Variable2]]` e.g. `[[n,atom_string],[a,[v,b]]` returns `[v,b]="a"` or `[[n,atom_string],[[v,b],"a"]` returns `[v,b]=a`
+
+
 * See lpiverify4.pl for examples of rules (predicates without bodies) and calls to predicates.
 
 

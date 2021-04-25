@@ -248,7 +248,13 @@ test(14,[[n,grammar1],["[a]",[v,t]]],
 ],[[[[v,t],["a"]]]]).
 
 
-test(15,[[n,grammar1],["[[\"aa\",\"b\"],1]",[v,t]]],
+% n,letters needs to include chars except quote
+
+%test(15,[[n,grammar1],["[[\"aa,]\",\"b\",a],1]",[v,t]]],
+test(15,[[n,grammar1],["[[\"aa,]\",b],1]",[v,t]]],
+%est(15,[[n,item],["\"aa,\"","",[v,t]]],
+%test(15,[[n,item],["a","",[v,t]]],
+%test(15,[[n,grammar1],["[a]",[v,t]]],
 %%test(15,[[n,compound213],["","",[["a"],1],[v,t]]],
 
 [
@@ -286,12 +292,15 @@ test(15,[[n,grammar1],["[[\"aa\",\"b\"],1]",[v,t]]],
 		  [[n,append],[[v,t],[v,itemname1],[v,v]]],
 		  [[n,append],[[v,v],[v,compound1name],[v,u]]]]]],
 
+		  [[n,item],[[v,t]],"->",["\"",[[n,word21],["",[v,t]]],
+		    "\""]],
+
 		  [[n,item],[[v,t]],"->",
 		  [[[n,number21],["",[v,u]]],[[n,code],
 		  [[n,stringtonumber],[[v,u],[v,t]]]]]],
 
-		  [[n,item],[[v,t]],"->",["\"",[[n,word21],["",[v,t]]],
-		    "\""]],
+		  [[n,item],[[v,t]],"->",[[[n,word21_atom],["",[v,t1]]],
+		  [[n,code],[[n,atom_string],[[v,t],[v,t1]]]]]], % atoms
 
 		  [[n,item],[[v,t]],"->",[[[n,compound],[[],[v,t]]]]],
 
@@ -320,16 +329,43 @@ test(15,[[n,grammar1],["[[\"aa\",\"b\"],1]",[v,t]]],
 		  [[n,word212],[[v,u],[v,u],[v,t],[v,t]]],
 
 		  [[n,word21],[[v,t],[v,u]],"->",
-		  [[v,a],[[n,commaquoteorrightbracketnext]],
-		  [[n,code],[[n,letters],[[v,a]]],
+		  [[v,a],[[n,quote_next]],
+		  [[n,code],%[[n,letters],[[v,a]]],
+		  [[n,not],[[[n,=],[[v,a],"\""]]]],
 		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
 		  [[n,word212],[[v,v],[v,u]]]]],
 
 		  [[n,word21],[[v,t],[v,u]],"->",
 		  [[v,a],
-		  [[n,code],[[n,letters],[[v,a]]],
+		  [[n,code],%[[n,letters],[[v,a]]],
+		  [[n,not],[[[n,=],[[v,a],"\""]]]],
 		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
 		  [[n,word21],["",[v,wordstring]]],
+		  [[n,code],
+		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]],
+
+
+		  [[n,word212_atom],["","",[v,t],[v,t]]],
+
+		  [[n,word212_atom],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,word21_atom],[[v,t],[v,u]],"->",
+		  [[v,a],[[n,commaorrightbracketnext]],
+		  [[n,code],%[[n,letters],[[v,a]]],
+		  [[n,not],[[[n,=],[[v,a],"\""]]]],
+		  [[n,not],[[[n,=],[[v,a],"["]]]],
+		  [[n,not],[[[n,=],[[v,a],"]"]]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word212_atom],[[v,v],[v,u]]]]],
+
+		  [[n,word21_atom],[[v,t],[v,u]],"->",
+		  [[v,a],
+		  [[n,code],%[[n,letters],[[v,a]]],
+		  [[n,not],[[[n,=],[[v,a],"\""]]]],
+		  [[n,not],[[[n,=],[[v,a],"["]]]],
+		  [[n,not],[[[n,=],[[v,a],"]"]]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word21_atom],["",[v,wordstring]]],
 		  [[n,code],
 		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]],
 		  
@@ -339,21 +375,25 @@ test(15,[[n,grammar1],["[[\"aa\",\"b\"],1]",[v,t]]],
 		  [[n,commaorrightbracketnext],"->",
 		  [[[n,lookahead],["]"]]]],
 		  
-		  [[n,commaquoteorrightbracketnext],"->",
-		  [[[n,lookahead],[","]]]],
+		  %[[n,commaquoteorrightbracketnext],"->",
+		  %[[[n,lookahead],[","]]]],
 
-		  [[n,commaquoteorrightbracketnext],"->",
-		  [[[n,lookahead],["]"]]]],
+		  %[[n,commaquoteorrightbracketnext],"->",
+		  %[[[n,lookahead],["]"]]]],
 		  
-		  [[n,commaquoteorrightbracketnext],"->",
+		  [[n,quote_next],"->",
 		  [[[n,lookahead],["\""]]]],
 
 		  
 		  [[n,lookahead],[[v,a],[v,a],[v,b]],":-",
 		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
 
-%%],[[[v,t],[["a"],1]]]).
-],[[[[v,t],[["aa","b"],1]]]]).
+%()%],[[[v,t],[["a"],1]]]).
+%],[[[[v,t],[["aa,]","b",a],1]]]]).
+],[[[[v,t],[["aa,]",b],1]]]]).
+%],[[[[v,t],"aa,"]]]).
+%],[[[[v,t],[a]]]]).
+
 
 
 %% Dukel goes to the grammar example

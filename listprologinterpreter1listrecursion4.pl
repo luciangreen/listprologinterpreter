@@ -726,6 +726,18 @@ false(false).
 %%writeln1("AND HERE!")
 %%	.
 
+interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_trace]],Vars,Vars,true,nocut) :- 
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("trace",Dbw_trace1),Dbw_trace1=Dbw_trace,
+turndebug(on),
+!.
+
+interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_notrace]],Vars,Vars,true,nocut) :- 
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("notrace",Dbw_notrace1),Dbw_notrace1=Dbw_notrace,
+turndebug(off),
+!.
+
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_cut]],Vars,Vars,true,cut) :- 
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("cut",Dbw_cut1),Dbw_cut1=Dbw_cut,!.
@@ -1138,6 +1150,11 @@ interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_writeln],[Variable1]],Vars1,Vars2
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("writeln",Dbw_writeln1),Dbw_writeln1=Dbw_writeln,
         interpretpart(writeln,Variable1,Vars1,Vars2).
+
+interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_atom_string],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("atom_string",Dbw_atom_string1),Dbw_atom_string1=Dbw_atom_string,
+        interpretpart(atom_string,Variable1,Variable2,Vars1,Vars2).
 
 	%%interpretpart(findall,[Variable1,Variable3],Vars3,Vars2).
 

@@ -409,6 +409,27 @@ find_findall_sys(Findall_sys_name),
 ;     debug_fail(Skip,[[Dbw_n,Dbw_writeln],[variable]])),!.
 
 
+interpretpart(atom_string,Variable1,Variable2,Vars1,Vars2) :- 
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("atom_string",Dbw_atom_string),
+       getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        (isvar(Variable1)->
+        (debug_call(Skip,[[Dbw_n,Dbw_atom_string],[variable,Value2]]),
+	((string(Value2),
+   atom_string(Value1A,Value2),
+        val1emptyorvalsequal(Value1,Value1A),
+        putvalue(Variable1,Value1A,Vars1,Vars2))->
+      debug_exit(Skip,[[Dbw_n,Dbw_atom_string],[Value1A,Value2]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_atom_string],[variable,Value2]])));
+
+        (debug_call(Skip,[[Dbw_n,Dbw_atom_string],[Value1,variable]]),
+	((atom(Value1),
+   atom_string(Value1,Value2A),
+        val1emptyorvalsequal(Value2,Value2A),
+        putvalue(Variable2,Value2A,Vars1,Vars2))->
+      debug_exit(Skip,[[Dbw_n,Dbw_atom_string],[Value1,Value2A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_atom_string],[Value1,variable]]))))
+,!.
 
 
 
@@ -445,12 +466,12 @@ interpretpart(grammar_part,Variables1,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %get_lang_word("grammar_part",Dbw_grammar_part),
 
-	((Variables1=[Terminal,Phrase1,Phrase2], %% terminal can be v or "a"
+	Variables1=[Terminal,Phrase1,Phrase2], %% terminal can be v or "a"
         %%terminal(Terminal),
         getvalues2([Terminal,Phrase1,Phrase2],
         	[],[TerminalValue1,Phrase1Value1,Phrase2Value1],Vars1,[],[Flag1,Flag2,_Flag3]), %% prolog vars, list of vars, [v]=[prolog var]
         %%delete(Value1,Value2,Value3A),
-        (Terminal=[_Value]->TerminalValue2=[TerminalValue1];TerminalValue2=TerminalValue1),
+    ((    (Terminal=[_Value]->TerminalValue2=[TerminalValue1];TerminalValue2=TerminalValue1),
 
 
 
@@ -478,8 +499,9 @@ string_concat(TerminalValue2,Phrase2Value1,Phrase1Value11))->true;
         	(debug_call(Skip,[[Dbw_n,grammar_part],[TerminalValue3,Phrase1Value3,Phrase2]]),
         	debug_exit(Skip,[[Dbw_n,grammar_part],[TerminalValue1,Phrase1Value1,Phrase2Value1]]));
 
-        	(debug_call(Skip,[[Dbw_n,grammar_part],[variable1,variable2,variable3]]),
-        (debug_fail(Skip,[[Dbw_n,grammar_part],[variable1,variable2,variable3]])))),!.
+% CAW requires input,input,output with "a","ab",[v,a] where [v,a]="b"
+        	(debug_call(Skip,[[Dbw_n,grammar_part],[Terminal,Phrase1,Phrase2]]),
+        (debug_fail(Skip,[[Dbw_n,grammar_part],[Terminal,Phrase1,Phrase2]])))),!.
         	
 
         	
