@@ -251,7 +251,8 @@ test(14,[[n,grammar1],["[a]",[v,t]]],
 % n,letters needs to include chars except quote
 
 %test(15,[[n,grammar1],["[[\"aa,]\",\"b\",a],1]",[v,t]]],
-test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\"],1]",[v,t]]],
+test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\",[]],1]",[v,t]]],
+%test(15,[[n,grammar1],["[]"]],
 %est(15,[[n,item],["\"aa,\"","",[v,t]]],
 %test(15,[[n,item],["a","",[v,t]]],
 %test(15,[[n,grammar1],["[a]",[v,t]]],
@@ -269,6 +270,10 @@ test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\"],1]",[v,t]]],
 		  [[n,compound213],["","",[v,t],[v,t]]],
 
 		  [[n,compound213],[[v,u],[v,u],[v,t],[v,t]]], %% swapped these
+
+		  [[n,compound],[[v,t],[v,u]],"->",
+		  ["[","]",
+		  [[n,compound213],[[v,t],[v,u]]]]],
 
 		  [[n,compound],[[v,t],[v,u]],"->",
 		  ["[",[[n,compound21],[[v,t],[v,v]]],"]",
@@ -393,7 +398,8 @@ test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\"],1]",[v,t]]],
 
 %()%],[[[v,t],[["a"],1]]]).
 %],[[[[v,t],[["aa,]","b",a],1]]]]).
-],[[[[v,t],[["aa,]",b,"c"],1]]]]).
+],[[[[v,t],[["aa,]",b,"c",[]],1]]]]).
+%],[[[[v,t],[[]]]]]).
 %],[[[[v,t],"aa,"]]]).
 %],[[[[v,t],[a]]]]).
 
