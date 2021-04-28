@@ -251,7 +251,7 @@ test(14,[[n,grammar1],["[a]",[v,t]]],
 % n,letters needs to include chars except quote
 
 %test(15,[[n,grammar1],["[[\"aa,]\",\"b\",a],1]",[v,t]]],
-test(15,[[n,grammar1],["[[\"aa,]\",b],1]",[v,t]]],
+test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\"],1]",[v,t]]],
 %est(15,[[n,item],["\"aa,\"","",[v,t]]],
 %test(15,[[n,item],["a","",[v,t]]],
 %test(15,[[n,grammar1],["[a]",[v,t]]],
@@ -280,13 +280,16 @@ test(15,[[n,grammar1],["[[\"aa,]\",b],1]",[v,t]]],
 
 		  [[n,compound21],[[v,t],[v,u]],"->",
 		  [[[n,item],[[v,i]]],
-		  %%[[n,lookahead],["]"]],
+		  [[n,lookahead],["]"]],
 		  [[n,code],[[n,wrap],[[v,i],[v,itemname1]]],
 		  [[n,append],[[v,t],[v,itemname1],[v,v]]]],
 		  [[n,compound212],[[v,v],[v,u]]]]],
 
 		  [[n,compound21],[[v,t],[v,u]],"->",
 		  [[[n,item],[[v,i]]],",",
+		  
+		  %[[n,code],[[n,trace]]],
+		  
 		  [[n,compound21],[[],[v,compound1name]]],
 		  [[n,code],[[n,wrap],[[v,i],[v,itemname1]]],
 		  [[n,append],[[v,t],[v,itemname1],[v,v]]],
@@ -390,7 +393,7 @@ test(15,[[n,grammar1],["[[\"aa,]\",b],1]",[v,t]]],
 
 %()%],[[[v,t],[["a"],1]]]).
 %],[[[[v,t],[["aa,]","b",a],1]]]]).
-],[[[[v,t],[["aa,]",b],1]]]]).
+],[[[[v,t],[["aa,]",b,"c"],1]]]]).
 %],[[[[v,t],"aa,"]]]).
 %],[[[[v,t],[a]]]]).
 

@@ -462,6 +462,7 @@ debug_exit(Skip,[[Dbw_n,Dbw_stringconcat],[TerminalValue1,Phrase1Value1,Phrase2V
         	debug_fail(Skip,[[Dbw_n,Dbw_stringconcat],[variable1,variable2,variable3]])
         	)),!.
         	
+
 interpretpart(grammar_part,Variables1,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %get_lang_word("grammar_part",Dbw_grammar_part),
