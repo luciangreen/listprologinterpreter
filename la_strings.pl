@@ -41,29 +41,39 @@ bash_command(Command, Output) :-
 
 concat_list([],""):-!.
 concat_list(A1,B):-
-	A1=[A|List],
-	concat_list(A,List,B),!.
+	%A1=[A|List],
+	concat_list([],A1,B),!.
 
-concat_list(A,[],A):-!.
 concat_list(A,List,B) :-
-	List=[Item|Items],
-	string_concat(A,Item,C),
-	concat_list(C,Items,B).
+	concat_list1(A,List,B1),
+	string_codes(B,B1),!.
 
-atom_concat_list([],""):-!.
+concat_list1(A,[],A):-!.
+concat_list1(A,List,B) :-
+	List=[Item|Items],
+	string_codes(Item,Item1),
+	append(A,Item1,C),
+	concat_list1(C,Items,B).
+
+atom_concat_list([],''):-!.
 atom_concat_list(A1,B):-
-	A1=[A|List],
-	atom_concat_list(A,List,B),!.
+	%A1=[A|List],
+	atom_concat_list([],A1,B),!.
 
-atom_concat_list(A,[],A):-!.
 atom_concat_list(A,List,B) :-
+	atom_concat_list1(A,List,B1),
+	atom_codes(B,B1),!.
+
+atom_concat_list1(A,[],A):-!.
+atom_concat_list1(A,List,B) :-
 	List=[Item|Items],
-	atom_concat(A,Item,C),
-	atom_concat_list(C,Items,B).
+	atom_codes(Item,Item1),
+	append(A,Item1,C),
+	atom_concat_list1(C,Items,B).
 
 append_list(A1,B):-
-	A1=[A|List],
-	append_list(A,List,B),!.
+	%A1=[A|List],
+	append_list([],A1,B),!.
 
 append_list(A,[],A):-!.
 append_list(A,List,B) :-
@@ -73,8 +83,8 @@ append_list(A,List,B) :-
 
 append_list2([],[]):-!.
 append_list2(A1,B):-
-	A1=[A|List],
-	append_list2(A,List,B),!.
+	%A1=[A|List],
+	append_list2([],A1,B),!.
 
 append_list2(A,[],A):-!.
 append_list2(A,List,B) :-
