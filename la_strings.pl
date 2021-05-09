@@ -42,17 +42,17 @@ bash_command(Command, Output) :-
 concat_list([],""):-!.
 concat_list(A1,B):-
 	%A1=[A|List],
-	concat_list([],A1,B),!.
+	concat_list("",A1,B),!.
 
 concat_list(A,List,B) :-
-	concat_list1(A,List,B1),
-	string_codes(B,B1),!.
+	concat_list1(A,List,B).
+	%string_codes(B,B1),!.
 
 concat_list1(A,[],A):-!.
 concat_list1(A,List,B) :-
 	List=[Item|Items],
-	string_codes(Item,Item1),
-	append(A,Item1,C),
+	%string_codes(Item,Item1),
+	string_concat(A,Item,C),
 	concat_list1(C,Items,B).
 
 atom_concat_list([],''):-!.
