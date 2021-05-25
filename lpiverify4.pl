@@ -247,6 +247,7 @@ test(14,[[n,grammar1],["[a]",[v,t]]],
 
 ],[[[[v,t],["a"]]]]).
 
+% String to List (Term)
 
 % n,letters needs to include chars except quote
 
@@ -439,6 +440,8 @@ test(16,[[n,grammar1],["john ate the apple"]],
 
 		  [[n,object],[[v,a],[v,a]]]
 ],[[]]).
+
+% Split string on ".", "?", "!"
 
 %% Blackl loves the grammar
 
