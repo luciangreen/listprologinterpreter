@@ -12,23 +12,27 @@
 
 /** List Prolog Interpreter **/
 
+interpret(Debug,Query,Functions1,Result) :-
+	international_interpret([lang,"en"],
+	Debug,Query,Functions1,Result).
+
 international_interpret([lang,Lang],Debug,Query,Functions1,Result) :-
 	retractall(lang(_)),
  	assertz(lang(Lang)),
-	interpret(Debug,Query,Functions1,Result).
+	interpret_1(Debug,Query,Functions1,Result).
 	
 international_interpret([lang,Lang],Debug,Query,TypeStatements,ModeStatements,Functions1,Result) :-
 	retractall(lang(_)),
  	assertz(lang(Lang)),
-	interpret(Debug,Query,TypeStatements,ModeStatements,Functions1,Result).
+	interpret_1(Debug,Query,TypeStatements,ModeStatements,Functions1,Result).
 
 
-interpret(Debug,Query,Functions1,Result) :-
+interpret_1(Debug,Query,Functions1,Result) :-
 	retractall(types(_)),
  	assertz(types(off)),
 interpret11(Debug,Query,Functions1,Result).
 
-interpret(Debug,Query,TypeStatements,ModeStatements,Functions1,Result) :-
+interpret_1(Debug,Query,TypeStatements,ModeStatements,Functions1,Result) :-
 	retractall(types(_)),
  	assertz(types(on)),
 	retractall(typestatements(_)),
