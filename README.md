@@ -91,6 +91,8 @@ test_all00("en2",off,NTotal,Score).
 ```
 where "en2" is an English language with e.g. `"concatenate strings"` instead of `stringconcat` (see available <a href="https://github.com/soimort/translate-shell">language codes</a>).
 
+* Note 1: drag and drop contents of `test_open_and_types_open_data/` into an empty file in BBEdit (Mac) to copy and paste into Terminal for tests with input.
+
 To run a test from one of main, types, open or open types, run one of:
 ```
 test_all01(test,            4,"en2",off,1,Passed).
@@ -106,6 +108,8 @@ lpiverify4_open.pl
 lpiverify4_open_types.pl
 ```
 respectively.
+
+* See note 1 above.
 
 To run all tests (main, types, open and open types) back-translating to and from any language:
 ```
@@ -127,6 +131,8 @@ lpiverify4_open.pl
 lpiverify4_open_types.pl
 ```
 respectively.
+
+* See note 1 above.
 
 # Documentation
 

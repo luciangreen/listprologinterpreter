@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=113, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=115, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -2321,9 +2321,9 @@ test(110,[[n,level_with],[170,[v,b]]],
         
 ],[[[[v,b],170]]]).
 
-test(111,[[n,tra-las],[5,[v,a]]],
+test(111,[[n,tra_las],[5,[v,a]]],
 [
-        [[n,tra-las],[[v,n],[v,a]],":-",
+        [[n,tra_las],[[v,n],[v,a]],":-",
         [       [[n,las],[[v,n],[],[v,b]]],
                 [[n,append],[["tra"],[v,b],[v,a]]]
         ]],       
@@ -2338,9 +2338,9 @@ test(111,[[n,tra-las],[5,[v,a]]],
         
 ],[[[[v,a],["tra","la","la","la","la","la"]]]]).
 
-test(112,[[n,final-gong],[5,[v,a]]],
+test(112,[[n,final_gong],[5,[v,a]]],
 [
-        [[n,final-gong],[[v,n],[v,a]],":-",
+        [[n,final_gong],[[v,n],[v,a]],":-",
         [       [[n,-],[[v,n],1,[v,n1]]],
                 [[n,dashes],[[v,n1],[],[v,b]]],
                 [[n,append],[[v,b],["gong"],[v,a]]]
@@ -2356,9 +2356,9 @@ test(112,[[n,final-gong],[5,[v,a]]],
         
 ],[[[[v,a],["-","-","-","-","gong"]]]]).
 
-test(113,[[n,bedroom-to-garden],["bedroom",[v,b]]],
+test(113,[[n,bedroom_to_garden],["bedroom",[v,b]]],
 [
-        [[n,bedroom-to-garden],["bedroom","garden"]]      
+        [[n,bedroom_to_garden],["bedroom","garden"]]      
         
 ],[[[[v,b],"garden"]]]).
 
@@ -2378,38 +2378,9 @@ test(114,[[n,stop_at_top],[["-","-","-","top"],[v,a]]],
 ],[[[[v,a],"success"]]]).
 
 
-test(115,[[n,episode_character],[[v,a]]],
-
-[
-        [[n,episode_character],[[v,ds3]],":-",
-        [        
-                [[n,findall],[[v,ds2],
-         [
-         [[n,member2],[[1,2,3,4],[v,l1]]],
-         				[[n,findall],[[v,ds1],
-         [
-         [[n,member2],[[1,2,3,4],[v,l2]]],
-         					[[n,findall],[[[v,l1],[v,l2],[v,l3],[v,d]],
-         [
-         [[n,member2],[[1,2,3,4],[v,l3]]],
-         [[n,equals4],[[v,line],["Level",[v,l1],[v,l2],[v,l3],
-         "Please write a detail."]]],
-         [[n,writeln],[[v,line]]],
-         [[n,read_string],[[v,d]]]],
-
-        [v,ds1]]]],
-         %[[n,=],[[v,item1],[v,item1b]]]],
-        [v,ds2]]]]
-        ,
-         %[[n,=],[[v,item1],[v,item1b]]]],
-        [v,ds3]]]
-    
-        ]]
-],[[[[v,a],"success"]]]).
-
 % Program finder 6 3 21
 
-test(116,[[n,function],[[["n","a"]],[["a",5]],[],[v,result]]],
+test(115,[[n,function],[[["n","a"]],[["a",5]],[],[v,result]]],
 [[[n,function],[[],[v,inputs2],[v,output],[v,output]]],[[n,function],[[v,input1],[v,inputs2],[v,inputs3],[v,output]],":-",[[[n,head],[[v,input1],[v,head]]],[[n,tail],[[v,input1],[v,tail]]],[[n,equals1],[[v,head],[[v,a],[v,b]]]],[[[n,string],[[v,a]]],[[n,string],[[v,b]]]],[[n,head],[[v,inputs2],[v,head1]]],[[n,tail],[[v,inputs2],[v,tail1]]],[[n,equals1],[[v,head1],[[v,b],[v,c]]]],[[[n,number],[[v,c]]]],[[n,equals2],[[v,item1],[[v,a],[v,c]]]],[[n,wrap],[[v,item1],[v,item1a]]],[[n,append],[[v,inputs3],[v,item1a],[v,item2]]],[[n,function],[[v,tail],[v,tail1],[v,item2],[v,output]]]]]]
 
 ,[[[[v,result],[["n", 5]]]]]).

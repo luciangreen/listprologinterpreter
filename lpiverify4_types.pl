@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=43, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=41, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -436,6 +436,22 @@ test_types_cases(23,[[n,connect_cliques],[[["a",1],[1,2],[2,"b"]],[["a",3],[3,4]
         ]]        
 ],[[[[v,output],[["a",1],[1,2],[2,"b"],["a",3],[3,4],[4,"b"]]]]]).
 
+
+% ["Mind Reading","Mr other times 7.txt",0,algorithms,"57. *I responsibly chose an ontological value (side of the car that the steering wheel was on in the particular car) by mind reading the other time."]
+
+% Aus, UK - left hand traffic, US - right hand traffic
+
+test_types_cases(24,[[n,hand_traffic],["Australia",[v,a1]]],
+        [[[n,hand_traffic],[[t,string],[t,string]]]],
+        [[[n,hand_traffic],[input,output]]],
+
+[
+        [[n,hand_traffic],["Australia","left"]],
+        [[n,hand_traffic],["UK","left"]],
+        [[n,hand_traffic],["US","right"]]
+        
+],[[[[v,a1],"left"]]]).
+
 % ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Finite Data will be a Solution in Conglish 2 of 4.txt",0,algorithms,"17.    *I prepared to judge the way the other person was speaking.  I did this by watching the diareasoner identify the speech rate in her partner.  First, I counted the number of words over the time.  Second, I counted the number of minutes.  Third, I calculated the speech rate to equal the number of words divided by the number of minutes.  In this way, I prepared to judge the way the other person was speaking by watching the diareasoner identify the speech rate in her partner."]
 
 test_types_cases(25,[[n,way_of_speaking1],[["high-pitched","smiling"],[v,way]]],
@@ -482,6 +498,18 @@ test_types_cases(26,[[n,choose_time],[[-15,-10,-5,0,5,10,15],[v,time]]],
         ]]        
 ],[[[[v,time],10]]]).
 
+
+% ["Time Travel","Technologies in Times 1.txt",0,algorithms,"63. *The workings of DNA and RNA were examined in cloning for medicine."]
+
+% The sequences were the same.
+
+test_types_cases(27,[[n,same],[[1,2,3,4,5,6],[1,2,3,4,5,6]]],
+        [[[n,same],[[[t,list],[[t,number]]],[[t,list],[[t,number]]]]]],
+        [[[n,same],[input,input]]],
+
+[
+        [[n,same],[[v,sequence1],[v,sequence1]]]
+],[[]]).
 
 % ["Lecturer","Lecturer.txt",0,algorithms,"2. *I found what the person aimed for.  I wrote on hermeneutics.  I identified the discourse.  I grouped the topics into ideologies.  I grouped the ideas into ontologies."]
 
@@ -689,30 +717,3 @@ test_types_cases(41,[[n,order_strings],[["***","*","**"],[v,ordered_strings]]],
         [[n,order_strings],[[v,strings],[v,ordered_strings]],":-",
         [       [[n,sort],[[v,strings],[v,ordered_strings]]]]]
 ],[[[[v,ordered_strings],["*", "**", "***"]]]]).
-
-% ["Time Travel","Technologies in Times 1.txt",0,algorithms,"63. *The workings of DNA and RNA were examined in cloning for medicine."]
-
-% The sequences were the same.
-
-test_types_cases(42,[[n,same],[[1,2,3,4,5,6],[1,2,3,4,5,6]]],
-        [[[n,same],[[[t,list],[[t,number]]],[[t,list],[[t,number]]]]]],
-        [[[n,same],[input,input]]],
-
-[
-        [[n,same],[[v,sequence1],[v,sequence1]]]
-],[[]]).
-
-% ["Mind Reading","Mr other times 7.txt",0,algorithms,"57. *I responsibly chose an ontological value (side of the car that the steering wheel was on in the particular car) by mind reading the other time."]
-
-% Aus, UK - left hand traffic, US - right hand traffic
-
-test_types_cases(43,[[n,hand_traffic],["Australia",[v,a1]]],
-        [[[n,hand_traffic],[[t,string],[t,string]]]],
-        [[[n,hand_traffic],[input,output]]],
-
-[
-        [[n,hand_traffic],["Australia","left"]],
-        [[n,hand_traffic],["UK","left"]],
-        [[n,hand_traffic],["US","right"]]
-        
-],[[[[v,a1],"left"]]]).

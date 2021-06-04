@@ -630,7 +630,7 @@ getvalue_match_pipe(Variable1,Value1,Vars1) :- %%,Top_flag
 	%%trace,
 	append([Value12a],Value12c,Value1)),!.
 
-getvalue_match_pipe([Variable1|Variabl1b],Value1,Vars1) :-
+getvalue_match_pipe([Variable1|Variable1b],Value1,Vars1) :-
 %%variable_name(Variable1),
 	(variable_name(Variable1)->
 	(getvalue(Variable1,Value1,Vars1),
@@ -641,7 +641,7 @@ getvalue_match_pipe([Variable1|Variabl1b],Value1,Vars1) :-
 	not(Value1b=empty))),
 
 	getvalue_match_pipe(Variable1,Value11a,Vars1),
-	getvalue_match_pipe(Variabl1b,Value11b,Vars1),
+	getvalue_match_pipe(Variable1b,Value11b,Vars1),
 	not(Value11a=empty),(Value11b=empty->Value11c=[];Value11c=Value11b),
 	is_list(Value11c),
 	append([Value11a],Value11c,Value1),!.

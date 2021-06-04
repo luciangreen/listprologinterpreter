@@ -1,6 +1,6 @@
 %% Test cases, Debug=trace=on or off, N=output=result
 testopen(Debug,NTotal) :- testopen(Debug,0,NTotal),!.
-testopen(_Debug,NTotal,NTotal) :- NTotal=2, !.
+testopen(_Debug,NTotal,NTotal) :- NTotal=3, !.
 testopen(Debug,NTotal1,NTotal2) :-
 	NTotal3 is NTotal1+1,
 	testopen_cases(NTotal3,Query,Functions),
@@ -271,3 +271,31 @@ testopen_cases(2,[[n,algwriter],[[v,na]]],
 ]).
 
 
+testopen_cases(3,[[n,episode_character],[[v,a]]],
+
+[
+        [[n,episode_character],[[v,ds3]],":-",
+        [        
+                [[n,findall],[[v,ds2],
+         [
+         [[n,member2],[[1,2,3,4],[v,l1]]],
+         				[[n,findall],[[v,ds1],
+         [
+         [[n,member2],[[1,2,3,4],[v,l2]]],
+         					[[n,findall],[[[v,l1],[v,l2],[v,l3],[v,d]],
+         [
+         [[n,member2],[[1,2,3,4],[v,l3]]],
+         [[n,equals4],[[v,line],["Level",[v,l1],[v,l2],[v,l3],
+         "Please write a detail."]]],
+         [[n,writeln],[[v,line]]],
+         [[n,read_string],[[v,d]]]],
+
+        [v,ds1]]]],
+         %[[n,=],[[v,item1],[v,item1b]]]],
+        [v,ds2]]]]
+        ,
+         %[[n,=],[[v,item1],[v,item1b]]]],
+        [v,ds3]]]
+    
+        ]]
+]).%,[[[[v,a],"success"]]]).
