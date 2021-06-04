@@ -89,7 +89,7 @@ To run all tests (main, types, open and open types) in any language:
 ```
 test_all00("en2",off,NTotal,Score).
 ```
-where "en2" is an English language with e.g. `"concatenate strings"` instead of `stringconcat` (see available <a href="https://github.com/soimort/translate-shell">language codes</a>).
+where "en2" is an English language with e.g. `"concatenate strings"` instead of `stringconcat` ("en", or see available <a href="https://github.com/soimort/translate-shell">language codes</a>).
 
 * Note 1: drag and drop contents of `test_open_and_types_open_data/` into an empty file in BBEdit (Mac) to copy and paste into Terminal for tests with input.
 
