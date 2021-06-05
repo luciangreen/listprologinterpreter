@@ -76,7 +76,7 @@ member1(_Query,_,_,[],_) :- %%writeln1(["The query",Query,"matches no predicates
 fail,!.
 member1(Query,Functions,Functions2,Vars8) :-
 %%writeln1([m1]),
-	cut(off)->(
+	(cut(off)->(
         (Query=[Function,Arguments1],
 	(Functions2=[[Function,Arguments2,":-",Body]|_Functions3]),
 	length(Arguments1,Length),
@@ -95,10 +95,10 @@ debug_call(Skip,[Function,Arguments1]),
 	%%writeln1(updatevars(FirstArgs,Vars2,[],Result)),
 	updatevars(FirstArgs,Vars2,[],Result),
         %%reverse(Result,[],Vars7),
-	((not(Result=[])->
+	((true->%not(Result=[])->
         %%Result=[Var71|Vars72],
         %%writeln1(unique1(Result,[],Vars8)),
-        unique1(Result,[],Vars8),
+        (unique1(Result,[],Vars8),
 %%writeln1(["FirstArgs",FirstArgs,"Vars",Vars2,"Result",Result,"Vars7",Vars7,"Vars72",Vars72,"Var71",Var71,"Vars8",Vars8]),
 %%writeln1(["Vars8",Vars8]),
 	%%writeln1(findresult3(Arguments1,Vars8,[],Result2)),
@@ -106,7 +106,7 @@ debug_call(Skip,[Function,Arguments1]),
 %%writeln1([findresult3,"Arguments1",Arguments1,"Vars8",Vars8,"Result2",Result2])
 	);(
 %%writeln1(here1),
-	Vars8=[],Result2=[])),
+	Vars8=[],Result2=[]))),
 %%writeln1(["Arguments1",Arguments1,"Vars2",Vars2,"Result",Result]),
 		debug_exit(Skip,[Function,Result2]),
 		        checktypes(Function,Result2)
@@ -116,11 +116,11 @@ debug_call(Skip,[Function,Arguments1]),
 	%%Functions2=[[Function,_Arguments2,":-",_Body]|Functions3], %% make like previous trunk?
 	member11(Query,Functions,Functions2,Vars8))
 	);(turncut(off),fail%%,Result=[]
-	).
+	)).
 member11(Query,Functions,Functions2,Result) :-
 %%writeln1([m11]),
 %%writeln1(["Query",Query,"Functions",Functions,"Functions2",Functions2,"Result",Result]),
-	cut(off)->(
+	(cut(off)->(
         (Query=[Function],
         (Functions2=[[Function,":-",Body]|_Functions3]),
         debug_call(Skip,[Function]),
@@ -131,10 +131,10 @@ member11(Query,Functions,Functions2,Result) :-
 	(%%Query=[Function],
 	%%Functions2=[[Function]|Functions3],
 	member12(Query,Functions,Functions2,Result))
-	);(turncut(off),fail).
+	);(turncut(off),fail)).
 member12(Query,Functions,Functions2,Vars8) :-
 %%writeln1([m12]),
-	cut(off)->(
+	(cut(off)->(
         (Query=[Function,Arguments1],
         (Functions2=[[Function,Arguments2]|_Functions3]),
         length(Arguments1,Length),
@@ -146,13 +146,14 @@ member12(Query,Functions,Functions2,Vars8) :-
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
 	updatevars(FirstArgs,Vars1,[],Result),
         %%reverse(Result,[],Vars7),
-        ((not(Result=[])->
+        ((%not
+        true->%(Result=[])->
         %%Result=[Var71|Vars72],
-        unique1(Result,[],Vars8),
+        (unique1(Result,[],Vars8),
         findresult3(Arguments1,Vars8,[],Result2)
         );(
 %%writeln1(here2),
-	Vars8=[],Result2=[])),
+	Vars8=[],Result2=[]))),
         	debug_call(Skip,[Function,Arguments1]),
    debug_exit(Skip,[Function,Result2]),
 	checktypes(Function,Result2)
@@ -161,10 +162,10 @@ member12(Query,Functions,Functions2,Vars8) :-
 	(%%Query=[Function,_Arguments1],
 	%%Functions2=[[Function,_Arguments2]|Functions3],
 	member13(Query,Functions,Functions2,Vars8))
-	);(turncut(off),fail).
+	);(turncut(off),fail)).
 member13(Query,Functions,Functions2,Result) :-
 %%writeln1([m13]),
-	cut(off)->(
+	(cut(off)->(
         (Query=[Function],
         (Functions2=[[Function]|_Functions3]),
         debug_call(Skip,[Function]),
@@ -175,7 +176,7 @@ member13(Query,Functions,Functions2,Result) :-
 	(%%Query=[Function],
 	Functions2=[_Function|Functions3],
 	member1(Query,Functions,Functions3,Result))
-	);(turncut(off),fail).
+	);(turncut(off),fail)).
 interpret2(Query,Functions1,Functions2,Result) :-
 %%writeln1(i2),
 %%writeln1(["%%interpret2 Query",Query,"Functions1",Functions1,"Functions2",Functions2]),
@@ -186,7 +187,7 @@ member2(_Query,_,_,[],_) :- %%writeln1(["The query",Query,"matches no predicates
 fail,!.
 member2(Query,Functions,Functions2,Vars8) :-
 %%writeln1([m2]),
-	cut(off)->(
+	(cut(off)->(
         (Query=[Function,Arguments1],
         (Functions2=[[Function,Arguments2,":-",Body]|_Functions3]),
         length(Arguments1,Length),
@@ -203,14 +204,14 @@ debug_call(Skip,[Function,Arguments1]),
 %%writeln1(["Functions",Functions,"Functions2",Functions2,"Vars1",Vars1,"Vars2",Vars2,"Body",Body]),
         updatevars(FirstArgs,Vars2,[],Result),
         %%reverse(Result,[],Vars7),
-        ((not(Result=[])->
+        ((true->%not(Result=[])->
         %%Result=[Var71|Vars72],
-        unique1(Result,[],Vars8),
+        (unique1(Result,[],Vars8),
         findresult3(Arguments1,Vars8,[],Result2)
 %%writeln1(["Vars2",Vars2,"Result",Result]),
         );(
 	%%writeln1(here3),
-	Vars8=[],Result2=[])),
+	Vars8=[],Result2=[]))),
    debug_exit(Skip,[Function,Result2]),
    checktypes(Function,Result2)
 
@@ -218,10 +219,10 @@ debug_call(Skip,[Function,Arguments1]),
 	(%%Query=[Function,_Arguments1],
 	%%Functions2=[[Function,_Arguments2,":-",_Body]|Functions3],
 	member21(Query,Functions,Functions2,Vars8))
-	);(turncut(off),fail).
+	);(turncut(off),fail)).
 member21(Query,Functions,Functions2,Result) :-
 %%writeln1([m21]),
-	cut(off)->(
+	(cut(off)->(
         (Query=[Function],
         (Functions2=[[Function,":-",Body]|_Functions3]),
         Vars1=[],
@@ -233,10 +234,10 @@ member21(Query,Functions,Functions2,Result) :-
 	(%%Query=[Function],
 	%%Functions2=[[Function]|Functions3],
 	member22(Query,Functions,Functions2,Result))
-	);(turncut(off),fail).
+	);(turncut(off),fail)).
 member22(Query,Functions,Functions2,Vars8) :-
 %%writeln1([m22]),
-	cut(off)->(
+	(cut(off)->(
         (Query=[Function,Arguments1],
         (Functions2=[[Function,Arguments2]|_Functions3]),
         length(Arguments1,Length),
@@ -248,13 +249,13 @@ member22(Query,Functions,Functions2,Vars8) :-
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
         updatevars(FirstArgs,Vars1,[],Result),
         %%reverse(Result,[],Vars7),
-        ((not(Result=[])->
+        ((true->%not(Result=[])->
         %%Result=[Var71|Vars72],
-        unique1(Result,[],Vars8),
+        (unique1(Result,[],Vars8),
         findresult3(Arguments1,Vars8,[],Result2)
         );(
 %%writeln1(here4),
-	Vars8=[],Result2=[])),
+	Vars8=[],Result2=[]))),
         	debug_call(Skip,[Function,Arguments1]),
         	debug_exit(Skip,[Function,Result2]),
 	checktypes(Function,Result2)
@@ -263,10 +264,10 @@ member22(Query,Functions,Functions2,Vars8) :-
 	(%%Query=[Function,_Arguments1],
 	%%Functions2=[[Function,_Arguments2]|Functions3],
 	member23(Query,Functions,Functions2,Vars8))
-	);(turncut(off),fail).
+	);(turncut(off),fail)).
 member23(Query,Functions,Functions2,Vars8) :-
 %%writeln1([m23]),
-	cut(off)->(
+	(cut(off)->(
         (Query=[Function],
         (Functions2=[[Function]|_Functions3]),
         	debug_call(Skip,[Function]),
@@ -276,7 +277,7 @@ member23(Query,Functions,Functions2,Vars8) :-
 	(%%Query=[Function],
 	Functions2=[_Function|Functions3],
 	member2(Query,Functions,Functions3,Vars8))
-	);(turncut(off),fail).
+	);(turncut(off),fail)).
 	
 checkarguments([],[],Vars,Vars,FirstArgs,FirstArgs) :- !. 
 checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%
