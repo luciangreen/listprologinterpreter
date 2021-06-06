@@ -182,7 +182,7 @@ For example:
 
 * `[[n,atom_string],[Variable1,Variable2]]` e.g. `[[n,atom_string],[a,[v,b]]]` returns `[v,b]="a"` or `[[n,atom_string],[[v,b],"a"]]` returns `[v,b]=a`
 
-* (1) `[[n,call],[Function,Arguments]]` e.g. `[[n,call],[[n,member2a],[["a","b","c"],[v,b]]]]]` returns `[v,b]=a`
+* (1) `[[n,call],[Function,Arguments]]` e.g. `[[n,call],[[n,member2a],[["a","b","c"],[v,b]]]]` returns `[v,b]=a`
 
 * (2) `[[n,call],[[lang,Lang],Debug,[Function,Arguments],Functions]]` e.g. `[[n,call],[[lang,same],same,[[n,member2a],[["a","b","c"],[v,b]]],
 [[[n,member2a],[[v,a],[v,b]],":-",
