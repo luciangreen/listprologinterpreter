@@ -162,7 +162,7 @@ For example:
 
 * `[[n,round],[Variable1,Variable2]]` e.g. `[[n,round],[1.5,[v,c]]]` returns `[v,c]=2`
 
-* `[[n,equals4],[Variable1,Variable2]]` e.g. `[[n,equals4],[[[v,c],"|",[v,d]],[1,2,3]]` returns `[v,c]=1` and `[v,d]=[2,3]`.  You may use either order (i.e. a=1 or 1=a).  Multiple items are allowed in the head of the list, there may be lists within lists, and lists with pipes must have the same number of items in the head in each list, or no pipe in the other list.
+* `[[n,equals4],[Variable1,Variable2]]` e.g. `[[n,equals4],[[[v,c],"|",[v,d]],[1,2,3]]]` returns `[v,c]=1` and `[v,d]=[2,3]`.  You may use either order (i.e. a=1 or 1=a).  Multiple items are allowed in the head of the list, there may be lists within lists, and lists with pipes must have the same number of items in the head in each list, or no pipe in the other list.
 
 * `[[n,findall],[Variable1,Variable2,Variable3]]` e.g. `[[n,equals3],[[v,a],[1,2,3]]],[[n,findall],[[v,a1],[[n,member2],[[v,a],[v,a1]]],[v,b]]]` returns `[v,b]=[1,2,3]`
 
@@ -170,18 +170,30 @@ For example:
 
 * `[[n,maplist],[Variable1,Variable2,Variable3,Variable4]]` e.g. `[[n,maplist],[[n,+],[1,2,3],0,[v,b]]]` returns `[v,b]=6`
 
-* `[[n,string_length],[Variable1,Variable2]]` e.g. `[[n,string_length],["abc",[v,b]]` returns `[v,b]=3`
+* `[[n,string_length],[Variable1,Variable2]]` e.g. `[[n,string_length],["abc",[v,b]]]` returns `[v,b]=3`
 
-* `[[n,sort],[Variable1,Variable2]]` e.g. `[[n,sort],[[1,3,2],[v,b]]` returns `[v,b]=[1,2,3]`
+* `[[n,sort],[Variable1,Variable2]]` e.g. `[[n,sort],[[1,3,2],[v,b]]]` returns `[v,b]=[1,2,3]`
 
-* `[[n,intersection],[Variable1,Variable2]]` e.g. `[[n,intersection],[[1,3,2],[3,4,5],[v,b]]` returns `[v,b]=[3]`
+* `[[n,intersection],[Variable1,Variable2]]` e.g. `[[n,intersection],[[1,3,2],[3,4,5],[v,b]]]` returns `[v,b]=[3]`
 
-* `[[n,read_string],[Variable1]]` e.g. `[[n,read_string],[[v,a]]` asks for input and returns `[v,a]="hello"`
+* `[[n,read_string],[Variable1]]` e.g. `[[n,read_string],[[v,a]]]` asks for input and returns `[v,a]="hello"`
 
-* `[[n,writeln],[Variable1]]` e.g. `[[n,writeln],[[v,a]]` writes `[v,a]` which is `"hello"`
+* `[[n,writeln],[Variable1]]` e.g. `[[n,writeln],[[v,a]]]` writes `[v,a]` which is `"hello"`
 
-* `[[n,atom_string],[Variable1,Variable2]]` e.g. `[[n,atom_string],[a,[v,b]]` returns `[v,b]="a"` or `[[n,atom_string],[[v,b],"a"]` returns `[v,b]=a`
+* `[[n,atom_string],[Variable1,Variable2]]` e.g. `[[n,atom_string],[a,[v,b]]]` returns `[v,b]="a"` or `[[n,atom_string],[[v,b],"a"]]` returns `[v,b]=a`
 
+* (1) `[[n,call],[Function,Arguments]]` e.g. `[[n,call],[[n,member2a],[["a","b","c"],[v,b]]]]]` returns `[v,b]=a`
+
+* (2) `[[n,call],[[lang,Lang],Debug,[Function,Arguments],Functions]]` e.g. `[[n,call],[[lang,same],same,[[n,member2a],[["a","b","c"],[v,b]]],
+[[[n,member2a],[[v,a],[v,b]],":-",
+	[[[n,member2],[[v,a],[v,b]]]]]]]]` returns `[v,b]="a"`, where `same` means the same lang or debug as the parent predicate.
+
+* (3) `[[n,call],[[lang,Lang],Debug,[Function,Arguments],Types,Modes,Functions]]` e.g. `[[n,call],[[lang,same],same,[[n,member2a],[["a","b","c"],[v,b]]],  [[[n,member2a],[[[t,brackets],[[t,number],[t,number],[t,number]]],[t,number]]]],
+        [[[n,member2a],[input,output]]],
+[[[n,member2a],[[v,a],[v,b]],":-",
+        [       [[n,member2],[[v,a],[v,b]]]]
+        ]]]]` returns `[v,b]="a"`, where `same` means the same lang or debug as the parent predicate.
+                
 * `[[n,trace]]` switches on trace (debug) mode.
 
 * `[[n,notrace]]` switches off trace (debug) mode.
