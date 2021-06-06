@@ -186,13 +186,13 @@ For example:
 
 * (2) `[[n,call],[[lang,Lang],Debug,[Function,Arguments],Functions]]` e.g. `[[n,call],[[lang,same],same,[[n,member2a],[["a","b","c"],[v,b]]],
 [[[n,member2a],[[v,a],[v,b]],":-",
-	[[[n,member2],[[v,a],[v,b]]]]]]]]` returns `[v,b]="a"`, where `same` means the same lang or debug as the parent predicate.
+	[[[n,member2],[[v,a],[v,b]]]]]]]]` returns `[v,b]="a"`, where Lang may be e.g. `"en"`, etc., or `same` (meaning the same language as the parent predicate) and Debug may be `on`, `off` or `same` (meaning the same debug status as the parent predicate).
 
 * (3) `[[n,call],[[lang,Lang],Debug,[Function,Arguments],Types,Modes,Functions]]` e.g. `[[n,call],[[lang,same],same,[[n,member2a],[["a","b","c"],[v,b]]],  [[[n,member2a],[[[t,brackets],[[t,number],[t,number],[t,number]]],[t,number]]]],
         [[[n,member2a],[input,output]]],
 [[[n,member2a],[[v,a],[v,b]],":-",
         [       [[n,member2],[[v,a],[v,b]]]]
-        ]]]]` returns `[v,b]="a"`, where `same` means the same lang or debug as the parent predicate.
+        ]]]]` returns `[v,b]="a"`. (See call(2) above for possible values of Lang and Debug.)
                 
 * `[[n,trace]]` switches on trace (debug) mode.
 
