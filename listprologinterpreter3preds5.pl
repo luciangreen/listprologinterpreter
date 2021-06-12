@@ -442,6 +442,7 @@ x,y,z
 A,B,C
 **/
 
+/**
 interpretpart(stringconcat1,Terminal,Phrase2,Phrase1,Vars1,Vars2) :-
 %trace,
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
@@ -460,6 +461,7 @@ debug_call(Skip,[[Dbw_n,Dbw_stringconcat],[variable1,variable2,Value2]]),
       debug_exit(Skip,[[Dbw_n,Dbw_stringconcat],[Value1A,Value2A,Value3]])
 %;     debug_fail(Skip,[[Dbw_n,Dbw_stringconcat],[variable1,variable2,Value3]])
 ).%,!.
+**/
 
 interpretpart(stringconcat,Terminal,Phrase2,Phrase1,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
