@@ -2564,10 +2564,11 @@ test(116,[[n,grammar1],[".aaa.bbb.",[".","?"],[v,t]]],
 		  [[n,finalchar],[[v,c],[v,cs]],":-",
 		  [[[n,member],[[v,cs],[v,c]]]]],
 
-		  [[n,lookahead1],[[v,c],[v,cs]],":-",
+/**
+		  [[n,lookahead1],[[v,c],[v,cs]],":-", %?
 		  [[[n,member],[[v,cs],[v,c]]],
 		  [[n,lookahead],[[v,c]]]]],
-/**
+
 		  [[n,finalchar],[[v,c]],":-",
 		  [[[n,=],[[v,c],"!"]]]],
 
