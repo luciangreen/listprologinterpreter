@@ -959,6 +959,12 @@ get_lang_word("stringconcat",Dbw_stringconcat1),Dbw_stringconcat1=Dbw_stringconc
 
         interpretpart(stringconcat,Variable1,Variable2,Variable3,Vars1,Vars2).
 
+interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_stringconcat_1],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("stringconcat1",Dbw_stringconcat1),Dbw_stringconcat1=Dbw_stringconcat_1,
+
+        interpretpart(stringconcat1,Variable1,Variable2,Variable3,Vars1,Vars2).
+
 /**interpretstatement1(_F0,_Functions,[[n,grammar_part]|Variables1],Vars1,Vars2,true,nocut) :-
 %%writeln1(x9),
 		  [Variables2]=Variables1,

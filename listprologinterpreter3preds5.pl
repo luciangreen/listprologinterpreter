@@ -431,7 +431,35 @@ get_lang_word("atom_string",Dbw_atom_string),
 ;     debug_fail(Skip,[[Dbw_n,Dbw_atom_string],[Value1,variable]]))))
 ,!.
 
+/**
+A,B,x*
+A,x,B
+x,A,B
+A,x,y
+x,A,y
+x,y,A
+x,y,z
+A,B,C
+**/
 
+interpretpart(stringconcat1,Terminal,Phrase2,Phrase1,Vars1,Vars2) :-
+%trace,
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("stringconcat1",Dbw_stringconcat),
+isvar(Terminal),
+isvar(Phrase2),
+       getvalues(Terminal,Phrase2,Phrase1,Value1,Value2,Value3,Vars1),
+
+debug_call(Skip,[[Dbw_n,Dbw_stringconcat],[variable1,variable2,Value2]]),
+	((string(Value3),
+   string_concat(Value1A,Value2A,Value3),
+        val1emptyorvalsequal(Value1,Value1A),
+        val1emptyorvalsequal(Value2,Value2A),
+        putvalue(Terminal,Value1A,Vars1,Vars3),
+        putvalue(Phrase2,Value2A,Vars3,Vars2)),
+      debug_exit(Skip,[[Dbw_n,Dbw_stringconcat],[Value1A,Value2A,Value3]])
+%;     debug_fail(Skip,[[Dbw_n,Dbw_stringconcat],[variable1,variable2,Value3]])
+).%,!.
 
 interpretpart(stringconcat,Terminal,Phrase2,Phrase1,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
@@ -445,7 +473,8 @@ get_lang_word("stringconcat",Dbw_stringconcat),
 (Terminal=""->(TerminalValue2="",
        
 string_concat(TerminalValue2,Phrase2Value1,Phrase1Value1))->true;
-            ((var(TerminalValue2)->(string_concat(TerminalValue2,Phrase2Value1,Phrase1Value1)),string_length(TerminalValue2,1));string_concat(TerminalValue2,Phrase2Value1,Phrase1Value1))),
+            ((var(TerminalValue2)->(string_concat(TerminalValue2,Phrase2Value1,Phrase1Value1))%,string_length(TerminalValue2,1)
+            );string_concat(TerminalValue2,Phrase2Value1,Phrase1Value1))),
                 
         putvalue(Terminal,TerminalValue2,Vars1,Vars3),
         putvalue(Phrase2,Phrase2Value1,Vars3,Vars4),
@@ -460,7 +489,8 @@ debug_exit(Skip,[[Dbw_n,Dbw_stringconcat],[TerminalValue1,Phrase1Value1,Phrase2V
         	
         	(debug_call(Skip,[[Dbw_n,Dbw_stringconcat],[variable1,variable2,variable3]]),
         	debug_fail(Skip,[[Dbw_n,Dbw_stringconcat],[variable1,variable2,variable3]])
-        	)),!.
+        	)).%!.
+
         	
 
 interpretpart(grammar_part,Variables1,Vars1,Vars2) :-
