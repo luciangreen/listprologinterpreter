@@ -2503,6 +2503,7 @@ test(116,[[n,grammar1],[".aaa.bbb.",[".","?"],[v,t]]],
 		  %[[n,not],[[n,finalchar],[[v,c],[v,cs]]]]],
 		  [[n,word212],[[v,t],[v,u]]]]],
 **/
+/**
 		  [[n,word21],[[v,cs],[v,t],[v,u]],"->",
 		  [%[v,a],
 		  %[[n,code],[[n,trace]]],
@@ -2515,7 +2516,7 @@ test(116,[[n,grammar1],[".aaa.bbb.",[".","?"],[v,t]]],
 		  %[[n,stringconcat],[[v,t],[v,b],[v,v]]]
 		  ,
 		  [[n,word212],[[v,v],[v,u]]]]],
-
+**/
 /**
 		  [[n,word21],[[v,t],[v,u]],"->",
 		  [[v,a],
