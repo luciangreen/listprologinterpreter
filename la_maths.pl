@@ -34,3 +34,9 @@ sum(S0,S1,S2) :-
 	S0=[S3|S4],
 	S5 is S1+S3,
 	sum(S4,S5,S2).
+
+% number_order(1000,M).
+% M = 3
+
+number_order(N1,M) :-
+	log(N1,N),log(10,P),M is ceiling(N/P).
