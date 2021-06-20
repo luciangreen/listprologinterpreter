@@ -92,9 +92,8 @@ test_types_cases(6,[[n,f],[[v,a]]],
 ]
 ,[[[[v,a], "a"]]]).
 
-%%test_types_cases(7,[[n,getitemn],[1,[1,2,3],[v,bb]]],
-%test_types_cases(7,[[n,map],[1,0,[v,d]]],
 test_types_cases(7,[[n,map],[[[n,add],[[[n,add],[[[n,add],[1]]]]]],0,[v,d]]],
+%test_types_cases(7,[[n,map],[1,0,[v,d]]],
 [
         [[n,map],[[t,map1],[t,number],[t,number]]],
         
