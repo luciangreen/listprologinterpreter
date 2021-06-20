@@ -94,18 +94,14 @@ test_types_cases(6,[[n,f],[[v,a]]],
 
 %%test_types_cases(7,[[n,getitemn],[1,[1,2,3],[v,bb]]],
 %test_types_cases(7,[[n,map],[1,0,[v,d]]],
-test_types_cases(7,[[n,map],[[[n,add],[[[n,add],[[[n,add],1]]]]],0,[v,d]]],
+test_types_cases(7,[[n,map],[[[n,add],[[[n,add],[[[n,add],[1]]]]]],0,[v,d]]],
 [
-        [[n,map],[[t,number],
-        [t,number],[t,number]]],
+        [[n,map],[[t,map1],[t,number],[t,number]]],
         
-        [[n,map],[[[t,brackets],[[t,predicatename],
-        [t,number]]],
-        [t,number],[t,number]]],
-        
-        [[n,map],[[[t,brackets],[[t,predicatename],
-        [[t,brackets],[[t,any]]]]],
-        [t,number],[t,number]]],
+        [[t,map1],[[t,number]]],
+
+        [[t,map1],[[[t,brackets],[[t,predicatename],
+        [[t,brackets],[[t,map1]]]]]]],
         
         [[n,add],[[t,number],[t,number],[t,number]]],
         
@@ -124,16 +120,7 @@ test_types_cases(7,[[n,map],[[[n,add],[[[n,add],[[[n,add],1]]]]],0,[v,d]]],
                 [[n,number],[[v,f1]]],
                 [[n,add],[[v,n1],[v,f1],[v,n]]]
         ]
-        ],       
-        [[n,map],[[v,f1],[v,l],[v,n]],":-",
-        [        
-                [[n,equals1],[[v,f1],[[v,f11],[v,bb]]]],
-                [[n,=],[[v,f11],[n,add]]],
-                [[n,number],[[v,bb]]],
-                [[v,f11],[[v,l],[v,bb],[v,n1]]],
-                [[v,f11],[[v,n1],[v,bb],[v,n]]]
-        ]
-        ],       
+        ],
         [[n,map],[[v,f1],[v,l],[v,n]],":-",
         [        
                 [[n,equals1],[[v,f1],[[v,f11],[v,f12]]]],
