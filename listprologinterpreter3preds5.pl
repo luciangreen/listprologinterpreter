@@ -475,7 +475,7 @@ get_lang_word("stringconcat",Dbw_stringconcat),
 (Terminal=""->(TerminalValue2="",
        
 string_concat(TerminalValue2,Phrase2Value1,Phrase1Value1))->true;
-            ((var(TerminalValue2)->(string_concat(TerminalValue2,Phrase2Value1,Phrase1Value1))%,string_length(TerminalValue2,1)
+            ((var(TerminalValue2)->(string_concat(TerminalValue2,Phrase2Value1,Phrase1Value1)),string_length(TerminalValue2,1)
             );string_concat(TerminalValue2,Phrase2Value1,Phrase1Value1))),
                 
         putvalue(Terminal,TerminalValue2,Vars1,Vars3),

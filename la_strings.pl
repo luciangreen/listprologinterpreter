@@ -95,11 +95,25 @@ append_list2(A,List,B) :-
 list1(A,_,_) :-
 	(A=[_|_]->true;A=[]),!.
 	
-% split_string1(Docs,["`"],Input1)
+% split_string1(Docs,["`"],Input1) - splits and deletes on chars
 
 split_string1(String1,Chars,List) :-
 	%string_codes(String2,String1),
 	test(116,_,Code,_),
+	%trace,
+	%writeln1([interpret(off,[[n,grammar1],[String1,Chars,[v,t]]],
+	%	Code,A)]),
+	interpret(off,[[n,grammar1],[String1,Chars,[v,t]]],
+		Code,[[[[v,t],List]]]),!.
+
+/**
+?- split_string2("a   a",[" "],A).
+A = ["a", " ", " ", " ", "a"].
+**/
+
+split_string2(String1,Chars,List) :-
+	%string_codes(String2,String1),
+	test(117,_,Code,_),
 	%trace,
 	%writeln1([interpret(off,[[n,grammar1],[String1,Chars,[v,t]]],
 	%	Code,A)]),
