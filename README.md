@@ -64,7 +64,7 @@ test(1,[[n,function],[1,1,[v,c]]],
         ]
         ]
 ]
-,[[[v,c], 2]]).
+,[[[[v,c], 2]]]).
 ```
 This query contains the query tested, the predicate and the required result.
 
@@ -81,7 +81,7 @@ test(7,[[n,reverse],[[1,2,3],[],[v,l]]],
                 [[n,reverse],[[v,t],[v,o],[v,n]]]
         ]
         ]
-],[[[v,l], [3, 2, 1]]]).
+],[[[[v,l], [3, 2, 1]]]]).
 ```
 tests the reverse predicate.
 
