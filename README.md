@@ -53,7 +53,8 @@ To run a specific test:
 where TestNumber is the test number from <a href="lpiverify4.pl">lpiverify4.pl</a>.
 
 Example of an end to end test
-The query `test1(off,1,Passed).`
+The query `test1(Debug,1,Passed).`
+where `Debug (trace)=off`
 tests the following predicate:
 ```
 test(1,[[n,function],[1,1,[v,c]]],
