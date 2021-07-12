@@ -3062,7 +3062,7 @@ test(118,[[n,checktypes_inputs],
 	[[n,get_lang_word],["string",[v,dbw_string]]],
 	[[n,get_lang_word],["any",[v,dbw_any]]],
 	[[n,equals4],[[v,typestatements1],[[[v,t],[v,type]]]]],
-	[[[[n,not],[[n,=],[[v,type],[v,dbw_list]]]],[[n,not],[[n,=],[[v,type],[v,dbw_brackets]]]],[[n,not],[[n,=],[[v,type],[v,dbw_number]]]],[[n,not],[[n,=],[[v,type],[v,dbw_predicatename]]]],[[n,not],[[n,=],[[v,type],[v,dbw_string]]]],[[n,not],[[n,=],[[v,type],[v,dbw_any]]]]]],
+	[[[[n,not],[[[n,=],[[v,type],[v,dbw_list]]]]],[[n,not],[[[n,=],[[v,type],[v,dbw_brackets]]]]],[[n,not],[[[n,=],[[v,type],[v,dbw_number]]]]],[[n,not],[[[n,=],[[v,type],[v,dbw_predicatename]]]]],[[n,not],[[[n,=],[[v,type],[v,dbw_string]]]]],[[n,not],[[[n,=],[[v,type],[v,dbw_any]]]]]]],
 	[[n,"->"],[[[n,types],[on]],[[n,debug_call],[[v,skip],[[[v,t],[v,type]],[v,vars]]]],[[n,true]]]],
 	[[n,"->"],[[[[[n,member],[[[[v,t],[v,type]],"|",[[v,typestatements3]]],[v,typestatements4]]],[[n,"->"],[[[n,checktypes1],[[v,vars],[v,typestatements3],[v,typestatements2],[v,typestatements4]]],[[n,true]],[[n,checktypes1],[[[v,vars]],[v,typestatements3],[v,typestatements2],[v,typestatements4]]]]]]],[[n,"->"],[[[n,types],[on]],[[n,debug_exit],[[v,skip],[[[v,t],[v,type]],[v,vars]]]],[[n,true]]]],[[n,"->"],[[[n,types],[on]],[[n,debug_fail],[[v,skip],[[[v,t],[v,type]],[v,vars]]]],[[n,true]]]]]]
 ]],
