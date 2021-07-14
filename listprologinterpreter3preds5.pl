@@ -119,7 +119,7 @@ get_lang_word("member2",Dbw_member2),
 
 interpretpart(member3,Variable1,Variable2,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
-get_lang_word("member",Dbw_member2),
+get_lang_word("member3",Dbw_member2),
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
         %trace,
 	((%Value2=empty,
