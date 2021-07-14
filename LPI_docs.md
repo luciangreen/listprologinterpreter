@@ -198,6 +198,8 @@ For example:
 
 * `[[n,notrace]]` switches off trace (debug) mode.
 
+* `[[n,get_lang_word],[Variable1,Variable2]` e.g. `[n,get_lang_word],["get_lang_word",[v,word]]` returns `[v,word]="get_lang_word"`.
+
 * See lpiverify4.pl for examples of rules (predicates without bodies) and calls to predicates.
 
 

@@ -939,6 +939,13 @@ get_lang_word("member2",Dbw_member21),Dbw_member21=Dbw_member2,
 %%writeln1(8),
         interpretpart(member2,Variable1,Variable2,Vars1,Vars2).
 
+interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+%trace,
+get_lang_word("member",Dbw_member21),Dbw_member21=Dbw_member2,
+%%writeln1(8),
+        interpretpart(member3,Variable1,Variable2,Vars1,Vars2).
+
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_delete],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("delete",Dbw_delete1),Dbw_delete1=Dbw_delete,
@@ -1168,6 +1175,11 @@ interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_atom_string],[Variable1,Variable2
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("atom_string",Dbw_atom_string1),Dbw_atom_string1=Dbw_atom_string,
         interpretpart(atom_string,Variable1,Variable2,Vars1,Vars2).
+
+interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_get_lang_word],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("get_lang_word",Dbw_get_lang_word1),Dbw_get_lang_word1=Dbw_get_lang_word,
+        interpretpart(get_lang_word,Variable1,Variable2,Vars1,Vars2).
 
 	%%interpretpart(findall,[Variable1,Variable3],Vars3,Vars2).
 

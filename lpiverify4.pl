@@ -2884,23 +2884,35 @@ test(118,[[n,connect_cliques_types],[[["a",1],[1,2],[2,"b"]],[["a",3],[3,4],[4,"
 
 test(118,[[n,checktypes_inputs],
 
-[[n,want_baby],["yes","yes","yes"],
+[[n,pred],["yes","yes"],
 
-[[[n,want_baby],[[t,string],[t,string],[t,string],[t,string]]]]],
+[[[n,pred],[[t,string],[t,string]]]],
+
+[[[n,pred],[input,output]]]]],
+
+/*
+[n,want_baby],["yes","yes","yes","yes"],
+
+[[[n,want_baby],[[t,string],[t,string],[t,string],[t,string]]]],
 
 [[[n,want_baby],[input,input,input,output]]]],
+*/
+
+% the type checker sm is better than the type command anyway because it will work with skip and retry in trace
+% - use normal trace, notrace on checktypes, works with skip, retry (trace before checktypes, if exits or fails, turns off trace)
+% later: $ trace status to display
 
 [
-[[n,types],[on]], % need assertz command
+[[n,types],[on]], % need assertz command in ssi, not in lpi
 
-[[n,checktypes_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]],":-" % need for output check as well
+[[n,checktypes_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]],":-", % need these last 2 vars for output check as well
 [
 	[[n,"->"],[[[n,types],[on]],[[
 	%[[n,typestatements],[[v,typestatements1]]],[[n,modestatements],[[v,modestatements1]]],
 	[[n,checktypes0_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]]]]],[[n,true]]]],
 	[[n,cut]]
 ]],
-[[n,checktypes0_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]],":-"
+[[n,checktypes0_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]],":-",
 [
 	[[n,length],[[v,vars1],[v,l]]],
 	[[n,is],[[v,l],0]],
@@ -2912,7 +2924,7 @@ test(118,[[n,checktypes_inputs],
 	[[n,"->"],[[[n,types],[on]],[[[n,debug_types_exit],[[[v,function],"/","~",[v,l],[v,input_type_check]]]]],[[n,true]]]],
 	[[n,cut]]
 ]],
-[[n,checktypes0_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]],":-"
+[[n,checktypes0_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]],":-",
 [
 	[[n,length],[[v,vars1],[v,l]]],
 	[[n,get_lang_word],["input type check",[v,input_type_check]]],
@@ -2920,16 +2932,16 @@ test(118,[[n,checktypes_inputs],
 	[[[[n,member],[[[v,function],"|",[[v,typestatements2]]],[v,typestatements1]]],[[n,member],[[[v,function],"|",[[v,modestatements2]]],[v,modestatements1]]],[[n,extract_modes1],[[v,typestatements2],[v,typestatements3],[v,vars1],[v,vars2],[v,modestatements2]]],[[n,"->"],[[[n,types],[on]],[[n,debug_call],[[v,skip],[[v,function],[v,vars2]]]],[[n,true]]]],[[n,"->"],[[[[n,checktypes1],[[v,vars2],[v,typestatements3],[v,typestatements3],[v,typestatements1]]]],[[[[n,"->"],[[[n,types],[on]],[[n,debug_exit],[[v,skip],[[v,function],[v,vars2]]]],[[n,true]]]],[[n,"->"],[[[n,types],[on]],[[[n,debug_types_exit],[[[v,function],"/","~",[v,l],[v,input_type_check]]]]],[[n,true]]]]]],[[[[n,"->"],[[[n,types],[on]],[[n,debug_fail],[[v,skip],[[v,function],[v,vars1]]]],[[n,true]]]],[[n,"->"],[[[n,types],[on]],[[[n,debug_types_fail],[[[v,function],"/","~",[v,l],[v,input_type_check]]]]],[[n,true]]]]]]]]]],
 	[[n,cut]]
 ]],
-[[n,extract_modes1],[[v,typestatements1],[v,typestatements3],[v,vars1],[v,vars2],[v,modestatements1]],":-"
+[[n,extract_modes1],[[v,typestatements1],[v,typestatements3],[v,vars1],[v,vars2],[v,modestatements1]],":-",
 [
 	[[n,extract_modes2],[[v,typestatements1],[],[v,typestatements3],[v,vars1],[],[v,vars2],[v,modestatements1]]],
 	[[n,cut]]
 ]],
-[[n,extract_modes2],[[],[v,typestatements2a],[v,typestatements2a],[],[v,vars],[v,vars],[]],":-"
+[[n,extract_modes2],[[],[v,typestatements2a],[v,typestatements2a],[],[v,vars],[v,vars],[]],":-",
 [
 	[[n,cut]]
 ]],
-[[n,extract_modes2],[[v,typestatements1],[v,typestatements2a],[v,typestatements3],[v,vars1],[v,vars2],[v,vars3],[v,modestatements1]],":-"
+[[n,extract_modes2],[[v,typestatements1],[v,typestatements2a],[v,typestatements3],[v,vars1],[v,vars2],[v,vars3],[v,modestatements1]],":-",
 [
 	[[n,get_lang_word],["input",[v,input]]],
 	[[n,equals4],[[v,modestatements1],[[[v,input],"|",[v,modestatements3]]]]],
@@ -2940,7 +2952,7 @@ test(118,[[n,checktypes_inputs],
 	[[n,extract_modes2],[[v,typestatements3a],[v,typestatements4],[v,typestatements3],[v,vars12],[v,vars4],[v,vars3],[v,modestatements3]]],
 	[[n,cut]]
 ]],
-[[n,extract_modes2],[[v,typestatements1],[v,typestatements2a],[v,typestatements3],[v,vars1],[v,vars2],[v,vars3],[v,modestatements1]],":-"
+[[n,extract_modes2],[[v,typestatements1],[v,typestatements2a],[v,typestatements3],[v,vars1],[v,vars2],[v,vars3],[v,modestatements1]],":-",
 [
 	[[n,get_lang_word],["output",[v,output]]],
 	[[n,equals4],[[v,modestatements1],[[[v,output],"|",[v,modestatements3]]]]],
@@ -2949,12 +2961,12 @@ test(118,[[n,checktypes_inputs],
 	[[n,extract_modes2],[[v,typestatements3a],[v,typestatements2a],[v,typestatements3],[v,vars12],[v,vars2],[v,vars3],[v,modestatements3]]],
 	[[n,cut]]
 ]],
-[[n,checktypes],[[v,function],[v,vars1]],":-"
+[[n,checktypes],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]],":-",
 [
 	[[n,"->"],[[[n,types],[on]],[[[[n,typestatements],[[v,typestatements1]]],[[n,checktypes0],[[v,function],[v,vars1],[v,typestatements1]]]]],[[n,true]]]],
 	[[n,cut]]
 ]],
-[[n,checktypes0],[[v,function],[v,vars1],[v,typestatements1]],":-"
+[[n,checktypes0],[[v,function],[v,vars1],[v,typestatements1]],":-",
 [
 	[[n,get_lang_word],["Type check",[v,type_check]]],
 	[[n,length],[[v,vars1],[v,l]]],
@@ -2966,7 +2978,7 @@ test(118,[[n,checktypes_inputs],
 	[[n,"->"],[[[n,types],[on]],[[[n,debug_types_exit],[[[v,function],"/",[v,l],[v,type_check]]]]],[[n,true]]]],
 	[[n,cut]]
 ]],
-[[n,checktypes0],[[v,function],[v,vars1],[v,typestatements1]],":-"
+[[n,checktypes0],[[v,function],[v,vars1],[v,typestatements1]],":-",
 [
 	[[n,get_lang_word],["Type check",[v,type_check]]],
 	[[n,length],[[v,vars1],[v,l]]],
@@ -2975,26 +2987,21 @@ test(118,[[n,checktypes_inputs],
 	[[n,"->"],[[[[[n,member],[[[v,function],"|",[[v,typestatements2]]],[v,typestatements1]]],[[n,checktypes1],[[v,vars1],[v,typestatements2],[v,typestatements2],[v,typestatements1]]]]],[[[[n,"->"],[[[n,types],[on]],[[n,debug_exit],[[v,skip],[[v,function],[v,vars1]]]],[[n,true]]]],[[n,"->"],[[[n,types],[on]],[[[n,debug_types_exit],[[[v,function],"/",[v,l],[v,type_check]]]]],[[n,true]]]]]],[[[[n,"->"],[[[n,types],[on]],[[n,debug_fail],[[v,skip],[[v,function],[v,vars1]]]],[[n,true]]]],[[n,"->"],[[[n,types],[on]],[[[n,debug_types_fail],[[[v,function],"/",[v,l],[v,type_check]]]]],[[n,true]]]]]]]],
 	[[n,cut]]
 ]],
-[[n,checktypes1],[[],[],[v,u1],[v,u2]],":-"
+[[n,checktypes1],[[],[],[v,u1],[v,u2]],":-",
 [
 	[[n,cut]]
 ]],
-[[n,a],[[v,a]],":-"
-[
-	[[n,equals4],[[v,typestatements1],[[[[[[v,t],[v,dbw_list]],"|",[[v,typestatements3]]]],"|",[[v,typestatements4a]]]]]],
-	[[n,"->"],[[[n,types],[on]],[[[n,debug_call],[[v,skip],[[[v,t],[v,dbw_list]],[v,typestatements3]]]]],[[n,true]]]]
-]],
-[[n,checktypes1],[[v,vars1],[v,typestatements1],[v,typestatements2],[v,typestatements4]],":-"
+[[n,checktypes1],[[v,vars1],[v,typestatements1],[v,typestatements2],[v,typestatements4]],":-",
 [
 	[[n,get_lang_word],["t",[v,t]]],
 	[[n,get_lang_word],["list",[v,dbw_list]]],
 	[[n,equals4],[[v,vars1],[[[v,vars2],"|",[v,vars3]]]]],
 	[[n,list1],[[v,vars2],[v,undef1],[v,undef2]]],
-	[[n,equals4],[[v,typestatements1],[[[[[[v,t],[v,dbw_list]],"|",[[v,typestatements3]]]],"|",[[v,typestatements4a]]]]]],
+	[[n,equals4],[[v,typestatements1],[[[[[[v,t],[v,dbw_list]],"|",[[v,typestatements3]]]],"|",[[v,typestatements4a]]]]]], 
 	[[n,"->"],[[[n,types],[on]],[[[n,debug_call],[[v,skip],[[[v,t],[v,dbw_list]],[v,typestatements3]]]]],[[n,true]]]],
 	[[n,"->"],[[[[n,checktypes3],[[v,vars2],[v,typestatements3],[v,typestatements2],[v,typestatements4]]]],[[[[n,"->"],[[[n,types],[on]],[[[n,debug_exit],[[v,skip],[[[v,t],[v,dbw_list]],[v,vars2]]]]],[[n,true]]]],[[n,checktypes1],[[v,vars3],[v,typestatements4a],[v,typestatements2],[v,typestatements4]]]]],[[n,"->"],[[[n,types],[on]],[[[n,debug_fail],[[v,skip],[[[v,t],[v,dbw_list]],[v,vars2]]]]],[[n,true]]]]]]
 ]],
-[[n,checktypes1],[[v,vars1],[v,typestatements1],[v,typestatements2],[v,typestatements4]],":-"
+[[n,checktypes1],[[v,vars1],[v,typestatements1],[v,typestatements2],[v,typestatements4]],":-",
 [
 	[[n,get_lang_word],["t",[v,t]]],
 	[[n,get_lang_word],["list",[v,dbw_list]]],
@@ -3002,7 +3009,7 @@ test(118,[[n,checktypes_inputs],
 	[[n,"->"],[[[n,types],[on]],[[[n,debug_call],[[v,skip],[[[v,t],[v,dbw_list]],[v,typestatements3]]]]],[[n,true]]]],
 	[[n,"->"],[[[[n,checktypes3],[[v,vars1],[v,typestatements3],[v,typestatements2],[v,typestatements4]]]],[[n,"->"],[[[n,types],[on]],[[n,debug_exit],[[v,skip],[[[v,t],[v,dbw_list]],[v,vars1]]]],[[n,true]]]],[[n,"->"],[[[n,types],[on]],[[n,debug_fail],[[v,skip],[[[v,t],[v,dbw_list]],[v,vars1]]]],[[n,true]]]]]]
 ]],
-[[n,checktypes1],[[v,vars1],[v,typestatements1],[v,typestatements2],[v,typestatements4]],":-"
+[[n,checktypes1],[[v,vars1],[v,typestatements1],[v,typestatements2],[v,typestatements4]],":-",
 [
 	[[n,get_lang_word],["t",[v,t]]],
 	[[n,get_lang_word],["brackets",[v,dbw_brackets]]],
@@ -3011,14 +3018,14 @@ test(118,[[n,checktypes_inputs],
 	[[n,"->"],[[[[[n,equals4],[[v,vars1],[[[v,vars2],"|",[v,vars3]]]]],[[n,checktypes1],[[v,vars2],[v,typestatements3],[v,typestatements2],[v,typestatements4]]]]],[[[[n,"->"],[[[n,types],[on]],[[n,debug_exit],[[v,skip],[[[v,t],[v,dbw_brackets]],[v,vars1]]]],[[n,true]]]],[[n,checktypes1],[[v,vars3],[v,typestatements4a],[v,typestatements2],[v,typestatements4]]]]],[[n,"->"],[[[n,types],[on]],[[n,debug_fail],[[v,skip],[[[v,t],[v,dbw_brackets]],[v,vars1]]]],[[n,true]]]]]],
 	[[n,cut]]
 ]],
-[[n,checktypes1],[[v,vars1],[v,typestatements0],[v,typestatements1],[v,typestatements4]],":-"
+[[n,checktypes1],[[v,vars1],[v,typestatements0],[v,typestatements1],[v,typestatements4]],":-",
 [
 	[[n,equals4],[[v,vars1],[[[v,vars2],"|",[v,vars3]]]]],
 	[[n,equals4],[[v,typestatements0],[[[v,typestatements2],"|",[v,typestatements3]]]]],
 	[[n,checktypes2],[[v,vars2],[v,typestatements2],[v,typestatements1],[v,typestatements4]]],
 	[[n,checktypes1],[[v,vars3],[v,typestatements3],[v,typestatements1],[v,typestatements4]]]
 ]],
-[[n,checktypes2],[[v,vars],[v,typestatements1],[v,typestatements2],[v,c]],":-"
+[[n,checktypes2],[[v,vars],[v,typestatements1],[v,typestatements2],[v,c]],":-",
 [
 	[[n,get_lang_word],["t",[v,t]]],
 	[[n,get_lang_word],["number",[v,dbw_number]]],
@@ -3026,7 +3033,7 @@ test(118,[[n,checktypes_inputs],
 	[[n,"->"],[[[n,types],[on]],[[n,debug_call],[[v,skip],[[[v,t],[v,dbw_number]],[v,vars]]]],[[n,true]]]],
 	[[n,"->"],[[[[n,number],[[v,vars]]]],[[n,"->"],[[[n,types],[on]],[[n,debug_exit],[[v,skip],[[[v,t],[v,dbw_number]],[v,vars]]]],[[n,true]]]],[[n,"->"],[[[n,types],[on]],[[n,debug_fail],[[v,skip],[[[v,t],[v,dbw_number]],[v,vars]]]],[[n,true]]]]]]
 ]],
-[[n,checktypes2],[[v,vars],[v,typestatements1],[v,typestatements2],[v,u1]],":-"
+[[n,checktypes2],[[v,vars],[v,typestatements1],[v,typestatements2],[v,u1]],":-",
 [
 	[[n,get_lang_word],["t",[v,t]]],
 	[[n,get_lang_word],["predicatename",[v,dbw_predicatename]]],
@@ -3036,7 +3043,7 @@ test(118,[[n,checktypes_inputs],
 	[[n,"->"],[[[n,types],[on]],[[n,debug_call],[[v,skip],[[[v,t],[v,dbw_predicatename]],[v,vars]]]],[[n,true]]]],
 	[[n,"->"],[[[[n,equals4],[[v,vars],[[[v,dbw_n],[v,u2]]]]]],[[n,"->"],[[[n,types],[on]],[[n,debug_exit],[[v,skip],[[[v,t],[v,dbw_predicatename]],[v,vars]]]],[[n,true]]]],[[n,"->"],[[[n,types],[on]],[[n,debug_fail],[[v,skip],[[[v,t],[v,dbw_predicatename]],[v,vars]]]],[[n,true]]]]]]
 ]],
-[[n,checktypes2],[[v,vars],[v,typestatements1],[v,typestatements2],[v,u1]],":-"
+[[n,checktypes2],[[v,vars],[v,typestatements1],[v,typestatements2],[v,u1]],":-",
 [
 	[[n,get_lang_word],["t",[v,t]]],
 	[[n,get_lang_word],["string",[v,dbw_string]]],
@@ -3044,7 +3051,7 @@ test(118,[[n,checktypes_inputs],
 	[[n,"->"],[[[n,types],[on]],[[n,debug_call],[[v,skip],[[[v,t],[v,dbw_string]],[v,vars]]]],[[n,true]]]],
 	[[n,"->"],[[[[n,string],[[v,vars]]]],[[n,"->"],[[[n,types],[on]],[[n,debug_exit],[[v,skip],[[[v,t],[v,dbw_string]],[v,vars]]]],[[n,true]]]],[[n,"->"],[[[n,types],[on]],[[n,debug_fail],[[v,skip],[[[v,t],[v,dbw_string]],[v,vars]]]],[[n,true]]]]]]
 ]],
-[[n,checktypes2],[[v,vars],[v,typestatements1],[v,typestatements2],[v,u1]],":-"
+[[n,checktypes2],[[v,vars],[v,typestatements1],[v,typestatements2],[v,u1]],":-",
 [
 	[[n,get_lang_word],["t",[v,t]]],
 	[[n,get_lang_word],["any",[v,dbw_any]]],
@@ -3052,7 +3059,7 @@ test(118,[[n,checktypes_inputs],
 	[[n,"->"],[[[n,types],[on]],[[n,debug_call],[[v,skip],[[[v,t],[v,dbw_any]],[v,vars]]]],[[n,true]]]],
 	[[n,"->"],[[[[n,true]]],[[n,"->"],[[[n,types],[on]],[[n,debug_exit],[[v,skip],[[[v,t],[v,dbw_any]],[v,vars]]]],[[n,true]]]],[[n,"->"],[[[n,types],[on]],[[n,debug_fail],[[v,skip],[[[v,t],[v,dbw_any]],[v,vars]]]],[[n,true]]]]]]
 ]],
-[[n,checktypes2],[[v,vars],[v,typestatements1],[v,typestatements2],[v,typestatements4]],":-"
+[[n,checktypes2],[[v,vars],[v,typestatements1],[v,typestatements2],[v,typestatements4]],":-",
 [
 	[[n,get_lang_word],["t",[v,t]]],
 	[[n,get_lang_word],["list",[v,dbw_list]]],
@@ -3066,7 +3073,7 @@ test(118,[[n,checktypes_inputs],
 	[[n,"->"],[[[n,types],[on]],[[n,debug_call],[[v,skip],[[[v,t],[v,type]],[v,vars]]]],[[n,true]]]],
 	[[n,"->"],[[[[[n,member],[[[[v,t],[v,type]],"|",[[v,typestatements3]]],[v,typestatements4]]],[[n,"->"],[[[n,checktypes1],[[v,vars],[v,typestatements3],[v,typestatements2],[v,typestatements4]]],[[n,true]],[[n,checktypes1],[[[v,vars]],[v,typestatements3],[v,typestatements2],[v,typestatements4]]]]]]],[[n,"->"],[[[n,types],[on]],[[n,debug_exit],[[v,skip],[[[v,t],[v,type]],[v,vars]]]],[[n,true]]]],[[n,"->"],[[[n,types],[on]],[[n,debug_fail],[[v,skip],[[[v,t],[v,type]],[v,vars]]]],[[n,true]]]]]]
 ]],
-[[n,checktypes3],[[],[v,u1],[v,typestatements2],[v,u2]],":-"
+[[n,checktypes3],[[],[v,u1],[v,typestatements2],[v,u2]],":-",
 [
 	[[n,cut]]
 ]],
@@ -3078,6 +3085,26 @@ test(118,[[n,checktypes_inputs],
 	[[n,checktypes1],[[v,l1],[v,typestatements3],[v,typestatements2],[v,typestatements6]]],
 	[[n,checktypes3],[[v,l2],[v,typestatements3],[v,typestatements2],[v,typestatements6]]],
 	[[n,cut]]
+]],
+
+[[n,debug_call],[[v,skip],[[v,function],[v,vars1]]],":-",[
+[[n,writeln],[["debug_call",[v,function],[v,vars1]]]]
+]],
+[[n,debug_exit],[[v,skip],[[v,function],[v,vars1]]],":-",[
+[[n,writeln],[["debug_exit",[v,function],[v,vars1]]]]
+]],
+[[n,debug_fail],[[v,skip],[[v,function],[v,vars1]]],":-",[
+[[n,writeln],[["debug_fail",[v,function],[v,vars1]]]]
+]],
+[[n,debug_types_call],[[v,function]],":-",[
+[[n,writeln],[["debug_types_call",[v,function]]]]
+]],
+[[n,debug_types_exit],[[v,function]],":-",[
+[[n,writeln],[["debug_types_exit",[v,function]]]]
+]],
+[[n,debug_types_fail],[[v,function]],":-",[
+[[n,writeln],[["debug_types_fail",[v,function]]]]
 ]]
+
 ],
 [[]]).

@@ -117,6 +117,27 @@ get_lang_word("member2",Dbw_member2),
 %%;     %%debug_fail(Skip,[[n,member2],[Value1,Value2]])),!.
 %%		((debug(on)->(writeln1([fail,[[n,member2],[Value1,value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail))))).
 
+interpretpart(member3,Variable1,Variable2,Vars1,Vars2) :-
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("member",Dbw_member2),
+        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        %trace,
+	((%Value2=empty,
+	%trace,
+	((member(Value1a,Value2),
+
+	remember_and_turn_off_debug(Debug),
+
+	interpretpart(match4,Variable1,Value1a,Vars1,Vars2,_),
+	
+	turn_back_debug(Debug),
+
+	
+	debug_call(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2]])
+	%putvalue(Variable1,Value1a,Vars1,Vars2)
+	))),
+      debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value1a,Value2]])).
+
 interpretpart(isop,Operator,Variable1,Variable2,Variable3,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
@@ -187,7 +208,7 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
       (debug_exit(Skip,[[Dbw_n,=],[Value2,Value2]])
 ;     debug_fail(Skip,[[Dbw_n,=],[variable,Value2]]))),!.                        	
 
-interpretpart(match4,Variable1,Variable2,Vars1,Vars2,Note) :-
+interpretpart(match4,Variable1,Variable2,Vars1,Vars2,_Note) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("equals4",Dbw_equals4),
 %trace,
@@ -199,7 +220,7 @@ get_lang_word("equals4",Dbw_equals4),
         %%((val1emptyorvalsequal(Value1,Value1A),
         %%putvalue(Variable1,Value1A,Vars1,Vars2))
         ->
-      (debug_exit(Skip,[[Dbw_n,Dbw_equals4],[Note,Note]])
+      (debug_exit(Skip,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]]))),!.                        	
 
 
@@ -430,6 +451,19 @@ get_lang_word("atom_string",Dbw_atom_string),
       debug_exit(Skip,[[Dbw_n,Dbw_atom_string],[Value1,Value2A]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_atom_string],[Value1,variable]]))))
 ,!.
+
+interpretpart(get_lang_word,Variable1,Variable2,Vars1,Vars2) :- 
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("get_lang_word",Dbw_get_lang_word),
+       getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        debug_call(Skip,[[Dbw_n,Dbw_get_lang_word],[Value1,variable]]),
+	((%is_list(Value1),
+	get_lang_word(Value1,Value2A),
+   %sort(Value1,Value2A),
+        val1emptyorvalsequal(Value2,Value2A),
+        putvalue(Variable2,Value2A,Vars1,Vars2))->
+      debug_exit(Skip,[[Dbw_n,Dbw_get_lang_word],[Value1,Value2A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_get_lang_word],[Value1,variable]])),!.
 
 /**
 A,B,x*
@@ -924,11 +958,15 @@ single_item(A) :- variable_name(A),!.
 single_item(A) :- A="|",fail,!.
 single_item(A) :- string(A),!.
 single_item(A) :- number(A),!.
+single_item(A) :- atom(A),!.
+single_item([A,B]) :- atom(A),atom(b),!.
 
 is_value_match(A) :- predicate_or_rule_name(A),!.
 is_value_match(A) :- A="|",fail,!.
 is_value_match(A) :- string(A),!.
 is_value_match(A) :- number(A),!.
+is_value_match(A) :- atom(A),!.
+is_value_match([A,B]) :- atom(A),atom(b),!.
 
 append11(empty,A,A) :- !.
 append11(A,B,C) :- append(A,B,C).
