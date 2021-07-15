@@ -19,3 +19,4 @@
 :- include('lpiverify4_test_lang_all.pl').
 :- include('lpiverify4_test_bt_lang_all.pl').
 :- include('../Languages/make_docs.pl').
+:- include('../SSI/find_pred_sm.pl').

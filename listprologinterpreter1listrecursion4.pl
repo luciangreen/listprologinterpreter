@@ -1237,9 +1237,11 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 
 %%writeln1("h1/10"),
 
-
+%find_pred_sm(Reserved_words1),
         ((Query1=[[Dbw_n,Dbw_call],[[lang,Lang1],Debug1,[Function,Arguments],Functions%,Result
-        ]],Tm=off)->true;
+        ]],Tm=off%,
+        %not(member(Dbw_call,Reserved_words1))
+        )->true;
         (Query1=[[Dbw_n,Dbw_call],[[lang,Lang1],Debug1,[Function,Arguments],Types,Modes,Functions%,Result
         ]],Tm=on)),        
         
@@ -1303,11 +1305,14 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 
 %%writeln1("h1/10"),
+%trace,
+find_pred_sm(Reserved_words1),
 
-
-
-        (Query1=[[Dbw_n,Dbw_call],[Function,Arguments]]->true;
-Query1=[Function,Arguments]),
+        %trace,
+        ((Query1=[[Dbw_n,Dbw_call],[Function,Arguments]]%,        not(member(Dbw_call,Reserved_words1))
+        )->true;
+(Query1=[Function,Arguments],Function=[Dbw_n1,Function_a],atom_string(Function_a,Function_s),
+not(member(Function_s,Reserved_words1)))),
 
 %trace,
         %%not(Function=[n,grammar]->true;Function=[n,grammar_part]), ****
