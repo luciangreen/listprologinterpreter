@@ -128,7 +128,7 @@ get_lang_word("member3",Dbw_member2),
 
 	remember_and_turn_off_debug(Debug),
 
-	interpretpart(match4,Variable1,Value1a,Vars1,Vars2,_),
+	(interpretpart(match4,Variable1,Value1a,Vars1,Vars2,_)->true;(turn_back_debug(Debug),fail)),
 	
 	turn_back_debug(Debug),
 
@@ -644,7 +644,7 @@ not(member("|",Variable1)),
 	Variable1=[Variable1a|Variable1b],
 	getvalue_match(Variable1a,Value1a,Vars1),
 	getvalue_match(Variable1b,Value1b,Vars1),
-	append([Value1a],Value1b,Value1).
+	append([Value1a],Value1b,Value1),!.
 	
 getvalue_match_pipe([],[],_Vars1) :- !.
 getvalue_match_pipe(Variable1,Value1,Vars1) :-
@@ -729,7 +729,7 @@ match4_10(Variable1,Variable2,Vars1,Vars2) :-
 	getvalue_match(Variable2,X,Vars1),
 	
 %%trace,
-	match4(Variable1,X,Vars1,Vars2).
+	match4(Variable1,X,Vars1,Vars2),!.
 	
 match4_10(Variable1,Variable2,Vars1,Vars2) :-
 %%trace,
@@ -742,7 +742,7 @@ match4_10(Variable1,Variable2,Vars1,Vars2) :-
 	
 	getvalue_match(Variable1,X,Vars1),
 
-	match4(X,Variable2,Vars1,Vars2).
+	match4(X,Variable2,Vars1,Vars2),!.
 
 	
 
@@ -762,7 +762,7 @@ match4(Variable1,Variable2,Vars1,Vars2) :-
 	%%),X),
 	val1emptyorvalsequal(Value2,X),
 	putvalue(Variable2,X,Vars1,Vars2),
-	length(Variable1,L),length(X,L).
+	length(Variable1,L),length(X,L),!.
 match4(Variable1,Variable2,Vars1,Vars2) :-
 	variable_name(Variable1),
 	getvalue(Variable1,Value1,Vars1),
@@ -772,12 +772,12 @@ match4(Variable1,Variable2,Vars1,Vars2) :-
 	getvalue_match(Variable2,X,Vars1),
 	val1emptyorvalsequal(Value1,X),
 	putvalue(Variable1,X,Vars1,Vars2),
-	length(Variable2,L),length(X,L).
+	length(Variable2,L),length(X,L),!.
 
 
 match4(Variable1,Variable2,Vars1,Vars2) :-
 %%trace,
-	match4_list(Variable1,Variable2,Vars1,Vars2).
+	match4_list(Variable1,Variable2,Vars1,Vars2),!.
 match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 ) :-
 	split_into_head_and_tail(Variable1,Head1a,Tail1a,Pipe1,Head_is_list_of_lists1),
@@ -874,7 +874,7 @@ split_by_number_of_items(List,N2,List10,List2) :-
 	%%N2 is N1-1,
 	length(List1,N2),
 	append(List1,List2,List),
-	(List1=[_] -> List1=[List10] ; List1=List10).
+	(List1=[_] -> List1=[List10] ; List1=List10),!.
 	
 match4_list([],[],Vars,Vars) :- !.
 
@@ -887,12 +887,12 @@ match4_list(Head1,Head2,Vars1,Vars2) :-
 	not(Head2a="|"),
 	match4(Head1a,Head2a,Vars1,Vars3%%,false
 	),
-	match4_list(Head1b,Head2b,Vars3,Vars2).
+	match4_list(Head1b,Head2b,Vars3,Vars2),!.
 match4_list(Head1,Head2,Vars1,Vars2) :-
 %%trace,
 	%%single_item(Head1),
 	%%single_item(Head2),
-	match4_terminal(Head1,Head2,Vars1,Vars2).%%,
+	match4_terminal(Head1,Head2,Vars1,Vars2),!.%%,
 	%%append(Value1,[Value3],Value2).
 
 
@@ -901,20 +901,33 @@ match4_list(Head1,Head2,Vars1,Vars2) :-
 	not(variable_name(Head2)),
 	not(Head2="|"),
 	getvalue(Head1,Value1,Vars1),not(Value1=empty),
-	match4(Value1,Head2,Vars1,Vars2).
+	match4(Value1,Head2,Vars1,Vars2),!.
 match4_list(Head1,Head2,Vars1,Vars2) :-
 	not(variable_name(Head1)),
 	not(Head1="|"),
 	variable_name(Head2),
 	getvalue(Head2,Value2,Vars1),not(Value2=empty),
-	match4(Head1,Value2,Vars1,Vars2).
+	match4(Head1,Value2,Vars1,Vars2),!.
 match4_list(Head1,Head2,Vars1,Vars2) :-
 	variable_name(Head1),
 	variable_name(Head2),
 	getvalue(Head1,Value1,Vars1),not(Value1=empty),
 	getvalue(Head2,Value2,Vars1),not(Value2=empty),
-	match4(Value1,Value2,Vars1,Vars2).
+	match4(Value1,Value2,Vars1,Vars2),!.
 	
+match4_list(Head1,Head2,Vars1,Vars2) :-
+	Head1=["|"|[Head1a]],
+	Head2=["|"|[Head2a]],
+	match4(Head1a,Head2a,Vars1,Vars2),!.
+match4_list(Head1,Head2,Vars1,Vars2) :-
+	Head1=["|"|[Head1a]],
+	not(Head2=["|"|_]),
+	match4(Head1a,Head2,Vars1,Vars2),!.
+match4_list(Head1,Head2,Vars1,Vars2) :-
+	Head2=["|"|[Head2a]],
+	not(Head1=["|"|_]),
+	match4(Head1,Head2a,Vars1,Vars2),!.
+
 match4_terminal([],[],Vars,Vars) :- !.
 match4_terminal(Variable1,Variable2,Vars1,Vars2) :-
 	%%is_list(Variable1),length(Variable1,1),
@@ -925,7 +938,7 @@ match4_terminal(Variable1,Variable2,Vars1,Vars2) :-
 	single_item(Variable1a),
 	single_item(Variable2a),
 	%%notrace,
-match4_terminal(Variable1a,Variable2a,Vars1,Vars2).%%,
+match4_terminal(Variable1a,Variable2a,Vars1,Vars2),!.%%,
 	%%append(Value1,[[Value3]],Value2).
 
 match4_terminal(Variable1,Variable2,Vars1,Vars2) :-%%trace,
@@ -946,7 +959,7 @@ match4_terminal(Variable1,Variable2,Vars1,Vars2) :-%%trace,
 	     fail
 	     %% assumes either or both A and B in A=B are instantiated, 
 	     %% can be changed later.
-	     )).
+	     )),!.
 
 bracket_if_single(Value1A,Value1A) :-
 	is_list(Value1A),!.
@@ -959,14 +972,14 @@ single_item(A) :- A="|",fail,!.
 single_item(A) :- string(A),!.
 single_item(A) :- number(A),!.
 single_item(A) :- atom(A),!.
-single_item([A,B]) :- atom(A),atom(b),!.
+%single_item([A,B]) :- atom(A),atom(b),!.
 
 is_value_match(A) :- predicate_or_rule_name(A),!.
 is_value_match(A) :- A="|",fail,!.
 is_value_match(A) :- string(A),!.
 is_value_match(A) :- number(A),!.
 is_value_match(A) :- atom(A),!.
-is_value_match([A,B]) :- atom(A),atom(b),!.
+%is_value_match([A,B]) :- atom(A),atom(b),!.
 
 append11(empty,A,A) :- !.
 append11(A,B,C) :- append(A,B,C).

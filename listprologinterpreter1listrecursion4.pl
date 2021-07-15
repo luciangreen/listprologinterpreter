@@ -876,15 +876,17 @@ get_lang_word("equals3",Dbw_equals31),Dbw_equals31=Dbw_equals3,
 
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+%trace,
+%writeln1(interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]],Vars1,Vars2,true,nocut)),
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("equals4",Dbw_equals41),Dbw_equals41=Dbw_equals4,
 get_lang_word("v",Dbw_v),
 get_lang_word("sys1",Dbw_sys1),
 %%writeln1(5),
-%%trace,
+%trace,
          remember_and_turn_off_debug(Debug),
  	%trace,
-         interpretpart(match4,Variable1,Variable2,Vars1,Vars5,_),
+         (interpretpart(match4,Variable1,Variable2,Vars1,Vars5,_)->true;(turn_back_debug(Debug),fail)),
          
          interpretpart(match4,Variable1,[Dbw_v,Dbw_sys1],Vars5,Vars4,_),
 
