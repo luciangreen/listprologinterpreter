@@ -823,6 +823,7 @@ match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 	,!.
 
 split_into_head_and_tail(Variable,Head1c,Tail1c,Pipe,Head_is_list_of_lists) :-
+	(findall(FA,member("|",Variable),FA2),length(FA2,FA3),FA3=<1),
 	%%Variable=[[v, a], "|", [v, d]]->trace,%%((
 	(((
 	append(Head2,["|"|Tail2],Variable) %%-> notrace;notrace)
@@ -971,14 +972,14 @@ single_item(A) :- variable_name(A),!.
 single_item(A) :- A="|",fail,!.
 single_item(A) :- string(A),!.
 single_item(A) :- number(A),!.
-single_item(A) :- atom(A),!.
+%single_item(A) :- atom(A),!.
 %single_item([A,B]) :- atom(A),atom(b),!.
 
 is_value_match(A) :- predicate_or_rule_name(A),!.
 is_value_match(A) :- A="|",fail,!.
 is_value_match(A) :- string(A),!.
 is_value_match(A) :- number(A),!.
-is_value_match(A) :- atom(A),!.
+%is_value_match(A) :- atom(A),!.
 %is_value_match([A,B]) :- atom(A),atom(b),!.
 
 append11(empty,A,A) :- !.

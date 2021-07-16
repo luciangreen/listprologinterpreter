@@ -2903,9 +2903,9 @@ test(118,
 
 [[n,want_baby],["yes","yes","yes","yes"],
 
-[[[n,want_baby],[[t,string],[t,string],[t,string],[t,string]]]],
+[[[n,want_baby],[["t","string"],["t","string"],["t","string"],["t","string"]]]],
 
-[[[n,want_baby],[input,input,input,output]]]]],
+[[[n,want_baby],["input","input","input","output"]]]]],
 %**/
 
 % the type checker sm is better than the type command anyway because it will work with skip and retry in trace
@@ -3019,6 +3019,8 @@ test(118,
 	%[[n,trace]],
 	
 	[[n,is_list],[[v,vars2]]],
+	
+	%[[n,writeln],[[[v,typestatements1]]]],
 	[[n,equals4],[[v,typestatements1],[[[[v,t],[v,dbw_list]],"|",[[v,typestatements3]]],"|",[v,typestatements4a]]]], 
 	[[n,"->"],[[[n,types],[on]],[[[n,debug_call],[[v,skip],[[[v,t],[v,dbw_list]],[v,typestatements3]]]]],[[n,true]]]],
 	[[n,"->"],[[[[n,checktypes3],[[v,vars2],[v,typestatements3],[v,typestatements2],[v,typestatements4]]]],[[[[n,"->"],[[[n,types],[on]],[[[n,debug_exit],[[v,skip],[[[v,t],[v,dbw_list]],[v,vars2]]]]],[[n,true]]]],[[n,checktypes1],[[v,vars3],[v,typestatements4a],[v,typestatements2],[v,typestatements4]]]]],[[n,"->"],[[[n,types],[on]],[[[n,debug_fail],[[v,skip],[[[v,t],[v,dbw_list]],[v,vars2]]]]],[[n,true]]]]]]
