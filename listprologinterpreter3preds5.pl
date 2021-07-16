@@ -238,9 +238,13 @@ get_lang_word("delete",Dbw_delete),
 interpretpart(append,Variable1,Variable2,Variable3,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("append",Dbw_append),
-        	
-        getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
-        debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,variable3]]),
+        	%trace,
+        %getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
+	getvalue_equals4(Variable1,Value1,Vars1),
+	getvalue_equals4(Variable2,Value2,Vars1),
+	getvalue(Variable3,Value3,Vars1),
+
+debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,variable3]]),
         ((append1(Value1,Value2,Value3A),
         val1emptyorvalsequal(Value3,Value3A),
         putvalue(Variable3,Value3A,Vars1,Vars2))->
@@ -421,7 +425,7 @@ find_findall_sys(Findall_sys_name),
 	
 	 turn_back_debug(Debug),
 	
-	writeln(Value3)
+ writeln(Value3)
 	
         %val1emptyorvalsequal(Value1,Value1A),
         %putvalue(Variable1,Value1A,Vars1,Vars2)
@@ -824,6 +828,9 @@ match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 	,!.
 
 split_into_head_and_tail(Variable,Head1c,Tail1c,Pipe,Head_is_list_of_lists) :-
+%writeln1(split_into_head_and_tail(Variable,Head1c,Tail1c,Pipe,Head_is_list_of_lists)),
+
+not(variable_name(Variable)),
 	(findall(_FA,member("|",Variable),FA2),length(FA2,FA3),FA3=<1),
 	%%Variable=[[v, a], "|", [v, d]]->trace,%%((
 	(((

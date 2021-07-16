@@ -322,9 +322,21 @@ getvalues2(VarNames1,Values1,Values2,Vars,Flags1,Flags2) :-
 	append(Values1,Value3,Values3),
 	append(Flags1,[Flag2],Flags3),
 	getvalues2(VarNames2,Values3,Values2,Vars,Flags3,Flags2),!.
+	
 undefined_to_empty([],Values,Values) :- !.
 undefined_to_empty(Values1,Values2,Values3) :-
 	Values1=[Value1|Values4],
 	(var(Value1)->Value2=empty;Value2=Value1),
 	append(Values2,[Value2],Values5),
 	undefined_to_empty(Values4,Values5,Values3),!.
+	
+getvalue_equals4(Variable,Value,Vars) :-
+	get_lang_word("v",Dbw_v),
+		remember_and_turn_off_debug(Debug),
+		
+		find_findall_sys(Findall_sys_name),
+        
+	
+((interpretpart(match4,Variable,[Dbw_v,Findall_sys_name],Vars,Vars3,_),
+	getvalue([Dbw_v,Findall_sys_name],Value,Vars3))->true;(turn_back_debug(Debug),fail)),
+	turn_back_debug(Debug).
