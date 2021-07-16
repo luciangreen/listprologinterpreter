@@ -19,7 +19,7 @@ test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 
 test1(Debug,N,Passed) :-
 	test(N,Query,Functions,Result),
-	((international_interpret([lang,"en"],Debug,Query,Functions,Result1)%,writeln([result1,Result1]),
+	((international_interpret([lang,"en"],Debug,Query,Functions,Result1),%writeln([result1,Result1]),
 	Result=Result1
 	)->(Passed=passed,writeln([test,N,passed]));(Passed=failed,writeln([test,N,failed]))),!.
 
