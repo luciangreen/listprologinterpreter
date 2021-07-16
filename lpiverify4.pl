@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=118, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=119, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -19,7 +19,7 @@ test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 
 test1(Debug,N,Passed) :-
 	test(N,Query,Functions,Result),
-	((international_interpret([lang,"en"],Debug,Query,Functions,Result1),writeln([result1,Result1]),
+	((international_interpret([lang,"en"],Debug,Query,Functions,Result1)%,writeln([result1,Result1]),
 	Result=Result1
 	)->(Passed=passed,writeln([test,N,passed]));(Passed=failed,writeln([test,N,failed]))),!.
 
@@ -2901,11 +2901,11 @@ test(118,
 %/** ***
 [[n,checktypes_inputs],
 
-[[n,want_baby],["yes","yes","yes","yes"],
+[["n","want_baby"],["yes","yes","yes","yes"],
 
-[[[n,want_baby],[["t","string"],["t","string"],["t","string"],["t","string"]]]],
+[[["n","want_baby"],[["t","string"],["t","string"],["t","string"],["t","string"]]]],
 
-[[[n,want_baby],["input","input","input","output"]]]]],
+[[["n","want_baby"],["input","input","input","output"]]]]],
 %**/
 
 % the type checker sm is better than the type command anyway because it will work with skip and retry in trace
@@ -2913,7 +2913,7 @@ test(118,
 % later: $ trace status to display
 
 [
-[[n,types],[on]], % need assertz command in ssi, not in lpi
+[[n,types],["on"]], % need assertz command in ssi, not in lpi
 
 [[n,checktypes_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]],":-", % need these last 2 vars for output check as well
 [

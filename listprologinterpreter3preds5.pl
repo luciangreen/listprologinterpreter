@@ -458,7 +458,8 @@ get_lang_word("get_lang_word",Dbw_get_lang_word),
        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
         debug_call(Skip,[[Dbw_n,Dbw_get_lang_word],[Value1,variable]]),
 	((%is_list(Value1),
-	get_lang_word(Value1,Value2A),
+	get_lang_word(Value1,Value2A1),
+	string_atom(Value2A,Value2A1), % *** LPI only takes strings
    %sort(Value1,Value2A),
         val1emptyorvalsequal(Value2,Value2A),
         putvalue(Variable2,Value2A,Vars1,Vars2))->
@@ -823,7 +824,7 @@ match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 	,!.
 
 split_into_head_and_tail(Variable,Head1c,Tail1c,Pipe,Head_is_list_of_lists) :-
-	(findall(FA,member("|",Variable),FA2),length(FA2,FA3),FA3=<1),
+	(findall(_FA,member("|",Variable),FA2),length(FA2,FA3),FA3=<1),
 	%%Variable=[[v, a], "|", [v, d]]->trace,%%((
 	(((
 	append(Head2,["|"|Tail2],Variable) %%-> notrace;notrace)
