@@ -15,7 +15,7 @@ Please read the following instructions on how to install the project on your com
 * Install <a href="https://github.com/soimort/translate-shell">Translation Shell</a> on Mac, etc.
 Change line in
 ```
-culturaltranslationtool/ctt.pl
+culturaltranslationtool/ctt2.pl
 trans_location("../../../gawk/trans").
 ```
 to correct location of <a href="https://github.com/soimort/translate-shell">trans</a>.
