@@ -95,6 +95,19 @@ append_list2(A,List,B) :-
 list1(A,_,_) :-
 	(A=[_|_]->true;A=[]),!.
 	
+	% splits after !,?,.
+
+/*	
+split_string17(String1,List) :-
+	%string_codes(String2,String1),
+	test(17,_,Code,_),
+	%trace,
+	%writeln1([interpret(off,[[n,grammar1],[String1,Chars,[v,t]]],
+	%	Code,A)]),
+	interpret(off,[[n,grammar1],[String1,[v,t]]],
+		Code,[[[[v,t],List]]]),!.
+*/
+
 % split_string1(Docs,["`"],Input1) - splits and deletes on chars
 
 split_string1(String1,Chars,List) :-
@@ -119,3 +132,22 @@ split_string2(String1,Chars,List) :-
 	%	Code,A)]),
 	interpret(off,[[n,grammar1],[String1,Chars,[v,t]]],
 		Code,[[[[v,t],List]]]),!.
+
+join_chars_after([],_Chars,List,List) :- !.
+join_chars_after([List1],_Chars,List2,List3) :-
+	append(List2,[List1],List3),!.
+join_chars_after(List1,Chars,List5,List2) :-
+	List1=[Char1,Char2|List3],
+	member(Char2,Chars),
+	string_concat(Char1,Char2,Char3),
+	append([Char3],List3,List4),
+	join_chars_after(List4,Chars,List5,List2),!.
+join_chars_after(List1,Chars,List5,List2) :-
+	List1=[Char1,Char2|List3],
+	not(member(Char2,Chars)),
+	append([Char2],List3,List4),
+	append(List5,[Char1],List6),
+	join_chars_after(List4,Chars,List6,List2),!.
+
+	
+	
