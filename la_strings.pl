@@ -149,5 +149,35 @@ join_chars_after(List1,Chars,List5,List2) :-
 	append(List5,[Char1],List6),
 	join_chars_after(List4,Chars,List6,List2),!.
 
-	
+% ?- split_on_substring117([1,1,2,3,1,2],[2],[],A).
+% A = ["\001\\001\", "\002\", "\003\\001\", "\002\"].
+
+split_on_substring117([],_A,E,E) :- !.
+split_on_substring117(A,B2,E,C) :-
+    
+    %not(member(B,A)),
+    forall(member(B,B2),forall(member(A2,A),not(B=A2))),
+    string_codes(E1,E),
+    string_codes(A1,A),
+    concat_list([E1,A1],C2),
+    append_list([C2],C),
+    !.
+split_on_substring117(A,B2,E,C) :-
+    member(B,B2),
+    append([B],D,A),
+    %trace,
+    split_on_substring117(D,B2,[],C1),
+    string_codes(E1,E),
+    string_codes(B1,[B]),
+    %trace,
+    (E1=""->maplist(append,[[[B1],C1]],[C]);
+    (%trace,
+    maplist(append,[[[E1,B1],C1]],[C]))),
+    !.
+split_on_substring117(A,B,E1,C) :-
+    length(E,1),
+    append(E,D,A),
+    append(E1,E,E2),
+    split_on_substring117(D,B,E2,C),!.
+
 	
