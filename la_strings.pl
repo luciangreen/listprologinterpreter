@@ -149,14 +149,15 @@ join_chars_after(List1,Chars,List5,List2) :-
 	append(List5,[Char1],List6),
 	join_chars_after(List4,Chars,List6,List2),!.
 
-% ?- split_on_substring117([1,1,2,3,1,2],[2],[],A).
-% A = ["\001\\001\", "\002\", "\003\\001\", "\002\"].
+% ?- split_on_substring117([65,65,65,66,65,65,68],[66,68],[],A).
+% A = ["AAA", "B", "AA", "D"].
 
 split_on_substring117([],_A,E,E) :- !.
 split_on_substring117(A,B2,E,C) :-
-    
     %not(member(B,A)),
-    forall(member(B,B2),forall(member(A2,A),not(B=A2))),
+    %forall(member(B,B2),
+    intersection(A,B2,[]),
+    %forall(member(A2,A),not(B=A2))),
     string_codes(E1,E),
     string_codes(A1,A),
     concat_list([E1,A1],C2),
