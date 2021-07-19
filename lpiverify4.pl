@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=119, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=117, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -3082,7 +3082,7 @@ test(118,
 	[[n,get_lang_word],["t",[v,t]]],
 	[[n,get_lang_word],["string",[v,dbw_string]]],
 	
-	[[n,trace]],
+	%[[n,trace]], ****
 	
 	[[n,equals4],[[v,typestatements1],[[v,t],[v,dbw_string]]]],
 	[[n,"->"],[[[n,types],["on"]],[[n,debug_call],[[v,skip],[[[v,t],[v,dbw_string]],[v,vars]]]],[[n,true]]]],
