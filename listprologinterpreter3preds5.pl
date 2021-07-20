@@ -1016,8 +1016,8 @@ match4_terminal(Variable1,Variable2,Vars1,Vars2,Variable1d,Variable2d,Vars1d,Var
         putvalue(Variable1,Value1A,Vars1,Vars2),%%bracket_if_single(Value1A,Value1A2),
         %%append11(Value1a,[Value1A],Value2a)
         Value1Ad = Value2d,
-        val1emptyorvalsequal(Value1d,Value1Ad),
-        putvalue(Variable1,Value1A,Vars1,Vars2),
+        %val1emptyorvalsequal(Value1d,Value1Ad),
+        
         putvalue(Variable1d,Value1Ad,Vars1d,Vars2d)
         
         )->true;
@@ -1026,7 +1026,7 @@ match4_terminal(Variable1,Variable2,Vars1,Vars2,Variable1d,Variable2d,Vars1d,Var
         putvalue(Variable2,Value2A,Vars1,Vars2),%%,%%bracket_if_single(Value2A,Value2A2),
         %%append11(Value1a,[Value2A],Value2a)
         Value2Ad = Value1d,
-        val1emptyorvalsequal(Value2d,Value2Ad),
+        %val1emptyorvalsequal(Value2d,Value2Ad),
         putvalue(Variable2d,Value2Ad,Vars1d,Vars2d)
         )->true;
 	     fail
