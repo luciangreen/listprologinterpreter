@@ -92,6 +92,7 @@ checktypes_inputs(Function,Arguments1),
 debug_call(Skip,[Function,Arguments1]),
 	(interpretbody(Functions,Functions2,Vars1,Vars2,Body,true)->debug_fail_fail(Skip);debug_fail(Skip,[Function,Arguments1])
 	),
+	%trace,
 	%%writeln1(updatevars(FirstArgs,Vars2,[],Result)),
 	updatevars(FirstArgs,Vars2,[],Result),
         %%reverse(Result,[],Vars7),
@@ -1329,6 +1330,7 @@ find_pred_sm(Reserved_words1),
         (substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
 %%writeln1([substitutevarsA1,arguments,Arguments,vars1,Vars1,vars3,Vars3,firstargs,FirstArgs]),
         Query2=[Function,Vars3])), %% Bodyvars2?
+        %trace,
 %%        	debug(on)->writeln1([call,[Function,[Vars3]]]),
 %%writeln1(["Query2",Query2,"Functions0",Functions0]),
         interpret2(Query2,Functions0,Functions0,Result1), 
@@ -1421,8 +1423,6 @@ interpretstatement3(Variable,Vars,Value) :-
         getvalue(Variable,Value,Vars).
         **/
 getvalue(Variable,Value,Vars) :-
-	getvalue(Variable,Value,Vars,_).
-getvalue(Variable,Value,Vars,Variable) :-
         ((not(isvar(Variable)),isvalstrorundef(Value),Variable=Value)->true;
         (isvar(Variable),isvalstrorundef(Value),getvar(Variable,Value,Vars))).
 putvalue(Variable,Value,Vars1,Vars2) :-
