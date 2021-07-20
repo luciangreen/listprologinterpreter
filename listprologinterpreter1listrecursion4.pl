@@ -1421,6 +1421,8 @@ interpretstatement3(Variable,Vars,Value) :-
         getvalue(Variable,Value,Vars).
         **/
 getvalue(Variable,Value,Vars) :-
+	getvalue(Variable,Value,Vars,_).
+getvalue(Variable,Value,Vars,Variable) :-
         ((not(isvar(Variable)),isvalstrorundef(Value),Variable=Value)->true;
         (isvar(Variable),isvalstrorundef(Value),getvar(Variable,Value,Vars))).
 putvalue(Variable,Value,Vars1,Vars2) :-

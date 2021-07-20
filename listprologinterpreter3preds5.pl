@@ -213,8 +213,8 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("equals4",Dbw_equals4),
 %trace,
         debug_call(Skip,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]]),
-        %trace,
-        (match4_2(Variable1,Variable2,Vars1,Vars2)
+        trace,
+        (match4_2(Variable1,Variable2,Vars1,Vars2,[],_)
         
         %%Value1A = Value2,
         %%((val1emptyorvalsequal(Value1,Value1A),
@@ -577,14 +577,29 @@ string_concat(TerminalValue2,Phrase2Value1,Phrase1Value11))->true;
         	
 
         	
-
 getvalues(Variable1,Variable2,Value1,Value2,Vars) :-
-        getvalue(Variable1,Value1,Vars),
-        getvalue(Variable2,Value2,Vars).
-getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars) :-
+	getvalues(Variable1,Variable2,Value1,Value2,Vars,_,_,[]).
+getvalues(Variable1,Variable2,Value1,Value2,Vars,Value1d,Value2d,Varsd) :-
         getvalue(Variable1,Value1,Vars),
         getvalue(Variable2,Value2,Vars),
-        getvalue(Variable3,Value3,Vars).
+        Variable1=Value1d,
+        Variable2=Value2d.
+        
+getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars) :-
+	getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars,_,_,_,[]).
+getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars,Value1d,Value2d,Value3d,_Varsd) :-
+        getvalue(Variable1,Value1,Vars),
+        getvalue(Variable2,Value2,Vars),
+        getvalue(Variable3,Value3,Vars),
+        Variable1=Value1d,
+        Variable2=Value2d,
+        Variable3=Value3d.
+
+        /*
+        getvalue(Variable1,Value1d,Varsd),
+        getvalue(Variable2,Value2d,Varsd),
+        getvalue(Variable3,Value3d,Varsd).
+        */
         /**
 getvalues2(Variable1,Variable2,Value1,Value2,Vars) :-
         getvalue2(Variable1,Value1,Vars),
@@ -638,31 +653,34 @@ removebrackets(Value,Value).
 %%: if doesn't contain "|" in first level, then match4 list x, terminal
 
 
-getvalue_match(Variable1,Value1,Vars1) :-
+getvalue_match(Variable1,Value1,Vars1,Variable1) :-
 not(Variable1="|"),
 	single_item(Variable1),
 	getvalue(Variable1,Value1,Vars1),!.
-getvalue_match([],[],_Vars1) :- !.
-getvalue_match(Variable1,Value1,Vars1) :-
+getvalue_match([],[],_Vars1,[]) :- !.
+getvalue_match(Variable1,Value1,Vars1,Value1c) :-
 not(member("|",Variable1)),
 	not(single_item(Variable1)),
 	Variable1=[Variable1a|Variable1b],
-	getvalue_match(Variable1a,Value1a,Vars1),
-	getvalue_match(Variable1b,Value1b,Vars1),
-	append([Value1a],Value1b,Value1),!.
+	getvalue_match(Variable1a,Value1a,Vars1,Value1ca),
+	getvalue_match(Variable1b,Value1b,Vars1,Value1cb),
+	append([Value1a],Value1b,Value1),
+	append([Value1ca],Value1cb,Value1c),!.
 	
-getvalue_match_pipe([],[],_Vars1) :- !.
-getvalue_match_pipe(Variable1,Value1,Vars1) :-
+getvalue_match_pipe([],[],_Vars1,[]) :- !.
+getvalue_match_pipe(Variable1,Value1,Vars1,Variable1) :-
 	variable_name(Variable1),
 	getvalue(Variable1,Value1,Vars1),
 	not(Value1=empty),!.
 
 
-getvalue_match_pipe(Variable1,Value1,Vars1) :- %%,Top_flag
+getvalue_match_pipe(Variable1,Value1,Vars1,Value1d) :- %%,Top_flag
 
 	(variable_name(Variable1)->
-	(getvalue(Variable1,Value1,Vars1),
-	not(Value1=empty))),
+	(getvalue(Variable1,Value1,Vars1,Value1d),
+	not(Value1=empty)%,
+	%Value1d=Variable1)
+	)),
 
 	split_into_head_and_tail(Variable1,Head1a,Tail1a,Pipe1,Head_is_list_of_lists1),
 	(single_item(Head1a) -> L1 = 1 ; length(Head1a,L1)),
@@ -672,11 +690,12 @@ getvalue_match_pipe(Variable1,Value1,Vars1) :- %%,Top_flag
 		Head1=Head1a,Tail1=Tail1a,
 		%%notrace,
 		%%trace,
-	getvalue_match_pipe(Head1,Value11a,Vars1),
-	getvalue_match_pipe(Tail1,Value11b,Vars1),
+	getvalue_match_pipe(Head1,Value11a,Vars1,Value1da),
+	getvalue_match_pipe(Tail1,Value11b,Vars1,Value1db),
 	not(Value11a=empty),(Value11b=empty->fail;Value11c=Value11b),
 	is_list(Value11c),
-	append(Value11a,Value11c,Value1)
+	append(Value11a,Value11c,Value1),
+	append(Value1da,Value1db,Value1d)
 	%%[Value3]=Value5,Value4=[Value6|Value6a],
 	%%maplist(append,[[Value5,Value6,Value6a]],Value2)
 	%%,notrace
@@ -694,49 +713,57 @@ getvalue_match_pipe(Variable1,Value1,Vars1) :- %%,Top_flag
 	 % *1
 	%%trace,
 	%%writeln(here2),
-	getvalue_match_pipe(Head1,Value12a,Vars1),
-	getvalue_match_pipe(Tail1,Value12b,Vars1),
+	getvalue_match_pipe(Head1,Value12a,Vars1,Value1ea),
+	getvalue_match_pipe(Tail1,Value12b,Vars1,Value1eb),
 	not(Value12a=empty),(Value12b=empty->fail;Value12c=Value12b),
 	is_list(Value12c),
 	%%trace,
-	append([Value12a],Value12c,Value1)),!.
+	append([Value12a],Value12c,Value1),
+	append([Value1ea],Value1eb,Value1d)),!.
 
-getvalue_match_pipe([Variable1|Variable1b],Value1,Vars1) :-
+getvalue_match_pipe([Variable1|Variable1b],Value1,Vars1,Value1d) :-
 %%variable_name(Variable1),
 	(variable_name(Variable1)->
-	(getvalue(Variable1,Value1,Vars1),
+	(getvalue(Variable1,Value1,Vars1,Value1d),
 	not(Value1=empty))),
 	
 	(variable_name(Variable1b)->
-	(getvalue(Variable1b,Value1b,Vars1),
+	(getvalue(Variable1b,Value1b,Vars1,_Value1db),
 	not(Value1b=empty))),
 
-	getvalue_match_pipe(Variable1,Value11a,Vars1),
-	getvalue_match_pipe(Variable1b,Value11b,Vars1),
+	getvalue_match_pipe(Variable1,Value11a,Vars1,Value11da),
+	getvalue_match_pipe(Variable1b,Value11b,Vars1,Value11db),
 	not(Value11a=empty),(Value11b=empty->Value11c=[];Value11c=Value11b),
 	is_list(Value11c),
-	append([Value11a],Value11c,Value1),!.
+	append([Value11a],Value11c,Value1),
+	append([Value11da],Value11db,Value1d),!.
 
 
-match4_2(Variable1,Variable2,Vars1,Vars2) :-
-	match4_10(Variable1,Variable2,Vars1,Vars2),!.
-match4_2(Variable1,Variable2,Vars1,Vars2) :-
-	match4(Variable1,Variable2,Vars1,Vars2),!.
+match4_2(Variable1,Variable2,Vars1,Vars2,%Variable1d,Variable2d,
+Vars1d,Vars2d) :-
+	match4_10(Variable1,Variable2,Vars1,Vars2,%Variable1d,Variable2d,
+	Vars1d,Vars2d),!.
+match4_2(Variable1,Variable2,Vars1,Vars2,%Variable1d,Variable2d,
+Vars1d,Vars2d) :-
+	match4(Variable1,Variable2,Vars1,Vars2,Variable1,Variable2,
+	Vars1d,Vars2d),!.
 
 
-match4_10(Variable1,Variable2,Vars1,Vars2) :-
+match4_10(Variable1,Variable2,Vars1,Vars2,%Variable1d,Variable2d,
+Vars1d,Vars2d) :-
 	%%interpretpart(match4,Variable1,[v,sys2],Vars1,Vars3,_),
 %%	getvalue([v,sys2],Value1,Vars3))),
 
 	not(variable_name(Variable2)),
 	is_list(Variable2),
 	%%findall(Value2,(member(A,Variable2),getvalue(A,Value2,Vars1)),X),
-	getvalue_match(Variable2,X,Vars1),
+	getvalue_match(Variable2,X,Vars1,Xd),
 	
 %%trace,
-	match4(Variable1,X,Vars1,Vars2),!.
+	match4(Variable1,X,Vars1,Vars2,Variable1,Xd,Vars1d,Vars2d),!.
 	
-match4_10(Variable1,Variable2,Vars1,Vars2) :-
+match4_10(Variable1,Variable2,Vars1,Vars2,%Variable1d,Variable2d,
+Vars1d,Vars2d) :-
 %%trace,
 	not(variable_name(Variable1)),
 	is_list(Variable1),
@@ -745,16 +772,17 @@ match4_10(Variable1,Variable2,Vars1,Vars2) :-
 	%%interpretpart(match4,Variable1,[v,sys1],Vars1,Vars3,_),
 	%%getvalue([v,sys1],Value1,Vars3)
 	
-	getvalue_match(Variable1,X,Vars1),
+	getvalue_match(Variable1,X,Vars1,Xd),
 
-	match4(X,Variable2,Vars1,Vars2),!.
+	match4(X,Variable2,Vars1,Vars2,Xd,Variable2,Vars1d,Vars2d),!.
 
 	
 
-match4(Variable1,Variable2,Vars1,Vars2) :-
+match4(Variable1,Variable2,Vars1,Vars2,Variable1d,Variable2d,
+Vars1d,Vars2d) :-
 %%trace,
 	variable_name(Variable2),
-	getvalue(Variable2,Value2,Vars1),
+	getvalue(Variable2,Value2,Vars1,Variable2d1),
 	not(variable_name(Variable1)),
 	is_list(Variable1),
 	%%findall(Value1,(
@@ -763,40 +791,55 @@ match4(Variable1,Variable2,Vars1,Vars2) :-
 	%%getvalue([v,sys1],Value1,Vars3)
 	
 	getvalue_match(Variable1,X,Vars1),
+	getvalue_match(Variable1d,_X1,Vars1,Xd),
 	%%member(A,Variable1),getvalue(A,Value1,Vars1)
 	%%),X),
 	val1emptyorvalsequal(Value2,X),
+
+	val1emptyorvalsequal(Variable2d1,Xd),
+
 	putvalue(Variable2,X,Vars1,Vars2),
+	putvalue(Variable2d,Xd,Vars1d,Vars2d),
 	length(Variable1,L),length(X,L),!.
-match4(Variable1,Variable2,Vars1,Vars2) :-
+	
+match4(Variable1,Variable2,Vars1,Vars2,Variable1d,Variable2d,Vars1d,Vars2d) :-
 	variable_name(Variable1),
 	getvalue(Variable1,Value1,Vars1),
+	getvalue(Variable1d,_Value1,Vars1,Variable1d1),
 	not(variable_name(Variable2)),
 	is_list(Variable2),
 	%%findall(Value2,(member(A,Variable2),getvalue(A,Value2,Vars1)),X),
 	getvalue_match(Variable2,X,Vars1),
+	getvalue_match(Variable2d,_X1,Vars1,Xd),
 	val1emptyorvalsequal(Value1,X),
+	val1emptyorvalsequal(Variable1d1,Xd),
 	putvalue(Variable1,X,Vars1,Vars2),
+	putvalue(Variable1d,Xd,Vars1d,Vars2d),
 	length(Variable2,L),length(X,L),!.
 
 
-match4(Variable1,Variable2,Vars1,Vars2) :-
+match4(Variable1,Variable2,Vars1,Vars2,Variable1d,Variable2d,Vars1d,Vars2d) :-
 %%trace,
-	match4_list(Variable1,Variable2,Vars1,Vars2),!.
-match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
+	match4_list(Variable1,Variable2,Vars1,Vars2,Variable1d,Variable2d,Vars1d,Vars2d),!.
+match4(Variable1,Variable2,Vars1,Vars2,%%,Top_flag
+Variable1d,Variable2d,Vars1d,Vars2d
 ) :-
 	split_into_head_and_tail(Variable1,Head1a,Tail1a,Pipe1,Head_is_list_of_lists1),
+	split_into_head_and_tail(Variable1d,Head1ad,Tail1ad,_Pipe1,_Head_is_list_of_lists1),
 	(single_item(Head1a) -> L1 = 1 ; length(Head1a,L1)),
 	split_into_head_and_tail(Variable2,Head2a,Tail2a,Pipe2,Head_is_list_of_lists2),
+	split_into_head_and_tail(Variable2d,Head2ad,Tail2ad,_Pipe2,_Head_is_list_of_lists2),
 	(single_item(Head2a) -> L2 = 1 ; length(Head2a,L2)),
 	(%%trace,
 	(Head_is_list_of_lists1=true->true;Head_is_list_of_lists2=true)->(
 	%%writeln(here1),
 		Head1=Head1a,Tail1=Tail1a,
 		Head2=Head2a,Tail2=Tail2a,%%notrace,
+		Head1d=Head1ad,Tail1d=Tail1ad,
+		Head2d=Head2ad,Tail2d=Tail2ad,%%notrace,
 		%%trace,
-	match4_list(Head1,Head2,Vars1,Vars3),
-	match4(Tail1,Tail2,Vars3,Vars2)
+	match4_list(Head1,Head2,Vars1,Vars3,Head1d,Head2d,Vars1d,Vars3d),
+	match4(Tail1,Tail2,Vars3,Vars2,Tail1d,Tail2d,Vars3d,Vars2d)
 	%%[Value3]=Value5,Value4=[Value6|Value6a],
 	%%maplist(append,[[Value5,Value6,Value6a]],Value2)
 	%%,notrace
@@ -814,8 +857,8 @@ match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 	, % *1
 	%%trace,
 	%%writeln(here2),
-	match4_list(Head1,Head2,Vars1,Vars3),
-	match4(Tail1,Tail2,Vars3,Vars2)
+	match4_list(Head1,Head2,Vars1,Vars3,Head1,Head2,Vars1d,Vars3d),
+	match4(Tail1,Tail2,Vars3,Vars2,Tail1,Tail2,Vars3d,Vars2d)
 	%%,notrace
 	%%(Top_flag=true->(trace,[Value3]=Value5);Value3=Value5),(Value4=[]->(Value6=[],Val6a=[]);[Value6|Val6a]=Value4),
 	
@@ -885,85 +928,106 @@ split_by_number_of_items(List,N2,List10,List2) :-
 	append(List1,List2,List),
 	(List1=[_] -> List1=[List10] ; List1=List10),!.
 	
-match4_list([],[],Vars,Vars) :- !.
+match4_list([],[],Vars,Vars,[],[],Vars1,Vars1) :- !.
 
-match4_list(Head1,Head2,Vars1,Vars2) :-
+match4_list(Head1,Head2,Vars1,Vars2,Head1d,Head2d,Vars1d,Vars2d) :-
 	not(variable_name(Head1)),
 	not(variable_name(Head2)),
 	Head1=[Head1a|Head1b],
 	Head2=[Head2a|Head2b],
+	Head1d=[Head1da|Head1db],
+	Head2d=[Head2da|Head2db],
 	not(Head1a="|"),
 	not(Head2a="|"),
-	match4(Head1a,Head2a,Vars1,Vars3%%,false
-	),
-	match4_list(Head1b,Head2b,Vars3,Vars2),!.
-match4_list(Head1,Head2,Vars1,Vars2) :-
+	match4(Head1a,Head2a,Vars1,Vars3,%%,false
+	Head1da,Head2da,Vars1d,Vars3d),
+	match4_list(Head1b,Head2b,Vars3,Vars2,Head1db,Head2db,Vars3d,Vars2d),!.
+match4_list(Head1,Head2,Vars1,Vars2,Head1d,Head2d,Vars1d,Vars2d) :-
 %%trace,
 	%%single_item(Head1),
 	%%single_item(Head2),
-	match4_terminal(Head1,Head2,Vars1,Vars2),!.%%,
+	match4_terminal(Head1,Head2,Vars1,Vars2,Head1d,Head2d,Vars1d,Vars2d),!.%%,
 	%%append(Value1,[Value3],Value2).
 
 
-match4_list(Head1,Head2,Vars1,Vars2) :-
+match4_list(Head1,Head2,Vars1,Vars2,Head1d,Head2d,Vars1d,Vars2d) :-
 	variable_name(Head1),
 	not(variable_name(Head2)),
 	not(Head2="|"),
-	getvalue(Head1,Value1,Vars1),not(Value1=empty),
-	match4(Value1,Head2,Vars1,Vars2),!.
-match4_list(Head1,Head2,Vars1,Vars2) :-
+	getvalue(Head1,Value1,Vars1,_Value1d),
+	getvalue(Head1d,_Value1,Vars1,Value1d),not(Value1=empty),
+	match4(Value1,Head2,Vars1,Vars2,Value1d,Head2d,Vars1d,Vars2d),!.
+match4_list(Head1,Head2,Vars1,Vars2,Head1d,Head2d,Vars1d,Vars2d) :-
 	not(variable_name(Head1)),
 	not(Head1="|"),
 	variable_name(Head2),
-	getvalue(Head2,Value2,Vars1),not(Value2=empty),
-	match4(Head1,Value2,Vars1,Vars2),!.
-match4_list(Head1,Head2,Vars1,Vars2) :-
+	getvalue(Head2,Value2,Vars1,_Value2d),
+	getvalue(Head2d,_Value2,Vars1,Value2d),
+	not(Value2=empty),
+	match4(Head1,Value2,Vars1,Vars2,Head1d,Value2d,Vars1d,Vars2d),!.
+match4_list(Head1,Head2,Vars1,Vars2,Head1d,Head2d,Vars1d,Vars2d) :-
 	variable_name(Head1),
 	variable_name(Head2),
-	getvalue(Head1,Value1,Vars1),not(Value1=empty),
-	getvalue(Head2,Value2,Vars1),not(Value2=empty),
-	match4(Value1,Value2,Vars1,Vars2),!.
+	getvalue(Head1,Value1,Vars1,_Value1d),
+	getvalue(Head1d,_Value1,Vars1,Value1d),not(Value1=empty),
+	getvalue(Head2,Value2,Vars1,_Value2d),
+	getvalue(Head2d,_Value2,Vars1,Value2d),not(Value2=empty),
+	match4(Value1,Value2,Vars1,Vars2,Value1d,Value2d,Vars1d,Vars2d),!.
 	
-match4_list(Head1,Head2,Vars1,Vars2) :-
+match4_list(Head1,Head2,Vars1,Vars2,Head1d,Head2d,Vars1d,Vars2d) :-
 	Head1=["|"|[Head1a]],
 	Head2=["|"|[Head2a]],
-	match4(Head1a,Head2a,Vars1,Vars2),!.
-match4_list(Head1,Head2,Vars1,Vars2) :-
+	Head1d=["|"|[Head1da]],
+	Head2d=["|"|[Head2da]],
+	match4(Head1a,Head2a,Vars1,Vars2,Head1da,Head2da,Vars1d,Vars2d),!.
+match4_list(Head1,Head2,Vars1,Vars2,Head1d,Head2d,Vars1d,Vars2d) :-
 	Head1=["|"|[Head1a]],
+	Head1d=["|"|[Head1da]],
 	not(Head2=["|"|_]),
-	match4(Head1a,Head2,Vars1,Vars2),!.
-match4_list(Head1,Head2,Vars1,Vars2) :-
+	match4(Head1a,Head2,Vars1,Vars2,Head1da,Head2d,Vars1d,Vars2d),!.
+match4_list(Head1,Head2,Vars1,Vars2,Head1d,Head2d,Vars1d,Vars2d) :-
 	Head2=["|"|[Head2a]],
+	Head2d=["|"|[Head2da]],
 	not(Head1=["|"|_]),
-	match4(Head1,Head2a,Vars1,Vars2),!.
+	match4(Head1,Head2a,Vars1,Vars2,Head1d,Head2da,Vars1d,Vars2d),!.
 
-match4_terminal([],[],Vars,Vars) :- !.
-match4_terminal(Variable1,Variable2,Vars1,Vars2) :-
+match4_terminal([],[],Vars,Vars,[],[],Vars1,Vars1) :- !.
+match4_terminal(Variable1,Variable2,Vars1,Vars2,Variable1d,Variable2d,Vars1d,Vars2d) :-
 	%%is_list(Variable1),length(Variable1,1),
 	%%is_list(Variable2),length(Variable2,1),
 	%%trace,
 	[Variable1a]=Variable1,
 	[Variable2a]=Variable2,
+	[Variable1da]=Variable1d,
+	[Variable2da]=Variable2d,
 	single_item(Variable1a),
 	single_item(Variable2a),
 	%%notrace,
-match4_terminal(Variable1a,Variable2a,Vars1,Vars2),!.%%,
+match4_terminal(Variable1a,Variable2a,Vars1,Vars2,Variable1da,Variable2da,Vars1d,Vars2d),!.%%,
 	%%append(Value1,[[Value3]],Value2).
 
-match4_terminal(Variable1,Variable2,Vars1,Vars2) :-%%trace,
+match4_terminal(Variable1,Variable2,Vars1,Vars2,Variable1d,Variable2d,Vars1d,Vars2d) :-%%trace,
 	%%single_item(Variable1), %% may be [1,2]
 	%%single_item(Variable2),
-   getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+   getvalues(Variable1,Variable2,Value1,Value2,Vars1,Value1d,Value2d,Vars1d),
    %% what if there is a var in a compound term? - may need different code in getvalues
         ((Value1A = Value2,
         val1emptyorvalsequal(Value1,Value1A),
-        putvalue(Variable1,Value1A,Vars1,Vars2)%%bracket_if_single(Value1A,Value1A2),
+        putvalue(Variable1,Value1A,Vars1,Vars2),%%bracket_if_single(Value1A,Value1A2),
         %%append11(Value1a,[Value1A],Value2a)
+        Value1Ad = Value2d,
+        val1emptyorvalsequal(Value1d,Value1Ad),
+        putvalue(Variable1,Value1A,Vars1,Vars2),
+        putvalue(Variable1d,Value1Ad,Vars1d,Vars2d)
+        
         )->true;
         ((Value2A = Value1,
         val1emptyorvalsequal(Value2,Value2A),
-        putvalue(Variable2,Value2A,Vars1,Vars2)%%,%%bracket_if_single(Value2A,Value2A2),
+        putvalue(Variable2,Value2A,Vars1,Vars2),%%,%%bracket_if_single(Value2A,Value2A2),
         %%append11(Value1a,[Value2A],Value2a)
+        Value2Ad = Value1d,
+        val1emptyorvalsequal(Value2d,Value2Ad),
+        putvalue(Variable2d,Value2Ad,Vars1d,Vars2d)
         )->true;
 	     fail
 	     %% assumes either or both A and B in A=B are instantiated, 
