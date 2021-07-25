@@ -1308,7 +1308,7 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 %%writeln1("h1/10"),
 %trace,
 %writeln([Functions0,Functions0]),
-find_pred_sm(Reserved_words1),
+%find_pred_sm(Reserved_words1),
 
         %trace,
         ((Query1=[[Dbw_n,Dbw_call],[Function,Arguments]]%,        not(member(Dbw_call,Reserved_words1))
