@@ -66,9 +66,9 @@ equals4_list_of_lists3(Statement_a,Statement_b,Vars1,Vars2) :-
 	(((variable_name(Statement_a),variable_name(Statement_b))->
 	get_put_value(Statement_a,Statement_b,Vars1,Vars2))->true;
 	(((variable_name(Statement_a),not(variable_name(Statement_b)))->
-	get_put_value(Statement_a,Statement_b,Vars1,Vars2))->true;
+	get_put_value2(Statement_a,Statement_b,Vars1,Vars2))->true;
 	(((not(variable_name(Statement_a)),variable_name(Statement_b))->
-	get_put_value(Statement_b,Statement_a,Vars1,Vars2))))),true.
+	get_put_value2(Statement_b,Statement_a,Vars1,Vars2))))),true.
 
 %putvalue(A,B,C1,D) :-
 %	delete(C1,[A,B],C),
@@ -81,5 +81,13 @@ get_put_value(Variable1,Variable2,Vars1,Vars2) :-
 	%(Value2=empty->Value2a=Variable2;Value2a=Value2),
 	val1emptyorvalsequal(Value1,Value2),
 	putvalue(Variable1,Value2,Vars1,Vars2),!.
+
+get_put_value2(Variable1,Variable2,Vars1,Vars2) :-
+	getvalue_match(Variable2,Value2,Vars1),
+	getvalue(Variable1,Value1,Vars1),
+	%(Value2=empty->Value2a=Variable2;Value2a=Value2),
+	val1emptyorvalsequal(Value1,Value2),
+	putvalue(Variable1,Value2,Vars1,Vars2),!.
+	
 	
 	
