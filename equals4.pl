@@ -70,10 +70,10 @@ equals4_list_of_lists3(Statement_a,Statement_b,Vars1,Vars2) :-
 	(((not(variable_name(Statement_a)),variable_name(Statement_b))->
 	get_put_value(Statement_b,Statement_a,Vars1,Vars2))))),true.
 
-putvalue(A,B,C1,D) :-
-	delete(C1,[A,B],C),
-	append(C,[[A,B]],D).
-variable_name([v,_]).
+%putvalue(A,B,C1,D) :-
+%	delete(C1,[A,B],C),
+%	append(C,[[A,B]],D).
+%variable_name([v,_]).
 	
 % a=1
 get_put_value(Variable1,Variable2,Vars1,Vars2) :-
