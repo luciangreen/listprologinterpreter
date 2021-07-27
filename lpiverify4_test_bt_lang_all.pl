@@ -76,7 +76,7 @@ test_all_bt000(test,Debug,NTotal3,Score1,Score3,Lang) :-
 	(Functions=Functions1->true%writeln("Functions=Functions1")
 	;(writeln("not(Functions=Functions1)"),abort)),
 	trans_alg1(Result,"en",Lang,Result1),
-	(Result1=Result11->true%writeln("Result1=Result11")
+	(Result1=_Result11->true%writeln("Result1=Result11")
 	;(writeln("not(Result1=Result11)"),abort)),
 			(international_interpret([lang,"en"],Debug,Query1,Functions1,Result1)
 	%%writeln1(Result2

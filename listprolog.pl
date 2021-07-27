@@ -13,6 +13,7 @@
 %%:- include('texttobr2.pl').
 :- include('la_strings.pl').
 :- include('la_string_codes.pl').
+:- include('la_maths.pl').
 %:- include('../Languages/lang_db_generator.pl'). % leave off, run separately through Languages
 %:- include('lpiverify4-fr.pl').
 :- include('operators.pl').
