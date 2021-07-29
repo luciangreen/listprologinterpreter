@@ -31,7 +31,13 @@ put_item_n(Exposition,Number1,Item2,Exposition2) :-
 % L = 2
 
 get_n_item(A,C,L2) :-
-	append(B,[C|_],A),length(B,L),L2 is L+1.
+	append(B,[C|_],A),length(B,L),L2 is L+1,!.
+
+% delete_item_n([4,5,6],2,D).
+% D = [4,6]
+delete_item_n(A,N,D) :-
+	N1 is N-1,length(B,N1),append(B,[_|C],A),append(B,C,D),!.
+
 
 sum(A,S) :-
 	sum(A,0,S), !.
