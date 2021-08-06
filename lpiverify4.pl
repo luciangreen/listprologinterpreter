@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=117, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=136, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -3225,3 +3225,104 @@ test(122,[[n,compound],["[],1]",[v,u],["aa,]\",b,\"c",[]],[v,t]]],
 [[[[v,u], ",1]"],[[v,t], ["aa,]\",b,\"c",[]]]]]).
 
 		  
+
+test(123,[[n,equals41],[[[v,b],"|",[v,c]]]],
+
+[
+        [[n,equals41],[[1,2,3]]]
+        
+],[[[[v,b],1],[[v,c],[2,3]]]]).
+
+
+test(124,[[n,equals41],[[[[v,a],"|",[v,d]],[v,c],"|",[v,b]]]],
+
+[
+        [[n,equals41],[[[1,5],2,3,4]]]
+
+],[[[[v, a], 1], [[v, d], [5]], [[v, c], 2], [[v, b], [3, 4]]]]).
+
+
+test(125,[[n,equals41],[[[[v,a],[v,c]],"|",[v,b]]]],
+
+[
+        [[n,equals41],[[[1,2],3,4]]]
+        
+],[[[[v, a], 1], [[v, c], 2], [[v, b], [3, 4]]]]).
+
+test(126,[[n,equals41],[[[v,a],"|",[v,b]]]],
+
+[
+        [[n,equals41],[[1,2,3,4]]]
+        
+],[[[[v, a], 1], [[v, b], [2, 3, 4]]]]).
+
+test(127,[[n,equals41],[[[v,a],[v,c],"|",[v,b],[v,d]]]],
+
+[
+        [[n,equals41],[[1,2,3,4]]]
+        
+],[]).
+
+test(128,[[n,equals41],[[[[v,a]],[v,c],"|",[v,b]]]],
+
+[
+        [[n,equals41],[[[1],2,3,4]]]
+        
+],[[[[v, a], 1], [[v, c], 2], [[v, b], [3, 4]]]]).
+
+test(129,[[n,equals41],[[[v,a],"|",[v,b]]]],
+
+[
+        [[n,equals41],[[[1,2],3,4]]]
+        
+],[[[[v, a], [1, 2]], [[v, b], [3, 4]]]]).
+
+test(130,[[n,equals41],[[[v,a],"|",[[v,b]]]]],
+
+[
+        [[n,equals41],[[1,2]]]
+        
+],[[[[v, a], 1], [[v, b], 2]]]).
+
+test(131,[[n,equals41],[[[v,a]]]],
+
+[
+        [[n,equals41],[[1]]]
+        
+],[[[[v, a], 1]]]).
+
+test(132,[[n,equals41],[[[v,a],[v,b]]]],
+
+[
+        [[n,equals41],[[1,2]]]
+        
+],[[[[v, a], 1], [[v, b], 2]]]).
+
+test(133,[[n,equals41],[[[v,a],[v,b]]]],
+
+[
+        [[n,equals41],[[[1,3],2]]]
+        
+],[[[[v, a], [1, 3]], [[v, b], 2]]]).
+
+
+test(134,[[n,equals41],[[[v,a],[v,c],"|",[v,b],"|",[v,d]]]],
+
+[
+        [[n,equals41],[[1,2,3,4]]]
+        
+],[]).
+
+test(135,[[n,equals41],[[1,2,3]]],
+
+[
+        [[n,equals41],[[1,2,3]]]
+        
+],[[]]).
+
+test(136,[[n,equals41],[[[v,a],"|",[[v,b],"|",[v,d]]]]],
+
+[
+        [[n,equals41],[[1,2,3,4]]]
+        
+],[[[[v, a], 1], [[v, b], 2],[[v, d], [3,4]]]]).

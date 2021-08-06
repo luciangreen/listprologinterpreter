@@ -65,7 +65,7 @@ interpret1(Debug,Query,Functions1,Functions2,Result) :-
    retractall(cut(_)),
    assertz(cut(off)),
 	retractall(leash1(_)),
-   assertz(leash1(on)), %% Should normally be off
+   assertz(leash1(off)), %% Should normally be off
   	retractall(findall_sys(_)),
  	assertz(findall_sys(1)),
 	%%writeln1(member1(Query,Functions1,Functions2,Result)),
