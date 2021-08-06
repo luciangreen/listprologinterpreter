@@ -252,7 +252,7 @@ test(14,[[n,grammar1],["[a]",[v,t]]],
 % n,letters needs to include chars except quote
 
 %test(15,[[n,grammar1],["[[\"aa,]\",\"b\",a],1]",[v,t]]],
-test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\",[]],1]",[v,t]]],
+test(15,[[n,grammar1],["[[\"aa,]\",\"c\",[]],1]",[v,t]]],
 %test(15,[[n,grammar1],["[]"]],
 %est(15,[[n,item],["\"aa,\"","",[v,t]]],
 %test(15,[[n,item],["a","",[v,t]]],
@@ -277,7 +277,7 @@ test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\",[]],1]",[v,t]]],
 		  [[n,compound213],[[v,t],[v,u]]]]],
 
 		  [[n,compound],[[v,t],[v,u]],"->",
-		  ["[",[[n,compound21],[[v,t],[v,v]]],"]",
+		  ["[",[[n,compound21],[[v,t],[v,v]]],"]",%[[n,code],[[n,trace2]]],
 		  [[n,compound213],[[v,v],[v,u]]]]],
 
 		  [[n,compound212],["","",[v,t],[v,t]]],
@@ -308,9 +308,10 @@ test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\",[]],1]",[v,t]]],
 		  [[[n,number21],["",[v,u]]],[[n,code],
 		  [[n,stringtonumber],[[v,u],[v,t]]]]]],
 
+/*
 		  [[n,item],[[v,t]],"->",[[[n,word21_atom],["",[v,t1]]],
 		  [[n,code],[[n,atom_string],[[v,t],[v,t1]]]]]], % atoms
-
+*/
 		  [[n,item],[[v,t]],"->",[[[n,compound],[[],[v,t]]]]],
 
 		  [[n,number212],["","",[v,t],[v,t]]],
@@ -353,7 +354,7 @@ test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\",[]],1]",[v,t]]],
 		  [[n,code],
 		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]],
 
-
+/*
 		  [[n,word212_atom],["","",[v,t],[v,t]]],
 
 		  [[n,word212_atom],[[v,u],[v,u],[v,t],[v,t]]],
@@ -377,7 +378,7 @@ test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\",[]],1]",[v,t]]],
 		  [[n,word21_atom],["",[v,wordstring]]],
 		  [[n,code],
 		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]],
-		  
+		  */
 		  [[n,commaorrightbracketnext],"->",
 		  [[[n,lookahead],[","]]]],
 
@@ -399,7 +400,7 @@ test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\",[]],1]",[v,t]]],
 
 %()%],[[[v,t],[["a"],1]]]).
 %],[[[[v,t],[["aa,]","b",a],1]]]]).
-],[[[[v,t],[["aa,]",b,"c",[]],1]]]]).
+],[[[[v,t],[["aa,]","c",[]],1]]]]).
 %],[[[[v,t],[[]]]]]).
 %],[[[[v,t],"aa,"]]]).
 %],[[[[v,t],[a]]]]).
@@ -3173,3 +3174,54 @@ test(119,[[n,count],[2]],
         ]
         ]
 ] ,[[]]).
+
+
+test(120,[[n,function],[1,[v,b],2,[v,a]]],
+[
+        [[n,function],[[v,a],[v,a],[v,b],[v,b]],":-",
+        [
+                [[n,true]]
+        ]
+        ]
+]
+, [[[[v,b],1 ],[[v,a],2]]]).
+
+test(121,[[n,append1],[[v,a]]],
+[
+        [[n,append1],[[v,a]],":-",
+        [
+                [[n,a],[[v,a]]]
+        ]
+        ],
+        [[n,a],[["a"]],":-",
+        [
+                [[n,true]]
+        ]]
+]
+,[[[[v,a], ["a"]]]]).
+
+
+test(122,[[n,compound],["[],1]",[v,u],["aa,]\",b,\"c",[]],[v,t]]],
+
+[
+/*
+		  [[n,compound],["[]","",[],[v,t]],":-",
+		  [
+		  			 [[n,compound],[[v,u],"",[],[v,t]]]
+		  ]
+		  ],
+*/
+		  [[n,compound213],["","",[v,t],[v,t]]],
+
+		  [[n,compound213],[[v,u],[v,u],[v,t],[v,t]]],
+		  [[n,a],[[v,u],[v,u],[v,t],[v,t]]],
+		  
+		  [[n,compound],[[v,t],[v,u]],"->",
+		  ["[",[[n,a],[[v,t],[v,v]]],
+		  "]",
+		  [[n,compound213],[[v,v],[v,u]]]]]
+
+],
+[[[[v,u], ",1]"],[[v,t], ["aa,]\",b,\"c",[]]]]]).
+
+		  

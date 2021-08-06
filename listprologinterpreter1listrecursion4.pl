@@ -65,7 +65,7 @@ interpret1(Debug,Query,Functions1,Functions2,Result) :-
    retractall(cut(_)),
    assertz(cut(off)),
 	retractall(leash1(_)),
-   assertz(leash1(off)), %% Should normally be off
+   assertz(leash1(on)), %% Should normally be off
   	retractall(findall_sys(_)),
  	assertz(findall_sys(1)),
 	%%writeln1(member1(Query,Functions1,Functions2,Result)),
@@ -87,6 +87,7 @@ checktypes_inputs(Function,Arguments1),
         %%writeln1(checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs)),
         %trace,
         checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),
+        %notrace,
         %%->ca2 
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
 debug_call(Skip,[Function,Arguments1]),
@@ -94,7 +95,9 @@ debug_call(Skip,[Function,Arguments1]),
 	),
 	%trace,
 	%%writeln1(updatevars(FirstArgs,Vars2,[],Result)),
+	%trace,
 	updatevars(FirstArgs,Vars2,[],Result),
+	%notrace,
         %%reverse(Result,[],Vars7),
 	((true->%not(Result=[])->
         %%Result=[Var71|Vars72],
@@ -280,7 +283,28 @@ member23(Query,Functions,Functions2,Vars8) :-
 	member2(Query,Functions,Functions3,Vars8))
 	);(turncut(off),fail)).
 	
-checkarguments([],[],Vars,Vars,FirstArgs,FirstArgs) :- !. 
+checkarguments(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2) :-
+	%trace,
+	replace_vars(Variable1,[],Variable1a,[],First_vars1),
+	replace_vars(Variable2,[],Variable2a,[],First_vars2),
+	append(First_vars1,First_vars2,First_vars3),
+	match4_21(Variable2a,Variable1a,Vars1,Vars3),
+
+%	match4_21(Arguments2,Arguments1,Vars1,Vars2),
+
+	replace_first_vars1(Vars3,First_vars2,[],Vars2a),
+	replace_vars011(Vars2a,_Variable1a,[],Vars2b), % Vars2b->Vars2
+
+	equals4_first_args(Variable1a,Variable2a,FirstArgs3),
+
+	replace_first_vars1(Vars2b,First_vars1,[],Vars2),
+	%equals4_first_args(Vars2b,Vars2,FirstArgs3),
+
+	replace_first_vars2(FirstArgs3,First_vars3,[],FirstArgs2),
+	!.
+
+
+/*checkarguments([],[],Vars,Vars,FirstArgs,FirstArgs) :- !. 
 checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%
 %%writeln1(1),
 	Arguments1=[Value|Arguments3], %% Value may be a number, string, list or tree
@@ -316,6 +340,7 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
         Arguments2=[Value1|Arguments4],
         expressionnotatom3(Value1),
         checkarguments(Arguments3,Arguments4,Vars1,Vars2,FirstArgs1,FirstArgs2),!.
+*/
 
 %% checktypes([n,f],[1,"a",[n,a]],[[[n,f],[[t,number],[t,string],[t,predicatename]]]]).
 %% checktypes([n,f],[1,1,1],[[[n,f],[[[t,list],[[t,number]]]]]]).
@@ -731,6 +756,9 @@ false(false).
 %%interpretstatement1(_F0,[],_,Vars,Vars,true,nocut) :- !
 %%writeln1("AND HERE!")
 %%	.
+
+interpretstatement1(_F0,_Functions,[[n,trace2]],Vars,Vars,true,nocut) :- %writeln(here),
+trace,!.
 
 interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_trace]],Vars,Vars,true,nocut) :- 
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
@@ -1301,6 +1329,10 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 
         
         interpretstatement1(Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
+        
+        %trace,
+               %writeln(interpretstatement1(Functions0,_Functions,Query1,Vars1,Vars8,true,nocut)),
+
 get_lang_word("v",Dbw_v),
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
@@ -1330,6 +1362,9 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         (substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
 %%writeln1([substitutevarsA1,arguments,Arguments,vars1,Vars1,vars3,Vars3,firstargs,FirstArgs]),
         Query2=[Function,Vars3])), %% Bodyvars2?
+%(Function=[n,compound213]->%true
+%trace
+%;true),
         %trace,
 %%        	debug(on)->writeln1([call,[Function,[Vars3]]]),
 %%writeln1(["Query2",Query2,"Functions0",Functions0]),
@@ -1464,6 +1499,12 @@ updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
 updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
 	Vars1=[_Vars4|Vars5],
 	updatevars(FirstArgs,Vars5,Vars2,Vars3).**/
+
+updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
+%trace,
+	e4_updatevars(FirstArgs,Vars1,Vars2,Vars3),!.
+	
+/*
 updatevars([],_Vars1,Vars2,Vars2) :- !.
 updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
 	FirstArgs=[[Orig,New]|Rest],
@@ -1471,6 +1512,7 @@ updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
 	(member([New,Value],Vars1),
 	append(Vars2,[[Orig,Value]],Vars4))),
 	updatevars(Rest,Vars1,Vars4,Vars3),!.
+	*/
 updatevars2(_FirstArgs,[],Vars,Vars) :- !.
 updatevars2(FirstArgs,Vars1,Vars2,Vars3) :-
         Vars1=[[Variable,Value]|Vars4],

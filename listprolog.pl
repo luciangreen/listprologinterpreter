@@ -21,3 +21,6 @@
 :- include('lpiverify4_test_bt_lang_all.pl').
 :- include('../Languages/make_docs.pl').
 :- include('../SSI/find_pred_sm.pl').
+:- include('e4_fa_get_vals.pl').
+:- include('equals4_first_args.pl').
+:- include('expression_not_var.pl').

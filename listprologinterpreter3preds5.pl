@@ -236,6 +236,7 @@ get_lang_word("delete",Dbw_delete),
 ;     debug_fail(Skip,[[Dbw_n,Dbw_delete],[Value1,Value2,variable3]])),!.                        	
 
 interpretpart(append,Variable1,Variable2,Variable3,Vars1,Vars2) :-
+%trace,
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("append",Dbw_append),
         	%trace,
@@ -717,10 +718,24 @@ getvalue_match_pipe([Variable1|Variable1b],Value1,Vars1) :-
 	is_list(Value11c),
 	append([Value11a],Value11c,Value1),!.
 
+% for check arguments
+
+match4_21(Variable1,Variable2,Vars1,Vars2) :-
+	%replace_vars(Variable1,[],Variable1a,[],First_vars1),
+	%replace_vars(Variable2,[],Variable2a,[],_First_vars2),
+	%append(First_vars1,First_vars2,First_vars3),
+	match4_22(Variable1,Variable2,Vars1,Vars2),
+	%replace_first_vars1(Vars3,First_vars1,[],Vars2),
+	!.
+
+% for intra-predicate equals4
 
 match4_2(Variable1,Variable2,Vars1,Vars2) :-
+	match4_22(Variable1,Variable2,Vars1,Vars2),!.
+
+match4_22(Variable1,Variable2,Vars1,Vars2) :-
 	match4_10(Variable1,Variable2,Vars1,Vars2),!.
-match4_2(Variable1,Variable2,Vars1,Vars2) :-
+match4_22(Variable1,Variable2,Vars1,Vars2) :-
 	match4(Variable1,Variable2,Vars1,Vars2),!.
 
 
