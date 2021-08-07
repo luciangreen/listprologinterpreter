@@ -19,7 +19,7 @@ test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 
 test1(Debug,N,Passed) :-
 	test(N,Query,Functions,Result),
-	((international_interpret([lang,"en"],Debug,Query,Functions,Result1),%writeln([result1,Result1]),
+	((international_interpret([lang,"en"],Debug,Query,Functions,Result1),writeln([result1,Result1]),
 	Result=Result1
 	)->(Passed=passed,writeln([test,N,passed]));(Passed=failed,writeln([test,N,failed]))),!.
 
@@ -1539,14 +1539,14 @@ test(55,[[n,test1],[[v,c]]],
 [[n,test2],[2]]]
 ,[[[[v, c], 1]]]).
 
-test(56,[[n,map],[[n,add],[1,2,3],0,[v,d]]],
+test(56,[[n,map],[["n","add"],[1,2,3],0,[v,d]]],
 [
         [[n,map],[[v,f],[],[v,l],[v,l]]],
         [[n,map],[[v,f],[v,l],[v,m1],[v,n]],":-",
         [       [[n,not],[[[n,=],[[v,l],[]]]]],
                 [[n,head],[[v,l],[v,h]]],
                 [[n,tail],[[v,l],[v,t]]],
-                [[v,f],[[v,m1],[v,h],[v,m2]]],
+                [[n,add],[[v,m1],[v,h],[v,m2]]],
                 [[n,map],[[v,f],[v,t],[v,m2],[v,n]]]
         ]
         ],
@@ -1561,14 +1561,14 @@ test(56,[[n,map],[[n,add],[1,2,3],0,[v,d]]],
 
 %% later: (test 58) omit if [v,f] fails
 
-test(57,[[n,findall],[[n,plusone],[1,2,3],[],[v,d]]],
+test(57,[[n,findall],[["n","plusone"],[1,2,3],[],[v,d]]],
 [
         [[n,findall],[[v,f],[],[v,l],[v,l]]],
         [[n,findall],[[v,f],[v,l],[v,m1],[v,n]],":-",
         [       [[n,not],[[[n,=],[[v,l],[]]]]],
                 [[n,head],[[v,l],[v,h]]],
                 [[n,tail],[[v,l],[v,t]]],
-                [[v,f],[[v,h],[v,m2]]],
+                [[n,plusone],[[v,h],[v,m2]]],
                 [[n,wrap],[[v,m2],[v,m3]]],
                 [[n,append],[[v,m1],[v,m3],[v,m4]]],
                 [[n,findall],[[v,f],[v,t],[v,m4],[v,n]]]
@@ -1584,21 +1584,21 @@ test(57,[[n,findall],[[n,plusone],[1,2,3],[],[v,d]]],
 ,[[[[v,d], [2,3,4]]]]).
 
 
-test(58,[[n,findall],[[n,a_to_c],["a","b","a"],[],[v,d]]],
+test(58,[[n,findall],[["n","a_to_c"],["a","b","a"],[],[v,d]]],
 [
         [[n,findall],[[v,f],[],[v,l],[v,l]]],
         [[n,findall],[[v,f],[v,l],[v,m1],[v,n]],":-",
         [       [[n,not],[[[n,=],[[v,l],[]]]]],
                 [[n,head],[[v,l],[v,h]]],
                 [[n,tail],[[v,l],[v,t]]],
-                [[n,"->"],[[[v,f],[[v,h],[v,m2]]],
+                [[n,"->"],[[[n,a_to_c],[[v,h],[v,m2]]],
                 [       [[n,wrap],[[v,m2],[v,m3]]],
                         [[n,append],[[v,m1],[v,m3],[v,m4]]]
                 ],
                 [
                         [[n,=],[[v,m1],[v,m4]]]
                 ]]],
-                [[n,findall],[[v,f],[v,t],[v,m4],[v,n]]]
+                [[n,findall],[["n","a_to_c"],[v,t],[v,m4],[v,n]]]
 
         ]
         ],
@@ -3201,7 +3201,7 @@ test(121,[[n,append1],[[v,a]]],
 ,[[[[v,a], ["a"]]]]).
 
 
-test(122,[[n,compound],["[],1]",[v,u],["aa,]\",b,\"c",[]],[v,t]]],
+test(122,[[n,compound],["[],1]",[v,u],["aa,]","c",[]],[v,t]]],
 
 [
 /*
@@ -3222,7 +3222,7 @@ test(122,[[n,compound],["[],1]",[v,u],["aa,]\",b,\"c",[]],[v,t]]],
 		  [[n,compound213],[[v,v],[v,u]]]]]
 
 ],
-[[[[v,u], ",1]"],[[v,t], ["aa,]\",b,\"c",[]]]]]).
+[[[[v,u], ",1]"],[[v,t], ["aa,]","c",[]]]]]).
 
 		  
 
@@ -3326,3 +3326,20 @@ test(136,[[n,equals41],[[[v,a],"|",[[v,b],"|",[v,d]]]]],
         [[n,equals41],[[1,2,3,4]]]
         
 ],[[[[v, a], 1], [[v, b], 2],[[v, d], [3,4]]]]).
+
+
+
+/*
+test(137,[[n,equals41],[[v,b]]],
+
+[
+        [[n,equals41],[[v,b]],":-",
+        [       [[n,equals42],[[[v,b],"|",[v,c]]]]
+%        [       [[n,equals42],[[v,b]]]
+        ]],
+
+        [[n,equals42],[[1,2,3]]]
+
+        
+],[[[[v,b],1]]]).
+*/

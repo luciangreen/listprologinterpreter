@@ -139,22 +139,21 @@ replace_vars(Term,Vars1,Vars2,First_vars1,First_vars2) :-
 
 replace_vars(Term,_Vars1,X,First_vars1,First_vars2) :-
 	% for first vars only
-	replace_vars0(Term,_Vars11,_Vars2,First_vars1,First_vars2),
+	replace_vars0(Term,First_vars1,First_vars2),
 	% for vars
 	replace_vars01(Term,X,First_vars2),!.
 
 replace_vars0([],Variable,Variable,First_vars,First_vars) :- !.
 
-replace_vars0(Term,Vars1,Vars2,First_vars,First_vars) :-
+replace_vars0(Term,First_vars,First_vars) :-
 	is_single_item_or_expression_list(Term),
-	append(Vars1,[Term],Vars2),
 	!.
-replace_vars0(Term,Vars1,Vars2,First_vars1,First_vars2) :-
+replace_vars0(Term,First_vars1,First_vars2) :-
 	not(variable_name(Term)),
 	Term=[Term1|Term2],
-	replace_vars0(Term1,Vars1,Vars3,First_vars1,First_vars3),
+	replace_vars0(Term1,First_vars1,First_vars3),
 	%Vars5=[Vars3],
-	replace_vars0(Term2,Vars3,Vars2,First_vars3,First_vars2),
+	replace_vars0(Term2,First_vars3,First_vars2),
 	%Vars5=[Vars4],
 	%trace,
 	%append(Vars1],Vars3,Vars4],Vars2),
@@ -162,15 +161,12 @@ replace_vars0(Term,Vars1,Vars2,First_vars1,First_vars2) :-
 	%append(Vars6,Vars4,Vars2),
 	%maplist(append,[[Vars1],Vars3,Vars4],Vars2),
 	!.
-replace_vars0(Term,Vars1,Vars2,First_vars1,First_vars2) :-
+replace_vars0(Term,First_vars1,First_vars2) :-
 	get_lang_word("v",Dbw_v1),Dbw_v1=Dbw_v,
 	variable_name(Term),
 	(member([Term,[Dbw_v,_Var_name1]],First_vars1)->
-	(append(Vars1,_%[[Dbw_v,Var_name1]]
-	,Vars2),First_vars1=First_vars2);
+	(First_vars1=First_vars2);
 	(find_findall_sys(Var_name2),
-	append(Vars1,_%[[Dbw_v,Var_name2]]
-	,Vars2),
 	append(First_vars1,[[Term,[Dbw_v,Var_name2]]],First_vars2))),
 	!.
 	
