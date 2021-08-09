@@ -255,3 +255,28 @@ replace_vars011(Variable2,_Vars1,_Vars2a,Vars2b) :-
 	findall([[A,C],C1],(member([[A,C],C1],Variable2),
 	string_concat("findall_sys",_N1,C)),Vars2c),
 	subtract(Variable2,Vars2c,Vars2b),!.
+
+
+e4_substitutevarsA1(Variable2,_,Vars1,X,FirstArgs1,FirstArgs2) :-
+	is_list(Variable2),
+	e4_substitutevarsA2_getvalue_match1(Variable2,X,Vars1,FirstArgs1,FirstArgs2).
+
+e4_substitutevarsA2_getvalue_match1(Variable1,Value1,Vars1,FirstArgs1,FirstArgs3) :-
+	single_item(Variable1),
+	getvalue(Variable1,Value,Vars1),
+	((Value=empty->
+	((Value1=Variable1),
+	(isvar(Variable1)->append(FirstArgs1,[Variable1],
+	FirstArgs3);FirstArgs3=FirstArgs1));
+	(getvalue(Variable1,Value,Vars1),
+	Value1=Value,
+	FirstArgs3=FirstArgs1))),!.
+
+e4_substitutevarsA2_getvalue_match1([],[],_Vars1,FirstArgs1,FirstArgs1) :- !.
+e4_substitutevarsA2_getvalue_match1(Variable1,Value1,Vars1,FirstArgs1,FirstArgs2) :-
+	not(single_item(Variable1)),
+	Variable1=[Variable1a|Variable1b],
+	e4_substitutevarsA2_getvalue_match1(Variable1a,Value1a,Vars1,FirstArgs1,FirstArgs3),
+	e4_substitutevarsA2_getvalue_match1(Variable1b,Value1b,Vars1,FirstArgs3,FirstArgs2),
+	append([Value1a],Value1b,Value1),!.
+

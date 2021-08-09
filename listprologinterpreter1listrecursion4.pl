@@ -7,6 +7,7 @@
 :- dynamic typestatements/1.
 :- dynamic modestatements/1.
 :- dynamic findall_sys/1.
+:- dynamic equals4/1.
 
 :- dynamic lang/1.
 
@@ -68,6 +69,7 @@ interpret1(Debug,Query,Functions1,Functions2,Result) :-
    assertz(leash1(off)), %% Should normally be off
   	retractall(findall_sys(_)),
  	assertz(findall_sys(1)),
+	(not(equals4(Equals4))->(retractall(equals4(_)),assertz(equals4(off)));true),%equals4(Equals4)),
 	%%writeln1(member1(Query,Functions1,Functions2,Result)),
 	member1(Query,Functions1,Functions2,Result).
 %%member1([_,R],_,[],R).
@@ -284,6 +286,10 @@ member23(Query,Functions,Functions2,Vars8) :-
 	);(turncut(off),fail)).
 	
 checkarguments(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2) :-
+	(equals4(on)->checkarguments1(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2);
+checkarguments2(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2)),!.
+
+checkarguments1(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2) :-
 	%trace,
 	replace_vars(Variable1,[],Variable1a,[],First_vars1),
 	replace_vars(Variable2,[],Variable2a,[],First_vars2),
@@ -304,16 +310,16 @@ checkarguments(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2) :-
 	!.
 
 
-/*checkarguments([],[],Vars,Vars,FirstArgs,FirstArgs) :- !. 
-checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%
+checkarguments2([],[],Vars,Vars,FirstArgs,FirstArgs) :- !. 
+checkarguments2(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%
 %%writeln1(1),
 	Arguments1=[Value|Arguments3], %% Value may be a number, string, list or tree
 	expressionnotatom3(Value),
 	Arguments2=[Variable2|Arguments4],
 	not(var(Variable2)),isvar(Variable2),
 	putvalue(Variable2,Value,Vars1,Vars3),
-	checkarguments(Arguments3,Arguments4,Vars3,Vars2,FirstArgs1,FirstArgs2),!.
-checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%A
+	checkarguments2(Arguments3,Arguments4,Vars3,Vars2,FirstArgs1,FirstArgs2),!.
+checkarguments2(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%A
 %%writeln1(2),
         Arguments1=[Variable|Arguments3], %% Value may be a number, string, list or tree
         not(var(Variable)),isvar(Variable),
@@ -321,8 +327,8 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%A
         expressionnotatom3(Value),
         putvalue(Variable,Value,Vars1,Vars3),
 	append(FirstArgs1,[[Variable,Value]],FirstArgs3),
-        checkarguments(Arguments3,Arguments4,Vars3,Vars2,FirstArgs3,FirstArgs2),!.
-checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
+        checkarguments2(Arguments3,Arguments4,Vars3,Vars2,FirstArgs3,FirstArgs2),!.
+checkarguments2(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
 %%writeln1(3),
         Arguments1=[Variable1|Arguments3],
 	not(var(Variable1)),isvar(Variable1),
@@ -332,15 +338,15 @@ checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
 	%%((Value=empty->Value1=Variable2;Value1=Value))),
         putvalue(Variable2,Value,Vars1,Vars3),
         append(FirstArgs1,[[Variable1,Variable2]],FirstArgs3),
-        checkarguments(Arguments3,Arguments4,Vars3,Vars2,FirstArgs3,FirstArgs2),!.
-checkarguments(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
+        checkarguments2(Arguments3,Arguments4,Vars3,Vars2,FirstArgs3,FirstArgs2),!.
+checkarguments2(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
 %%writeln1(4),
         Arguments1=[Value1|Arguments3],
         expressionnotatom3(Value1),
         Arguments2=[Value1|Arguments4],
         expressionnotatom3(Value1),
-        checkarguments(Arguments3,Arguments4,Vars1,Vars2,FirstArgs1,FirstArgs2),!.
-*/
+        checkarguments2(Arguments3,Arguments4,Vars1,Vars2,FirstArgs1,FirstArgs2),!.
+
 
 %% checktypes([n,f],[1,"a",[n,a]],[[[n,f],[[t,number],[t,string],[t,predicatename]]]]).
 %% checktypes([n,f],[1,1,1],[[[n,f],[[[t,list],[[t,number]]]]]]).
@@ -738,6 +744,11 @@ turndebug(State1) :-
 	debug(State2),
 	retract(debug(State2)),
 	assertz(debug(State1)).
+turnequals4(State1) :-
+	(not(equals4(Equals4))->(retractall(equals4(_)),assertz(equals4(off)));true),
+		equals4(State2),
+	retract(equals4(State2)),
+	assertz(equals4(State1)).
 logicaldisjunction(true,true,true) :- !.
 logicaldisjunction(true,false,true) :- !.
 logicaldisjunction(true,true,false) :- !.
@@ -756,6 +767,18 @@ false(false).
 %%interpretstatement1(_F0,[],_,Vars,Vars,true,nocut) :- !
 %%writeln1("AND HERE!")
 %%	.
+
+interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_equals4_on]],Vars,Vars,true,nocut) :- %writeln(here),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("equals4_on",Dbw_equals4_on1),Dbw_equals4_on1=Dbw_equals4_on,
+turnequals4(on),
+!.
+
+interpretstatement1(_F0,_Functions,[[Dbw_n,Dbw_equals4_off]],Vars,Vars,true,nocut) :- %writeln(here),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("equals4_off",Dbw_equals4_off1),Dbw_equals4_off1=Dbw_equals4_off,
+turnequals4(off),
+!.
 
 interpretstatement1(_F0,_Functions,[[n,trace2]],Vars,Vars,true,nocut) :- %writeln(here),
 trace,!.
@@ -1501,20 +1524,22 @@ updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
 	updatevars(FirstArgs,Vars5,Vars2,Vars3).**/
 
 updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
-%trace,
-	e4_updatevars(FirstArgs,Vars1,Vars2,Vars3),!.
+(equals4(on)->e4_updatevars(FirstArgs,Vars1,Vars2,Vars3);	updatevars1(FirstArgs,Vars1,Vars2,Vars3)),!.
 	
-/*
-updatevars([],_Vars1,Vars2,Vars2) :- !.
-updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
+
+updatevars1([],_Vars1,Vars2,Vars2) :- !.
+updatevars1(FirstArgs,Vars1,Vars2,Vars3) :-
 	FirstArgs=[[Orig,New]|Rest],
 	(expressionnotatom(New)->append(Vars2,[[Orig,New]],Vars4);
 	(member([New,Value],Vars1),
 	append(Vars2,[[Orig,Value]],Vars4))),
-	updatevars(Rest,Vars1,Vars4,Vars3),!.
-	*/
+	updatevars1(Rest,Vars1,Vars4,Vars3),!.
+
 updatevars2(_FirstArgs,[],Vars,Vars) :- !.
 updatevars2(FirstArgs,Vars1,Vars2,Vars3) :-
+%trace,
+%writeln(updatevars2(FirstArgs,Vars1,Vars2,Vars3)),
+%trace,
         Vars1=[[Variable,Value]|Vars4],
         (member(Variable,FirstArgs), %% removed brackets around firstargs here and 2 line below, ** vars1 into arg in (10), check cond
         append(Vars2,[[Variable,Value]],Vars5)),
@@ -1632,7 +1657,14 @@ expressionnotatom2([N|Ns]) :-
 	expressionnotatom2(Ns).
 
 substitutevarsA1(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2) :-
+	%trace,writeln(substitutevarsA1(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2)),
+	(equals4(on)->e4_substitutevarsA1(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2);
+	substitutevarsA11(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2)),
+	%substitutevarsA2(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2),
+	!.
+	substitutevarsA11(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2) :-
 	substitutevarsA2(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2),!.
+
 substitutevarsA2([],_Vars1,Vars2,Vars2,FirstArgs,FirstArgs):-!.
 substitutevarsA2(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2) :-
 	Arguments=[Variable|Variables],
