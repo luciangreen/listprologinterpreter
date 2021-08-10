@@ -1506,7 +1506,7 @@ simplify(A,A)	:-
 simplify([A,"|",[B]],[A1,B1])	:-
 	simplify(A,A1),
 	simplify(B,B1),!.
-simplify([A,"|",B],[A1,B1])	:-
+simplify([A,"|",B],[A1,"|",B1])	:-
 	simplify(A,A1),
 	simplify(B,B1),!.
 simplify([A|B],[A1|B1])	:-
