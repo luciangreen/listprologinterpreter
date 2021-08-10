@@ -1481,7 +1481,9 @@ interpretstatement3(Variable,Vars,Value) :-
         getvalue(Variable,Value,Vars).
         **/
 getvalue(Variable,Value,Vars) :-
-        ((not(isvar(Variable)),isvalstrorundef(Value),Variable=Value)->true;
+        ((not(isvar(Variable)),isvalstrorundef(Value),
+        simplify(Variable,Variable2),%->true;(writeln1(simplify(Variable,Variable2)),abort)),%notrace,
+      Variable2=Value)->true;
         (isvar(Variable),isvalstrorundef(Value),getvar(Variable,Value,Vars))).
 putvalue(Variable,Value,Vars1,Vars2) :-
         ((not(isvar(Variable)),isvalstrorundef(Value),Variable=Value,Vars1=Vars2)->true;
@@ -1498,6 +1500,20 @@ getvar(undef,undef,_Vars) :-
         %%(aggregate_all(count,member([Variable,_Value],Vars),0)->true;%%;
 	%%member([Variable,empty],Vars))
 	%%.
+	
+simplify(A,A)	:-
+	(string(A)->true;(number(A)->true;(atom(A)->true;A=[]))),!.
+simplify([A,"|",[B]],[A1,B1])	:-
+	simplify(A,A1),
+	simplify(B,B1),!.
+simplify([A,"|",B],[A1,B1])	:-
+	simplify(A,A1),
+	simplify(B,B1),!.
+simplify([A|B],[A1|B1])	:-
+	simplify(A,A1),
+	simplify(B,B1),!.
+	
+	
 updatevar(undef,_Value,Vars,Vars) :-
 	!.
 updatevar(Variable,Value,Vars1,Vars2) :-
