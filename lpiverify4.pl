@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=138, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=152, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -20,7 +20,7 @@ test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 test1(Debug,N,Passed) :-
 	test(N,Query,Functions,Result),
 	((international_interpret([lang,"en"],Debug,Query,Functions,Result1),
-	%writeln1([result1,Result1]),
+	writeln1([result1,Result1]),
 	Result=Result1
 	)->(Passed=passed,writeln([test,N,passed]));(Passed=failed,writeln([test,N,failed]))),!.
 
@@ -3370,11 +3370,153 @@ test(139,[[n,append1],[[v,a],[v,d]]],
                 [[n,equals4_on]],
                 [[n,b],[[v,b]]],
                 [[n,c],[[v,c]]],
-                [[n,append],[[[v,b],[v,c]],[[v,c]],[[v,a],"|",[v,d]]]],
-                [[n,equals4_off]]
+                [[n,append],[[[v,b],[v,c]],[[v,c]],[[v,a],"|",[v,d]]]]
+                %[[n,equals4_off]]
         ]
         ],
         [[n,b],["b"]],
         [[n,c],["c"]]
 ]
 ,[[[[v,a], "b"],[[v,d], ["c", "c"]]]]).
+
+test(140,[[n,equals41],[[1,2,3],[v,b]]],
+
+[
+        [[n,equals41],[[v,a],[v,b]],":-",
+        [       [[n,wrap],[[[v,a]],[v,b]]]
+%        [       [[n,equals42],[[v,b]]]
+        ]]
+        
+],[[[[v,b],[[[1,2,3]]]]]]).
+
+test(141,[[n,equals41],[[1,2,3],[v,b]]],
+
+[
+        [[n,equals41],[[v,a],[v,b]],":-",
+        [       [[n,head],[[[v,a]],[v,b]]]
+%        [       [[n,equals42],[[v,b]]]
+        ]]
+        
+],[[[[v,b],[1,2,3]]]]).
+
+test(142,[[n,equals41],[[1,2,3],[v,b]]],
+
+[
+        [[n,equals41],[[v,a],[v,b]],":-",
+        [       [[n,tail],[[[v,a]],[v,b]]]
+%        [       [[n,equals42],[[v,b]]]
+        ]]
+        
+],[[[[v,b],[]]]]).
+
+test(143,[[n,equals41],[[1,2,3],[v,b]]],
+
+[
+        [[n,equals41],[[v,a],[v,b]],":-",
+        [       [[n,member],[[[v,a]],[v,b]]],
+                [[n,member],[[[v,a]],[1,2,3]]]
+%        [       [[n,equals42],[[v,b]]]
+        ]]
+        
+],[[[[v,b],[1,2,3]]]]).
+
+test(144,[[n,equals41],[[1,2,3],[v,b]]],
+
+[
+        [[n,equals41],[[v,a],[v,b]],":-",
+        [       [[n,member2],[[[v,a]],[v,b]]]
+%        [       [[n,equals42],[[v,b]]]
+        ]]
+        
+],[[[[v,b],[1,2,3]]]]).
+
+test(145,[[n,equals41],[[[[1,2,3],4,5]],[v,c]]],
+
+[
+        [[n,equals41],[[v,a],[v,c]],":-",
+        [       [[n,member3],[[v,a],[[1,2,3],"|",[v,c]]]
+%        [       [[n,equals42],[[v,b]]]
+        ]]]
+        
+],[[[[v,c],[[[1,2,3],4,5]]]]]).
+
+test(146,[[n,equals41],[[[1,2,3],4,5],[v,c]]],
+
+[
+        [[n,equals41],[[v,a],[v,c]],":-",
+        [       [[n,=],[[v,a],[[1,2,3],"|",[v,c]]]],
+				          [[n,is],[[v,a],[[1,2,3],"|",[v,c]]]],
+				          [[n,equals3],[[v,a],[[1,2,3],"|",[v,c]]]]
+%        [       [[n,equals42],[[v,b]]]
+        ]]
+        
+],[[[[v,c],[4,5]]]]).
+
+test(147,[[n,equals41],[[v,c]]],
+
+[
+        [[n,equals41],[[v,c]],":-",
+        [       [[n,equals2],[[v,c],[1,[4,5]]]]
+%        [       [[n,equals42],[[v,b]]]
+        ]]
+        
+],[[[[v,c],[1,[4,5]]]]]).
+
+test(148,[[n,equals41],[[v,c]]],
+
+[
+        [[n,equals41],[[v,a]],":-",
+        [       [[n,equals3],[[[v,b],"|",[v,a]],[4,5,6]]]
+%        [       [[n,equals42],[[v,b]]]
+        ]]
+        
+],[[[[v,c],[5,6]]]]).
+
+test(149,[[n,equals41],[[[1,2,3]],[v,b],[v,c]]],
+
+[
+        [[n,equals41],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,delete],[[v,a],[1],[[v,b],"|",[v,c]]]]
+%        [       [[n,equals42],[[v,b]]]
+        ]]
+        
+],[[[[v,b],[1,2,3]],[[v,c],[]]]]).
+
+
+test(150,[[n,equals41],[[[4,5,6]],[v,c]]],
+
+[
+        [[n,equals41],[[v,a],[v,b]],":-",
+        [       [[n,maplist],[[n,append],[v,a],[1,2,3],[[v,b],"|",[v,d]]]]
+        ]]
+        
+],[[[[v,c],1]]]).
+
+test(151,[[n,equals41],[[[6,2,3],[5]],[v,c]]],
+
+[
+        [[n,equals41],[[v,a],[v,c]],":-",
+        [       [[n,sort],[[v,a],[[5],"|",[v,c]]]]
+%        [       [[n,equals42],[[v,b]]]
+        ]]
+        
+],[[[[v,c],[[6,2,3]]]]]).
+
+test(152,[[n,equals41],[[6,2,3],[1,2,3],[v,c]]],
+
+[
+        [[n,equals41],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,intersection],[[v,a],[v,b],[[v,c],"|",[v,d]]]]
+%        [       [[n,equals42],[[v,b]]]
+        ]]
+        
+],[[[[v,c],2]]]).
+
+
+test(153,[[n,equals4_off1]],
+[
+		  [[n,equals4_off1],":-",
+		  [[[n,equals4_off]]]]
+],
+		  
+[[]]).

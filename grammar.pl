@@ -330,7 +330,25 @@ undefined_to_empty(Values1,Values2,Values3) :-
 	append(Values2,[Value2],Values5),
 	undefined_to_empty(Values4,Values5,Values3),!.
 	
+getvalues_equals4(Variable1,Variable2,Value1,Value2,Vars) :-
+	(equals4(on)->(getvalue_equals41(Variable1,Value1,Vars),
+	getvalue_equals41(Variable2,Value2,Vars));
+	(getvalue(Variable1,Value1,Vars),
+	getvalue(Variable2,Value2,Vars))).
+
+getvalues_equals4(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars) :-
+	(equals4(on)->(getvalue_equals41(Variable1,Value1,Vars),
+	getvalue_equals41(Variable2,Value2,Vars),
+	getvalue_equals41(Variable3,Value3,Vars));
+	(getvalue(Variable1,Value1,Vars),
+	getvalue(Variable2,Value2,Vars),
+	getvalue(Variable3,Value3,Vars))).
+
 getvalue_equals4(Variable,Value,Vars) :-
+	(equals4(on)->getvalue_equals41(Variable,Value,Vars);
+	getvalue(Variable,Value,Vars)).
+	
+getvalue_equals41(Variable,Value,Vars) :-	
 	get_lang_word("v",Dbw_v),
 		remember_and_turn_off_debug(Debug),
 		
@@ -342,6 +360,10 @@ getvalue_equals4(Variable,Value,Vars) :-
 	turn_back_debug(Debug).
 
 putvalue_equals4(Variable,Value,Vars1,Vars2) :-
+	(equals4(on)->putvalue_equals41(Variable,Value,Vars1,Vars2);
+	putvalue(Variable,Value,Vars1,Vars2)).
+	
+putvalue_equals41(Variable,Value,Vars1,Vars2) :-
 	%get_lang_word("v",Dbw_v),
 		remember_and_turn_off_debug(Debug),
 		
