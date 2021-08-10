@@ -243,12 +243,13 @@ get_lang_word("append",Dbw_append),
         %getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
 	getvalue_equals4(Variable1,Value1,Vars1),
 	getvalue_equals4(Variable2,Value2,Vars1),
-	getvalue(Variable3,Value3,Vars1),
+	getvalue_equals4(Variable3,Value3,Vars1),
 
 debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,variable3]]),
         ((append1(Value1,Value2,Value3A),
-        val1emptyorvalsequal(Value3,Value3A),
-        putvalue(Variable3,Value3A,Vars1,Vars2))->
+        %val1emptyorvalsequal(Value3,Value3A),
+        %trace,
+        putvalue_equals4(Variable3,Value3A,Vars1,Vars2))->
       debug_exit(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,Value3A]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,variable3]])),!.                        	
 
