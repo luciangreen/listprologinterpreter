@@ -200,9 +200,9 @@ For example:
 
 * `[[n,get_lang_word],[Variable1,Variable2]` e.g. `[n,get_lang_word],["get_lang_word",[v,word]]` returns `[v,word]="get_lang_word"`.
 
-* `[[n,equals4_on]]` switches on equals4 mode (in check arguments, substitute vars and update vars but not in the equals4 command itself).
+* `[[n,equals4_on]]` switches on equals4 mode (in check arguments, substitute vars and update vars but not in the equals4 command itself), for e.g. list processing in arguments.
 
-* `[[n,equals4_off]]` switches off equals4 mode.
+* `[[n,equals4_off]]` switches off equals4 mode, for e.g. using the call command.
 
 
 
