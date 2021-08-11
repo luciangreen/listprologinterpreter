@@ -1503,12 +1503,16 @@ getvar(undef,undef,_Vars) :-
 	
 simplify(A,A)	:-
 	(string(A)->true;(number(A)->true;(atom(A)->true;A=[]))),!.
-simplify([A,"|",[B]],[A1,B1])	:-
+%simplify([A,"|",[B|B0]],[A1|[B1|B10]])	:-
+%	simplify(A,A1),
+%	simplify(B,B1),
+%	simplify(B0,B10),!.
+simplify([A,"|",B],C)	:-
 	simplify(A,A1),
-	simplify(B,B1),!.
-simplify([A,"|",B],[A1,"|",B1])	:-
-	simplify(A,A1),
-	simplify(B,B1),!.
+	simplify(B,B1),
+	(is_list(B1)->
+	C=[A1|B1];
+	C=[A1,"|",B1]),!.
 simplify([A|B],[A1|B1])	:-
 	simplify(A,A1),
 	simplify(B,B1),!.
