@@ -598,7 +598,7 @@ getvalues2(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars) :-
         getvalue2(Variable2,Value2,Vars),
         getvalue2(Variable3,Value3,Vars).
 **/
-val1emptyorvalsequal([],_Value) :- !.
+%val1emptyorvalsequal([],_Value) :- !.
 val1emptyorvalsequal(empty,_Value) :- !.
 val1emptyorvalsequal(Value,Value) :-
 	not(Value=empty).
