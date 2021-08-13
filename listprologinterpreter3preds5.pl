@@ -601,6 +601,9 @@ getvalues2(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars) :-
 val1emptyorvalsequal(empty,_Value) :- !.
 val1emptyorvalsequal(Value,Value) :-
 	not(Value=empty).
+val1emptyorvalsequal([Value1|Value1a],[Value2|Value2a]) :-
+	val1emptyorvalsequal(Value1,Value2),
+	val1emptyorvalsequal(Value1a,Value2a),!.
 isop(Is):-get_lang_word("is",Is1),Is1=Is,!.
 isop(=).
 stringconcat1([],Item,Item) :-

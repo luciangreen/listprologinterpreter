@@ -1382,7 +1382,8 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         substitutevarsA1(Arguments1,Vars1,[],Vars3,[],FirstArgs),
         Vars3=[Function1|Vars31],
         Query2=[Function1,Vars31]);
-        (substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
+        (%trace,
+        substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
 %%writeln1([substitutevarsA1,arguments,Arguments,vars1,Vars1,vars3,Vars3,firstargs,FirstArgs]),
         Query2=[Function,Vars3])), %% Bodyvars2?
 %(Function=[n,compound213]->%true
@@ -1487,7 +1488,8 @@ getvalue(Variable,Value,Vars) :-
         (isvar(Variable),isvalstrorundef(Value),getvar(Variable,Value,Vars))).
 putvalue(Variable,Value,Vars1,Vars2) :-
         ((not(isvar(Variable)),isvalstrorundef(Value),Variable=Value,Vars1=Vars2)->true;
-        (isvar(Variable),isvalstrorundef(Value),updatevar(Variable,Value,Vars1,Vars2))),!. 
+        (isvar(Variable),isvalstrorundef(Value),%trace,
+        updatevar(Variable,Value,Vars1,Vars2))),!. 
 getvar(Variable,Value,Vars) :-
 	((member([Variable,Value],Vars),
 	not(Value=empty))->true;
@@ -1518,11 +1520,16 @@ simplify([A|B],[A1|B1])	:-
 	simplify(B,B1),!.
 	
 	
+all_empty([]) :-	!.
+all_empty(empty) :-	!.
+all_empty([A|B]) :-	
+	all_empty(A),all_empty(B),!.
+	
 updatevar(undef,_Value,Vars,Vars) :-
 	!.
 updatevar(Variable,Value,Vars1,Vars2) :-
-	((((member([Variable,empty],Vars1),
-	delete(Vars1,[Variable,empty],Vars3),
+	((((member([Variable,A],Vars1),all_empty(A),
+	delete(Vars1,[Variable,A],Vars3),
 	append(Vars3,[[Variable,Value]],Vars2))->true;
 	((not(member([Variable,Value1],Vars1)),
 	((Value1=empty)->true;(Value1=Value)))),
@@ -1544,7 +1551,8 @@ updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
 	updatevars(FirstArgs,Vars5,Vars2,Vars3).**/
 
 updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
-(equals4(on)->e4_updatevars(FirstArgs,Vars1,Vars2,Vars3);	updatevars1(FirstArgs,Vars1,Vars2,Vars3)),!.
+(equals4(on)->e4_updatevars(FirstArgs,Vars1,Vars2,
+	Vars3);	updatevars1(FirstArgs,Vars1,Vars2,Vars3)),!.
 	
 
 updatevars1([],_Vars1,Vars2,Vars2) :- !.
@@ -1701,13 +1709,26 @@ substitutevarsA2(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2) :-
 findresult3([],_Result,Result2,Result2):-!.
 findresult3(Arguments1,Result1,Result2,Result3) :-
 	Arguments1=[Value|Arguments2],
-	expressionnotatom3(Value),
+	expression_not_var(Value),
 	append(Result2,[Value],Result4),
         findresult3(Arguments2,Result1,Result4,Result3),!.
 findresult3(Arguments1,Result1,Result2,Result3) :-
         Arguments1=[Variable|Arguments2],
-        isvar(Variable),
-	member([Variable,Value],Result1),
+
+(equals4(on)->(get_lang_word("v",Dbw_v),
+
+	remember_and_turn_off_debug(Debug),
+
+find_findall_sys(Findall_sys_name),
+        interpretpart(match4,Variable,[Dbw_v,Findall_sys_name],Result1,Vars3,_),
+
+	getvalue([Dbw_v,Findall_sys_name],Value,Vars3)
+	
+)
+
+;(        isvar(Variable),
+	member([Variable,Value],Result1))),
+
         append(Result2,[Value],Result4),
         findresult3(Arguments2,Result1,Result4,Result3),!.
 

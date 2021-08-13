@@ -34,6 +34,7 @@ e4_fa_getvar(undef,undef,_Vars) :-
 	!.
 	
 e4_fa_val1emptyorvalsequal(_Empty,_Value) :- true, !.
+
 %e4_fa_val1emptyorvalsequal(Value,Value) :-
 %	not(Value=empty).
 	
@@ -71,8 +72,9 @@ equals4_first_args1(Length0,Length1,Variable1,Variable2,First_args0,First_args01
 	
 	collect_vars(Item2,[],Vars2),
 	%trace,
-	findall([First_args5,Value],(member([First_args5,Value],First_args1),
-	not(member(First_args5,Vars2))),First_args6),
+	findall(Value2,(member([First_args5,Value],First_args1),
+	(not(member(First_args5,Vars2))->Value2=[First_args5,Value];
+	Value2=[Value,First_args5])),First_args6),
 	
 	%(First_args2=[]->First_args6=First_args2;First_args6=First_args2),
 	%maplist(append,First_args6,[First_args]),
@@ -109,19 +111,32 @@ equals4_first_args1(Length0,Length1,Variable1,Variable2,First_args0,First_args01
 	!.
 */
 
-e4_updatevars([],_Vars1,Vars2,Vars2) :- !.
+e4_updatevars([],_,Vars2,Vars2) :- !.
 e4_updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
+	%get_lang_word("v",Dbw_v),
 	FirstArgs=[[Orig,New]|Rest],
-	(expressionnotatom(New)->append(Vars2,[[Orig,New]],Vars4);
-	(member([New,Value],Vars1),
-	
-		remember_and_turn_off_debug(Debug),
+	(expressionnotatom(New)->append(Vars2,[[Orig,New]],Vars5);
+	(%member([New,Value],Vars1),
+	(not(expression_not_var(Orig))->
+	(	remember_and_turn_off_debug(Debug),
+%trace,
+%find_findall_sys(Findall_sys_name),
 
-	(interpretpart(match4,Orig,Value,Vars2,Vars4,_)->true;(turn_back_debug(Debug),fail)),
+
+	(interpretpart(match4,Orig,New,Vars1,Vars4,_)->true;(turn_back_debug(Debug),fail)),
+	%trace,
+	collect_vars(Orig,[],Orig2),
+	findall([O1,O2],(member([O1,O2],Vars4),member(O1,Orig2)),Vars6),
+	%subtract(Vars4,Vars1,Vars6),
+		%getvalue(Orig,Value,Vars4),
+
+	turn_back_debug(Debug),
 	
-	turn_back_debug(Debug))),
+	append(Vars2,Vars6,Vars5)));
+	Vars2=Vars5)),
+
 	%append(Vars2,[[Orig,Value]],Vars4))),
-	e4_updatevars(Rest,Vars1,Vars4,Vars3),!.
+	e4_updatevars(Rest,Vars1,Vars5,Vars3),!.
 	
 	
 /*
@@ -183,12 +198,38 @@ replace_first_vars2([],_First_vars,Vars,Vars) :- !.
 replace_first_vars2(Vars1,First_vars,Vars2,Vars3) :-
 	%get_lang_word("v",Dbw_v1),Dbw_v1=Dbw_v,
 	Vars1=[[Var_name1,Var_name2]|Vars5],
-	(member([Term1,Var_name1],First_vars)->
-	Term2=Term1;Term2=Var_name1),
-	(member([Term3,Var_name2],First_vars)->
-	Term4=Term3;Term4=Var_name2),
+	%(member([Term1,Var_name1],First_vars)->
+	%Term2=Term1;Term2=Var_name1),
+	replace_first_vars211(Var_name1,First_vars,Term2),
+	%(member([Term3,Var_name2],First_vars)->
+	%Term4=Term3;Term4=Var_name2),
+	replace_first_vars211(Var_name2,First_vars,Term4),
 	append(Vars2,[[Term2,Term4]],Vars4),
 	replace_first_vars2(Vars5,First_vars,Vars4,Vars3),!.
+
+
+%*
+
+%replace_first_vars21(Variable2,_,Vars1,X,FirstArgs1,FirstArgs2) :-
+%	is_list(Variable2),
+%	replace_first_vars211(Variable2,X,Vars1,FirstArgs1,FirstArgs2).
+
+replace_first_vars211(Var_name1,First_vars,Term2) :-
+	single_item(Var_name1),
+	(member([Term1,Var_name1],First_vars)->
+	Term2=Term1;Term2=Var_name1),
+	%append(Term3,[Term2],Term4),
+	!.
+
+replace_first_vars211([],_,[]) :- !.
+replace_first_vars211(Variable1,First_vars,Term) :-
+	not(single_item(Variable1)),
+	Variable1=[Variable1a|Variable1b],
+	replace_first_vars211(Variable1a,First_vars,Value1a),
+	replace_first_vars211(Variable1b,First_vars,Value1b),
+	append([Value1a],Value1b,Term),!.
+
+%*
 
 is_single_item_or_expression_list(A) :-
 	not(variable_name(A)),
