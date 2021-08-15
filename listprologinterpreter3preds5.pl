@@ -216,13 +216,25 @@ get_lang_word("equals4",Dbw_equals4),
 %trace,
         debug_call(Skip,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]]),
         %trace,
-        (match4_2(Variable1,Variable2,Vars1,Vars2)
+        ((match4_2(Variable1,Variable2,Vars1,Vars2),
         
+        
+        remember_and_turn_off_debug(Debug),
+	%trace,
+find_findall_sys(Findall_sys_name),
+        match4_2(Variable1,[Dbw_v,Findall_sys_name],Vars2,Vars3),
+%%writeln1(        interpretpart(match4,Variable1,[v,sys1],Vars3,Vars2,_)),
+%%interpretstatement1(Functions0,Functions,[[n,equals4],[Variable1,Variable3]],Vars3,Vars2,true,nocut),
+	getvalue([Dbw_v,Findall_sys_name],Value3,Vars3),
+	
+	 turn_back_debug(Debug))
+
+
         %%Value1A = Value2,
         %%((val1emptyorvalsequal(Value1,Value1A),
         %%putvalue(Variable1,Value1A,Vars1,Vars2))
         ->
-      (debug_exit(Skip,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]])
+      (debug_exit(Skip,[[Dbw_n,Dbw_equals4],[Value3,Value3]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]]))),!.                        	
 
 
