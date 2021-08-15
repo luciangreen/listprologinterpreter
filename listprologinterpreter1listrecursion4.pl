@@ -114,6 +114,7 @@ debug_call(Skip,[Function,Arguments1]),
 %%writeln1(here1),
 	Vars8=[],Result2=[]))),
 %%writeln1(["Arguments1",Arguments1,"Vars2",Vars2,"Result",Result]),
+		%trace,
 		debug_exit(Skip,[Function,Result2]),
 		        checktypes(Function,Result2)
 )
@@ -1721,6 +1722,7 @@ findresult3(Arguments1,Result1,Result2,Result3) :-
 
 find_findall_sys(Findall_sys_name),
         interpretpart(match4,Variable,[Dbw_v,Findall_sys_name],Result1,Vars3,_),
+	 turn_back_debug(Debug),
 
 	getvalue([Dbw_v,Findall_sys_name],Value,Vars3)
 	
