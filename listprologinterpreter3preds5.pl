@@ -479,7 +479,8 @@ get_lang_word("get_lang_word",Dbw_get_lang_word),
         debug_call(Skip,[[Dbw_n,Dbw_get_lang_word],[Value1,variable]]),
 	((%is_list(Value1),
 	get_lang_word(Value1,Value2A1),
-	string_atom(Value2A,Value2A1), % *** LPI only takes strings
+	Value2A=Value2A1,
+	%string_atom(Value2A,Value2A1), % *** LPI only takes strings
    %sort(Value1,Value2A),
         val1emptyorvalsequal(Value2,Value2A),
         putvalue(Variable2,Value2A,Vars1,Vars2))->
@@ -685,7 +686,7 @@ getvalue_match_pipe(Variable1,Value1,Vars1) :- %%,Top_flag
 	not(Value1=empty))),
 
 	split_into_head_and_tail(Variable1,Head1a,Tail1a,Pipe1,Head_is_list_of_lists1),
-	(single_item(Head1a) -> L1 = 1 ; length(Head1a,L1)),
+	(single_item(Head1a) -> L1 = 1 ; (is_list(Head1a),length(Head1a,L1))),
 	(%%trace,
 	(Head_is_list_of_lists1=true)->(
 	%%writeln(here1),
@@ -820,7 +821,7 @@ match4(Variable1,Variable2,Vars1,Vars2) :-
 match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 ) :-
 	split_into_head_and_tail(Variable1,Head1a,Tail1a,Pipe1,Head_is_list_of_lists1),
-	(single_item(Head1a) -> L1 = 1 ; length(Head1a,L1)),
+	(single_item(Head1a) -> L1 = 1 ; (is_list(Head1a),length(Head1a,L1))),
 	split_into_head_and_tail(Variable2,Head2a,Tail2a,Pipe2,Head_is_list_of_lists2),
 	(single_item(Head2a) -> L2 = 1 ; length(Head2a,L2)),
 	(%%trace,
