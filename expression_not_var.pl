@@ -17,3 +17,9 @@ single_item_not_var(A) :- predicate_or_rule_name(A),!.
 single_item_not_var(A) :- string(A),!.
 single_item_not_var(A) :- number(A),!.
 single_item_not_var(A) :- atom(A),!.
+
+single_item_or_var(A) :- predicate_or_rule_name(A),!.
+single_item_or_var(A) :- variable_name(A),!.
+single_item_or_var(A) :- string(A),!.
+single_item_or_var(A) :- number(A),!.
+single_item_or_var(A) :- atom(A),!.

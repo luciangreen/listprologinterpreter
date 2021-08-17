@@ -161,7 +161,7 @@ replace_vars(Term,_Vars1,X,First_vars1,First_vars2) :-
 replace_vars0([],Variable,Variable,First_vars,First_vars) :- !.
 
 replace_vars0(Term,First_vars,First_vars) :-
-	is_single_item_or_expression_list(Term),
+	expression_not_var(Term),
 	!.
 replace_vars0(Term,First_vars1,First_vars2) :-
 	not(variable_name(Term)),
@@ -215,7 +215,7 @@ replace_first_vars2(Vars1,First_vars,Vars2,Vars3) :-
 %	replace_first_vars211(Variable2,X,Vars1,FirstArgs1,FirstArgs2).
 
 replace_first_vars211(Var_name1,First_vars,Term2) :-
-	single_item(Var_name1),
+	single_item_or_var(Var_name1),
 	(member([Term1,Var_name1],First_vars)->
 	Term2=Term1;Term2=Var_name1),
 	%append(Term3,[Term2],Term4),
@@ -223,7 +223,7 @@ replace_first_vars211(Var_name1,First_vars,Term2) :-
 
 replace_first_vars211([],_,[]) :- !.
 replace_first_vars211(Variable1,First_vars,Term) :-
-	not(single_item(Variable1)),
+	not(single_item_or_var(Variable1)),
 	Variable1=[Variable1a|Variable1b],
 	replace_first_vars211(Variable1a,First_vars,Value1a),
 	replace_first_vars211(Variable1b,First_vars,Value1b),
@@ -238,6 +238,15 @@ is_single_item_or_expression_list(A) :-
 	%not(variable_name(B))
 	),C),length(A,L),length(C,L))),
 	!.
+
+is_single_item_or_expression_list_with_atoms(A) :-
+	not(variable_name(A)),
+	(single_item_or_atom(A)->true;
+	(is_list(A),findall(B,(member(B,A),expression_or_atom(B)
+	%not(variable_name(B))
+	),C),length(A,L),length(C,L))),
+	!.
+
 	
 	%	replace_vars0(Term,Vars1,Vars2,First_vars1,First_vars2),!.
 
@@ -248,8 +257,8 @@ replace_vars01(Variable2,X,Vars1) :-
 
 getvalue_match1(Variable1,Value1,Vars1) :-
 	get_lang_word("v",Dbw_v1),Dbw_v1=Dbw_v,
-	single_item(Variable1),
-	(is_single_item_or_expression_list(Variable1)->
+	single_item_or_atom(Variable1),
+	(is_single_item_or_expression_list_with_atoms(Variable1)->
 	Value1=Variable1;
 
 	(member([Variable1,[Dbw_v,Var_name1]],Vars1)->
@@ -260,7 +269,7 @@ getvalue_match1(Variable1,Value1,Vars1) :-
 
 getvalue_match1([],[],_Vars1) :- !.
 getvalue_match1(Variable1,Value1,Vars1) :-
-	not(single_item(Variable1)),
+	not(single_item_or_atom(Variable1)),
 	Variable1=[Variable1a|Variable1b],
 	getvalue_match1(Variable1a,Value1a,Vars1),
 	getvalue_match1(Variable1b,Value1b,Vars1),
@@ -303,7 +312,7 @@ e4_substitutevarsA1(Variable2,_,Vars1,X,FirstArgs1,FirstArgs2) :-
 	e4_substitutevarsA2_getvalue_match1(Variable2,X,Vars1,FirstArgs1,FirstArgs2).
 
 e4_substitutevarsA2_getvalue_match1(Variable1,Value1,Vars1,FirstArgs1,FirstArgs3) :-
-	single_item(Variable1),
+	single_item_or_var(Variable1),
 	getvalue(Variable1,Value,Vars1),
 	((Value=empty->
 	((Value1=Variable1),
@@ -315,7 +324,7 @@ e4_substitutevarsA2_getvalue_match1(Variable1,Value1,Vars1,FirstArgs1,FirstArgs3
 
 e4_substitutevarsA2_getvalue_match1([],[],_Vars1,FirstArgs1,FirstArgs1) :- !.
 e4_substitutevarsA2_getvalue_match1(Variable1,Value1,Vars1,FirstArgs1,FirstArgs2) :-
-	not(single_item(Variable1)),
+	not(single_item_or_var(Variable1)),
 	Variable1=[Variable1a|Variable1b],
 	e4_substitutevarsA2_getvalue_match1(Variable1a,Value1a,Vars1,FirstArgs1,FirstArgs3),
 	e4_substitutevarsA2_getvalue_match1(Variable1b,Value1b,Vars1,FirstArgs3,FirstArgs2),

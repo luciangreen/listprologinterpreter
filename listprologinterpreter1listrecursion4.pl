@@ -1672,6 +1672,20 @@ expressionnotatom3(N) :-
 	get_lang_word("v",Dbw_v),
 	not(N=[v,_]),not(N=["v",_]),not(N=[Dbw_v,_]),expression(N),!.
 
+
+expression_or_atom(N) :-
+	(isvalstrempty(N)->true;atom(N)),!.
+expression_or_atom(N) :-
+	is_list(N),
+	length(N,L),L>=1,
+	expression_or_atom2(N),!.
+expression_or_atom(Name) :-
+	predicate_or_rule_name(Name),!.
+expression_or_atom2([]).
+expression_or_atom2([N|Ns]) :-
+	(isvalstrempty(N)->true;atom(N)),	
+	expression_or_atom2(Ns).
+
 expressionnotatom(N) :-
 	isvalstrempty(N),!.
 expressionnotatom(N) :-
