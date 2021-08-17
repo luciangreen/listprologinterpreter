@@ -74,7 +74,7 @@ equals4_first_args1(Length0,Length1,Variable1,Variable2,First_args0,First_args01
 	%trace,
 	findall(Value2,(member([First_args5,Value],First_args1),
 	(not(member(First_args5,Vars2))->Value2=[First_args5,Value];
-	Value2=[Value,First_args5])),First_args6),
+	(not(expression_not_var(Value)),Value2=[Value,First_args5]))),First_args6),
 	
 	%(First_args2=[]->First_args6=First_args2;First_args6=First_args2),
 	%maplist(append,First_args6,[First_args]),
@@ -115,24 +115,29 @@ e4_updatevars([],_,Vars2,Vars2) :- !.
 e4_updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
 	%get_lang_word("v",Dbw_v),
 	FirstArgs=[[Orig,New]|Rest],
-	(expressionnotatom(New)->append(Vars2,[[Orig,New]],Vars5);
-	(%member([New,Value],Vars1),
-	(not(expression_not_var(Orig))->
+	(expression_not_var(New)->append(Vars2,[[Orig,New]],Vars5);
+	(%trace,
+	replace_vars([Orig],[],[Orig1],[],First_vars1),
+	
+	%member([New,Value],Vars1),
+	(not(expression_not_var(Orig1))->
 	(	remember_and_turn_off_debug(Debug),
 %trace,
 %find_findall_sys(Findall_sys_name),
 
 
-	(interpretpart(match4,Orig,New,Vars1,Vars4,_)->true;(turn_back_debug(Debug),fail)),
+	(interpretpart(match4,Orig1,New,Vars1,Vars4,_)->true;(turn_back_debug(Debug),fail)),
 	%trace,
-	collect_vars(Orig,[],Orig2),
+	collect_vars(Orig1,[],Orig2),
 	findall([O1,O2],(member([O1,O2],Vars4),member(O1,Orig2)),Vars6),
 	%subtract(Vars4,Vars1,Vars6),
 		%getvalue(Orig,Value,Vars4),
 
 	turn_back_debug(Debug),
-	
-	append(Vars2,Vars6,Vars5)));
+
+		replace_first_vars1(Vars6,First_vars1,[],Vars61),
+
+	append(Vars2,Vars61,Vars5)));
 	Vars2=Vars5)),
 
 	%append(Vars2,[[Orig,Value]],Vars4))),
@@ -307,7 +312,7 @@ replace_vars011(Variable2,_Vars1,_Vars2a,Vars2b) :-
 	subtract(Variable2,Vars2c,Vars2b),!.
 
 
-e4_substitutevarsA1(Variable2,_,Vars1,X,FirstArgs1,FirstArgs2) :-
+e4_substitutevarsA1(Variable2,Vars1,_,X,FirstArgs1,FirstArgs2) :-
 	is_list(Variable2),
 	e4_substitutevarsA2_getvalue_match1(Variable2,X,Vars1,FirstArgs1,FirstArgs2).
 

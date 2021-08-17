@@ -148,7 +148,7 @@ e4_fa_match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 	e4_fa_split_into_head_and_tail(Variable1,Head1a,Tail1a,Pipe1,Head_is_list_of_lists1),
 	(single_item(Head1a) -> L1 = 1 ; (is_list(Head1a),length(Head1a,L1))),
 	e4_fa_split_into_head_and_tail(Variable2,Head2a,Tail2a,Pipe2,Head_is_list_of_lists2),
-	(single_item(Head2a) -> L2 = 1 ; length(Head2a,L2)),
+	(single_item(Head2a) -> L2 = 1 ; (is_list(Head2a),length(Head2a,L2))),
 	(%%trace,
 	(Head_is_list_of_lists1=true->true;Head_is_list_of_lists2=true)->(
 	%%writeln(here1),

@@ -91,7 +91,7 @@ checktypes_inputs(Function,Arguments1),
         checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),
         %notrace,
         %%->ca2 
-%%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
+%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
 debug_call(Skip,[Function,Arguments1]),
 	(interpretbody(Functions,Functions2,Vars1,Vars2,Body,true)->debug_fail_fail(Skip);debug_fail(Skip,[Function,Arguments1])
 	),
@@ -209,6 +209,7 @@ debug_call(Skip,[Function,Arguments1]),
         (interpretbody(Functions,Functions2,Vars1,Vars2,Body,true)->debug_fail_fail(Skip);
         debug_fail(Skip,[Function,Arguments1])), %%**arg2 change
 %%writeln1(["Functions",Functions,"Functions2",Functions2,"Vars1",Vars1,"Vars2",Vars2,"Body",Body]),
+        %trace,
         updatevars(FirstArgs,Vars2,[],Result),
         %%reverse(Result,[],Vars7),
         ((true->%not(Result=[])->
@@ -1380,6 +1381,7 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
         (Function=[Dbw_v,_]->
         (append([Function],Arguments,Arguments1),
+        %trace,
         substitutevarsA1(Arguments1,Vars1,[],Vars3,[],FirstArgs),
         Vars3=[Function1|Vars31],
         Query2=[Function1,Vars31]);
