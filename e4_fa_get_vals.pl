@@ -123,7 +123,7 @@ e4_updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
 	(not(expression_not_var(Orig1))->
 	(	remember_and_turn_off_debug(Debug),
 %trace,
-%find_findall_sys(Findall_sys_name),
+%find_sys(Sys_name),
 
 
 	(interpretpart(match4,Orig1,New,Vars1,Vars4,_)->true;(turn_back_debug(Debug),fail)),
@@ -186,7 +186,7 @@ replace_vars0(Term,First_vars1,First_vars2) :-
 	variable_name(Term),
 	(member([Term,[Dbw_v,_Var_name1]],First_vars1)->
 	(First_vars1=First_vars2);
-	(find_findall_sys(Var_name2),
+	(find_sys(Var_name2),
 	append(First_vars1,[[Term,[Dbw_v,Var_name2]]],First_vars2))),
 	!.
 	
@@ -268,7 +268,7 @@ getvalue_match1(Variable1,Value1,Vars1) :-
 
 	(member([Variable1,[Dbw_v,Var_name1]],Vars1)->
 	(Value1=[Dbw_v,Var_name1]);
-	(find_findall_sys(Var_name2),
+	(find_sys(Var_name2),
 	Value1=[Dbw_v,Var_name2]))),!.
 
 
@@ -307,10 +307,10 @@ getvalue_match11(Variable1,Vars1,Vars2a,Vars2b) :-
 */
 
 replace_vars011(Variable2,_Vars1,_Vars2a,Vars2b) :-
-	get_lang_word("findall_sys",Dbw_findall_sys),
+	get_lang_word("sys",Dbw_sys),
 
 	findall([[A,C],C1],(member([[A,C],C1],Variable2),
-	string_concat(Dbw_findall_sys,_N1,C)),Vars2c),
+	string_concat(Dbw_sys,_N1,C)),Vars2c),
 	subtract(Variable2,Vars2c,Vars2b),!.
 
 

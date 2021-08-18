@@ -221,11 +221,11 @@ get_lang_word("equals4",Dbw_equals4),
         
         remember_and_turn_off_debug(Debug),
 	%trace,
-find_findall_sys(Findall_sys_name),
-        match4_2(Variable1,[Dbw_v,Findall_sys_name],Vars2,Vars3),
+find_sys(Sys_name),
+        match4_2(Variable1,[Dbw_v,Sys_name],Vars2,Vars3),
 %%writeln1(        interpretpart(match4,Variable1,[v,sys1],Vars3,Vars2,_)),
 %%interpretstatement1(Functions0,Functions,[[n,equals4],[Variable1,Variable3]],Vars3,Vars2,true,nocut),
-	getvalue([Dbw_v,Findall_sys_name],Value3,Vars3),
+	getvalue([Dbw_v,Sys_name],Value3,Vars3),
 	
 	 turn_back_debug(Debug))
 
@@ -433,11 +433,11 @@ debug_call(Skip,[[Dbw_n,Dbw_writeln],[variable]]),
 	
 	remember_and_turn_off_debug(Debug),
 	%%trace,
-find_findall_sys(Findall_sys_name),
-        interpretpart(match4,Variable1,[Dbw_v,Findall_sys_name],Vars1,Vars3,_),
+find_sys(Sys_name),
+        interpretpart(match4,Variable1,[Dbw_v,Sys_name],Vars1,Vars3,_),
 %%writeln1(        interpretpart(match4,Variable1,[v,sys1],Vars3,Vars2,_)),
 %%interpretstatement1(Functions0,Functions,[[n,equals4],[Variable1,Variable3]],Vars3,Vars2,true,nocut),
-	getvalue([Dbw_v,Findall_sys_name],Value3,Vars3),
+	getvalue([Dbw_v,Sys_name],Value3,Vars3),
 	
 	 turn_back_debug(Debug),
 	

@@ -6,7 +6,7 @@
 :- dynamic types/1.
 :- dynamic typestatements/1.
 :- dynamic modestatements/1.
-:- dynamic findall_sys/1.
+:- dynamic sys/1.
 :- dynamic equals4/1.
 
 :- dynamic lang/1.
@@ -67,8 +67,8 @@ interpret1(Debug,Query,Functions1,Functions2,Result) :-
    assertz(cut(off)),
 	retractall(leash1(_)),
    assertz(leash1(off)), %% Should normally be off
-  	retractall(findall_sys(_)),
- 	assertz(findall_sys(1)),
+  	retractall(sys(_)),
+ 	assertz(sys(1)),
 	(not(equals4(_Equals4))->(retractall(equals4(_)),assertz(equals4(on)));true),%equals4(Equals4)),
 	%%writeln1(member1(Query,Functions1,Functions2,Result)),
 	member1(Query,Functions1,Functions2,Result).
@@ -1175,11 +1175,11 @@ get_lang_word("v",Dbw_v),
 		
 	 remember_and_turn_off_debug(Debug),
 	%%trace,
-find_findall_sys(Findall_sys_name),
-        interpretpart(match4,Variable1,[Dbw_v,Findall_sys_name],Vars3,Vars2,_),
+find_sys(Sys_name),
+        interpretpart(match4,Variable1,[Dbw_v,Sys_name],Vars3,Vars2,_),
 %%writeln1(        interpretpart(match4,Variable1,[v,sys1],Vars3,Vars2,_)),
 %%interpretstatement1(Functions0,Functions,[[n,equals4],[Variable1,Variable3]],Vars3,Vars2,true,nocut),
-	getvalue([Dbw_v,Findall_sys_name],Value3,Vars2),
+	getvalue([Dbw_v,Sys_name],Value3,Vars2),
 	
 	 turn_back_debug(Debug)
 
@@ -1736,11 +1736,11 @@ findresult3(Arguments1,Result1,Result2,Result3) :-
 
 	remember_and_turn_off_debug(Debug),
 
-find_findall_sys(Findall_sys_name),
-        interpretpart(match4,Variable,[Dbw_v,Findall_sys_name],Result1,Vars3,_),
+find_sys(Sys_name),
+        interpretpart(match4,Variable,[Dbw_v,Sys_name],Result1,Vars3,_),
 	 turn_back_debug(Debug),
 
-	getvalue([Dbw_v,Findall_sys_name],Value,Vars3)
+	getvalue([Dbw_v,Sys_name],Value,Vars3)
 	
 )
 
@@ -1764,11 +1764,11 @@ strip(Arguments1,Result2,Result3) :-
  turn_back_debug(Debug) :-
  	retractall(debug(_)),assertz(debug(Debug)).
 
-find_findall_sys(Name2) :-
-	findall_sys(N1),
-	concat_list(["findall_sys",N1],Name1),
+find_sys(Name2) :-
+	sys(N1),
+	concat_list(["sys",N1],Name1),
 	get_lang_word(Name1,Name2),
 	%atom_string(Name2,Name1),
 	N2 is N1+1,
-	retractall(findall_sys(_)),
- 	assertz(findall_sys(N2)).
+	retractall(sys(_)),
+ 	assertz(sys(N2)).

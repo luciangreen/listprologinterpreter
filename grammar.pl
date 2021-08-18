@@ -352,11 +352,11 @@ getvalue_equals41(Variable,Value,Vars) :-
 	get_lang_word("v",Dbw_v),
 		remember_and_turn_off_debug(Debug),
 		
-		find_findall_sys(Findall_sys_name),
+		find_sys(Sys_name),
         
 	
-((interpretpart(match4,Variable,[Dbw_v,Findall_sys_name],Vars,Vars3,_),
-	getvalue([Dbw_v,Findall_sys_name],Value,Vars3))->true;(turn_back_debug(Debug),fail)),
+((interpretpart(match4,Variable,[Dbw_v,Sys_name],Vars,Vars3,_),
+	getvalue([Dbw_v,Sys_name],Value,Vars3))->true;(turn_back_debug(Debug),fail)),
 	turn_back_debug(Debug).
 
 putvalue_equals4(Variable,Value,Vars1,Vars2) :-
@@ -367,9 +367,9 @@ putvalue_equals41(Variable,Value,Vars1,Vars2) :-
 	%get_lang_word("v",Dbw_v),
 		remember_and_turn_off_debug(Debug),
 		
-		%find_findall_sys(Findall_sys_name),
+		%find_sys(Sys_name),
         
 	
 interpretpart(match4,Variable,Value,Vars1,Vars2,_),
-	%getvalue([Dbw_v,Findall_sys_name],Value,Vars3))->true;(turn_back_debug(Debug),fail)).
+	%getvalue([Dbw_v,Sys_name],Value,Vars3))->true;(turn_back_debug(Debug),fail)).
 	turn_back_debug(Debug).
