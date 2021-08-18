@@ -2284,7 +2284,7 @@ test(107,[[n,call1b],[[1,11,111],[v,b]]],
         [[n,call1b],[[v,a],[v,b]],":-",
         [
         
-        		  [[n,equals4_off]],
+        		  %[[n,equals4_on]], called algorithm isn't treated with equals4 anyway
         		  
        [[n,call],[[lang,same],same,[[n,member2a],[[v,a],[v,b]]],
 [[[n,member2a],[[v,a],[v,b]],":-",

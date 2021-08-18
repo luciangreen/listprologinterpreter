@@ -202,7 +202,7 @@ For example:
 
 * `[[n,equals4_on]]` switches on equals4 mode (in check arguments, substitute vars and update vars but not in the equals4 command itself), for e.g. list processing in arguments.
 
-* `[[n,equals4_off]]` switches off equals4 mode, for e.g. using the call command.
+* `[[n,equals4_off]]` switches off equals4 mode, for debugging.
 
 
 
