@@ -307,8 +307,10 @@ getvalue_match11(Variable1,Vars1,Vars2a,Vars2b) :-
 */
 
 replace_vars011(Variable2,_Vars1,_Vars2a,Vars2b) :-
+	get_lang_word("findall_sys",Dbw_findall_sys),
+
 	findall([[A,C],C1],(member([[A,C],C1],Variable2),
-	string_concat("findall_sys",_N1,C)),Vars2c),
+	string_concat(Dbw_findall_sys,_N1,C)),Vars2c),
 	subtract(Variable2,Vars2c,Vars2b),!.
 
 

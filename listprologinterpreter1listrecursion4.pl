@@ -69,7 +69,7 @@ interpret1(Debug,Query,Functions1,Functions2,Result) :-
    assertz(leash1(off)), %% Should normally be off
   	retractall(findall_sys(_)),
  	assertz(findall_sys(1)),
-	(not(equals4(_Equals4))->(retractall(equals4(_)),assertz(equals4(off)));true),%equals4(Equals4)),
+	(not(equals4(_Equals4))->(retractall(equals4(_)),assertz(equals4(on)));true),%equals4(Equals4)),
 	%%writeln1(member1(Query,Functions1,Functions2,Result)),
 	member1(Query,Functions1,Functions2,Result).
 %%member1([_,R],_,[],R).
@@ -747,7 +747,7 @@ turndebug(State1) :-
 	retract(debug(State2)),
 	assertz(debug(State1)).
 turnequals4(State1) :-
-	(not(equals4(_Equals4))->(retractall(equals4(_)),assertz(equals4(off)));true),
+	(not(equals4(_Equals4))->(retractall(equals4(_)),assertz(equals4(on)));true),
 		equals4(State2),
 	retract(equals4(State2)),
 	assertz(equals4(State1)).

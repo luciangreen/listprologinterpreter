@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=160, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=161, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -30,7 +30,7 @@ test(1,[[n,function]],
 [
         [[n,function],":-",
         [
-                [[n,equals4_off]]
+                [[n,equals4_on]]
         ]
         ]
 ]
@@ -2282,10 +2282,17 @@ test(107,[[n,call1b],[[1,11,111],[v,b]]],
 
 [
         [[n,call1b],[[v,a],[v,b]],":-",
-        [       [[n,call],[[lang,same],same,[[n,member2a],[[v,a],[v,b]]],
+        [
+        
+        		  [[n,equals4_off]],
+        		  
+       [[n,call],[[lang,same],same,[[n,member2a],[[v,a],[v,b]]],
 [[[n,member2a],[[v,a],[v,b]],":-",
         [       [[n,member2],[[v,a],[v,b]]],[[n,cut]]]
-        ]]]]]]       
+        ]]]],
+        
+            [[n,equals4_on]]
+]]       
         
 ],[[[[v,b],1]]]).
 
@@ -2296,6 +2303,7 @@ test(108,[[n,call1b],[[1,11,111],[v,b]]],
         %[[[n,call1b],[input,output]]],
 
 [
+        [[n,equals4_off]],
         [[n,call1b],[[v,a],[v,b]],":-",
         [       [[n,call],[[lang,same],same,[[n,member2a],[[v,a],[v,b]]],
         [[[n,member2a],[[[t,brackets],[[t,number],[t,number],[t,number]]],[t,number]]]],
@@ -2304,7 +2312,9 @@ test(108,[[n,call1b],[[1,11,111],[v,b]]],
 [[[n,member2a],[[v,a],[v,b]],":-",
         [       [[n,member2],[[v,a],[v,b]]],[[n,cut]]]
         ]]]],
-        [[n,cut]]]]       
+        [[n,cut]],
+        [[n,equals4_on]]
+        ]]       
         
 ],[[[[v,b],1]]]).
 
@@ -2923,7 +2933,7 @@ test(118,%[[n,types],["on"]],
 
 [[[n,want_baby],[input]]]]],
 
-		  [[n,equals4_off]]
+		  [[n,equals4_on]]
 
 ]],
 %*/
@@ -3363,10 +3373,10 @@ test(137,[[n,equals41],[[v,b]]],
         
 ],[[[[v,b],1]]]).
 
-test(138,[[n,equals4_off1]],
+test(138,[[n,equals41]],
 [
-		  [[n,equals4_off1],":-",
-		  [[[n,equals4_off]]]]
+		  [[n,equals41],":-",
+		  [[[n,equals4_on]]]]
 ],
 		  
 [[]]).
@@ -3375,7 +3385,7 @@ test(139,[[n,append1],[[v,a],[v,d]]],
 [
         [[n,append1],[[v,a],[v,d]],":-",
         [
-                [[n,equals4_on]],
+                %[[n,equals4_on]],
                 [[n,b],[[v,b]]],
                 [[n,c],[[v,c]]],
                 [[n,append],[[[v,b],[v,c]],[[v,c]],[[v,a],"|",[v,d]]]]
@@ -3596,10 +3606,10 @@ test(158,[[n,equals41],[[v,a]]],
 ],[[[[v,a],1]]]).
 
 
-test(159,[[n,equals4_off1]],
+test(159,[[n,equals41]],
 [
-		  [[n,equals4_off1],":-",
-		  [[[n,equals4_off]]]]
+		  [[n,equals41],":-",
+		  [[[n,equals4_on]]]]
 ],
 		  
 [[]]).
