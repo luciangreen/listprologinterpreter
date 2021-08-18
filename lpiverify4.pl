@@ -2888,6 +2888,7 @@ test(118,[[n,connect_cliques_types],[[["a",1],[1,2],[2,"b"]],[["a",3],[3,4],[4,"
 
 %test(118,[[n,extract_modes2],[[[t,string],[t,string]],[],[v,typestatements3],["yes","yes"],[],[v,vars3],[input,output]]],
 test(118,%[[n,types],["on"]],
+[[n,query_pred]],
 %[[n,is_list],[[1,2,3]]],
 %[[n,extract_modes2],[[[t,string]],[],[v,typestatements3],["yes"],[],[v,vars3],[output]]],
 
@@ -2910,6 +2911,10 @@ test(118,%[[n,types],["on"]],
 */
 %/** *** THESE
 %/*
+[
+		  [[n,query_pred],":-",
+		  [[[n,equals4_on]],
+
 [[n,checktypes_inputs],
 
 [[n,want_baby],["yes"],
@@ -2917,6 +2922,10 @@ test(118,%[[n,types],["on"]],
 [[[n,want_baby],[[t,string]]]],
 
 [[[n,want_baby],[input]]]]],
+
+		  [[n,equals4_off]]
+
+]],
 %*/
 %**/
 
@@ -2924,7 +2933,7 @@ test(118,%[[n,types],["on"]],
 % - use normal trace, notrace on checktypes, works with skip, retry (trace before checktypes, if exits or fails, turns off trace)
 % later: $ trace status to display
 
-[
+
 [[n,types],["on"]], % need assertz command in ssi, not in lpi
 
 [[n,checktypes_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]],":-", % need these last 2 vars for output check as well
