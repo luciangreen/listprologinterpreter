@@ -3589,9 +3589,9 @@ test(156,[[n,equals42],[[v,a],[[v,b],[v,c]]]],
 test(157,[[n,equals41],[[v,a]]],
 
 [
-        [[n,equals41],["[[n,b],c]"]]
+        [[n,equals41],[[[n,b],c]]]
         
-],[[[[v,a],"[[n,b],c]"]]]).
+],[[[[v,a],[[n,b],c]]]]).
 
 
 test(158,[[n,equals41],[[v,a]]],
