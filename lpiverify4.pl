@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=161, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=162, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -3558,23 +3558,6 @@ test(155,[[n,equals41],[[v,a]]],
         
 ],[[[[v,a],[1,2,3]]]]).
 
-/* 
-test(156,[[n,equals41],[[v,a],[v,b],[v,c]]],
-
-[
-        [[n,equals41],[[v,a],[v,b],[v,c]],":-",
-        [       [[n,equals42],[[v,a],[[v,b],[v,c]]]]
-        ]],
-
-        [[n,equals42],[[[v,d],[v,e]],[v,f]],":-",
-        [       %[[n,trace2]],
-        						[[n,equals4],[[[v,d],[v,e],[v,f]],[1,2,[3,4]]]]
-        ]]
-
-        %[[n,equals42],[[1,2,[3,4]]]]
-               
-],[[[[v,a],[1,2]],[[v,b],3],[[v,c],4]]]).
-*/
 
 test(156,[[n,equals42],[[v,a],[[v,b],[v,c]]]],
 
@@ -3644,3 +3627,21 @@ test(161,[[n,function],[1,1,[v,c]]],
         ]
 ]
 ,[[[[v,c], 4]]]).
+
+
+test(162,[[n,equals41],[[v,a],[v,b],[v,c]]],
+
+[
+        [[n,equals41],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,equals42],[[v,a],[[v,b],[v,c]]]]
+        ]],
+
+        [[n,equals42],[[[v,d],[v,e]],[v,f]],":-",
+        [       %[[n,trace2]],
+        						[[n,equals4],[[[v,d],[v,e],[v,f]],[1,2,[3,4]]]]
+        ]]
+
+        %[[n,equals42],[[1,2,[3,4]]]]
+               
+],[[[[v,a],[1,2]],[[v,b],3],[[v,c],4]]]).
+
