@@ -113,6 +113,8 @@ equals4_first_args1(Length0,Length1,Variable1,Variable2,First_args0,First_args01
 
 e4_updatevars([],_,Vars2,Vars2) :- !.
 e4_updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
+%writeln1(e4_updatevars(FirstArgs,Vars1,Vars2,Vars3)),
+%trace,
 	%get_lang_word("v",Dbw_v),
 	FirstArgs=[[Orig,New]|Rest],
 	(expression_not_var(New)->append(Vars2,[[Orig,New]],Vars5);
