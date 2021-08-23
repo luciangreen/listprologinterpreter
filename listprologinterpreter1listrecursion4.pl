@@ -93,18 +93,22 @@ checktypes_inputs(Function,Arguments1),
         %%->ca2 
 %writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
 debug_call(Skip,[Function,Arguments1]),
-	(interpretbody(Functions,Functions2,Vars1,Vars2,Body,true)->debug_fail_fail(Skip);debug_fail(Skip,[Function,Arguments1])
+	((interpretbody(Functions,Functions2,Vars1,Vars2,Body,true),
+	updatevars(FirstArgs,Vars2,[],Result),
+	%trace,
+	unique1(Result,[],Vars8)%,notrace
+	)->debug_fail_fail(Skip);debug_fail(Skip,[Function,Arguments1])
 	),
 	%trace,
 	%%writeln1(updatevars(FirstArgs,Vars2,[],Result)),
 	%trace,
-	updatevars(FirstArgs,Vars2,[],Result),
+	
 	%notrace,
         %%reverse(Result,[],Vars7),
 	((true->%not(Result=[])->
         %%Result=[Var71|Vars72],
         %%writeln1(unique1(Result,[],Vars8)),
-        (unique1(Result,[],Vars8),
+        (true,
 %%writeln1(["FirstArgs",FirstArgs,"Vars",Vars2,"Result",Result,"Vars7",Vars7,"Vars72",Vars72,"Var71",Var71,"Vars8",Vars8]),
 %%writeln1(["Vars8",Vars8]),
 	%%writeln1(findresult3(Arguments1,Vars8,[],Result2)),
@@ -156,7 +160,8 @@ member12(Query,Functions,Functions2,Vars8) :-
         ((%not
         true->%(Result=[])->
         %%Result=[Var71|Vars72],
-        (unique1(Result,[],Vars8),
+        (%trace,
+        unique1(Result,[],Vars8),%notrace,
         findresult3(Arguments1,Vars8,[],Result2)
         );(
 %%writeln1(here2),
@@ -206,15 +211,19 @@ member2(Query,Functions,Functions2,Vars8) :-
         
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
 debug_call(Skip,[Function,Arguments1]),
-        (interpretbody(Functions,Functions2,Vars1,Vars2,Body,true)->debug_fail_fail(Skip);
+        ((interpretbody(Functions,Functions2,Vars1,Vars2,Body,true),
+        updatevars(FirstArgs,Vars2,[],Result),
+        %trace,
+        unique1(Result,[],Vars8)%,notrace
+        )->debug_fail_fail(Skip);
         debug_fail(Skip,[Function,Arguments1])), %%**arg2 change
 %%writeln1(["Functions",Functions,"Functions2",Functions2,"Vars1",Vars1,"Vars2",Vars2,"Body",Body]),
         %trace,
-        updatevars(FirstArgs,Vars2,[],Result),
+        
         %%reverse(Result,[],Vars7),
         ((true->%not(Result=[])->
         %%Result=[Var71|Vars72],
-        (unique1(Result,[],Vars8),
+        (true,
         findresult3(Arguments1,Vars8,[],Result2)
 %%writeln1(["Vars2",Vars2,"Result",Result]),
         );(
@@ -259,7 +268,8 @@ member22(Query,Functions,Functions2,Vars8) :-
         %%reverse(Result,[],Vars7),
         ((true->%not(Result=[])->
         %%Result=[Var71|Vars72],
-        (unique1(Result,[],Vars8),
+        (%trace,
+        unique1(Result,[],Vars8),%notrace,
         findresult3(Arguments1,Vars8,[],Result2)
         );(
 %%writeln1(here4),
@@ -292,9 +302,10 @@ checkarguments(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2) :-
 checkarguments2(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2)),
 % fail if two bs in a,b c,b in first args
 %trace,
-length(FirstArgs2,L),
+/*length(FirstArgs2,L),
 findall(FA3,(member([_,FA3],FirstArgs2),not(expression_not_var(FA3))),FA4),sort(FA4,FA5),
 findall(FA6,(member([_,FA6],FirstArgs2),expression_not_var(FA6)),FA7),append(FA5,FA7,FA8),length(FA8,L),
+*/
 !.
 
 checkarguments1(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2) :-
@@ -1352,7 +1363,9 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 	reverse(Vars6,[],Vars7),
 	((not(Vars7=[])->
 	%%Vars7=[Var71|Vars72],
-	unique1(Vars7,[],Vars8)
+	(%trace,
+	unique1(Vars7,[],Vars8)%,notrace
+	)
 );(
 %%writeln1(here1),
 	Vars8=[])).        
@@ -1407,7 +1420,9 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 	reverse(Vars6,[],Vars7),
 	((not(Vars7=[])->
 	%%Vars7=[Var71|Vars72],
-	unique1(Vars7,[],Vars8)
+	(%trace,
+	unique1(Vars7,[],Vars8)%,notrace
+	)
 );(
 %%writeln1(here1),
 	Vars8=[])).
@@ -1597,11 +1612,33 @@ reverse(List1,List2,List3) :-
 	List1=[Head|Tail],
 	append([Head],List2,List4),
 	reverse(Tail,List4,List3).
-unique1([],Items,Items).
+/**
 unique1([Item|Items1],Items2,Items3) :-
 	delete(Items1,Item,Items4),
 	append(Items2,[Item],Items5),
 	unique1(Items4,Items5,Items3).
+	**/
+	
+unique1(A,Items2,Items3) :-
+%trace,
+unique1a(A,Items2,Items3).
+%notrace.
+unique1a([],Items,Items).
+unique1a([[Item,Val]|Items1],Items2,Items3) :-
+
+	(member([Item,Val2],Items1)->(not(Val=Val2)->
+	fail%delete(Items1,[Item,Val2],Items6)
+	;true%Items1=Items6
+	);
+	true%Items1=Items6
+	),
+	%delete(Items1,Item,Items4),
+	%append(Items2,[Item],Items5),
+	delete(Items1,[Item,Val],Items4),
+	append(Items2,[[Item,Val]],Items5),
+	unique1a(Items4,Items5,Items3).
+	
+	
 isvar([Dbw_v,_Value]) :- 
 get_lang_word("v",Dbw_v1),Dbw_v1=Dbw_v,!.
 isval(Value) :-
