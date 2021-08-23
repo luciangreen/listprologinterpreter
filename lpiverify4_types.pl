@@ -17,7 +17,7 @@ test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 
 test_types1(Debug,N,Passed) :-
 	test_types_cases(N,Query,Types,Modes,Functions,Result),
-	((international_interpret([lang,"en"],Debug,Query,Types,Modes,Functions,Result)%%writeln(Result1),
+	((international_interpret([lang,"en"],Debug,Query,Types,Modes,Functions,Result)%%,writeln(Result)
 	%%Result=Result1
 	)->(Passed=passed,writeln([test_types,N,passed]));(Passed=failed,writeln([test_types,N,failed]))),!.
 

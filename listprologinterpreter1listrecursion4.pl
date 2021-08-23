@@ -289,7 +289,13 @@ member23(Query,Functions,Functions2,Vars8) :-
 	
 checkarguments(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2) :-
 	(equals4(on)->checkarguments1(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2);
-checkarguments2(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2)),!.
+checkarguments2(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2)),
+% fail if two bs in a,b c,b in first args
+%trace,
+length(FirstArgs2,L),
+findall(FA3,(member([_,FA3],FirstArgs2),not(expression_not_var(FA3))),FA4),sort(FA4,FA5),
+findall(FA6,(member([_,FA6],FirstArgs2),expression_not_var(FA6)),FA7),append(FA5,FA7,FA8),length(FA8,L),
+!.
 
 checkarguments1(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2) :-
 	%trace,
