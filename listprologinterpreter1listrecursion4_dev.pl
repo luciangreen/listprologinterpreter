@@ -42,7 +42,7 @@ interpret_1(Debug,Query,TypeStatements,ModeStatements,Functions1,Result) :-
  	assertz(modestatements(ModeStatements)),
 interpret11(Debug,Query,Functions1,Result).
 
-interpret11(Debug,Query,Functions1,Result) :-
+interpret11(Debug,Query,Functions,Result) :-
 	((not(lang(_Lang1))
 	%var(Lang1)
 	)->
@@ -51,6 +51,9 @@ interpret11(Debug,Query,Functions1,Result) :-
 	true),
 	load_lang_db,
 
+	query_box(Query,Query1,Functions,Functions1),
+%trace,
+%writeln1(query_box(Query,Query1,Functions,Functions1)),
 %%writeln1([i1]),
 	%%writeln1(convert_to_grammar_part1(Functions1,[],Functions2,_)),
 	convert_to_grammar_part1(Functions1,[],Functions2,_),
@@ -58,7 +61,32 @@ interpret11(Debug,Query,Functions1,Result) :-
 	%writeln1(Functions2),
 	%%pp3(Functions2),
 	%%writeln1(interpret1(Debug,Query,Functions2,Functions2,Result)),
-	findall(Result1,interpret1(Debug,Query,Functions2,Functions2,Result1),Result).
+	findall(Result1,interpret1(Debug,Query1,Functions2,Functions2,Result1),Result).
+	
+query_box(Query,Query1,Functions,Functions1) :-
+	collect_arguments_body2([Query],[],Arguments),
+	(Arguments=[]->
+	(Query1=[[n,query_box]],
+	append(
+	[
+        [[n,query_box],":-",
+        [
+                Query
+        ]]
+	]
+	,        
+	Functions,Functions1));
+	(Query1=[[n,query_box],Arguments],
+	append(
+	[
+        [[n,query_box],Arguments,":-",
+        [
+                Query
+        ]]
+	]
+	,        
+	Functions,Functions1))).
+
 interpret1(Debug,Query,Functions1,Functions2,Result) :-
 %%writeln1([i11]),
 	retractall(debug(_)),
