@@ -24,3 +24,4 @@
 :- include('e4_fa_get_vals.pl').
 :- include('equals4_first_args.pl').
 :- include('expression_not_var.pl').
+:- include('collect_arguments.pl').
