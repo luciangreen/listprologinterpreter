@@ -1,7 +1,7 @@
-symbol(Symbol,Symbol) :-!.
+%symbol(Symbol,Symbol) :-!.
 
 %%slp2lp_variables(Name1,[v,Name1]) :- predicate_or_rule_name(Name1),!.
-slp2lp_variables(Name,Name) :- !.
+%slp2lp_variables(Name,Name) :- !.
 
 /**
 collect_arguments_body(Body1,Body2) :-
@@ -11,7 +11,7 @@ collect_arguments_body(Body1,[],Body2) :-
 **/
 
 %%predicate_or_rule_name([A,B]) :- atom(A),is_list(B),!.
-predicate_or_rule_name([V_or_n,_Name]) :- (V_or_n=v->true;V_or_n=n),!.%%,atom(Name),!.
+%predicate_or_rule_name([V_or_n,_Name]) :- (V_or_n=v->true;V_or_n=n),!.%%,atom(Name),!.
 %% x: predicate_or_rule_name(V_or_n) :- (V_or_n=v->true;V_or_n=n),fail,!.
 
 collect_arguments_body2([],N,N):-!.%%,Body3
@@ -39,7 +39,10 @@ collect_arguments_body2([Statements1],Body2,Body4), %% 2->1
 
         
 collect_arguments_body2(Body1,Body2,Body3) :-
-        Body1=[[[n,not],Statement]|Statements2 %% [] removed from Statement
+get_lang_word("n",Dbw_n),
+get_lang_word("not",Dbw_not),
+
+        Body1=[[[Dbw_n,Dbw_not],Statement]|Statements2 %% [] removed from Statement
         ],
 		  %Number1a is Number1+1,
         collect_arguments_body2([Statement],Body2,Body4),
@@ -55,7 +58,9 @@ collect_arguments_body2(Body1,Body2,Body3) :-
 
 
 collect_arguments_body2(Body1,Body2,Body3) :-
-        Body1=[[[n,or],[Statements1,Statements2]]|Statements3],
+get_lang_word("n",Dbw_n),
+get_lang_word("or",Dbw_or),
+        Body1=[[[Dbw_n,Dbw_or],[Statements1,Statements2]]|Statements3],
 		  %Number1a is Number1+1,
         collect_arguments_body2([Statements1],Body2,Body4),
         collect_arguments_body2([Statements2],Body4,Body5),
@@ -68,7 +73,9 @@ collect_arguments_body2(Body1,Body2,Body3) :-
 
 
 collect_arguments_body2(Body1,Body2,Body3) :-
-        Body1=[[[n,"->"],[Statements1,Statements2]]|Statements3],
+get_lang_word("n",Dbw_n),
+
+        Body1=[[[Dbw_n,"->"],[Statements1,Statements2]]|Statements3],
 		  %Number1a is Number1+1,
         collect_arguments_body2([Statements1],Body2,Body4), 
     	  collect_arguments_body2([Statements2],Body4,Body5),
@@ -85,7 +92,8 @@ collect_arguments_body2(Body1,Body2,Body3) :-
 
 
 collect_arguments_body2(Body1,Body2,Body3) :-
-        Body1=[[[n,"->"],[Statements1,Statements2,Statements2a]]|Statements3],
+get_lang_word("n",Dbw_n),
+        Body1=[[[Dbw_n,"->"],[Statements1,Statements2,Statements2a]]|Statements3],
 		  %Number1a is Number1+1,
         collect_arguments_body2([Statements1],Body2,Body4),
         collect_arguments_body2([Statements2],Body4,Body5),
@@ -107,7 +115,9 @@ collect_arguments_body2(Body1,Body2,Body3) :-
    !.
    
 collect_arguments_statement1(Statement,Arguments1,Arguments2) :-
-	((Statement=[[n,_Name],Arguments],
+get_lang_word("n",Dbw_n),
+
+	((Statement=[[Dbw_n,_Name],Arguments],
 	%trace,
 	recursive_collect_arguments(Arguments,Arguments1,Arguments2)
 
@@ -117,7 +127,7 @@ collect_arguments_statement1(Statement,Arguments1,Arguments2) :-
 	%findall(Argument,(member(Argument,Arguments),(predicate_or_rule_name(Argument))),Result2),
 	%Result1=[[Number1,[n,Name],Result2]]
 	)->true;
-	(Statement=[[n,_Name]],
+	(Statement=[[Dbw_n,_Name]],
 	Arguments1=Arguments2)).
 	
 recursive_collect_arguments([],Arguments,Arguments) :- !.

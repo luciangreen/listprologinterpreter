@@ -138,7 +138,7 @@ respectively.
 
 # Documentation
 
-See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/LPI_docs.md">List Prolog Documentation</a>.
+See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/LPI_docs.md">List Prolog Documentation</a> and <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/LPI_Caveats.md">List Prolog Caveats</a>.
 
 # Text to Breasonings
 
