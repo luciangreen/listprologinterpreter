@@ -1868,9 +1868,9 @@ find_sys(Name2) :-
  	
 find_query_box_n(Name2) :-
 	(query_box_n(N1)->N=N1;
-	retractall(query_box_n(_)),
+	(retractall(query_box_n(_)),
 	assertz(query_box_n(1)),
-	N=1),
+	N=1)),
 	concat_list(["query_box_",N],Name1),
 	get_lang_word(Name1,Name2),
 	%atom_string(Name2,Name1),
