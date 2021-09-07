@@ -8,7 +8,6 @@
 :- dynamic modestatements/1.
 :- dynamic sys/1.
 :- dynamic equals4/1.
-:- dynamic query_box_n/1.
 
 :- dynamic lang/1.
 
@@ -43,7 +42,7 @@ interpret_1(Debug,Query,TypeStatements,ModeStatements,Functions1,Result) :-
  	assertz(modestatements(ModeStatements)),
 interpret11(Debug,Query,Functions1,Result).
 
-interpret11(Debug,Query,Functions,Result) :-
+interpret11(Debug,Query,Functions1,Result) :-
 	((not(lang(_Lang1))
 	%var(Lang1)
 	)->
@@ -52,9 +51,6 @@ interpret11(Debug,Query,Functions,Result) :-
 	true),
 	load_lang_db,
 
-	query_box(Query,Query1,Functions,Functions1),
-%trace,
-%writeln1(query_box(Query,Query1,Functions,Functions1)),
 %%writeln1([i1]),
 	%%writeln1(convert_to_grammar_part1(Functions1,[],Functions2,_)),
 	convert_to_grammar_part1(Functions1,[],Functions2,_),
@@ -62,36 +58,7 @@ interpret11(Debug,Query,Functions,Result) :-
 	%writeln1(Functions2),
 	%%pp3(Functions2),
 	%%writeln1(interpret1(Debug,Query,Functions2,Functions2,Result)),
-	
-	%writeln1(interpret1(Debug,Query1,Functions2,Functions2,Result1)),
-	findall(Result1,interpret1(Debug,Query1,Functions2,Functions2,Result1),Result).
-	
-query_box(Query,Query1,Functions,Functions1) :-
-	collect_arguments_body2([Query],[],Arguments),
-	%trace,
-	find_query_box_n(Query_box_n),
-	(Arguments=[]->
-	(Query1=[[n,Query_box_n]],
-	append(
-	[
-        [[n,Query_box_n],":-",
-        [
-                Query
-        ]]
-	]
-	,        
-	Functions,Functions1));
-	(Query1=[[n,Query_box_n],Arguments],
-	append(
-	[
-        [[n,Query_box_n],Arguments,":-",
-        [
-                Query%,%[[n,trace2]]
-        ]]
-	]
-	,        
-	Functions,Functions1))).
-
+	findall(Result1,interpret1(Debug,Query,Functions2,Functions2,Result1),Result).
 interpret1(Debug,Query,Functions1,Functions2,Result) :-
 %%writeln1([i11]),
 	retractall(debug(_)),
@@ -411,13 +378,7 @@ checkarguments2(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
 checktypes_inputs(Function,Vars1):-%%,TypeStatements1) :-
 %%trace,
 %%writeln(checktypes(Function,Vars1)),
-	get_lang_word("n",Dbw_n),
-	get_lang_word("query_box",Dbw_query_box),
-
-	(((%trace,
-	types(on),Function=[Dbw_n,Dbw_query_box1],
-	not(string_concat(Dbw_query_box,_,Dbw_query_box1)))%,notrace
-	)->(typestatements(TypeStatements1),
+	(types(on)->(typestatements(TypeStatements1),
 	modestatements(ModeStatements1),
 	checktypes0_inputs(Function,Vars1,TypeStatements1,ModeStatements1));true),!.
 checktypes0_inputs(Function,Vars1,_TypeStatements1,_ModeStatements1) :- 
@@ -476,13 +437,7 @@ extract_modes2(TypeStatements1,TypeStatements2a,TypeStatements3,Vars1,Vars2,Vars
 
 checktypes(Function,Vars1):-%%,TypeStatements1) :-
 %%writeln(checktypes(Function,Vars1)),
-	get_lang_word("n",Dbw_n),
-	get_lang_word("query_box",Dbw_query_box),
-
-	((types(on),Function=[Dbw_n,Dbw_query_box1],
-	not(string_concat(Dbw_query_box,_,Dbw_query_box1)))%,notrace
-
-	->(typestatements(TypeStatements1),
+	(types(on)->(typestatements(TypeStatements1),
 	checktypes0(Function,Vars1,TypeStatements1));true),!.
 checktypes0(Function,Vars1,_TypeStatements1) :- 
 	get_lang_word("Type check",Type_check),
@@ -1361,8 +1316,6 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         (Query1=[[Dbw_n,Dbw_call],[[lang,Lang1],Debug1,[Function,Arguments],Types,Modes,Functions%,Result
         ]],Tm=on)),        
         
-        %trace,
-        
         lang(Lang2a),
         types(Types2a),
 		  (Types2a=on->(typestatements(TypeStatements2a),
@@ -1461,7 +1414,6 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         %trace,
 %%        	debug(on)->writeln1([call,[Function,[Vars3]]]),
 %%writeln1(["Query2",Query2,"Functions0",Functions0]),
-%trace,
         interpret2(Query2,Functions0,Functions0,Result1), 
 	updatevars2(FirstArgs,Result1,[],Vars5),
 	updatevars3(Vars1,Vars5,Vars6),
@@ -1863,17 +1815,3 @@ find_sys(Name2) :-
 	N2 is N1+1,
 	retractall(sys(_)),
  	assertz(sys(N2)).
- 	
-find_query_box_n(Name2) :-
-	(query_box_n(N1)->N=N1;
-	retractall(query_box_n(_)),
-	assertz(query_box_n(1)),
-	N=1),
-	concat_list(["query_box",N],Name1),
-	get_lang_word(Name1,Name2),
-	%atom_string(Name2,Name1),
-	N2 is N+1,
-	retractall(sys(_)),
- 	assertz(query_box_n(N2)).
-
-
