@@ -108,6 +108,7 @@ collect_arguments_body2(Body1,Body2,Body3) :-
    
 collect_arguments_statement1(Statement,Arguments1,Arguments2) :-
 	((Statement=[[n,_Name],Arguments],
+	%trace,
 	recursive_collect_arguments(Arguments,Arguments1,Arguments2)
 
 %findall(Argument,(member(Argument,Arguments),variable_name(Argument)),Arguments3),
@@ -122,5 +123,8 @@ collect_arguments_statement1(Statement,Arguments1,Arguments2) :-
 recursive_collect_arguments([],Arguments,Arguments) :- !.
 recursive_collect_arguments(Statement,Arguments1,Arguments2) :-
 	Statement=[Statement1|Statement2],
-	(variable_name(Statement1)->append(Arguments1,[Statement1],Arguments3);Arguments1=Arguments3),
+	(variable_name(Statement1)->append(Arguments1,[Statement1],Arguments3);(expression_not_var(Statement1)->Arguments1=Arguments3;
+	recursive_collect_arguments(Statement1,Arguments1,Arguments3))),
 	recursive_collect_arguments(Statement2,Arguments3,Arguments2).
+%recursive_collect_arguments(Statement,Arguments1,Arguments2) :-
+	%variable_name(Statement)->
