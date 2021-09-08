@@ -69,7 +69,8 @@ interpret11(Debug,Query,Functions,Result) :-
 query_box(Query,Query1,Functions,Functions1) :-
 get_lang_word("n",Dbw_n),
 
-	collect_arguments_body2([Query],[],Arguments),
+	collect_arguments_body2([Query],[],Arguments1),
+	sort(Arguments1,Arguments),
 	%trace,
 	find_query_box_n(Query_box_n),
 	(Arguments=[]->
