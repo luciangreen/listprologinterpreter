@@ -1,6 +1,6 @@
 # List Prolog Caveats
 
-* name predicates, variables Name (name), or Name_1 (name_1) not Name1 (name1)
+* name predicates, variables Name (name), Name1 (name1), or Name_a_1 (name_a_1) not Name_a1 (name_a1)
 
 * Use findall, not rely on semi-colon-like separated results for non-determinism
 
@@ -8,4 +8,4 @@
 
 * get_item_n(List,Item_number,Item) replaces append and length
 
-* lucianpl (at https://github.com/luciangreen/Philosophy) doesn't currently support other languages
+* <a href="https://github.com/luciangreen/Philosophy/">lucianpl</a> doesn't currently support other languages
