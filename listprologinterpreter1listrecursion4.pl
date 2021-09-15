@@ -1558,13 +1558,14 @@ interpretstatement3(Variable,Vars,Value) :-
         **/
 getvalue(Variable,Value,Vars) :-
         ((not(isvar(Variable)),isvalstrorundef(Value),
-        simplify(Variable,Variable2),%->true;(writeln1(simplify(Variable,Variable2)),abort)),%notrace,
-      Variable2=Value)->true;
+        %simplify(Variable,Variable2),%->true;(writeln1(simplify(Variable,Variable2)),abort)),%notrace,
+      Variable=Value)->true;
         (isvar(Variable),isvalstrorundef(Value),getvar(Variable,Value,Vars))).
-putvalue(Variable,Value,Vars1,Vars2) :-
+/*putvalue(Variable,Value,Vars1,Vars2) :-
         ((not(isvar(Variable)),isvalstrorundef(Value),Variable=Value,Vars1=Vars2)->true;
         (isvar(Variable),isvalstrorundef(Value),%trace,
         updatevar(Variable,Value,Vars1,Vars2))),!. 
+        */
 getvar(Variable,Value,Vars) :-
 	((member([Variable,Value],Vars),
 	not(Value=empty))->true;

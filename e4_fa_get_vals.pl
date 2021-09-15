@@ -22,8 +22,11 @@ e4_fa_getvalue(Variable,Value,Vars) :-
         ((not(isvar(Variable)),isvalstrorundef(Value),Variable=Value)->true;
         (isvar(Variable),isvalstrorundef(Value),e4_fa_getvar(Variable,Value,Vars))).
 putvalue(Variable,Value,Vars1,Vars2) :-
-        ((not(isvar(Variable)),isvalstrorundef(Value),Variable=Value,Vars1=Vars2)->true;
-        (isvar(Variable),isvalstrorundef(Value),updatevar(Variable,Value,Vars1,Vars2))),!. 
+        ((not(isvar(Variable)),isvalstrorundef_or_compound(Value),Variable=Value,Vars1=Vars2)->true;
+        (isvar(Variable),isvalstrorundef_or_compound(Value),updatevar(Variable,Value,Vars1,Vars2))),!. 
+isvalstrorundef_or_compound(Value):-
+	(compound(Value)->true;
+	isvalstrorundef(Value)),!.
 e4_fa_getvar(Variable,Value,Vars) :-
 	((member([Variable,Value],Vars),
 	not(Value=empty))->true;
