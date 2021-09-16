@@ -216,10 +216,12 @@ get_lang_word("equals4",Dbw_equals4),
 %trace,
         debug_call(Skip,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]]),
         %trace,
+        remember_and_turn_off_debug(Debug),
+        
         ((match4_2(Variable1,Variable2,Vars1,Vars2),
         
         
-        remember_and_turn_off_debug(Debug),
+        
 	%trace,
 find_sys(Sys_name),
         match4_2(Variable1,[Dbw_v,Sys_name],Vars2,Vars3),
@@ -234,8 +236,9 @@ find_sys(Sys_name),
         %%((val1emptyorvalsequal(Value1,Value1A),
         %%putvalue(Variable1,Value1A,Vars1,Vars2))
         ->
-      (debug_exit(Skip,[[Dbw_n,Dbw_equals4],[Value3,Value3]])
-;     debug_fail(Skip,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]]))),!.                        	
+      debug_exit(Skip,[[Dbw_n,Dbw_equals4],[Value3,Value3]])
+;     (turn_back_debug(Debug),
+debug_fail(Skip,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]]))),!.                        	
 
 
 interpretpart(delete,Variable1,Variable2,Variable3,Vars1,Vars2) :-
@@ -854,6 +857,9 @@ match4(Variable1,Variable2,Vars1,Vars2) :-
 	match4_list(Variable1,Variable2,Vars1,Vars2),!.
 match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 ) :-
+	(((Variable1=[],Variable2=[[]])->true;(Variable1=[[]],Variable2=[]))->(%trace,
+	fail);true),
+	
 	split_into_head_and_tail(Variable1,Head1a,Tail1a,Pipe1,Head_is_list_of_lists1),
 	(single_item(Head1a) -> L1 = 1 ; (is_list(Head1a),length(Head1a,L1))),
 	split_into_head_and_tail(Variable2,Head2a,Tail2a,Pipe2,Head_is_list_of_lists2),
