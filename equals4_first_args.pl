@@ -1,4 +1,30 @@
 e4_fa_getvalue_match(Variable1,Value1,Vars1) :-
+%trace,
+	e4_fa_getvalue_match_pipe2(Variable1,Value1,Vars1).
+	%notrace.
+	%(Value1=[empty|empty]->trace;true).
+e4_fa_getvalue_match(Variable1,Value1,Vars1) :-
+	e4_fa_getvalue_match1(Variable1,Value1,Vars1).
+	
+e4_fa_getvalue_match_pipe2(Variable1,Value1,Vars1) :-
+not(Variable1="|"),
+	single_item(Variable1),
+	e4_fa_getvalue(Variable1,Value1,Vars1),!.
+e4_fa_getvalue_match_pipe2([],[],_Vars1) :- !.
+e4_fa_getvalue_match_pipe2(Variable1,Value1,Vars1) :-
+%not(member("|",Variable1)),
+	not(single_item(Variable1)),
+	Variable1=[Variable1a|Variable1b],
+	((Variable1a="|"->
+	(%trace,
+	e4_fa_getvalue_match_pipe2(Variable1b,Value1b,Vars1),
+	Value1b=[Value1]));
+	(e4_fa_getvalue_match_pipe2(Variable1a,Value1a,Vars1),
+	e4_fa_getvalue_match_pipe2(Variable1b,Value1b,Vars1),
+	(Value1b=empty->Value1=[Value1a];
+	append([Value1a],Value1b,Value1)))),!.
+
+e4_fa_getvalue_match1(Variable1,Value1,Vars1) :-
 not(Variable1="|"),
 	single_item(Variable1),
 	e4_fa_getvalue(Variable1,Value1,Vars1),!.
@@ -11,6 +37,7 @@ not(member("|",Variable1)),
 	e4_fa_getvalue_match(Variable1b,Value1b,Vars1),
 	append([Value1a],Value1b,Value1),!.
 	
+	/*
 e4_fa_getvalue_match_pipe([],[],_Vars1) :- !.
 e4_fa_getvalue_match_pipe(Variable1,Value1,Vars1) :-
 	variable_name(Variable1),
@@ -77,6 +104,7 @@ e4_fa_getvalue_match_pipe([Variable1|Variable1b],Value1,Vars1) :-
 	is_list(Value11c),
 	append([Value11a],Value11c,Value1),!.
 
+*/
 
 e4_fa_match4_2(Variable1,Variable2,Vars1,Vars2) :-
 	e4_fa_match4_10(Variable1,Variable2,Vars1,Vars2),!.
@@ -145,6 +173,8 @@ e4_fa_match4(Variable1,Variable2,Vars1,Vars2) :-
 	e4_fa_match4_list(Variable1,Variable2,Vars1,Vars2),!.
 e4_fa_match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 ) :-
+	(((Variable1=[],Variable2=[[]])->true;(Variable1=[[]],Variable2=[]))->(%trace,
+	fail);true),
 	e4_fa_split_into_head_and_tail(Variable1,Head1a,Tail1a,Pipe1,Head_is_list_of_lists1),
 	(single_item(Head1a) -> L1 = 1 ; (is_list(Head1a),length(Head1a,L1))),
 	e4_fa_split_into_head_and_tail(Variable2,Head2a,Tail2a,Pipe2,Head_is_list_of_lists2),

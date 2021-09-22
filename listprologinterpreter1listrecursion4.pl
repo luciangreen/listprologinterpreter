@@ -126,6 +126,7 @@ checktypes_inputs(Function,Arguments1),
         
         %%writeln1(checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs)),
         %trace,
+        %(Function=[n,query_box_1]->true;trace),
         checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),
         %notrace,
         %%->ca2 

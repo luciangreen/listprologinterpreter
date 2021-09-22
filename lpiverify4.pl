@@ -20,7 +20,7 @@ test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 test1(Debug,N,Passed) :-
 	test(N,Query,Functions,Result),
 	((international_interpret([lang,"en"],Debug,Query,Functions,Result1),
-	writeln1([result1,Result1]),
+	%writeln1([result1,Result1]),
 	Result=Result1
 	)->(Passed=passed,writeln([test,N,passed]));(Passed=failed,writeln([test,N,failed]))),!.
 
@@ -3712,3 +3712,9 @@ test(170,[[n,function1],[[v,a],[v,a]]],
         [[n,function1],[[1,[v,b]],[1,1]]]
 ]
 ,[[[[v, a], [1,1]], [[v, b], 1]]]).
+
+test(171,[[n,function1],[[[]]]],
+[
+        [[n,function1],[[]]]
+]
+,[]).
