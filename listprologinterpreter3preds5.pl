@@ -785,7 +785,11 @@ match4_21(Variable1,Variable2,Vars1,Vars2) :-
 match4_2(Variable1,Variable2,Vars1,Vars2) :-
 	match4_22(Variable1,Variable2,Vars1,Vars2),!.
 
-match4_22(Variable1,Variable2,Vars1,Vars6) :-
+match4_22(Variable1,Variable2,Vars1,Vars2) :-
+	(match4_220(Variable1,Variable2,Vars1,Vars2)->true;
+	match4_220(Variable2,Variable1,Vars1,Vars2)),!.
+	
+match4_220(Variable1,Variable2,Vars1,Vars6) :-
 %trace,
 	match4_222(Variable1,Variable2,Vars1,Vars2),
 	
@@ -807,7 +811,7 @@ match4_22(Variable1,Variable2,Vars1,Vars6) :-
 
 	match4_222(Variable1,Value3,Vars4,Vars7),
 	
-	match4_22(Variable1,Variable2,Vars7,Vars6))).
+	match4_220(Variable1,Variable2,Vars7,Vars6))).
 
 
 match4_222(Variable1,Variable2,Vars1,Vars2) :-
