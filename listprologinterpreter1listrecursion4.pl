@@ -1616,15 +1616,35 @@ all_empty([A|B]) :-
 updatevar(undef,_Value,Vars,Vars) :-
 	!.
 updatevar(Variable,Value,Vars1,Vars2) :-
-	((((member([Variable,A],Vars1),all_empty(A),
+	((((member([Variable,A],Vars1),
+	%trace,
+	%(isvar(Variable)->Value2=Value;
+	(updatevar_recursive(Value,A,Value2)),
+	%notrace,
+	%all_empty(A),
 	delete(Vars1,[Variable,A],Vars3),
-	append(Vars3,[[Variable,Value]],Vars2))->true;
+	append(Vars3,[[Variable,Value2]],Vars2)
+	)->true;
 	((not(member([Variable,Value1],Vars1)),
 	((Value1=empty)->true;(Value1=Value)))),
         append(Vars1,[[Variable,Value]],Vars2))->true;
 	(member([Variable,Value],Vars1),Vars2=Vars1))->true;
 	(undef(Variable),
 	append(Vars1,[[Variable,Value]],Vars2))).
+	
+updatevar_recursive([],[],[]) :- !.
+updatevar_recursive(Variable,A,Value) :-
+	(Variable=empty->Value=A;
+	(A=empty->Value=Variable;
+	(Variable=A->Value=Variable;
+	(Variable=[B|C],
+	A=[D|E],
+	updatevar_recursive(B,D,Value1),
+	updatevar_recursive(C,E,Value2),
+	append([Value1],Value2,Value))))),!.
+	
+	
+
 /**updatevars(_FirstArgs,[],Vars,Vars).
 updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
         Vars1=[[Variable1,Value]|Vars4],

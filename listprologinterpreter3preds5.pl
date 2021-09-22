@@ -211,6 +211,7 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 ;     debug_fail(Skip,[[Dbw_n,=],[variable,Value2]]))),!.                        	
 
 interpretpart(match4,Variable1,Variable2,Vars1,Vars2,_Note) :-
+get_lang_word("v",Dbw_v1),Dbw_v1=Dbw_v,
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("equals4",Dbw_equals4),
 %trace,
@@ -780,10 +781,36 @@ match4_21(Variable1,Variable2,Vars1,Vars2) :-
 
 % for intra-predicate equals4
 
+% [A,A]=[[1,B],[1,1]].
 match4_2(Variable1,Variable2,Vars1,Vars2) :-
 	match4_22(Variable1,Variable2,Vars1,Vars2),!.
 
-match4_22(Variable1,Variable2,Vars1,Vars2) :-
+match4_22(Variable1,Variable2,Vars1,Vars6) :-
+%trace,
+	match4_222(Variable1,Variable2,Vars1,Vars2),
+	
+	((subtract(Vars1,Vars2,[]),
+	subtract(Vars2,Vars1,[]))->Vars6=Vars2;
+
+	(
+	get_lang_word("v",Dbw_v1),Dbw_v1=Dbw_v,
+
+	find_sys(Sys_name1),
+	match4_222(Variable1,[Dbw_v,Sys_name1],Vars2,Vars3),
+	getvalue([Dbw_v,Sys_name1],Value3,Vars3),
+
+	match4_222(Value3,Variable2,Vars2,Vars4),
+
+	find_sys(Sys_name2),
+	match4_222(Variable2,[Dbw_v,Sys_name2],Vars4,Vars5),
+	getvalue([Dbw_v,Sys_name2],Value31,Vars5),
+
+	match4_222(Variable1,Value3,Vars4,Vars7),
+	
+	match4_22(Variable1,Variable2,Vars7,Vars6))).
+
+
+match4_222(Variable1,Variable2,Vars1,Vars2) :-
 %trace,
 	match4_221(Variable1,Variable2,Vars1,Vars3),
 	findall([V,Val2],(member([V,Val1],Vars3),
