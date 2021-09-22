@@ -809,7 +809,7 @@ match4_220(Variable1,Variable2,Vars1,Vars6) :-
 	match4_222(Variable2,[Dbw_v,Sys_name2],Vars4,Vars5),
 	getvalue([Dbw_v,Sys_name2],Value31,Vars5),
 
-	match4_222(Variable1,Value3,Vars4,Vars7),
+	match4_222(Variable1,Value31,Vars4,Vars7),
 	
 	match4_220(Variable1,Variable2,Vars7,Vars6))).
 
