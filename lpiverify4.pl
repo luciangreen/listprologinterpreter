@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=171, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=178, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -20,7 +20,7 @@ test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 test1(Debug,N,Passed) :-
 	test(N,Query,Functions,Result),
 	((international_interpret([lang,"en"],Debug,Query,Functions,Result1),
-	%writeln1([result1,Result1]),
+	writeln1([result1,Result1]),
 	Result=Result1
 	)->(Passed=passed,writeln([test,N,passed]));(Passed=failed,writeln([test,N,failed]))),!.
 
@@ -3718,3 +3718,52 @@ test(171,[[n,function1],[[[]]]],
         [[n,function1],[[]]]
 ]
 ,[]).
+
+test(172,[[n,equals4],[[],[[]]]],
+[],
+[]).
+
+test(173,[[n,equals4],[[[v,d],[v,d],[v,a],[v,b],[v,a]],
+[[v,e],[v,c],1,[v,c],[v,b]]]],
+[],
+[[[[v, a], 1], [[v, b], 1], [[v, c], 1], [[v, d], 1], [[v, e], 1]]]).
+
+
+test(174,[[n,function1],[[v,e],[v,c],[v,a],[v,c],[v,a]]],
+[
+        [[n,function1],[[v,d],[v,d],1,[v,b],[v,b]]]
+]
+,[[[[v, a], 1], [[v, c], 1], [[v, e], 1]]]).
+
+test(175,[[n,equals4],
+	[[[[v,e1],[v,e2]]	,[v,c],[v,a],[v,c],[v,a],[v,e1]],
+	[[v,d]          ,[v,d],[[1,1],[1,1]],[v,b],[v,b],[[v,f],[v,f2]]]]],
+[],
+[[[[v,a],[[1,1],[1,1]]],[[v,b],[[1,1],[1,1]]],[[v,c],[[1,1],[1,1]]],[[v,d],[[1,1],[1,1]]],[[v,e1],[1,1]],[[v,e2],[1,1]],[[v,f],1],[[v,f2],1]]]).
+
+
+
+test(176,[[n,function1],
+	[[[v,e1],[v,e2]]	,[v,c],[v,a],[v,c],[v,a],[v,e1]]],
+
+[
+        [[n,function1],
+	[[v,d]           ,[v,d],[[1,1],[1,1]],[v,b],[v,b],[[v,f],[v,f2]]]]
+],
+[[[[v, a], [[1,1],[1,1]]], [[v, c], [[1,1],[1,1]]], [[v, e1], [1,1]],[[v, e2], [1,1]]]]).
+
+test(177,[[n,equals4],
+	[[[[v,e1],[v,e2]]	,"|",[[v,c],[v,a],[v,c],[v,a],[v,e1]]],
+	[[v,d]          ,"|",[[v,d],[[1,1],[1,1]],[v,b],[v,b],[[v,f],[v,f2]]]]]],
+[],
+[[[[v,a],[[1,1],[1,1]]],[[v,b],[[1,1],[1,1]]],[[v,c],[[1,1],[1,1]]],[[v,d],[[1,1],[1,1]]],[[v,e1],[1,1]],[[v,e2],[1,1]],[[v,f],1],[[v,f2],1]]]).
+
+
+test(178,[[n,function1],
+	[[[v,e1],[v,e2]]	,"|",[[v,c],[v,a],      [v,c],[v,a],[v,e1]]]],
+
+[
+        [[n,function1],
+	[[v,d],          "|",[[v,d],[[1,1],[1,1]],[v,b],[v,b],[[v,f],[v,f2]]]]]
+],
+[[[[v, a], [[1,1],[1,1]]], [[v, c], [[1,1],[1,1]]], [[v, e1], [1,1]],[[v, e2], [1,1]]]]).

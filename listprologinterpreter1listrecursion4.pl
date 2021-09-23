@@ -134,8 +134,10 @@ checktypes_inputs(Function,Arguments1),
 debug_call(Skip,[Function,Arguments1]),
 	((interpretbody(Functions,Functions2,Vars1,Vars2,Body,true),
 	updatevars(FirstArgs,Vars2,[],Result),
+	%writeln1(updatevars(FirstArgs,Vars2,[],Result)),
 	%trace,
-	unique1(Result,[],Vars8)%,notrace
+	unique1(Result,[],Vars8)
+	%writeln1(unique1(Result,[],Vars8))%,notrace
 	)->debug_fail_fail(Skip);debug_fail(Skip,[Function,Arguments1])
 	),
 	%trace,
@@ -152,7 +154,7 @@ debug_call(Skip,[Function,Arguments1]),
 %%writeln1(["Vars8",Vars8]),
 	%%writeln1(findresult3(Arguments1,Vars8,[],Result2)),
 	findresult3(Arguments1,Vars8,[],Result2)
-%%writeln1([findresult3,"Arguments1",Arguments1,"Vars8",Vars8,"Result2",Result2])
+%writeln1([findresult3,"Arguments1",Arguments1,"Vars8",Vars8,"Result2",Result2])
 	);(
 %%writeln1(here1),
 	Vars8=[],Result2=[]))),
@@ -336,7 +338,9 @@ member23(Query,Functions,Functions2,Vars8) :-
 	member2(Query,Functions,Functions3,Vars8))
 	);(turncut(off),fail)).
 	
-checkarguments(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2) :-
+checkarguments(Variable1a,Variable2a,Vars1,Vars2,_,FirstArgs2) :-
+	simplify(Variable1a,Variable1),
+	simplify(Variable2a,Variable2),
 	(equals4(on)->checkarguments1(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2);
 checkarguments2(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2)),
 % fail if two bs in a,b c,b in first args
@@ -350,21 +354,31 @@ findall(FA6,(member([_,FA6],FirstArgs2),expression_not_var(FA6)),FA7),append(FA5
 checkarguments1(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2) :-
 	%trace,
 	replace_vars(Variable1,[],Variable1a,[],First_vars1),
+	%writeln1(replace_vars(Variable1,[],Variable1a,[],First_vars1)),
+
 	replace_vars(Variable2,[],Variable2a,[],First_vars2),
+	%writeln1(replace_vars(Variable2,[],Variable2a,[],First_vars2)),
+	
 	append(First_vars1,First_vars2,First_vars3),
 	match4_21(Variable2a,Variable1a,Vars1,Vars3),
-
+	%writeln1(match4_21(Variable2a,Variable1a,Vars1,Vars3)),
 %	match4_21(Arguments2,Arguments1,Vars1,Vars2),
 
 	replace_first_vars1(Vars3,First_vars2,[],Vars2a),
+	%writeln1(replace_first_vars1(Vars3,First_vars2,[],Vars2a)),
+
 	replace_vars011(Vars2a,_Variable1a,[],Vars2b), % Vars2b->Vars2
-
+	%writeln1(replace_vars011(Vars2a,_Variable1a,[],Vars2b)),
+	
 	equals4_first_args(Variable1a,Variable2a,FirstArgs3),
-
+	%writeln1(equals4_first_args(Variable1a,Variable2a,FirstArgs3)),
+	
 	replace_first_vars1(Vars2b,First_vars1,[],Vars2),
+	%writeln1(replace_first_vars1(Vars2b,First_vars1,[],Vars2)),
 	%equals4_first_args(Vars2b,Vars2,FirstArgs3),
 
 	replace_first_vars2(FirstArgs3,First_vars3,[],FirstArgs2),
+	%writeln1(replace_first_vars2(FirstArgs3,First_vars3,[],FirstArgs2)),	
 	!.
 
 
@@ -1387,7 +1401,8 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         substitutevarsA1(Arguments1,Vars1,[],Vars3,[],FirstArgs),
         Vars3=[Function1|Vars31],
         Query2=[Function1,Vars31]);
-        (substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
+        (substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs),
+        %simplify(Vars32,Vars3), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
 %%writeln1([substitutevarsA1,arguments,Arguments,vars1,Vars1,vars3,Vars3,firstargs,FirstArgs]),
         Query2=[Function,Vars3])), %% Bodyvars2?
 %%        	debug(on)->writeln1([call,[Function,[Vars3]]]),
@@ -1464,8 +1479,9 @@ find_pred_sm(Reserved_words1),
         Vars3=[Function1|Vars31],
         Query2=[Function1,Vars31]);
         (%trace,
-        substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
-%%writeln1([substitutevarsA1,arguments,Arguments,vars1,Vars1,vars3,Vars3,firstargs,FirstArgs]),
+        substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs),
+        %simplify(Vars32,Vars3), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
+%writeln1([substitutevarsA1,arguments,Arguments,vars1,Vars1,vars3,Vars3,firstargs,FirstArgs]),
         Query2=[Function,Vars3])), %% Bodyvars2?
 %(Function=[n,compound213]->%true
 %trace
@@ -1475,6 +1491,10 @@ find_pred_sm(Reserved_words1),
 %%writeln1(["Query2",Query2,"Functions0",Functions0]),
 %trace,
         interpret2(Query2,Functions0,Functions0,Result1), 
+        
+                %writeln1(interpret2(Query2,Functions0,Functions0,Result1)),
+	%writeln1(updatevars2(FirstArgs,Result1,[],Vars5)),
+
 	updatevars2(FirstArgs,Result1,[],Vars5),
 	updatevars3(Vars1,Vars5,Vars6),
 	reverse(Vars6,[],Vars7),
@@ -1601,7 +1621,7 @@ simplify(A,A)	:-
 simplify([A,"|",B],C)	:-
 	simplify(A,A1),
 	simplify(B,B1),
-	(is_list(B1)->
+	((not(isvar(B1)),is_list(B1))->
 	C=[A1|B1];
 	C=[A1,"|",B1]),!.
 simplify([A|B],[A1|B1])	:-
@@ -1830,7 +1850,8 @@ expressionnotatom2([N|Ns]) :-
 	expressionnotatom2(Ns).
 
 substitutevarsA1(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2) :-
-	%trace,writeln(substitutevarsA1(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2)),
+	        %simplify(Arguments1,Arguments),
+%trace,writeln(substitutevarsA1(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2)),
 	(equals4(on)->e4_substitutevarsA1(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2);
 	substitutevarsA11(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2)),
 	%substitutevarsA2(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2),
