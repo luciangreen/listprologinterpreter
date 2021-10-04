@@ -178,4 +178,7 @@ split_on_substring117(A,B,E1,C) :-
     append(E1,E,E2),
     split_on_substring117(D,B,E2,C),!.
 
-	
+num_chars(Char,Num1,String) :-
+	numbers(Num1,1,[],Nums),
+	findall(Char,(member(_Num2,Nums)),Chars),
+	concat_list(Chars,String),!.
