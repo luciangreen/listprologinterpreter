@@ -703,3 +703,16 @@ test_types_cases(41,[[n,order_strings],[["***","*","**"],[v,ordered_strings]]],
         [[n,order_strings],[[v,strings],[v,ordered_strings]],":-",
         [       [[n,sort],[[v,strings],[v,ordered_strings]]]]]
 ],[[[[v,ordered_strings],["*", "**", "***"]]]]).
+
+%  ["Medicine","MEDICINE by Lucian Green 250 Breasonings 1 of 4.txt",0,algorithms,"5. I prepared to listen to the classical music, which had an expanse of 50 As.  I did this by listening to classical music.  First, I found the record.  Second, I played it on the gramophone.  Third, I listened to the classical music.  In this way, I prepared to listen to the classical music, which had an expanse of 50 As by listening to classical music."]
+
+test_types_cases(42,[[n,as_expanse],[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50]]],
+[[[n,as_expanse],[[[t,list],[[t,number]]]]]],
+        [[[n,as_expanse],[input]]],
+[
+        [[n,as_expanse],[[v,numbers]],":-",
+        [       [[n,findall],[[v,num],[[[n,member2],[[v,numbers],[v,num]]],
+        	[[n,number],[[v,num]]]],[v,num2]]]]]
+],[[]]).
+
+
