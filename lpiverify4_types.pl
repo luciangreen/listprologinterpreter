@@ -715,4 +715,21 @@ test_types_cases(42,[[n,as_expanse],[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,
         	[[n,number],[[v,num]]]],[v,num2]]]]]
 ],[[]]).
 
+test_types_cases(43,[[n,is_classical],[[2,3,5,6,7,10,11]]],
+[[[n,is_classical],[[t,numbers]]],
+[[n,is_set],[[t,numbers],[t,numbers]]],
+[[t,numbers],[[[t,list],[[t,number]]]]]],
+        [[[n,is_classical],[input]],
+        [[n,is_set],[input,input]]],
+[
+        [[n,is_classical],[[v,numbers]],":-",
+        [       %[[n,trace2]],
+        	[[n,is_set],[[v,numbers],[2,3,5,6,7,10,11]]]]],
+        	
+        [[n,is_set],[[v,set1],[v,set2]],":-",
+        [       [[n,sort],[[v,set1],[v,set3]]],
+        						[[n,sort],[[v,set2],[v,set3]]]
+        ]]
+
+],[[]]).
 
