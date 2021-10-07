@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=43, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=44, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -732,4 +732,16 @@ test_types_cases(43,[[n,is_classical],[[2,3,5,6,7,10,11]]],
         ]]
 
 ],[[]]).
+
+test_types_cases(44,[[n,find_record],[[[1,"a"],[2,"b"]],1,[v,r]]],
+[[[n,find_record],[[[t,list],[[[t,brackets],[[t,number],[t,string]]]]],
+	[t,number],[t,string]]]],
+        [[[n,find_record],[input,input,output]]],
+[
+        [[n,find_record],[[v,pairs],[v,num],[v,rec]],":-",
+        [       %[[n,trace2]],
+        	[[n,member],[[v,pairs],[[v,num],[v,rec]]]]]]
+]
+
+,[[[[v,r],"a"]]]).
 
