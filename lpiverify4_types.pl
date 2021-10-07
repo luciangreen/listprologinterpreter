@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=41, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=43, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -717,16 +717,16 @@ test_types_cases(42,[[n,as_expanse],[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,
 
 test_types_cases(43,[[n,is_classical],[[2,3,5,6,7,10,11]]],
 [[[n,is_classical],[[t,numbers]]],
-[[n,is_set],[[t,numbers],[t,numbers]]],
+[[n,is_set1],[[t,numbers],[t,numbers]]],
 [[t,numbers],[[[t,list],[[t,number]]]]]],
         [[[n,is_classical],[input]],
-        [[n,is_set],[input,input]]],
+        [[n,is_set1],[input,input]]],
 [
         [[n,is_classical],[[v,numbers]],":-",
         [       %[[n,trace2]],
-        	[[n,is_set],[[v,numbers],[2,3,5,6,7,10,11]]]]],
+        	[[n,is_set1],[[v,numbers],[2,3,5,6,7,10,11]]]]],
         	
-        [[n,is_set],[[v,set1],[v,set2]],":-",
+        [[n,is_set1],[[v,set1],[v,set2]],":-",
         [       [[n,sort],[[v,set1],[v,set3]]],
         						[[n,sort],[[v,set2],[v,set3]]]
         ]]
