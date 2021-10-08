@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=44, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=45, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -744,4 +744,21 @@ test_types_cases(44,[[n,find_record],[[[1,"a"],[2,"b"]],1,[v,r]]],
 ]
 
 ,[[[[v,r],"a"]]]).
+
+
+test_types_cases(45,[[n,play_gramophone],[[1,2,3,4,5],2,[v,p]]],
+[[[n,play_gramophone],[[[t,list],[[t,number]]],[t,number],
+[[t,list],[[t,number]]]]]],
+        [[[n,play_gramophone],[input,input,output]]],
+[
+        [[n,play_gramophone],[[v,tracks],[v,first_track],[v,rest]],":-",
+        [       %[[n,trace2]],
+        	[[n,equals4],[[[v,a],"|",[v,b]],[v,tracks]]],
+        	[[n,"->"],[[[n,equals4],[[v,a],[v,first_track]]],
+        	[[n,equals4],[[v,rest],[[v,a],"|",[v,b]]]],
+        	[[n,play_gramophone],[[v,b],[v,first_track],[v,rest]]]
+        	]]
+]]]
+
+,[[[[v,p],[2,3,4,5]]]]).
 
