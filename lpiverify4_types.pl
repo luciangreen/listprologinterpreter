@@ -755,7 +755,7 @@ test_types_cases(45,[[n,play_gramophone],[[1,2,3,4,5],2,[v,p]]],
         [       %[[n,trace2]],
         	[[n,equals4],[[[v,a],"|",[v,b]],[v,tracks]]],
         	[[n,"->"],[[[n,equals4],[[v,a],[v,first_track]]],
-        	[[n,equals4],[[v,rest],[[v,a],"|",[v,b]]]],
+        	[[n,equals4],[[v,rest],[v,tracks]]],
         	[[n,play_gramophone],[[v,b],[v,first_track],[v,rest]]]
         	]]
 ]]]
