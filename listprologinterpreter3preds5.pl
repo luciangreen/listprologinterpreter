@@ -227,7 +227,7 @@ get_lang_word("equals4",Dbw_equals4),
 find_sys(Sys_name),
         match4_2(Variable1,[Dbw_v,Sys_name],Vars2,Vars3),
 %%writeln1(        interpretpart(match4,Variable1,[v,sys1],Vars3,Vars2,_)),
-%%interpretstatement1(Functions0,Functions,[[n,equals4],[Variable1,Variable3]],Vars3,Vars2,true,nocut),
+%%interpretstatement1(ssi,Functions0,Functions,[[n,equals4],[Variable1,Variable3]],Vars3,Vars2,true,nocut),
 	getvalue([Dbw_v,Sys_name],Value3,Vars3),
 	
 	 turn_back_debug(Debug))
@@ -350,7 +350,7 @@ get_lang_word("string_from_file",Dbw_string_from_file),
 	%%A=..[a,1]
 	((phrase_from_file_s(string_g(String00a),Value2),
 	string_codes(Value1A,String00a),
-%%interpretstatement1(Functions0,Functions,[[Value1,Value2]],Vars1,Vars2,true,nocut),
+%%interpretstatement1(ssi,Functions0,Functions,[[Value1,Value2]],Vars1,Vars2,true,nocut),
         
         val1emptyorvalsequal(Value1,Value1A),
         putvalue(Variable2,Value1A,Vars1,Vars2))->
@@ -370,7 +370,7 @@ get_lang_word("maplist",Dbw_maplist),
 	((
 	map(Functions0,Functions,Value1,Value2,Value3,Value4A,Vars1),
 
-%%interpretstatement1(Functions0,Functions,[[Value1,Value2]],Vars1,Vars2,true,nocut),
+%%interpretstatement1(ssi,Functions0,Functions,[[Value1,Value2]],Vars1,Vars2,true,nocut),
         
         %val1emptyorvalsequal(Value4,Value4A),
         putvalue_equals4(Variable4,Value4A,Vars1,Vars2))->
@@ -440,7 +440,7 @@ debug_call(Skip,[[Dbw_n,Dbw_writeln],[variable]]),
 find_sys(Sys_name),
         interpretpart(match4,Variable1,[Dbw_v,Sys_name],Vars1,Vars3,_),
 %%writeln1(        interpretpart(match4,Variable1,[v,sys1],Vars3,Vars2,_)),
-%%interpretstatement1(Functions0,Functions,[[n,equals4],[Variable1,Variable3]],Vars3,Vars2,true,nocut),
+%%interpretstatement1(ssi,Functions0,Functions,[[n,equals4],[Variable1,Variable3]],Vars3,Vars2,true,nocut),
 	getvalue([Dbw_v,Sys_name],Value3,Vars3),
 	
 	 turn_back_debug(Debug),
@@ -1150,7 +1150,7 @@ get_lang_word("v",Dbw_v),
 get_lang_word("sys1",Dbw_sys1),
 not((L=[])),L=[H|T],
 
-	interpretstatement1(Functions0,Functions,[F,[M1,H,[Dbw_v,Dbw_sys1]]],Vars1,Vars2,true,nocut),
+	interpretstatement1(_,Functions0,Functions,[F,[M1,H,[Dbw_v,Dbw_sys1]]],Vars1,Vars2,true,nocut),
 	getvalue([Dbw_v,Dbw_sys1],M2,Vars2),
 	
 %%(F,(M1,H,M2)),

@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=45, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=46, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -761,4 +761,24 @@ test_types_cases(45,[[n,play_gramophone],[[1,2,3,4,5],2,[v,p]]],
 ]]]
 
 ,[[[[v,p],[2,3,4,5]]]]).
+
+/*
+ Sales
+1. Inner child
+
+1. The product was spoon-fed to the customer.
+*/
+
+test_types_cases(46,[[n,spoon_feed],[1]],
+[[[n,spoon_feed],[[t,number]]]],
+        [[[n,spoon_feed],[input]]],
+[
+
+        [[n,spoon_feed],[5]],
+        [[n,spoon_feed],[[v,n1]],":-",
+        [       %[[n,trace2]],
+        	[[n,+],[[v,n1],1,[v,n2]]],
+        	[[n,spoon_feed],[[v,n2]]]]]
+]
+,[[]]).
 
