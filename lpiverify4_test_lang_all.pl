@@ -72,7 +72,7 @@ test_all000(test,Debug,NTotal3,Score1,Score3,Lang) :-
 	(Debug=on->writeln1(Functions);true),
 	(Debug=on->writeln1(Functions1);true),
 	trans_alg(Result,"en",Lang,Result1),
-			((international_interpret([lang,Lang],Debug,Query1,Functions1,Result2)
+			((international_interpret([lang,Lang],Debug,Query1,Functions1,Result1)
 	%,writeln1(Result2)
 	)
 	->(Score3 is Score1+1,writeln([test,NTotal3,passed]));(Score3=Score1,writeln([test,NTotal3,failed]))).
