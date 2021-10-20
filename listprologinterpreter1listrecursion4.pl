@@ -1444,7 +1444,7 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         
 not_reserved_word(Function,Reserved_words) :-
 	        %Function=[[_,Function_a]|_]
-	        Function=[_,Function_a],atom(Function_a),atom_string(Function_a,Function_s)
+	        Function=[_,Function_a],(atom(Function_a)->true;string(Function_a)),atom_string(Function_a,Function_s)
 ,not(member(Function_s,Reserved_words)).
 
 interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
