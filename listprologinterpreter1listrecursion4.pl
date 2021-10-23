@@ -1368,7 +1368,7 @@ interpretpart(grammar_part,Vars9,[],Result1),
 	!.
 **/
 
-interpretstatement1(ssi,_Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
+interpretstatement1(non-ssi,_Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
 get_lang_word("v",Dbw_v),
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
@@ -1447,7 +1447,7 @@ not_reserved_word(Function,Reserved_words) :-
 	        Function=[_,Function_a],(atom(Function_a)->true;string(Function_a)),atom_string(Function_a,Function_s)
 ,not(member(Function_s,Reserved_words)).
 
-interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
+interpretstatement1(non-ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
         
         %trace,
                %writeln(interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut)),
