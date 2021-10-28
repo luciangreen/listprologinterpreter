@@ -960,6 +960,7 @@ debug_exit(Skip,[[Dbw_n,Dbw_variable],[Variable]])
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 	isop(Operator),
+	%trace,
 	interpretpart(is,Variable1,Variable2,Vars1,Vars2),!.
 
 /**
@@ -973,6 +974,7 @@ interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Operator],[Variable2,Variable3,Va
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 	operator(Operator),
 %%writeln1(4),
+        %trace,
         interpretpart(isop,Operator,Variable1,Variable2,Variable3,Vars1,Vars2).
 
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
