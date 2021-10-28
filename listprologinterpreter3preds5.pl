@@ -16,6 +16,7 @@ debug_exit(Skip,[[Dbw_n,Dbw_is],[Value1,Value1]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_is],[Value1,variable]])),!.
 
 interpretpart(is,Variable1,Variable2,Vars1,Vars2) :-
+%writeln(here),
 %trace,
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("is",Dbw_is),

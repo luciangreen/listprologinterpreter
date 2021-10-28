@@ -370,6 +370,7 @@ putvalue_equals41(Variable,Value,Vars1,Vars2) :-
 		%find_sys(Sys_name),
         
 	
-interpretpart(match4,Variable,Value,Vars1,Vars2,_),
+(interpretpart(match4,Variable,Value,Vars1,Vars2,_)->true;
+(turn_back_debug(Debug),fail)),
 	%getvalue([Dbw_v,Sys_name],Value,Vars3))->true;(turn_back_debug(Debug),fail)).
 	turn_back_debug(Debug).
