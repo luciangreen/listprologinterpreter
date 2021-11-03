@@ -12,5 +12,5 @@ save_file_s(Path,Content_term_or_string) :-
 	writeln(Notification),abort))),
 	(open_s(Path,write,Stream),
 	write(Stream,String),
-	close(Stream))),
+	close(Stream)),
 	!.
