@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=46, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=52, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -781,4 +781,158 @@ test_types_cases(46,[[n,spoon_feed],[1]],
         	[[n,spoon_feed],[[v,n2]]]]]
 ]
 ,[[]]).
+
+% ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Perspectives 1 of 4.txt",0,algorithms,"1. The first technique can be used to give a perspective on a text. For example, given the reason 'X is younger than Y' the perspective gives the conclusion 'X was likely to have been looked after by Y'."]
+
+test_types_cases(47,[[n,greater_than],[2,1]],
+[[[n,greater_than],[[t,number],[t,number]]]],
+        [[[n,greater_than],[input,input]]],
+[
+
+        [[n,greater_than],[[v,n1],[v,n2]],":-",
+        [       %[[n,trace2]],
+        	[[n,>],[[v,n1],[v,n2]]]]]
+]
+,[[]]).
+
+% ["Short Arguments","Rebreathsoning.txt",0,algorithms,"2. *I prepared to side with the pole.  I did this by observing meantness (sic).  First, I found the statement to be unwavering through time.  Second, I found it to be unwavering in relation to other statements.  Third, I found it to be unwavering in relation with other people."]
+
+test_types_cases(48,[[n,pole],[["a",[1,2,3]],["b",[4,5,6]],3,[v,a_or_b]]],
+[[[n,pole],[[t,pole],[t,pole],[t,number],[t,string]]],
+[[t,pole],[[t,string],[[t,list],[[t,number]]]]]],
+        [[[n,pole],[input,input,input,output]]],
+[
+
+        [[n,pole],[[v,pole1],[v,pole2],[v,person],[v,pole_name]],":-",
+        [       %[[n,trace2]],
+        	[[n,equals4],[[v,pole1],[[v,pole_name],[v,list1]]]],
+        	[[n,member2],[[v,list1],[v,person]]]]],
+
+        [[n,pole],[[v,pole1],[v,pole2],[v,person],[v,pole_name]],":-",
+        [       %[[n,trace2]],
+        	[[n,equals4],[[v,pole2],[[v,pole_name],[v,list1]]]],
+        	[[n,member2],[[v,list1],[v,person]]]]]
+
+]
+,[[[[v,a_or_b],"a"]]]).
+
+% I did this by observing meantness (sic).
+
+test_types_cases(49,[[n,meantness],[[["a","b"],["b","c"]],["a","b","c"]]],
+[[[n,meantness],[[t,lists_string],[t,list_string]]],
+[[t,lists_string],[[[t,list],[[t,list_string]]]]],
+[[t,list_string],[[[t,list],[[t,string]]]]]],
+        [[[n,meantness],[input,input]]],
+[
+
+        [[n,meantness],[[v,lists],[]]],
+        [[n,meantness],[[v,lists],[v,list]],":-",
+        [       %[[n,trace2]],
+        	[[n,equals4],[[v,list],[[v,head],"|",[v,tail]]]],
+        	[[n,member2],[[v,lists],[v,list1]]],
+        	[[n,member2],[[v,list1],[v,head]]],
+        	%[[n,delete],[[v,lists],[v,list1],[v,lists2]]],
+        	[[n,meantness],[[v,lists],[v,tail]]
+        	]]]
+]
+,[[]]).
+
+% First, I found the statement to be unwavering through time.
+
+test_types_cases(50,[[n,unwavering],[[1,1,1,1]]],
+[[[n,unwavering],[[t,list_number]]],
+[[t,list_number],[[[t,list],[[t,number]]]]],
+[[n,1],[[t,number]]]],
+
+[[[n,unwavering],[input]],
+[[n,1],[input]]],
+[
+
+        [[n,unwavering],[[]]],
+        [[n,unwavering],[[v,list]],":-",
+        [       %[[n,trace2]],
+        	[[n,equals4],[[v,list],[[v,head],"|",[v,tail]]]],
+        	[[n,1],[[v,head]]],
+        	[[n,unwavering],[[v,tail]]]]],
+
+        [[n,1],[1]]
+]
+,[[]]).
+
+% Second, I found it to be unwavering in relation to other statements.
+
+test_types_cases(51,[[n,unwavering_list],[[[1,1,1,1],[1,1,1,1],[1,1,1,1]]]],
+[[[n,unwavering_list],[[[t,list],[[t,list_number]]]]],
+[[n,unwavering],[[t,list_number]]],
+[[t,list_number],[[[t,list],[[t,number]]]]],
+[[n,1],[[t,number]]]],
+
+[[[n,unwavering_list],[input]],
+[[n,unwavering],[input]],
+[[n,1],[input]]],
+[
+
+        [[n,unwavering_list],[[]]],
+        [[n,unwavering_list],[[v,list]],":-",
+        [       %[[n,trace2]],
+        	[[n,equals4],[[v,list],[[v,head],"|",[v,tail]]]],
+        	[[n,unwavering],[[v,head]]],
+        	[[n,unwavering_list],[[v,tail]]]]],
+
+        [[n,unwavering],[[]]],
+        [[n,unwavering],[[v,list]],":-",
+        [       %[[n,trace2]],
+        	[[n,equals4],[[v,list],[[v,head],"|",[v,tail]]]],
+        	[[n,1],[[v,head]]],
+        	[[n,unwavering],[[v,tail]]]]],
+
+        [[n,1],[1]]
+]
+,[[]]).
+
+
+% Third, I found it to be unwavering in relation with other people.
+
+test_types_cases(52,[[n,unwavering_people],%[[[[1],[1]],[[1],[1]]]]],
+[[[[[1,1,1,1],[1,1,1,1],[1,1,1,1]],[[1,1,1,1],[1,1,1,1],[1,1,1,1]]],[[[1,1,1,1],[1,1,1,1],[1,1,1,1]],[[1,1,1,1],[1,1,1,1],[1,1,1,1]]]]]],
+[[[n,unwavering_people],[[t,unwavering_people1]]],
+[[t,unwavering_people1],[[t,number]]],
+[[t,unwavering_people1],[[[t,list],[[t,unwavering_people1]]]]],
+[[n,unwavering],[[[t,list],[[t,number]]]]],
+[[n,1],[[t,number]]]],
+
+[[[n,unwavering_people],[input]],
+[[n,unwavering],[input]],
+[[n,1],[input]]],
+[
+
+        [[n,unwavering_people],[[]]],
+        
+        [[n,unwavering_people],[[v,list]],":-",
+        [       %[[n,trace2]],
+        	[[n,equals4],[[v,list],[[v,head],"|",[v,tail]]]],
+        	[[n,unwavering],[[v,head]]],
+        	[[n,unwavering_people],[[v,tail]]]]],
+
+        [[n,unwavering_people],[[v,list]],":-",
+        [       %[[n,trace2]],
+        	[[n,equals4],[[v,list],[[v,head],"|",[v,tail]]]],
+        	[[n,unwavering_people],[[v,head]]],
+        	[[n,unwavering_people],[[v,tail]]]]],
+
+        [[n,unwavering],[[]]],
+        
+        [[n,unwavering],[[v,list]],":-",
+        [       %[[n,trace2]],
+        	[[n,equals4],[[v,list],[[v,head],"|",[v,tail]]]],
+        	[[n,1],[[v,head]]],
+        	[[n,unwavering],[[v,tail]]]]],
+
+        [[n,1],[1]]
+]
+,[[]]).
+
+
+
+
 
