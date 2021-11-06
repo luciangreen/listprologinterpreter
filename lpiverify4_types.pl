@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=52, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=55, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -932,6 +932,52 @@ test_types_cases(52,[[n,unwavering_people],%[[[[1],[1]],[[1],[1]]]]],
 ]
 ,[[]]).
 
+% ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Heads of State 4 of 4.txt",0,algorithms,"39. *I prepared to enjoy subsidised accreditation.  I did this by agreeing with the government.  First, I read the government policy.  Second, I verified that it was a good idea.  Third, I agreed with it.  In this way, I prepared to enjoy subsidised accreditation by agreeing with the government."]
+
+test_types_cases(53,[[n,subsidised_accreditation],[1,30]],
+[[[n,subsidised_accreditation],[[t,number],[t,number]]]],
+        [[[n,subsidised_accreditation],[input,input]]],
+[
+
+        [[n,subsidised_accreditation],[1,1]],
+        [[n,subsidised_accreditation],[1,30]],
+        [[n,subsidised_accreditation],[1,100]],
+        [[n,subsidised_accreditation],[1,400]]
+]
+,[[]]).
+
+% I did this by agreeing with the government.
+
+
+test_types_cases(54,[[n,agree_with_government],[1,["a"],[v,end]]],
+[[[n,agree_with_government],[[t,number],[[t,list],[[t,string]]],
+[[t,brackets],[[t,number],[t,string]]]]]],
+        [[[n,agree_with_government],[input,input,output]]],
+[
+
+        [[n,agree_with_government],[[v,policy],[v,part],[v,end]],":-",
+        [
+                [[n,wrap],[[v,policy],[v,policy1]]],
+                [[n,append],[[v,policy1],[v,part],[v,end]]]
+        ]
+        ]
+]
+,[[[[v,end],[1,"a"]]]]).
+
+% First, I read the government policy.
+
+test_types_cases(55,[[n,read_policy],[[n,+],1,1,[v,a]]],
+[[[n,read_policy],[[t,predicatename],[t,number],[t,number],[t,number]]]],
+        [[[n,read_policy],[input,input,input,output]]],
+[
+
+        [[n,read_policy],[[v,pred_name],[v,var1],[v,var2],[v,var3]],":-",
+        [
+                %[[n,trace2]],
+                [[v,pred_name],[[v,var1],[v,var2],[v,var3]]]
+        ]]
+]
+,[[[[v,a],2]]]).
 
 
 

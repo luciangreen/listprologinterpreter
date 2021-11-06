@@ -805,6 +805,8 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
 
 
 interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
+%writeln1(interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1)),
+%trace,
 	Body=[Statement|Statements],
 %%writeln1(["Functions0",Functions0,"Functions",Functions,"Statement",Statement,"Vars1",Vars1,"Vars3",Vars3,"Result2",Result2,"Cut",Cut]),
 	not(predicate_or_rule_name(Statement)),
@@ -1371,6 +1373,41 @@ interpretpart(grammar_part,Vars9,[],Result1),
 	!.
 **/
 
+interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
+        %writeln1(interpretstatement1(non-ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut)),
+        %trace,
+               %writeln(interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut)),
+%
+get_lang_word("v",Dbw_v),
+%get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+%get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
+%trace,
+%%writeln1("h1/10"),
+
+%writeln([Functions0,Functions0]),
+find_pred_sm(Reserved_words1),
+
+        %trace,
+       % ((Query1=[[Dbw_n,Dbw_call],[Function,Arguments]]%,        not_reserved_word(Function,Reserved_words1)
+        %)->true;
+%(
+Query1=[Function,Arguments],%,Function=[Dbw_n1,Function_a],atom_string(Function_a,Function_s),
+
+%)
+%),
+
+%trace,
+        %%not(Function=[n,grammar]->true;Function=[n,grammar_part]), ****
+%%writeln1(["Arguments",Arguments,"Vars1",Vars1]),
+        %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
+        Function=[Dbw_v,Function2],
+        getvalue(Function,Function3,Vars1),
+        not(not_reserved_word(Function3,Reserved_words1)),
+        append([Function3],[Arguments],Arguments1),
+        
+interpretstatement1(_,Functions0,_Functions,Arguments1,Vars1,Vars8,true,nocut).
+
+        
 interpretstatement1(non-ssi,_Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
 get_lang_word("v",Dbw_v),
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
