@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=55, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=58, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -979,6 +979,45 @@ test_types_cases(55,[[n,read_policy],[[n,+],1,1,[v,a]]],
 ]
 ,[[[[v,a],2]]]).
 
+% ["Short Arguments","Two_Types.txt",0,algorithms,"1. I prepared to sell the artificial breasts.  I did this by stating that the breast cooled and stored the milk.  First, I read the temperature of the breast.  Second, I read how much milk it stored.  Third, I simulated these."]
 
+test_types_cases(56,[[n,amount_earned],[2,2,[v,a]]],
+[[[n,amount_earned],[[t,number],[t,number],[t,number]]]],
+        [[[n,amount_earned],[input,input,output]]],
+[
+
+        [[n,amount_earned],[[v,n1],[v,n2],[v,n3]],":-",
+        [       %[[n,trace2]],
+        	[[n,*],[[v,n1],[v,n2],[v,n3]]]]]
+]
+,[[[[v,a],4]]]).
+
+% I did this by stating that the breast *cooled and stored the milk.
+
+test_types_cases(57,[[n,cool],[[-4.1,-4,-4.2],-5,-4]],
+[[[n,cool],[[[t,list],[[t,number]]],[t,number],[t,number]]]],
+        [[[n,cool],[input,input,input]]],
+[
+
+        [[n,cool],[[],[v,n2],[v,n3]]],
+        [[n,cool],[[v,list],[v,n2],[v,n3]],":-",
+        [       %[[n,trace2]],
+        	[[n,equals4],[[v,list],[[v,head],"|",[v,tail]]]],
+        	[[n,>=],[[v,head],[v,n2]]],
+        	[[n,>=],[[v,n3],[v,head]]],
+        	[[n,cool],[[v,tail],[v,n2],[v,n3]]]]]
+]
+,[[]]).
+
+% I did this by stating that the breast cooled and *stored the milk.
+
+test_types_cases(58,[[n,store],[["milk"],"milk"]],
+[[[n,store],[[[t,list],[[t,string]]],[t,string]]]],
+        [[[n,store],[input,input]]],
+[
+
+        [[n,store],[[[v,a]],[v,a]]]
+]
+,[[]]).
 
 
