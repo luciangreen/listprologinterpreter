@@ -76,10 +76,10 @@ get_lang_word("n",Dbw_n),
 	%trace,
 	find_query_box_n(Query_box_n),
 	(Arguments=[]->
-	(Query1=[[Dbw_n,Query_box_n]],
+	(Query1=[[Dbw_n,Query_box_n],[]],
 	append(
 	[
-        [[Dbw_n,Query_box_n],":-",
+        [[Dbw_n,Query_box_n],[],":-",
         [
                 Query
         ]]
@@ -854,40 +854,41 @@ false(false).
 %%writeln1("AND HERE!")
 %%	.
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals4_on]],Vars,Vars,true,nocut) :- %writeln(here),
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals4_on]|_],Vars,Vars,true,nocut) :- %writeln(here),
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("equals4_on",Dbw_equals4_on1),Dbw_equals4_on1=Dbw_equals4_on,
 turnequals4(on),
 !.
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals4_off]],Vars,Vars,true,nocut) :- %writeln(here),
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals4_off]|_],Vars,Vars,true,nocut) :- %writeln(here),
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("equals4_off",Dbw_equals4_off1),Dbw_equals4_off1=Dbw_equals4_off,
 turnequals4(off),
 !.
 
-interpretstatement1(ssi,_F0,_Functions,[[n,trace2]],Vars,Vars,true,nocut) :- %writeln(here),
+interpretstatement1(ssi,_F0,_Functions,[[n,trace2]|_],Vars,Vars,true,nocut) :- %writeln(here),
 trace,!.
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_trace]],Vars,Vars,true,nocut) :- 
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_trace]|_],Vars,Vars,true,nocut) :- 
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("trace",Dbw_trace1),Dbw_trace1=Dbw_trace,
 turndebug(on),
 !.
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_notrace]],Vars,Vars,true,nocut) :- 
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_notrace]|_],Vars,Vars,true,nocut) :- 
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("notrace",Dbw_notrace1),Dbw_notrace1=Dbw_notrace,
 turndebug(off),
 !.
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_cut]],Vars,Vars,true,cut) :- 
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_cut]|_],Vars,Vars,true,cut) :- 
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("cut",Dbw_cut1),Dbw_cut1=Dbw_cut,!.
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_true]],Vars,Vars,_,nocut) :-
+
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_true]|_],Vars,Vars,_,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("true",Dbw_true1),Dbw_true1=Dbw_true,!.
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_fail]],Vars,Vars,_,nocut) :- 
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_fail]|_],Vars,Vars,_,nocut) :- 
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("fail",Dbw_fail1),Dbw_fail1=Dbw_fail,
 fail.
