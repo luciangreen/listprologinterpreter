@@ -1077,7 +1077,7 @@ get_lang_word("member",Dbw_member1),Dbw_member1=Dbw_member,
 %%writeln1(8),
         interpretpart(member,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,
 get_lang_word("member2",Dbw_member21),Dbw_member21=Dbw_member2,
@@ -1085,7 +1085,7 @@ get_lang_word("member2",Dbw_member21),Dbw_member21=Dbw_member2,
 
         interpretpart(member2,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,
 get_lang_word("member3",Dbw_member21),Dbw_member21=Dbw_member2,
@@ -1374,8 +1374,8 @@ interpretpart(grammar_part,Vars9,[],Result1),
 	!.
 **/
 
-interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
-        %writeln1(interpretstatement1(non-ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut)),
+interpretstatement1(non-ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
+        %writeln1(interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut)),
         %trace,
                %writeln(interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut)),
 %
@@ -1401,7 +1401,7 @@ Query1=[Function,Arguments],%,Function=[Dbw_n1,Function_a],atom_string(Function_
         %%not(Function=[n,grammar]->true;Function=[n,grammar_part]), ****
 %%writeln1(["Arguments",Arguments,"Vars1",Vars1]),
         %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
-        Function=[Dbw_v,Function2],
+        Function=[Dbw_v,_Function2],
         getvalue(Function,Function3,Vars1),
         not(not_reserved_word(Function3,Reserved_words1)),
         append([Function3],[Arguments],Arguments1),
@@ -1553,7 +1553,7 @@ find_pred_sm(Reserved_words1),
 %%writeln1(["FirstArgs",FirstArgs,"Result1",Result1,"Vars5",Vars5,"Vars4",Vars4]),
 %%writeln1(["Vars1:",Vars1,"Vars4:",Vars4]),
 %%		debug(on)->writeln1([exit,[Function,[Result2]]]).
-interpretstatement1(ssi,Functions0,_Functions,Query,Vars,Vars,true,nocut) :-
+interpretstatement1(non-ssi,Functions0,_Functions,Query,Vars,Vars,true,nocut) :-
 find_pred_sm(Reserved_words1),
 
 	Query=[Function],
