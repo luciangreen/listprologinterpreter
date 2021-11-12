@@ -1,6 +1,6 @@
 # List Prolog Interpreter
 
-List Prolog Interpreter (LPI) is an interpreter for a different version of Prolog that is in list format, making it easier to generate List Prolog programs. This interpreter is an algorithm that parses and runs List Prolog code. I wrote the interpreter in SWI-Prolog.
+List Prolog Interpreter (LPI) makes it easier to generate List Prolog programs. It works by interpreting different versions of Prolog that are in a list format. Using an algorithm that was written in SWI-Prolog, it easily parses and runs List Prolog code.
 
 # Getting Started
 
