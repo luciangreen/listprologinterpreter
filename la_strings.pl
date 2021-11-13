@@ -39,6 +39,14 @@ bash_command(Command, Output) :-
         read_string(Out, _, Output),
         close(Out)).
 
+foldr(Function,A,L,B) :-
+	reverse(A,C),
+	foldl(Function,C,L,B),!.
+
+concat_list(A,B):-
+	foldr(string_concat,A,"",B),!.
+
+/*
 concat_list([],""):-!.
 concat_list(A1,B):-
 	%A1=[A|List],
@@ -54,7 +62,12 @@ concat_list1(A,List,B) :-
 	%string_codes(Item,Item1),
 	string_concat(A,Item,C),
 	concat_list1(C,Items,B).
+*/
 
+atom_concat_list(A,B):-
+	foldr(atom_concat,A,'',B),!.
+
+/*
 atom_concat_list([],''):-!.
 atom_concat_list(A1,B):-
 	%A1=[A|List],
@@ -70,7 +83,12 @@ atom_concat_list1(A,List,B) :-
 	atom_codes(Item,Item1),
 	append(A,Item1,C),
 	atom_concat_list1(C,Items,B).
+*/
 
+append_list(A,B) :-
+	maplist(append,[A],[B]),!.
+	
+/*
 append_list(A1,B):-
 	%A1=[A|List],
 	append_list([],A1,B),!.
@@ -80,6 +98,7 @@ append_list(A,List,B) :-
 	List=[Item|Items],
 	append(A,[Item],C),
 	append_list(C,Items,B).
+*/
 
 append_list2([],[]):-!.
 append_list2(A1,B):-
