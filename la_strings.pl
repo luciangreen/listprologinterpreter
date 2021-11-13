@@ -86,8 +86,9 @@ atom_concat_list1(A,List,B) :-
 */
 
 append_list(A,B) :-
-	maplist(append,[A],[B]),!.
-	
+	%maplist(append,[A],[B]),!.
+	foldr(append,A,[],B),!.
+
 /*
 append_list(A1,B):-
 	%A1=[A|List],
