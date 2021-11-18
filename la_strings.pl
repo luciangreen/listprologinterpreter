@@ -46,6 +46,9 @@ foldr(Function,A,L,B) :-
 concat_list(A,B):-
 	foldr(string_concat,A,"",B),!.
 
+concat_list(A,B,C):-
+	concat_list([A|B],C),!.
+
 /*
 concat_list([],""):-!.
 concat_list(A1,B):-
@@ -66,6 +69,9 @@ concat_list1(A,List,B) :-
 
 atom_concat_list(A,B):-
 	foldr(atom_concat,A,'',B),!.
+
+atom_concat_list(A,B,C):-
+	atom_concat_list([A|B],C),!.
 
 /*
 atom_concat_list([],''):-!.
@@ -88,6 +94,10 @@ atom_concat_list1(A,List,B) :-
 append_list(A,B) :-
 	%maplist(append,[A],[B]),!.
 	foldr(append,A,[],B),!.
+
+append_list(A,B,C):-
+	append_list([A|B],C),!.
+
 
 /*
 append_list(A1,B):-
