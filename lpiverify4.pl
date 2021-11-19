@@ -327,7 +327,11 @@ test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\",[]],1]",[v,t]]],
 		  [[n,number],[[v,a1]]
 		  ]],
 		  [[n,true]],
-		  [[n,equals4],[[v,a],"."]]
+		  [[n,"->"],[
+		  [[n,equals4],[[v,a],"."]],
+		  [[n,true]],
+		  [[n,equals4],[[v,a],"-"]]
+		  ]]
 		  ]],
 		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
 		  [[n,number212],[[v,v],[v,u]]]]],
@@ -340,7 +344,11 @@ test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\",[]],1]",[v,t]]],
 		  [[n,number],[[v,a1]]
 		  ]],
 		  [[n,true]],
-		  [[n,equals4],[[v,a],"."]]
+		  [[n,"->"],[
+		  [[n,equals4],[[v,a],"."]],
+		  [[n,true]],
+		  [[n,equals4],[[v,a],"-"]]
+		  ]]
 		  ]],
 		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
 	 	  [[n,number21],["",[v,numberstring]]],
