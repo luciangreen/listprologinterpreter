@@ -321,15 +321,27 @@ test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\",[]],1]",[v,t]]],
 
 		  [[n,number21],[[v,t],[v,u]],"->",
 		  [[v,a],[[n,commaorrightbracketnext]],
-		  [[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
-		  [[n,number],[[v,a1]]],
+		  [[n,code],
+		  [[n,"->"],[[
+		  [[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]
+		  ]],
+		  [[n,true]],
+		  [[n,equals4],[[v,a],"."]]
+		  ]],
 		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
 		  [[n,number212],[[v,v],[v,u]]]]],
 
 		  [[n,number21],[[v,t],[v,u]],"->",
 		  [[v,a],
-		  [[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
-		  [[n,number],[[v,a1]]],
+		  [[n,code],
+		  [[n,"->"],[[
+		  [[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]
+		  ]],
+		  [[n,true]],
+		  [[n,equals4],[[v,a],"."]]
+		  ]],
 		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
 	 	  [[n,number21],["",[v,numberstring]]],
 		  [[n,code],[[n,stringconcat],
