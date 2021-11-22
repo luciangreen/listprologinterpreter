@@ -39,6 +39,16 @@ bash_command(Command, Output) :-
         read_string(Out, _, Output),
         close(Out)).
 
+foldr(Function,A,L,B) :-
+	reverse(A,C),
+	foldl(Function,C,L,B),!.
+
+foldr(append,A,B) :-
+	foldr(append,A,[],B).
+	
+foldr(string_concat,A,B) :-
+	foldr(string_concat,A,"",B).
+
 concat_list([],""):-!.
 concat_list(A1,B):-
 	%A1=[A|List],
