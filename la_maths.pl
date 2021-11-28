@@ -3,8 +3,8 @@
 %% numbers(5,1,[],N).
 %% N=[1,2,3,4,5]
 
-numbers(N2,N1,Numbers2):-
-	(N2>N1->
+numbers(N2,N1,Numbers2) :-
+	(N2>=N1->
 	numbers(N2,N1,[],Numbers2);
 	numbers(N1,N2,[],Numbers2)).
 
