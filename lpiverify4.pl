@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=184, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=191, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -3880,3 +3880,85 @@ test(184,[[n,not1]],
       
 ,[[]]).
       
+      
+test(185,[[n,not1]],
+[
+	[[n,not1],":-",
+	[	
+		[[n,not],[[[[n,equals4],[2,2]],[[n,equals4],[2,2]]]]],
+		[[n,true]]
+	]]
+]
+      
+,[]).
+
+test(186,[[n,brackets1]],
+[
+	[[n,brackets1],":-",
+	[	
+		%[[n,true]],
+		%[[[n,true]],[[n,true]]]
+		%[[n,true]],
+		[[[n,true]],%[[n,true]],
+		[[[n,true]],[[n,true]]]]
+	]]
+]
+      
+,[[]]).
+
+test(187,[[n,brackets1]],
+[
+	[[n,brackets1],":-",
+	[	
+		%[[n,true]],
+		%[[[n,true]],[[n,true]]]
+		%[[n,true]],
+		%*[[[n,writeln],["1"]],%[[n,true]],
+		%*[[[n,writeln],["2"]],[[n,writeln],["3"]]],
+		%[[n,writeln],["3.5"]],
+		[[[n,writeln],["4"]]%,[[n,writeln],["5"]]
+		],
+		[[[n,writeln],["6"]],[[n,writeln],["7"]]]
+	]]
+]
+      
+,[[]]).
+
+test(188,[[n,brackets1]],
+[
+	[[n,brackets1],":-",
+	[	
+		%[[n,true]],
+		%[[[n,true]],[[n,true]]]
+		%[[n,true]],
+		[[[n,true]],%[[n,true]],
+		[[[n,true]]%,[[n,trace2]]
+		]]
+	]]
+]
+      
+,[[]]).
+
+test(189,[[n,brackets1]],
+[
+	[[n,brackets1],":-",
+	[		[[n,true]]
+	]]
+]
+      
+,[[]]).
+
+test(190,[[n,true]],
+[]
+      
+,[[]]).
+
+test(191,[[n,not1]],
+[
+	[[n,not1],":-",
+	[		[[n,not],[[[n,member],[["would","you","like","a","walk"],"not"]]]]
+	]]
+]
+      
+,[[]]).
+
