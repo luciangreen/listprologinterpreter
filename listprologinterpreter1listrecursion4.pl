@@ -9,6 +9,8 @@
 :- dynamic sys/1.
 :- dynamic equals4/1.
 :- dynamic query_box_n/1.
+:- dynamic save_debug/1.
+:- dynamic saved_debug/1.
 
 :- dynamic lang/1.
 
@@ -104,10 +106,13 @@ interpret1(Debug,Query,Functions1,Functions2,Result) :-
    retractall(cut(_)),
    assertz(cut(off)),
 	retractall(leash1(_)),
-   assertz(leash1(off)), %% Should normally be off
+   assertz(leash1(on)), %% Should normally be off
   	retractall(sys(_)),
  	assertz(sys(1)),
 	(not(equals4(_Equals4))->(retractall(equals4(_)),assertz(equals4(on)));true),%equals4(Equals4)),
+	%trace,
+	(not(save_debug(_))->(retractall(save_debug(_)),assertz(save_debug(off)));true),
+
 	%%writeln1(member1(Query,Functions1,Functions2,Result)),
 	member1(Query,Functions1,Functions2,Result).
 %%member1([_,R],_,[],R).
@@ -835,6 +840,18 @@ turnequals4(State1) :-
 		equals4(State2),
 	retract(equals4(State2)),
 	assertz(equals4(State1)).
+turn_save_debug(State1) :-
+	(not(save_debug(_))->(retractall(save_debug(_)),assertz(save_debug(off)));true),
+		%save_debug(State2),
+	retractall(save_debug(_)),
+		assertz(save_debug(State1)),
+!.
+do_saved_debug(State1) :-
+	(not(saved_debug(_))->(retractall(saved_debug(_)),assertz(saved_debug([])));true),
+		%saved_debug(State2),
+	retractall(saved_debug(_)),
+	assertz(saved_debug(State1)),
+	!.
 logicaldisjunction(true,true,true) :- !.
 logicaldisjunction(true,false,true) :- !.
 logicaldisjunction(true,true,false) :- !.
@@ -1559,10 +1576,12 @@ find_pred_sm(Reserved_words1),
 	Query=[Function],
 	%trace,
 	not_reserved_word(Function,Reserved_words1),
-debug_call(Skip,[Function]),
+%debug_call(Skip,[Function]),
         (interpret2(Query,Functions0,Functions0,_Result1)->
-debug_exit(Skip,[Function])
-;     debug_fail(Skip,[Function])),!.
+true%debug_exit(Skip,[Function])
+;     fail%debug_fail(Skip,[Function])
+)
+,!.
 
 
 debug_react(Status,115,true) :- Status=call, 
@@ -1577,8 +1596,11 @@ member_exit_fail(fail).
 debug_call(Skip,FunctionArguments1) :-
 get_lang_word("call",Dbw_call),
 get_lang_word("Press c to creep, s to skip or a to abort.",Dbw_note1),
-
-(debug(on)->(write1([Dbw_call,FunctionArguments1,Dbw_note1]),(leash1(on)->writeln("");(get_single_char(Key),debug_react(call,Key,Skip))));Skip=false).
+%trace,
+((save_debug(on),debug(on))->(saved_debug(List1),append(List1,[[Dbw_call,FunctionArguments1,Dbw_note1]],List2),
+do_saved_debug(List2));true),
+(debug(on)->(write1([Dbw_call,FunctionArguments1,Dbw_note1]),
+(leash1(on)->writeln("");(get_single_char(Key),debug_react(call,Key,Skip))));Skip=false).
 
 debug_fail_fail(Skip) :-
 (debug(on)->(Skip=true->turndebug(on);true);true).
@@ -1587,24 +1609,36 @@ debug_fail(Skip,FunctionArguments1) :-
 get_lang_word("fail",Dbw_fail),
 get_lang_word("Press c to creep or a to abort.",Dbw_note1),
 
-
-((Skip=true->turndebug(on);true),((debug(on)->(write1([Dbw_fail,FunctionArguments1,Dbw_note1]),(leash1(on)->writeln("");(get_single_char(Key),debug_react(fail,Key,_Skip))));true),fail)).
+((save_debug(on),debug(on))->(saved_debug(List1),append(List1,[[Dbw_fail,FunctionArguments1,Dbw_note1]],List2),
+do_saved_debug(List2));true),
+((Skip=true->turndebug(on);true),((debug(on)->(write1([Dbw_fail,FunctionArguments1,Dbw_note1]),
+(leash1(on)->writeln("");(get_single_char(Key),debug_react(fail,Key,_Skip))));true),fail)).
 
 debug_exit(Skip,FunctionResult2) :-
 get_lang_word("exit",Dbw_exit),
 get_lang_word("Press c to creep or a to abort.",Dbw_note1),
-((Skip=true->turndebug(on);true),((debug(on)->(write1([Dbw_exit,FunctionResult2,Dbw_note1]),(leash1(on)->writeln("");(get_single_char(Key),debug_react(exit,Key,_Skip))));true))).
+((save_debug(on),debug(on))->(saved_debug(List1),append(List1,[[Dbw_exit,FunctionResult2,Dbw_note1]],List2),
+do_saved_debug(List2));true),
+((Skip=true->turndebug(on);true),((debug(on)->(write1([Dbw_exit,FunctionResult2,Dbw_note1]),
+(leash1(on)->writeln("");(get_single_char(Key),debug_react(exit,Key,_Skip))));true))).
 
 
 debug_types_call(FunctionArguments1) :-
 get_lang_word("call",Dbw_call),
 debug_types(Dbw_call,FunctionArguments1).
+
 debug_types(Call,FunctionArguments1) :-
+((save_debug(on),debug(on))->(saved_debug(List1),append(List1,[[Call,FunctionArguments1]],List2),
+do_saved_debug(List2));true),
 (debug(on)->(writeln1([Call,FunctionArguments1]));true).
 
 debug_types_fail(FunctionArguments1) :-
 get_lang_word("fail",Dbw_fail),
-((debug(on)->(writeln1([Dbw_fail,FunctionArguments1]));true),fail).
+((save_debug(on),debug(on))->(saved_debug(List1),append(List1,[[Dbw_fail,FunctionArguments1]],List2),
+do_saved_debug(List2));true),
+((debug(on)->(writeln1([Dbw_fail,FunctionArguments1]),
+(debug(on)->(writeln1([Call,FunctionArguments1]),
+);true),fail).
 
 debug_types_exit(FunctionResult2) :-
 get_lang_word("exit",Dbw_exit),
