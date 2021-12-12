@@ -106,7 +106,7 @@ interpret1(Debug,Query,Functions1,Functions2,Result) :-
    retractall(cut(_)),
    assertz(cut(off)),
 	retractall(leash1(_)),
-   assertz(leash1(on)), %% Should normally be off
+   assertz(leash1(off)), %% Should normally be off
   	retractall(sys(_)),
  	assertz(sys(1)),
 	(not(equals4(_Equals4))->(retractall(equals4(_)),assertz(equals4(on)));true),%equals4(Equals4)),
