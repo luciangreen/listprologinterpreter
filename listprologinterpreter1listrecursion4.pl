@@ -1636,9 +1636,8 @@ debug_types_fail(FunctionArguments1) :-
 get_lang_word("fail",Dbw_fail),
 ((save_debug(on),debug(on))->(saved_debug(List1),append(List1,[[Dbw_fail,FunctionArguments1]],List2),
 do_saved_debug(List2));true),
-((debug(on)->(writeln1([Dbw_fail,FunctionArguments1]),
-(debug(on)->(writeln1([Call,FunctionArguments1])
-);true))),fail).
+((debug(on)->(writeln1([Dbw_fail,FunctionArguments1]))
+;true),fail).
 
 debug_types_exit(FunctionResult2) :-
 get_lang_word("exit",Dbw_exit),
