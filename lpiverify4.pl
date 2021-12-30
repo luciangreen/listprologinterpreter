@@ -1582,17 +1582,17 @@ test(56,[[n,map],[[n,add],[1,2,3],0,[v,d]]],
 
 %% later: (test 58) omit if [v,f] fails
 
-test(57,[[n,findall],[[n,plusone],[1,2,3],[],[v,d]]],
+test(57,[[n,findall1],[[n,plusone],[1,2,3],[],[v,d]]],
 [
-        [[n,findall],[[v,f],[],[v,l],[v,l]]],
-        [[n,findall],[[v,f],[v,l],[v,m1],[v,n]],":-",
+        [[n,findall1],[[v,f],[],[v,l],[v,l]]],
+        [[n,findall1],[[v,f],[v,l],[v,m1],[v,n]],":-",
         [       [[n,not],[[[n,=],[[v,l],[]]]]],
                 [[n,head],[[v,l],[v,h]]],
                 [[n,tail],[[v,l],[v,t]]],
                 [[v,f],[[v,h],[v,m2]]],
                 [[n,wrap],[[v,m2],[v,m3]]],
                 [[n,append],[[v,m1],[v,m3],[v,m4]]],
-                [[n,findall],[[v,f],[v,t],[v,m4],[v,n]]]
+                [[n,findall1],[[v,f],[v,t],[v,m4],[v,n]]]
         ]
         ],
 
@@ -1605,10 +1605,10 @@ test(57,[[n,findall],[[n,plusone],[1,2,3],[],[v,d]]],
 ,[[[[v,d], [2,3,4]]]]).
 
 
-test(58,[[n,findall],[[n,a_to_c],["a","b","a"],[],[v,d]]],
+test(58,[[n,findall1],[[n,a_to_c],["a","b","a"],[],[v,d]]],
 [
-        [[n,findall],[[v,f],[],[v,l],[v,l]]],
-        [[n,findall],[[v,f],[v,l],[v,m1],[v,n]],":-",
+        [[n,findall1],[[v,f],[],[v,l],[v,l]]],
+        [[n,findall1],[[v,f],[v,l],[v,m1],[v,n]],":-",
         [       [[n,not],[[[n,=],[[v,l],[]]]]],
                 [[n,head],[[v,l],[v,h]]],
                 [[n,tail],[[v,l],[v,t]]],
@@ -1619,7 +1619,7 @@ test(58,[[n,findall],[[n,a_to_c],["a","b","a"],[],[v,d]]],
                 [
                         [[n,=],[[v,m1],[v,m4]]]
                 ]]],
-                [[n,findall],[[v,f],[v,t],[v,m4],[v,n]]]
+                [[n,findall1],[[v,f],[v,t],[v,m4],[v,n]]]
 
         ]
         ],
