@@ -1612,6 +1612,7 @@ test(58,[[n,findall1],[[n,a_to_c],["a","b","a"],[],[v,d]]],
         [       [[n,not],[[[n,=],[[v,l],[]]]]],
                 [[n,head],[[v,l],[v,h]]],
                 [[n,tail],[[v,l],[v,t]]],
+                %[[n,trace2]],
                 [[n,"->"],[[[v,f],[[v,h],[v,m2]]],
                 [       [[n,wrap],[[v,m2],[v,m3]]],
                         [[n,append],[[v,m1],[v,m3],[v,m4]]]

@@ -127,6 +127,9 @@ member1(Query,Functions,Functions2,Vars8) :-
 	length(Arguments1,Length),
 	length(Arguments2,Length),
 
+	debug_call(Skip,[Function,Arguments1]),
+
+((
 checktypes_inputs(Function,Arguments1),
         
         %%writeln1(checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs)),
@@ -136,15 +139,16 @@ checktypes_inputs(Function,Arguments1),
         %notrace,
         %%->ca2 
 %writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
-debug_call(Skip,[Function,Arguments1]),
-	((interpretbody(Functions,Functions2,Vars1,Vars2,Body,true),
+	interpretbody(Functions,Functions2,Vars1,Vars2,Body,true),
 	updatevars(FirstArgs,Vars2,[],Result),
 	%writeln1(updatevars(FirstArgs,Vars2,[],Result)),
 	%trace,
 	unique1(Result,[],Vars8)
 	%writeln1(unique1(Result,[],Vars8))%,notrace
-	)->debug_fail_fail(Skip);debug_fail(Skip,[Function,Arguments1])
-	),
+	)->debug_fail_fail(Skip);debug_fail(Skip,[Function,Arguments1]))
+	,
+			debug_exit(Skip,[Function,Result2]),
+
 	%trace,
 	%%writeln1(updatevars(FirstArgs,Vars2,[],Result)),
 	%trace,
@@ -165,9 +169,9 @@ debug_call(Skip,[Function,Arguments1]),
 	Vars8=[],Result2=[]))),
 %%writeln1(["Arguments1",Arguments1,"Vars2",Vars2,"Result",Result]),
 		%trace,
-		debug_exit(Skip,[Function,Result2]),
 		        checktypes(Function,Result2)
-)
+
+	)
 	;
 	(%%Query=[Function,_Arguments1],
 	%%Functions2=[[Function,_Arguments2,":-",_Body]|Functions3], %% make like previous trunk?
@@ -197,9 +201,14 @@ member12(Query,Functions,Functions2,Vars8) :-
         length(Arguments1,Length),
         length(Arguments2,Length),
         
+debug_call(Skip,[Function,Arguments1]),
+        
+        ((
         checktypes_inputs(Function,Arguments1),
 
         checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),
+        
+
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
 	updatevars(FirstArgs,Vars1,[],Result),
         %%reverse(Result,[],Vars7),
@@ -211,8 +220,9 @@ member12(Query,Functions,Functions2,Vars8) :-
         findresult3(Arguments1,Vars8,[],Result2)
         );(
 %%writeln1(here2),
-	Vars8=[],Result2=[]))),
-        	debug_call(Skip,[Function,Arguments1]),
+	Vars8=[],Result2=[]))))->debug_fail_fail(Skip);
+	debug_fail(Skip,[Function,Arguments1])),
+	
    debug_exit(Skip,[Function,Result2]),
 	checktypes(Function,Result2)
 
@@ -244,20 +254,25 @@ interpret2(Query,Functions1,Functions2,Result) :-
 member2(_Query,_,_,[],_) :- %%writeln1(["The query",Query,"matches no predicates."]),
 fail,!.
 member2(Query,Functions,Functions2,Vars8) :-
+%writeln1(member2(Query,Functions,Functions2,Vars8)),
 %%writeln1([m2]),
 	(cut(off)->(
-        (Query=[Function,Arguments1],
+        (%trace,
+        Query=[Function,Arguments1],
         (Functions2=[[Function,Arguments2,":-",Body]|_Functions3]),
         length(Arguments1,Length),
         length(Arguments2,Length),
-        
+
+debug_call(Skip,[Function,Arguments1]),
+
+        ((
         checktypes_inputs(Function,Arguments1),
 
         checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),
+
         
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
-debug_call(Skip,[Function,Arguments1]),
-        ((interpretbody(Functions,Functions2,Vars1,Vars2,Body,true),
+        interpretbody(Functions,Functions2,Vars1,Vars2,Body,true),
         updatevars(FirstArgs,Vars2,[],Result),
         %trace,
         unique1(Result,[],Vars8)%,notrace
@@ -267,14 +282,14 @@ debug_call(Skip,[Function,Arguments1]),
         %trace,
         
         %%reverse(Result,[],Vars7),
-        ((true->%not(Result=[])->
+        (true->%not(Result=[])->
         %%Result=[Var71|Vars72],
         (true,
         findresult3(Arguments1,Vars8,[],Result2)
 %%writeln1(["Vars2",Vars2,"Result",Result]),
         );(
 	%%writeln1(here3),
-	Vars8=[],Result2=[]))),
+	Vars8=[],Result2=[])),
    debug_exit(Skip,[Function,Result2]),
    checktypes(Function,Result2)
 
@@ -305,25 +320,32 @@ member22(Query,Functions,Functions2,Vars8) :-
         (Functions2=[[Function,Arguments2]|_Functions3]),
         length(Arguments1,Length),
         length(Arguments2,Length),
-        
+
+debug_call(Skip,[Function,Arguments1]),
+
+        ((
         checktypes_inputs(Function,Arguments1),
 
         checkarguments(Arguments1,Arguments2,[],Vars1,[],FirstArgs),
+
+
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
         updatevars(FirstArgs,Vars1,[],Result),
         %%reverse(Result,[],Vars7),
-        ((true->%not(Result=[])->
+        (true->%not(Result=[])->
         %%Result=[Var71|Vars72],
         (%trace,
         unique1(Result,[],Vars8),%notrace,
         findresult3(Arguments1,Vars8,[],Result2)
         );(
 %%writeln1(here4),
-	Vars8=[],Result2=[]))),
-        	debug_call(Skip,[Function,Arguments1]),
-        	debug_exit(Skip,[Function,Result2]),
+	Vars8=[],Result2=[])),
 	checktypes(Function,Result2)
 
+	)->debug_fail_fail(Skip);
+        debug_fail(Skip,[Function])), %%**arg2 change
+        	debug_exit(Skip,[Function,Result2])
+	
 	);%%->true;
 	(%%Query=[Function,_Arguments1],
 	%%Functions2=[[Function,_Arguments2]|Functions3],
@@ -1261,7 +1283,7 @@ interpretstatement1(non-ssi,Functions0,Functions,[[Dbw_n,Dbw_findall],[Variable1
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("findall",Dbw_findall1),Dbw_findall1=Dbw_findall,
 get_lang_word("v",Dbw_v),
-
+%trace,
 
 %%writeln1(interpretstatement1(ssi,Functions0,Functions,[[n,findall],[Variable1,Body,Variable3]],Vars1,Vars2,true,nocut)),
 %%writeln1("h1/10"),
@@ -1273,6 +1295,7 @@ get_lang_word("v",Dbw_v),
 	%%trace,
 	%%writeln1(	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],Result2)),
 
+%writeln1(	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],_Result2)),
 	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],_Result2), %% 2->1
 	%%((Result2=cut)->!;true),
 	%%trace,
@@ -1532,7 +1555,8 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 %%writeln1(["Arguments",Arguments,"Vars1",Vars1]),
         %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
         (Function=[Dbw_v,_]->
-        (append([Function],Arguments,Arguments1),
+        (%trace,
+        append([Function],Arguments,Arguments1),
         %trace,
         substitutevarsA1(Arguments1,Vars1,[],Vars3,[],FirstArgs),
         Vars3=[Function1|Vars31],
@@ -1549,6 +1573,8 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 %%        	debug(on)->writeln1([call,[Function,[Vars3]]]),
 %%writeln1(["Query2",Query2,"Functions0",Functions0]),
 %trace,
+%writeln1(interpret2(Query2,Functions0,Functions0,Result1)),
+
         interpret2(Query2,Functions0,Functions0,Result1), 
         
                 %writeln1(interpret2(Query2,Functions0,Functions0,Result1)),
