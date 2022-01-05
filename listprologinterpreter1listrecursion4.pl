@@ -1017,6 +1017,7 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 	operator(Operator),
 %%writeln1(4),
         %trace,
+%trace,
         interpretpart(isop,Operator,Variable1,Variable2,Variable3,Vars1,Vars2).
 
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
