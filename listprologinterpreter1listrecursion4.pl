@@ -147,6 +147,7 @@ checktypes_inputs(Function,Arguments1),
 	%writeln1(unique1(Result,[],Vars8))%,notrace
 	)->debug_fail_fail(Skip);debug_fail(Skip,[Function,Arguments1]))
 	,
+			findresult3(Arguments1,Vars8,[],Result2),
 			debug_exit(Skip,[Function,Result2]),
 
 	%trace,
@@ -158,11 +159,12 @@ checktypes_inputs(Function,Arguments1),
 	((true->%not(Result=[])->
         %%Result=[Var71|Vars72],
         %%writeln1(unique1(Result,[],Vars8)),
-        (true,
+        (true
 %%writeln1(["FirstArgs",FirstArgs,"Vars",Vars2,"Result",Result,"Vars7",Vars7,"Vars72",Vars72,"Var71",Var71,"Vars8",Vars8]),
 %%writeln1(["Vars8",Vars8]),
 	%%writeln1(findresult3(Arguments1,Vars8,[],Result2)),
-	findresult3(Arguments1,Vars8,[],Result2)
+	%trace,
+	
 %writeln1([findresult3,"Arguments1",Arguments1,"Vars8",Vars8,"Result2",Result2])
 	);(
 %%writeln1(here1),
