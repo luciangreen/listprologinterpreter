@@ -345,7 +345,7 @@ debug_call(Skip,[Function,Arguments1]),
 	checktypes(Function,Result2)
 
 	)->debug_fail_fail(Skip);
-        debug_fail(Skip,[Function])), %%**arg2 change
+        debug_fail(Skip,[Function,Arguments1])), %%**arg2 change
         	debug_exit(Skip,[Function,Result2])
 	
 	);%%->true;
