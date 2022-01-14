@@ -118,7 +118,7 @@ interpret1(Debug,Query,Functions1,Functions2,Result) :-
 %%member1([_,R],_,[],R).
 %%member1(_,_,[],[]).
 member1(_Query,_,_,[],_) :- %%writeln1(["The query",Query,"matches no predicates."]),
-fail,!.
+fail.
 member1(Query,Functions,Functions2,Vars8) :-
 %%writeln1([m1]),
 	(cut(off)->(
@@ -254,7 +254,7 @@ interpret2(Query,Functions1,Functions2,Result) :-
 %%member2([_,R],_,[],R).
 %%member2(_,_,[],[]).
 member2(_Query,_,_,[],_) :- %%writeln1(["The query",Query,"matches no predicates."]),
-fail,!.
+fail.
 member2(Query,Functions,Functions2,Vars8) :-
 %writeln1(member2(Query,Functions,Functions2,Vars8)),
 %%writeln1([m2]),

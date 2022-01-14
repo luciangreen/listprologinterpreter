@@ -253,7 +253,11 @@ test(14,[[n,grammar1],["[a]",[v,t]]],
 % n,letters needs to include chars except quote
 
 %test(15,[[n,grammar1],["[[\"aa,]\",\"b\",a],1]",[v,t]]],
-test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\",[]],1]",[v,t]]],
+test(15,[[n,grammar1],["[[1],1]"
+
+%"[[\"aa,]\",b,\"c\",[]],1]"
+,[v,t]]],
+
 %test(15,[[n,grammar1],["[]"]],
 %est(15,[[n,item],["\"aa,\"","",[v,t]]],
 %test(15,[[n,item],["a","",[v,t]]],
@@ -310,8 +314,8 @@ test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\",[]],1]",[v,t]]],
 		  [[n,stringtonumber],[[v,u],[v,t]]]]]],
 
 %/*
-		  [[n,item],[[v,t]],"->",[[[n,word21_atom],["",[v,t1]]],
-		  [[n,code],[[n,atom_string],[[v,t],[v,t1]]]]]], % atoms
+		  %[[n,item],[[v,t]],"->",[[[n,word21_atom],["",[v,t1]]],
+		  %[[n,code],[[n,atom_string],[[v,t],[v,t1]]]]]], % atoms
 %*/
 		  [[n,item],[[v,t]],"->",[[[n,compound],[[],[v,t]]]]],
 
@@ -406,11 +410,6 @@ test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\",[]],1]",[v,t]]],
 		  [[n,commaorrightbracketnext],"->",
 		  [[[n,lookahead],["]"]]]],
 		  
-		  %[[n,commaquoteorrightbracketnext],"->",
-		  %[[[n,lookahead],[","]]]],
-
-		  %[[n,commaquoteorrightbracketnext],"->",
-		  %[[[n,lookahead],["]"]]]],
 		  
 		  [[n,quote_next],"->",
 		  [[[n,lookahead],["\""]]]],
@@ -421,7 +420,11 @@ test(15,[[n,grammar1],["[[\"aa,]\",b,\"c\",[]],1]",[v,t]]],
 
 %()%],[[[v,t],[["a"],1]]]).
 %],[[[[v,t],[["aa,]","b",a],1]]]]).
-],[[[[v,t],[["aa,]",b,"c",[]],1]]]]).
+
+%],[[[[v,t],[["aa,]",b,"c",[]],1]]]]).
+
+],[[[[v,t],[[1],1]]]]).
+
 %],[[[[v,t],[[]]]]]).
 %],[[[[v,t],"aa,"]]]).
 %],[[[[v,t],[a]]]]).
@@ -467,13 +470,15 @@ test(16,[[n,grammar1],["john ate the apple"]],
 
 %% Blackl loves the grammar
 
-test(17,[[n,grammar1],["aaa1 ,-'! a? b! b.",[v,t]]],
+%test(17,[[n,grammar1],["aaa1 ,-'! a? b! b.",[v,t]]],
+test(17,[[n,grammar1],["a? b!",[v,t]]],
 %%test(15,[[n,compound213],["","",[["a"],1],[v,t]]],
 
 [
 		  [[n,grammar1],[[v,u],[v,t]],":-",
 		  [
 		  			 [[n,compound21],[[v,u],"",[],[v,t]]]
+		  			 ,[[n,cut]]
 		  			 %%[[n,number21],[[v,u],"","",[v,t]]]
 		  			 %%[[n,compound213],["","",[["a"],1],[v,t]]]
 		  ]
@@ -496,7 +501,9 @@ test(17,[[n,grammar1],["aaa1 ,-'! a? b! b.",[v,t]]],
 		  [[n,code],%%[[n,stringconcat],[[v,i],".",[v,i2]]],
 		  [[n,wrap],[[v,i],[v,itemname1]]],
 		  [[n,append],[[v,t],[v,itemname1],[v,v]]]],
-		  [[n,compound212],[[v,v],[v,u]]]]],
+		  [[n,compound212],[[v,v],[v,u]]]
+		  ,[[n,code],[[n,cut]]]
+		  ]],
 
 		  [[n,compound21],[[v,t],[v,u]],"->",
 		  [[[n,item],[[v,i]]]," ",
@@ -504,14 +511,21 @@ test(17,[[n,grammar1],["aaa1 ,-'! a? b! b.",[v,t]]],
 		  [[n,code],%%[[n,stringconcat],[[v,i],".",[v,i2]]],
 		  [[n,wrap],[[v,i],[v,itemname1]]],
 		  [[n,append],[[v,t],[v,itemname1],[v,v]]],
-		  [[n,append],[[v,v],[v,compound1name],[v,u]]]]]],
+		  [[n,append],[[v,v],[v,compound1name],[v,u]]]
+		  ,[[n,cut]]
+		  ]]],
 /**
 		  [[n,item],[[v,t]],"->",
-		  [[[n,number21],["",[v,t]]]]],
+		  [[[n,number21],["",[v,t]]],
+		  [[n,code],[[n,cut]]]]],
 **/
-		  [[n,item],[[v,t]],"->",[[[n,word21],["",[v,t]]]]],
+		  [[n,item],[[v,t]],"->",[[[n,word21],["",[v,t]]]%,
+		  %[[n,code],[[n,cut]]]]],
+		  ]],
 
-		  [[n,item],[[v,t]],"->",[[[n,compound],[[],[v,t]]]]],
+		  [[n,item],[[v,t]],"->",[[[n,compound],[[],[v,t]]]%,
+		  %[[n,code],[[n,cut]]]]],
+		  ]],
 /**
 		  [[n,number212],["","",[v,t],[v,t]]],
 
@@ -599,7 +613,7 @@ test(17,[[n,grammar1],["aaa1 ,-'! a? b! b.",[v,t]]],
 		  [[[n,=],[[v,c],"?"]]]]
 
 %%],[[[v,t],[["a"],1]]]).
-],[[[[v,t],["aaa1 ,-'!","a?","b!","b."]]]]).
+],[[[[v,t],["a?","b!"]]]]).
 
 
 %% Adye is Venan
@@ -4019,6 +4033,29 @@ test(193,[[n,findall1],[[[[1,2,3,4]]],[v,b]]],%[[[[1],[2]],[[3],[4]]],[v,b]]],%[
         ]]
         
 ],[[[[v,b],[[[5,6,7,8]]]%[[[5],[6]],[[7],[8]]]
+%[[1,11,111],[2,22,222],[3,33,333]]
+]]]).
+
+
+test(194,[[n,lookahead],[",b,""c"",[]],1]",[v,vgp4],"]"]],%[[[[1],[2]],[[3],[4]]],[v,b]]],%[[[1,11,111],[2,22,222],[3,33,333]],[v,b]]],
+
+[
+		  [[n,lookahead],[[v,a],[v,a],[v,b]],":-",
+		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
+        
+],[[[[v,vgp4],",b,""c"",[]],1]"%[[[5],[6]],[[7],[8]]]
+%[[1,11,111],[2,22,222],[3,33,333]]
+]]]).
+
+
+test(195,[[n,cut1],[[v,a]]],%[[[[1],[2]],[[3],[4]]],[v,b]]],%[[[1,11,111],[2,22,222],[3,33,333]],[v,b]]],
+
+[
+		  [[n,cut1],[[v,a]],":-",
+		  [[[n,findall],[[v,a1],[[[n,member2],[[1,2],[v,a1]]],
+		  [[n,cut]]],[v,a]]]]]
+        
+],[[[[v,a],[1]%[[[5],[6]],[[7],[8]]]
 %[[1,11,111],[2,22,222],[3,33,333]]
 ]]]).
 
