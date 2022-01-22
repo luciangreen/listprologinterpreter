@@ -250,12 +250,14 @@ test(14,[[n,grammar1],["[a]",[v,t]]],
 
 % String to List (Term)
 
+% run with swipl --stack-limit=1G
+
 % n,letters needs to include chars except quote
 
 %test(15,[[n,grammar1],["[[\"aa,]\",\"b\",a],1]",[v,t]]],
-test(15,[[n,grammar1],["[[1],1]"
+test(15,[[n,grammar1],[%"[[1],1]"
 
-%"[[\"aa,]\",b,\"c\",[]],1]"
+"[[\"aa,]\",b,\"c\",[]],1]"
 ,[v,t]]],
 
 %test(15,[[n,grammar1],["[]"]],
@@ -268,6 +270,7 @@ test(15,[[n,grammar1],["[[1],1]"
 		  [[n,grammar1],[[v,u],[v,t]],":-",
 		  [
 		  			 [[n,compound],[[v,u],"",[],[v,t]]]
+		  ,[[n,cut]]
 		  			 %%[[n,number21],[[v,u],"","",[v,t]]]
 		  			 %%[[n,compound213],["","",[["a"],1],[v,t]]]
 		  ]
@@ -294,7 +297,9 @@ test(15,[[n,grammar1],["[[1],1]"
 		  [[n,lookahead],["]"]],
 		  [[n,code],[[n,wrap],[[v,i],[v,itemname1]]],
 		  [[n,append],[[v,t],[v,itemname1],[v,v]]]],
-		  [[n,compound212],[[v,v],[v,u]]]]],
+		  [[n,compound212],[[v,v],[v,u]]]
+		  ,[[n,code],[[n,cut]]]
+		  ]],
 
 		  [[n,compound21],[[v,t],[v,u]],"->",
 		  [[[n,item],[[v,i]]],",",
@@ -304,20 +309,30 @@ test(15,[[n,grammar1],["[[1],1]"
 		  [[n,compound21],[[],[v,compound1name]]],
 		  [[n,code],[[n,wrap],[[v,i],[v,itemname1]]],
 		  [[n,append],[[v,t],[v,itemname1],[v,v]]],
-		  [[n,append],[[v,v],[v,compound1name],[v,u]]]]]],
+		  [[n,append],[[v,v],[v,compound1name],[v,u]]]
+		  		  ,[[n,cut]]
+			]]],
 
 		  [[n,item],[[v,t]],"->",["\"",[[n,word21],["",[v,t]]],
-		    "\""]],
+		    "\""
+		    ,[[n,code],[[n,cut]]]
+		    ]],
 
 		  [[n,item],[[v,t]],"->",
 		  [[[n,number21],["",[v,u]]],[[n,code],
-		  [[n,stringtonumber],[[v,u],[v,t]]]]]],
+		  [[n,stringtonumber],[[v,u],[v,t]]]
+		  ,[[n,cut]]
+		  ]]],
 
 %/*
-		  %[[n,item],[[v,t]],"->",[[[n,word21_atom],["",[v,t1]]],
-		  %[[n,code],[[n,atom_string],[[v,t],[v,t1]]]]]], % atoms
+		  [[n,item],[[v,t]],"->",[[[n,word21_atom],["",[v,t1]]],
+		  [[n,code],[[n,atom_string],[[v,t],[v,t1]]]
+		  ,[[n,cut]]
+		  ]]], % atoms
 %*/
-		  [[n,item],[[v,t]],"->",[[[n,compound],[[],[v,t]]]]],
+		  [[n,item],[[v,t]],"->",[[[n,compound],[[],[v,t]]]
+		  		    ,[[n,code],[[n,cut]]]
+			]],
 
 		  [[n,number212],["","",[v,t],[v,t]]],
 
@@ -421,9 +436,9 @@ test(15,[[n,grammar1],["[[1],1]"
 %()%],[[[v,t],[["a"],1]]]).
 %],[[[[v,t],[["aa,]","b",a],1]]]]).
 
-%],[[[[v,t],[["aa,]",b,"c",[]],1]]]]).
+],[[[[v,t],[["aa,]",b,"c",[]],1]]]]).
 
-],[[[[v,t],[[1],1]]]]).
+%],[[[[v,t],[[1],1]]]]).
 
 %],[[[[v,t],[[]]]]]).
 %],[[[[v,t],"aa,"]]]).
@@ -470,8 +485,8 @@ test(16,[[n,grammar1],["john ate the apple"]],
 
 %% Blackl loves the grammar
 
-%test(17,[[n,grammar1],["aaa1 ,-'! a? b! b.",[v,t]]],
-test(17,[[n,grammar1],["a? b!",[v,t]]],
+test(17,[[n,grammar1],["aaa1 ,-'! a? b! b.",[v,t]]],
+%test(17,[[n,grammar1],["a? b!",[v,t]]],
 %%test(15,[[n,compound213],["","",[["a"],1],[v,t]]],
 
 [
@@ -514,11 +529,11 @@ test(17,[[n,grammar1],["a? b!",[v,t]]],
 		  [[n,append],[[v,v],[v,compound1name],[v,u]]]
 		  ,[[n,cut]]
 		  ]]],
-/**
+%/**
 		  [[n,item],[[v,t]],"->",
 		  [[[n,number21],["",[v,t]]],
 		  [[n,code],[[n,cut]]]]],
-**/
+%**/
 		  [[n,item],[[v,t]],"->",[[[n,word21],["",[v,t]]]%,
 		  %[[n,code],[[n,cut]]]]],
 		  ]],
@@ -526,7 +541,7 @@ test(17,[[n,grammar1],["a? b!",[v,t]]],
 		  [[n,item],[[v,t]],"->",[[[n,compound],[[],[v,t]]]%,
 		  %[[n,code],[[n,cut]]]]],
 		  ]],
-/**
+%/**
 		  [[n,number212],["","",[v,t],[v,t]]],
 
 		  [[n,number212],[[v,u],[v,u],[v,t],[v,t]]],
@@ -545,7 +560,7 @@ test(17,[[n,grammar1],["a? b!",[v,t]]],
 	 	  [[n,number21],["",[v,numberstring]]],
 		  [[n,code],[[n,stringconcat],
 		  [[v,v],[v,numberstring],[v,u]]]]]],
-**/
+%**/
 		  [[n,word212],["","",[v,t],[v,t]]],
 
 		  [[n,word212],[[v,u],[v,u],[v,t],[v,t]]],
@@ -613,8 +628,7 @@ test(17,[[n,grammar1],["a? b!",[v,t]]],
 		  [[[n,=],[[v,c],"?"]]]]
 
 %%],[[[v,t],[["a"],1]]]).
-],[[[[v,t],["a?","b!"]]]]).
-
+],[[[[v,t],["aaa1 ,-'!","a?","b!","b."]]]]).
 
 %% Adye is Venan
 
