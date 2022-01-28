@@ -376,7 +376,9 @@ test_types_cases(22,[[n,function],[[["a","b"],["b","c"]]]],
 [[n,reverse],[[v,a],[],[v,a1]]],
 [[n,head],[[v,a1],[v,d1]]],
 [[n,equals1],[[v,d1],[[v,e1],[v,f1]]]],
-[[n,function2],[[v,a],[v,f],[v,f1]]]]],
+[[n,function2],[[v,a],[v,f],[v,f1]]]
+%,[[n,cut]]
+]],
 
 [[n,reverse],[[],[v,l],[v,l]]],
 
@@ -389,7 +391,9 @@ test_types_cases(22,[[n,function],[[["a","b"],["b","c"]]]],
 
 [[n,function2],[[v,a],[v,b],[v,f]],":-",
 [[[n,member2],[[v,a],[v,d]]],
-[[n,equals1],[[v,d],[[v,b],[v,f]]]]]],
+[[n,equals1],[[v,d],[[v,b],[v,f]]]]
+%,[[n,cut]]
+]],
 
 [[n,function2],[[v,a],[v,b],[v,c]],":-",
 [[[n,member2],[[v,a],[v,d]]],
