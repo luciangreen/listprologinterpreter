@@ -98,7 +98,7 @@ testopen_cases(2,[[n,algwriter],[[v,na]]],
                 
         [[n,fna],[3,[v,a1],[v,a2],[v,b]],":-",
         [
-                [[n,findall],[[n,dividebyfour],[v,a1],[],[v,b]]]
+                [[n,findall1],[[n,dividebyfour],[v,a1],[],[v,b]]]
         ]],
         
         [[n,fna],[4,[v,a1],[v,a2],[v,b]],":-",
@@ -108,17 +108,17 @@ testopen_cases(2,[[n,algwriter],[[v,na]]],
         
         [[n,fna],[5,[v,a1],[v,a2],[v,b]],":-",
         [
-                [[n,findall],[[n,plusone],[v,a1],[],[v,b]]]
+                [[n,findall1],[[n,plusone],[v,a1],[],[v,b]]]
         ]],
         
         [[n,fna],[6,[v,a1],[v,a2],[v,b]],":-",
         [
-                [[n,findall],[[n,plustwo],[v,a1],[],[v,b]]]
+                [[n,findall1],[[n,plustwo],[v,a1],[],[v,b]]]
         ]],
         
         [[n,fna],[7,[v,a1],[v,a2],[v,b]],":-",
         [
-                [[n,findall],[[n,multiplybytwo],[v,a1],[],[v,b]]]
+                [[n,findall1],[[n,multiplybytwo],[v,a1],[],[v,b]]]
         ]],
         
         [[n,fna],[8,[v,a1],[v,a2],[v,b]],":-",
@@ -187,8 +187,8 @@ testopen_cases(2,[[n,algwriter],[[v,na]]],
         ]
         ],
 
-        [[n,findall],[[v,f],[],[v,l],[v,l]]],
-        [[n,findall],[[v,f],[v,l],[v,m1],[v,n]],":-",
+        [[n,findall1],[[v,f],[],[v,l],[v,l]]],
+        [[n,findall1],[[v,f],[v,l],[v,m1],[v,n]],":-",
         [       [[n,not],[[[n,=],[[v,l],[]]]]],
                 [[n,head],[[v,l],[v,h]]],
                 [[n,tail],[[v,l],[v,t]]],
@@ -199,7 +199,7 @@ testopen_cases(2,[[n,algwriter],[[v,na]]],
                 [
                         [[n,=],[[v,m1],[v,m4]]]
                 ]]],
-                [[n,findall],[[v,f],[v,t],[v,m4],[v,n]]]
+                [[n,findall1],[[v,f],[v,t],[v,m4],[v,n]]]
 
         ]
         ],
@@ -276,13 +276,13 @@ testopen_cases(3,[[n,episode_character],[[v,a]]],
 [
         [[n,episode_character],[[v,ds3]],":-",
         [        
-                [[n,findall],[[v,ds2],
+                [[n,findall1],[[v,ds2],
          [
          [[n,member2],[[1,2,3,4],[v,l1]]],
-         				[[n,findall],[[v,ds1],
+         				[[n,findall1],[[v,ds1],
          [
          [[n,member2],[[1,2,3,4],[v,l2]]],
-         					[[n,findall],[[[v,l1],[v,l2],[v,l3],[v,d]],
+         					[[n,findall1],[[[v,l1],[v,l2],[v,l3],[v,d]],
          [
          [[n,member2],[[1,2,3,4],[v,l3]]],
          [[n,equals4],[[v,line],["Level",[v,l1],[v,l2],[v,l3],

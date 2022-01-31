@@ -214,26 +214,40 @@ test_open_types_cases(6,[[n,t2b_checklist],[[v,a],[v,b],[v,c]]],
 
 test_open_types_cases(7,[[n,episode_character],[[v,a]]],
         [[[n,episode_character],[[t,loop0]]],
-        [[t,loop0],[[[t,brackets],[[t,loop1],[t,loop1],[t,loop1],[t,loop1]]]]],
-        [[t,loop1],[[[t,brackets],[[t,loop2],[t,loop2],[t,loop2],[t,loop2]]]]],
-        [[t,loop2],[[[t,brackets],[[t,items],[t,items],[t,items],[t,items]]]]],
+        [[t,loop0],[[[t,brackets],[[t,loop1],[t,loop1],[t,loop1]%,[t,loop1]
+        ]]]],
+        [[t,loop1],[[[t,brackets],[[t,loop2],[t,loop2],[t,loop2]%,[t,loop2]
+        ]]]],
+        [[t,loop2],[[[t,brackets],[[t,loop3],[t,loop3],[t,loop3]%,[t,loop3]
+        ]]]],
+        [[t,loop3],[[[t,brackets],[[t,items],[t,items],[t,items]%,[t,items]
+        ]]]],
         
-        [[t,items],[[t,number],[t,number],[t,number],[t,string]]]],
+        [[t,items],[[t,number],[t,number],[t,number],[t,number],[t,string]]]],
         [[[n,episode_character],[output]]],
 
 [
-        [[n,episode_character],[[v,ds3]],":-",
+        [[n,episode_character],[[v,ds4]],":-",
         [        
-                [[n,findall],[[v,ds2],
+                [[n,findall],[[v,ds3],
          [
-         [[n,member2],[[1,2,3,4],[v,l1]]],
+         [[n,member2],[[10,11,12%,4
+         ],[v,l0]]],
+         				[[n,findall],[[v,ds2],
+         [
+         [[n,member2],[[1,2,3%,4
+         ],[v,l1]]],
          				[[n,findall],[[v,ds1],
          [
-         [[n,member2],[[1,2,3,4],[v,l2]]],
-         					[[n,findall],[[[v,l1],[v,l2],[v,l3],[v,d]],
+         [[n,member2],[[%1,2,
+         %3,
+         4,5,6
+         ],[v,l2]]],
+         					[[n,findall],[[[v,l0],[v,l1],[v,l2],[v,l3],[v,d]],
          [
-         [[n,member2],[[1,2,3,4],[v,l3]]],
-         [[n,equals4],[[v,line],["Level",[v,l1],[v,l2],[v,l3],
+         [[n,member2],[[7,8,9%5,6%1,2,3,4
+         ],[v,l3]]],
+         [[n,equals4],[[v,line],["Level",[v,l0],[v,l1],[v,l2],[v,l3],
          "Please write a detail."]]],
          [[n,writeln],[[v,line]]],
          [[n,read_string],[[v,d]]]],
@@ -241,8 +255,8 @@ test_open_types_cases(7,[[n,episode_character],[[v,a]]],
         [v,ds1]]]],
         [v,ds2]]]]
         ,
-        [v,ds3]]]
-    
+        [v,ds3]]]],
+        [v,ds4]]]    
         ]]
 ]).
 
@@ -586,3 +600,79 @@ test_open_types_cases(24,[[n,chinese_longevity_herbs],[[v,a1]]],
         ]]
 ]).
 
+
+
+test_open_types_cases(25,[[n,episode_character],[[v,a]]],
+        [[[n,episode_character],[[t,loop0]]],
+        [[t,loop0],[[[t,brackets],[[t,loop1],[t,loop1]%,[t,loop1],[t,loop1],[t,loop1]
+        ]]]],
+        [[t,loop1],[[[t,brackets],[[t,loop2],[t,loop2]%,[t,loop2],[t,loop2],[t,loop2]
+        ]]]],
+        [[t,loop2],[[[t,brackets],[[t,loop3],[t,loop3]%,[t,loop3],[t,loop3],[t,loop3]
+        ]]]],
+        [[t,loop3],[[[t,brackets],[[t,items],[t,items]%,[t,items],[t,items],[t,items]
+        ]]]],
+        
+        [[t,items],[[t,number],[t,number],[t,number],[t,number],[t,string]]]],
+        [[[n,episode_character],[output]]],
+
+[
+        [[n,episode_character],[[v,ds3]],":-",
+        [        
+                [[n,findall],[[v,ds2],
+         [
+         [[n,member2],[[1,2],[v,l1]]],
+                [[n,findall],[[v,ds21],
+         [
+         [[n,member2],[[3,4],[v,l11]]],
+         				[[n,findall],[[v,ds1],
+         [
+         [[n,member2],[[5,6],[v,l2]]],
+         					[[n,findall],[[[v,l1],[v,l11],[v,l2],[v,l3],[v,d]],
+         [
+         [[n,member2],[[7,8],[v,l3]]],
+         [[n,equals4],[[v,line],["Level",[v,l1],[v,l11],[v,l2],[v,l3],
+         "Please write a detail."]]],
+         [[n,writeln],[[v,line]]],
+         [[n,read_string],[[v,d]]]],
+
+        [v,ds1]]]],
+        [v,ds21]]]],
+        [v,ds2]]]]
+        ,
+        [v,ds3]]]
+    
+        ]]
+]).
+
+
+test_open_types_cases(26,[[n,episode_character],[[v,a]]],
+        [[[n,episode_character],[[t,loop0]]],
+        [[t,loop0],[[[t,brackets],[[t,loop1],[t,loop1]%,[t,loop1],[t,loop1],[t,loop1]
+        ]]]],
+        [[t,loop1],[[[t,brackets],[[t,items],[t,items]%,[t,items],[t,items],[t,items]
+        ]]]],
+        
+        [[t,items],[[t,number],[t,number],[t,string]]]],
+        [[[n,episode_character],[output]]],
+
+[
+        [[n,episode_character],[[v,ds3]],":-",
+        [        
+                [[n,findall],[[v,ds2],
+         [
+         [[n,member2],[[1,2],[v,l1]]],
+         					[[n,findall],[[[v,l1],[v,l2],[v,d]],
+         [
+         [[n,member2],[[3,4],[v,l2]]],
+         [[n,equals4],[[v,line],["Level",[v,l1],[v,l2],
+         "Please write a detail."]]],
+         [[n,writeln],[[v,line]]],
+         [[n,read_string],[[v,d]]]],
+
+        [v,ds2]]]]
+        ,
+        [v,ds3]]]
+    
+        ]]
+]).
