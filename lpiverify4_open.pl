@@ -276,13 +276,13 @@ testopen_cases(3,[[n,episode_character],[[v,a]]],
 [
         [[n,episode_character],[[v,ds3]],":-",
         [        
-                [[n,findall1],[[v,ds2],
+                [[n,findall],[[v,ds2],
          [
          [[n,member2],[[1,2,3,4],[v,l1]]],
-         				[[n,findall1],[[v,ds1],
+         				[[n,findall],[[v,ds1],
          [
          [[n,member2],[[1,2,3,4],[v,l2]]],
-         					[[n,findall1],[[[v,l1],[v,l2],[v,l3],[v,d]],
+         					[[n,findall],[[[v,l1],[v,l2],[v,l3],[v,d]],
          [
          [[n,member2],[[1,2,3,4],[v,l3]]],
          [[n,equals4],[[v,line],["Level",[v,l1],[v,l2],[v,l3],
