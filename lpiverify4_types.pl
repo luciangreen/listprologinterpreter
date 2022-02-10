@@ -559,13 +559,17 @@ test_types_cases(31,[[n,art],[["I","ate","apple"],[v,art_form]]],
 
 % Triangle train line
 
-test_types_cases(32,[[n,triangle_train],["Canterbury","Bambury"]],
-        [[[n,triangle_train],[[t,string],[t,string]]],
+test_types_cases(32,[[n,triangle_train1],["Canterbury","Bambury"]],
+        [[[n,triangle_train1],[[t,string],[t,string]]],
+        [[n,triangle_train],[[t,string],[t,string]]],
         [[n,link],[[t,string],[t,string]]]],
-        [[[n,triangle_train],[input,input]],
+        [[[n,triangle_train1],[input,input]],
+        [[n,triangle_train],[input,output]],
         [[n,link],[input,output]]],
 
 [
+        [[n,triangle_train1],[[v,a],[v,b]],":-",
+        [       [[n,triangle_train],[[v,a],[v,b]]]]],
         [[n,triangle_train],[[v,a],[v,b]],":-",
         [       [[n,link],[[v,a],[v,b]]]]],
         [[n,triangle_train],[[v,a],[v,b]],":-",
@@ -608,13 +612,17 @@ test_types_cases(34,[[n,space_time_jump],[[10,15],[v,c]]],
 
 % ["Short Arguments","Medicine - Quantum Box of Circulatory System 1.txt",0,algorithms,"5. *I used cardiovascular activity to maintain circulatory system flow."]
 
-test_types_cases(35,[[n,circulation],["heart1","cells"]],
-        [[[n,circulation],[[t,string],[t,string]]],
+test_types_cases(35,[[n,circulation1],["heart1","cells"]],
+        [[[n,circulation1],[[t,string],[t,string]]],
+        [[n,circulation],[[t,string],[t,string]]],
         [[n,link],[[t,string],[t,string]]]],
-        [[[n,circulation],[input,input]],
+        [[[n,circulation1],[input,input]],
+        [[n,circulation],[input,output]],
         [[n,link],[input,output]]],
 
 [
+        [[n,circulation1],[[v,a],[v,b]],":-",
+        [       [[n,circulation],[[v,a],[v,b]]]]],
         [[n,circulation],[[v,a],[v,b]],":-",
         [       [[n,link],[[v,a],[v,b]]]]],
         [[n,circulation],[[v,a],[v,b]],":-",
@@ -921,6 +929,7 @@ test_types_cases(52,[[n,unwavering_people],%[[[[1],[1]],[[1],[1]]]]],
         [[n,unwavering_people],[[v,list]],":-",
         [       %[[n,trace2]],
         	[[n,equals4],[[v,list],[[v,head],"|",[v,tail]]]],
+        	[[n,not],[[[n,unwavering],[[v,head]]]]],
         	[[n,unwavering_people],[[v,head]]],
         	[[n,unwavering_people],[[v,tail]]]]],
 
@@ -930,7 +939,9 @@ test_types_cases(52,[[n,unwavering_people],%[[[[1],[1]],[[1],[1]]]]],
         [       %[[n,trace2]],
         	[[n,equals4],[[v,list],[[v,head],"|",[v,tail]]]],
         	[[n,1],[[v,head]]],
-        	[[n,unwavering],[[v,tail]]]]],
+        	[[n,unwavering],[[v,tail]]]
+        	%[[n,cut]]
+        	]],
 
         [[n,1],[1]]
 ]

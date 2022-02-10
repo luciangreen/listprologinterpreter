@@ -179,7 +179,7 @@ test(13,[[n,grammar1],["[a,a]",[v,t]]],
 		  ]
 		  ],
 
-		  [[n,compound213],["","",[v,t],[v,t]]],
+		  %[[n,compound213],["","",[v,t],[v,t]]],
 
 		  [[n,compound213],[[v,u],[v,u],[v,t],[v,t]]],
 
@@ -187,12 +187,12 @@ test(13,[[n,grammar1],["[a,a]",[v,t]]],
 		  ["[",[[n,compound21],[[v,t],[v,v]]],"]",
 		  [[n,compound213],[[v,v],[v,u]]]]],
 
-		  [[n,compound212],["","",[v,t],[v,t]]],
+		  %[[n,compound212],["","",[v,t],[v,t]]],
 
 		  [[n,compound212],[[v,u],[v,u],[v,t],[v,t]]],
 
 		  [[n,compound21],[[v,t],[v,u]],"->",
-		  [[[n,a]],
+		  [[[n,a]],[[n,rightbracketnext]],
 		  [[n,code],[[n,wrap],["a",[v,itemname1]]],
 		  [[n,append],[[v,t],[v,itemname1],[v,v]]]],
 		  [[n,compound212],[[v,v],[v,u]]]]],
@@ -204,13 +204,18 @@ test(13,[[n,grammar1],["[a,a]",[v,t]]],
 		  [[n,append],[[v,t],[v,itemname1],[v,v]]],
 		  [[n,append],[[v,v],[v,compound1name],[v,u]]]]]],
 
-		  [[n,compound212],[[v,a],[v,a],[v,t],[v,t]]],
+		  %[[n,compound212],[[v,a],[v,a],[v,t],[v,t]]],
 
-		  [[n,a],["",""]],
+		  %[[n,a],["",""]],
 
 		  [[n,a],"->",["a"]],
+
+		  [[n,rightbracketnext],"->",
+		  [[[n,lookahead],["]"]]]],
 		  
-		  [[n,a],[[v,a],[v,a]]]
+		  [[n,lookahead],[[v,a],[v,a],[v,b]],":-",
+		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]		  
+		  %[[n,a],[[v,a],[v,a]]]
 
 ],[[[[v,t],["a","a"]]]]).
 
