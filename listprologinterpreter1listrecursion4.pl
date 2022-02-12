@@ -1429,7 +1429,7 @@ get_lang_word("v",Dbw_v),
 %%writeln1("h1/10"),
 
 %writeln([Functions0,Functions0]),
-find_pred_sm(Reserved_words1),
+%find_pred_sm(Reserved_words1),
 
         %trace,
        % ((Query1=[[Dbw_n,Dbw_call],[Function,Arguments]]%,        not_reserved_word(Function,Reserved_words1)
@@ -1446,7 +1446,7 @@ Query1=[Function,Arguments],%,Function=[Dbw_n1,Function_a],atom_string(Function_
         %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
         Function=[Dbw_v,_Function2],
         getvalue(Function,Function3,Vars1),
-        not(not_reserved_word(Function3,Reserved_words1)),
+        reserved_word(Function3),
         append([Function3],[Arguments],Arguments1),
         
 interpretstatement1(_,Functions0,_Functions,Arguments1,Vars1,Vars8,true,nocut).
@@ -1600,11 +1600,11 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 %%writeln1(["Vars1:",Vars1,"Vars4:",Vars4]),
 %%		debug(on)->writeln1([exit,[Function,[Result2]]]).
 interpretstatement1(non-ssi,Functions0,_Functions,Query,Vars,Vars,true,nocut) :-
-find_pred_sm(Reserved_words1),
+%find_pred_sm(Reserved_words1),
 
 	Query=[Function],
 	%trace,
-	not_reserved_word(Function,Reserved_words1),
+	not(reserved_word(Function)),
 %debug_call(Skip,[Function]),
         (interpret2(Query,Functions0,Functions0,_Result1)->
 true%debug_exit(Skip,[Function])
