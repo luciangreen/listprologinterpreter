@@ -14,13 +14,51 @@ phrase_from_file_s(string(Output), String) :-
 	atom_string(String1,String),
 	phrase_from_file(string(Output), String1),!.
 	
+writeln0(Term) :-
+	%term_to_atom(Term,Atom),
+%append([Term],["\n"],Term1),	
+	%append_retry_back_stack([text,Term1]),!.
+	(html_api_maker_or_terminal(html)->
+	(term_to_atom(Term,Atom),
+	format(Atom,[]),format('<br>\n',[]));
+	writeln(Term)),!.
+	
+write0(Term) :-
+	%term_to_atom(Term,Atom),
+	%append_retry_back_stack([text,Term])
+	(html_api_maker_or_terminal(html)->
+	(%term_to_atom(Term,Atom),
+	format(Term,[])%,format('\n',[])
+	);
+	write(Term)),!.
+
 writeln1(Term) :-
 	term_to_atom(Term,Atom),
-	writeln(Atom),!.
+	
+%atom_concat(Atom,"\n",Atom1),
+	%append_retry_back_stack([text,Atom1]),!.
+	(html_api_maker_or_terminal(html)->
+	(%term_to_atom(Term,Atom),
+	format(Atom,[]),format('<br>\n',[]));
+	writeln(Atom)),!.
+	
+	%writeln(Atom),!.
 	
 write1(Term) :-
+/*
 	term_to_atom(Term,Atom),
-	write(Atom),!.
+	append_retry_back_stack([text,Atom]),!.
+	%write(Atom),!.
+	*/
+	term_to_atom(Term,Atom),
+	
+%atom_concat(Atom,"\n",Atom1),
+	%append_retry_back_stack([text,Atom1]),!.
+	(html_api_maker_or_terminal(html)->
+	(%term_to_atom(Term,Atom),
+	format(Atom,[])%,format('\n',[])
+	);
+	write(Atom)),!.
 	
 shell1_s(Command) :-
  	atom_string(Command1,Command),
@@ -29,7 +67,7 @@ shell1_s(Command) :-
 shell1(Command) :-
 				(bash_command(Command,_)->
 					true;
-					(writeln(["Failed shell1 command: ",Command]),abort)
+					(writeln0(["Failed shell1 command: ",Command]),abort)
 				),!.
 
 bash_command(Command, Output) :-

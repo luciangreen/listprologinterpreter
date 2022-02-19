@@ -1614,10 +1614,10 @@ true%debug_exit(Skip,[Function])
 
 
 debug_react(Status,115,true) :- Status=call, 
-turndebug(off), write(" "),get_lang_word("skip",Dbw_skip),writeln(Dbw_skip). %% skip
-debug_react(_Status,97,false) :- write(" "),get_lang_word("abort",Dbw_abort),writeln(Dbw_abort),abort. %% abort
+turndebug(off), write0(" "),get_lang_word("skip",Dbw_skip),writeln0(Dbw_skip). %% skip
+debug_react(_Status,97,false) :- write0(" "),get_lang_word("abort",Dbw_abort),writeln0(Dbw_abort),abort. %% abort
 debug_react(Status,A,false) :- ((Status=call,not(A=115),not(A=97))->true;
-(member_exit_fail(Status),not(A=97))), write(" "),get_lang_word("creep",Dbw_creep),writeln(Dbw_creep). %% creep
+(member_exit_fail(Status),not(A=97))), write0(" "),get_lang_word("creep",Dbw_creep),writeln0(Dbw_creep). %% creep
 
 member_exit_fail(exit).
 member_exit_fail(fail).
@@ -1628,8 +1628,10 @@ get_lang_word("Press c to creep, s to skip or a to abort.",Dbw_note1),
 %trace,
 ((save_debug(on),debug(on))->(saved_debug(List1),append(List1,[[Dbw_call,FunctionArguments1,Dbw_note1]],List2),
 do_saved_debug(List2));true),
+((retry_back(on),debug(on))->(append_retry_back_stack([debug,[Dbw_call,FunctionArguments1,Dbw_note1]]));true),
 (debug(on)->(write1([Dbw_call,FunctionArguments1,Dbw_note1]),
-(leash1(on)->writeln("");(get_single_char(Key),debug_react(call,Key,Skip))));Skip=false).
+(leash1(on)->writeln0("");(%print_text,
+get_single_char(Key),debug_react(call,Key,Skip))));Skip=false).
 
 debug_fail_fail(Skip) :-
 (debug(on)->(Skip=true->turndebug(on);true);true).
@@ -1640,16 +1642,20 @@ get_lang_word("Press c to creep or a to abort.",Dbw_note1),
 
 ((save_debug(on),debug(on))->(saved_debug(List1),append(List1,[[Dbw_fail,FunctionArguments1,Dbw_note1]],List2),
 do_saved_debug(List2));true),
+((retry_back(on),debug(on))->(append_retry_back_stack([debug,[Dbw_fail,FunctionArguments1,Dbw_note1]]));true),
 ((Skip=true->turndebug(on);true),((debug(on)->(write1([Dbw_fail,FunctionArguments1,Dbw_note1]),
-(leash1(on)->writeln("");(get_single_char(Key),debug_react(fail,Key,_Skip))));true),fail)).
+(leash1(on)->writeln0("");(%print_text,
+get_single_char(Key),debug_react(fail,Key,_Skip))));true),fail)).
 
 debug_exit(Skip,FunctionResult2) :-
 get_lang_word("exit",Dbw_exit),
 get_lang_word("Press c to creep or a to abort.",Dbw_note1),
 ((save_debug(on),debug(on))->(saved_debug(List1),append(List1,[[Dbw_exit,FunctionResult2,Dbw_note1]],List2),
 do_saved_debug(List2));true),
+((retry_back(on),debug(on))->(append_retry_back_stack([debug,[Dbw_exit,FunctionResult2,Dbw_note1]]));true),
 ((Skip=true->turndebug(on);true),((debug(on)->(write1([Dbw_exit,FunctionResult2,Dbw_note1]),
-(leash1(on)->writeln("");(get_single_char(Key),debug_react(exit,Key,_Skip))));true))).
+(leash1(on)->writeln0("");(%print_text,
+get_single_char(Key),debug_react(exit,Key,_Skip))));true))).
 
 
 debug_types_call(FunctionArguments1) :-
@@ -1659,12 +1665,14 @@ debug_types(Dbw_call,FunctionArguments1).
 debug_types(Call,FunctionArguments1) :-
 ((save_debug(on),debug(on))->(saved_debug(List1),append(List1,[[Call,FunctionArguments1]],List2),
 do_saved_debug(List2));true),
+((retry_back(on),debug(on))->(append_retry_back_stack([debug,[Call,FunctionArguments1]]));true),
 (debug(on)->(writeln1([Call,FunctionArguments1]));true).
 
 debug_types_fail(FunctionArguments1) :-
 get_lang_word("fail",Dbw_fail),
 ((save_debug(on),debug(on))->(saved_debug(List1),append(List1,[[Dbw_fail,FunctionArguments1]],List2),
 do_saved_debug(List2));true),
+((retry_back(on),debug(on))->(append_retry_back_stack([debug,[Dbw_fail,FunctionArguments1]]));true),
 ((debug(on)->(writeln1([Dbw_fail,FunctionArguments1]))
 ;true),fail).
 

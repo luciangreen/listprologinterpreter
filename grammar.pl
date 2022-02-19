@@ -102,7 +102,7 @@ convert_to_grammar_part11(Grammar1,Grammar2,Grammar3,_EndGrammar1,_EndGrammar2,G
 	Grammar4=[_Name2,":-",_Body2])->true;
 	Grammar4=[_Name3,_Variables2])->true;
 	Grammar4=[_Name4])->true;
-	(writeln(["Error: Grammar",Grammar4,"badly formed."]),abort)),
+	(writeln0(["Error: Grammar",Grammar4,"badly formed."]),abort)),
 	append(Grammar2,[Grammar4],Grammar6),
 	append(Grammara1,[[Grammar4,Grammar4]],Grammara4),
 	convert_to_grammar_part11(Grammar5,Grammar6,Grammar3,_EndGrammar1,_EndGrammar2,Grammara4,Grammara2,_EndGrammara1,_EndGrammara2),!.
@@ -164,7 +164,7 @@ get_lang_word("code",Dbw_code),
 
 convert_to_grammar_part2(Body1,_FirstVar,_SecondVar,_SecondVarParent,_Body4,_Body3) :-
 	Body1=[Item|_Rest1],
-	writeln(["Error: Item",Item,"badly formed."]),abort,!.
+	writeln0(["Error: Item",Item,"badly formed."]),abort,!.
 
 convert_to_grammar_part31(Body1,FirstVar,SecondVar,SecondVarParent,Body2,Body3) :-
 	Body1=[Item1|Rest1],

@@ -9,8 +9,8 @@ test_open_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=24, !.
 test_open_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_open_types_cases(NTotal3,Query,Types,Modes,Functions),
-	((international_interpret([lang,"en"],Debug,Query,Types,Modes,Functions,Result),not(Result=[]))->(Score3 is Score1+1,writeln([test_open_types,NTotal3,result,Result]),writeln([test_open_types,NTotal3,passed]));(Score3=Score1,writeln([test_open_types,NTotal3,failed]))),
-	writeln(""),
+	((international_interpret([lang,"en"],Debug,Query,Types,Modes,Functions,Result),not(Result=[]))->(Score3 is Score1+1,writeln0([test_open_types,NTotal3,result,Result]),writeln0([test_open_types,NTotal3,passed]));(Score3=Score1,writeln0([test_open_types,NTotal3,failed]))),
+	writeln0(""),
 	test_open_types(Debug,NTotal3,NTotal2,Score3,Score2),!.
 
 %% Test individual cases, Debug=trace=on or off, N=case number, Passed=output=result
@@ -19,7 +19,7 @@ test_open_types1(Debug,N,Passed) :-
 	test_open_types_cases(N,Query,Types,Modes,Functions),
 	(((international_interpret([lang,"en"],Debug,Query,Types,Modes,Functions,Result),not(Result=[]))%%writeln(Result1),
 	%%Result=Result1
-	)->(Passed=passed,writeln([test_open_types,N,result,Result]),writeln([test_open_types,N,passed]));(Passed=failed,writeln([test_open_types,N,failed]))),!.
+	)->(Passed=passed,writeln0([test_open_types,N,result,Result]),writeln0([test_open_types,N,passed]));(Passed=failed,writeln0([test_open_types,N,failed]))),!.
 
 
 test_open_types_cases(1,[[n,true_vs_good],[[v,t],[v,g]]],
@@ -147,6 +147,12 @@ test_open_types_cases(4,[[n,cultivate_person],[[v,a],[v,b]]],
                 [[n,writeln],["Do you switch them on to existing for the rest of their life?"]],
 
                 [[n,read_string],[[v,b]]]
+/*
+,
+                [[n,writeln],["Do you switch them on to existing for the rest of their life?"]],
+
+                [[n,read_string],[[v,c]]]
+                */
 
                 
         ]]

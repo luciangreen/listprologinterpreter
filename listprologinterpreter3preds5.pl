@@ -446,7 +446,7 @@ find_sys(Sys_name),
 	
 	 turn_back_debug(Debug),
 	
- writeln(Value3)
+ writeln0(Value3)
 	
         %val1emptyorvalsequal(Value1,Value1A),
         %putvalue(Variable1,Value1A,Vars1,Vars2)

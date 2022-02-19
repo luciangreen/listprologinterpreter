@@ -11,8 +11,8 @@ test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	test(NTotal3,Query,Functions,Result),
 	(international_interpret([lang,"en"],Debug,Query,Functions,Result)
 	%%writeln1(Result2
-	->(Score3 is Score1+1,writeln([test,NTotal3,passed]));(Score3=Score1,writeln([test,NTotal3,failed]))),
-	writeln(""),
+	->(Score3 is Score1+1,writeln0([test,NTotal3,passed]));(Score3=Score1,writeln0([test,NTotal3,failed]))),
+	writeln0(""),
 	test(Debug,NTotal3,NTotal2,Score3,Score2),!.
 
 %% Test individual cases, Debug=trace=on or off, N=case number, Passed=output=result
@@ -22,7 +22,7 @@ test1(Debug,N,Passed) :-
 	((international_interpret([lang,"en"],Debug,Query,Functions,Result1),
 	%writeln1([result1,Result1]),
 	Result=Result1
-	)->(Passed=passed,writeln([test,N,passed]));(Passed=failed,writeln([test,N,failed]))),!.
+	)->(Passed=passed,writeln0([test,N,passed]));(Passed=failed,writeln0([test,N,failed]))),!.
 
 
 %%writeln([eg1]),

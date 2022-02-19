@@ -13,8 +13,8 @@ test_run_all(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	test_run_all(NTotal3,Query,Function1,Result),
 	((findall([Function,R],(member(Function,Functions),international_interpret([lang,"en"],Debug,Query,Function,R)),Rs),member([Function1,Result],Rs))
 	%%writeln1(Result2
-	->(Score3 is Score1+1,writeln([test_run_all,NTotal3,passed]));(Score3=Score1,writeln([test_run_all,NTotal3,failed]))),
-	writeln(""),
+	->(Score3 is Score1+1,writeln0([test_run_all,NTotal3,passed]));(Score3=Score1,writeln0([test_run_all,NTotal3,failed]))),
+	writeln0(""),
 	test_run_all(Debug,NTotal3,NTotal2,Score3,Score2),!.
 
 %% test_run_all individual cases, Debug=trace=on or off, N=case number, Passed=output=result
@@ -32,7 +32,7 @@ test1(Debug,N,Passed) :-
 	member([Function1,Result],Rs))
 	%%Function1=Function10,Result=Result0
 	%%Result=Result1
-	)->(Passed=passed,writeln([test_run_all,N,passed]));(Passed=failed,writeln([test_run_all,N,failed]))),!.
+	)->(Passed=passed,writeln0([test_run_all,N,passed]));(Passed=failed,writeln([test_run_all,N,failed]))),!.
 
 functions([
 /**
