@@ -19,8 +19,10 @@ writeln0(Term) :-
 %append([Term],["\n"],Term1),	
 	%append_retry_back_stack([text,Term1]),!.
 	(html_api_maker_or_terminal(html)->
-	(term_to_atom(Term,Atom),
-	format(Atom,[]),format('<br>\n',[]));
+	(%term_to_atom(Term,Atom),
+	writeln(Term%Atom%,[]
+	)
+	,format('<br>\n',[]));
 	writeln(Term)),!.
 	
 write0(Term) :-

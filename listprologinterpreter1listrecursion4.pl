@@ -14,6 +14,13 @@
 
 :- dynamic lang/1.
 
+:- dynamic retry_back/1.
+:- dynamic retry_back_stack/1.
+:- dynamic retry_back_stack_n/1.
+:- dynamic cumulative_or_current_text/1.
+:- dynamic number_of_current_text/1.
+:- dynamic html_api_maker_or_terminal/1.
+
 /** List Prolog Interpreter **/
 
 interpret(Debug,Query,Functions1,Result) :-
@@ -112,6 +119,18 @@ interpret1(Debug,Query,Functions1,Functions2,Result) :-
 	(not(equals4(_Equals4))->(retractall(equals4(_)),assertz(equals4(on)));true),%equals4(Equals4)),
 	%trace,
 	(not(save_debug(_))->(retractall(save_debug(_)),assertz(save_debug(off)));true),
+
+	  	retractall(retry_back(_)),
+	  	retractall(retry_back_stack(_)),
+	  	retractall(retry_back_stack_n(_)),
+	  	retractall(cumulative_or_current_text(_)),
+	  	retractall(number_of_current_text(_)),
+
+ 	assertz(retry_back(off)), % on - retry/back mode options available in trace mode
+ 	assertz(retry_back_stack([])), % on - retry/back mode options available in trace mode
+ assertz(retry_back_stack_n(0)),
+ assertz(cumulative_or_current_text(current)),
+ assertz(number_of_current_text(1)),
 
 	%%writeln1(member1(Query,Functions1,Functions2,Result)),
 	member1(Query,Functions1,Functions2,Result).
