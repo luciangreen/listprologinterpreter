@@ -1,5 +1,7 @@
 %% la_strings.pl
 
+:- dynamic html_api_maker_or_terminal/1.
+
 use_module(library(pio)).
 use_module(library(dcg/basics)).
 
