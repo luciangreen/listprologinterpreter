@@ -185,6 +185,9 @@ split_string2(String1,Chars,List) :-
 	interpret(off,[[n,grammar1],[String1,Chars,[v,t]]],
 		Code,[[[[v,t],List]]]),!.
 
+% ?- join_chars_after(["d","e","a","c","f","b","g"],["a","b"],[],L).
+% L = ["d", "ea", "c", "fb", "g"].
+
 join_chars_after([],_Chars,List,List) :- !.
 join_chars_after([List1],_Chars,List2,List3) :-
 	append(List2,[List1],List3),!.
@@ -201,6 +204,7 @@ join_chars_after(List1,Chars,List5,List2) :-
 	append(List5,[Char1],List6),
 	join_chars_after(List4,Chars,List6,List2),!.
 
+% split_on_substring117(`AAABAAD`,`BD`,[],A). or
 % ?- split_on_substring117([65,65,65,66,65,65,68],[66,68],[],A).
 % A = ["AAA", "B", "AA", "D"].
 
@@ -234,3 +238,15 @@ num_chars(Char,Num1,String) :-
 	numbers(Num1,1,[],Nums),
 	findall(Char,(member(_Num2,Nums)),Chars),
 	concat_list(Chars,String),!.
+	
+/*
+replace_new('0ab0','a','c',A).
+A = "0cb0".
+*/
+
+replace_new(A1,Find,Replace,F) :-
+string_length(Replace,Replace_l),
+string_concat("%",A1,A2),
+string_concat(A2,"%",A),		split_string(A,Find,Find,B),findall([C,Replace],(member(C,B)),D),maplist(append,[D],[E]),concat_list(E,F1),string_concat(F2,G,F1),string_length(G,Replace_l),
+	string_concat("%",F3,F2),	
+	string_concat(F,"%",F3),!.
