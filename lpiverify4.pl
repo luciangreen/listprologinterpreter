@@ -281,7 +281,7 @@ test(15,[[n,grammar1],[%"[[1],1]"
 		  ]
 		  ],
 
-		  [[n,compound213],["","",[v,t],[v,t]]],
+		  %[[n,compound213],["","",[v,t],[v,t]]],
 
 		  [[n,compound213],[[v,u],[v,u],[v,t],[v,t]]], %% swapped these
 
@@ -293,7 +293,7 @@ test(15,[[n,grammar1],[%"[[1],1]"
 		  ["[",[[n,compound21],[[v,t],[v,v]]],"]",%[[n,code],[[n,trace2]]],
 		  [[n,compound213],[[v,v],[v,u]]]]],
 
-		  [[n,compound212],["","",[v,t],[v,t]]],
+		  %[[n,compound212],["","",[v,t],[v,t]]],
 
 		  [[n,compound212],[[v,u],[v,u],[v,t],[v,t]]],
 
@@ -339,7 +339,7 @@ test(15,[[n,grammar1],[%"[[1],1]"
 		  		    %,[[n,code],[[n,cut]]]
 			]],
 
-		  [[n,number212],["","",[v,t],[v,t]]],
+		  %[[n,number212],["","",[v,t],[v,t]]],
 
 		  [[n,number212],[[v,u],[v,u],[v,t],[v,t]]],
 
@@ -379,7 +379,7 @@ test(15,[[n,grammar1],[%"[[1],1]"
 		  [[n,code],[[n,stringconcat],
 		  [[v,v],[v,numberstring],[v,u]]]]]],
 
-		  [[n,word212],["","",[v,t],[v,t]]],
+		  %[[n,word212],["","",[v,t],[v,t]]],
 
 		  [[n,word212],[[v,u],[v,u],[v,t],[v,t]]],
 
@@ -400,7 +400,7 @@ test(15,[[n,grammar1],[%"[[1],1]"
 		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]],
 
 %/*
-		  [[n,word212_atom],["","",[v,t],[v,t]]],
+		  %[[n,word212_atom],["","",[v,t],[v,t]]],
 
 		  [[n,word212_atom],[[v,u],[v,u],[v,t],[v,t]]],
 
