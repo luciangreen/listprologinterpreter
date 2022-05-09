@@ -858,6 +858,7 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
 	Body=[Statement|Statements],
 %%writeln1(["Functions0",Functions0,"Functions",Functions,"Statement",Statement,"Vars1",Vars1,"Vars3",Vars3,"Result2",Result2,"Cut",Cut]),
 	not(predicate_or_rule_name(Statement)),
+%trace,
 	interpretstatement1(_,Functions0,Functions,Statement,Vars1,Vars3,Result2,Cut),
 %%writeln1(["here1"]),
 %trace,
@@ -1465,7 +1466,7 @@ Query1=[Function,Arguments],%,Function=[Dbw_n1,Function_a],atom_string(Function_
         %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
         Function=[Dbw_v,_Function2],
         getvalue(Function,Function3,Vars1),
-        reserved_word(Function3),
+        %reserved_word(Function3),
         append([Function3],[Arguments],Arguments1),
         
 interpretstatement1(_,Functions0,_Functions,Arguments1,Vars1,Vars8,true,nocut).
