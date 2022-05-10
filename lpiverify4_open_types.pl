@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_open_types(Debug,NTotal,Score) :- test_open_types(Debug,0,NTotal,0,Score),!.
-test_open_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=24, !.
+test_open_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=31, !.
 test_open_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_open_types_cases(NTotal3,Query,Types,Modes,Functions),
@@ -682,3 +682,91 @@ test_open_types_cases(26,[[n,episode_character],[[v,a]]],
     
         ]]
 ]).
+
+% ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Pranayama 4 of 4.txt",0,algorithms,"Soma"]
+
+test_open_types_cases(27,[[n,soma],[[v,a1]]],
+        [[[n,soma],[[t,string]]]],
+        [[[n,soma],[output]]],
+
+[
+        [[n,soma],[[v,a1]],":-",
+        [        
+                [[n,writeln],["Will you spiritually drink the soma each morning to stop digestive system pops from practising the sutra?"]],
+                [[n,read_string],[[v,a1]]]
+        ]]
+]).
+
+% ["Fundamentals of Pedagogy and Pedagogy Indicators","PEDAGOGY INDICATORS by Lucian Green Fewer Stillbirths 3 of 3.txt",0,algorithms,"Fewer Stillbirths 3 of 3"]
+
+test_open_types_cases(28,[[n,fewer_stillbirths],[[v,a1]]],
+        [[[n,fewer_stillbirths],[[t,string]]]],
+        [[[n,fewer_stillbirths],[output]]],
+
+[
+        [[n,fewer_stillbirths],[[v,a1]],":-",
+        [        
+                [[n,writeln],["Will you follow the instructions and breason out at least 80 breasonings before conception to prevent stillbirth?"]],
+                [[n,read_string],[[v,a1]]]
+        ]]
+]).
+
+% ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Analysing characteristics of arguments 4 of 4.txt",0,algorithms,"[""Green, L 2021, <i>Analysing characteristics of arguments 4 of 4</i>, Lucian Academy Press, Melbourne."",""Green, L 2021"",1,""COMPUTATIONAL ENGLISH"]
+
+test_open_types_cases(29,[[n,properties_of_arguments],[[v,a1],[v,a2]]],
+        [[[n,properties_of_arguments],[[t,string],[t,string]]]],
+        [[[n,properties_of_arguments],[output,output]]],
+
+[
+        [[n,properties_of_arguments],[[v,a1],[v,a2]],":-",
+        [        
+                [[n,writeln],["What is the conclusion?"]],
+                [[n,read_string],[[v,a1]]],
+
+                [[n,writeln],["What is the reason?"]],
+                [[n,read_string],[[v,a2]]]
+        ]]
+]).
+
+% ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Meditation Teacher Sutra 1 of 4.txt",0,algorithms,"8.    I prepared to keep the positive gifts.  I did this by differentiating between apples and oranges.  First, I looked at the apple.  Second, I looked at the orange.  Third, I found differences between them.  In this way, I prepared to keep the positive gifts by differentiating between apples and oranges."]
+
+% * I prepared to keep the positive gifts.
+
+test_open_types_cases(30,[[n,keep_positive_gifts],[[v,a1]]],
+        [[[n,keep_positive_gifts],[[t,string]]]],
+        [[[n,keep_positive_gifts],[output]]],
+
+[
+        [[n,keep_positive_gifts],[[v,a1]],":-",
+        [        
+                [[n,writeln],["Do you keep the positive gifts, the apple, banana and orange?"]],
+                [[n,read_string],[[v,a1]]]
+        ]]
+]).
+
+% * I did this by differentiating between apples and oranges.
+
+test_open_types_cases(31,[[n,differentiate],[[v,a1]]],
+        [[[n,differentiate],[[t,string]]]],
+        [[[n,differentiate],[output]]],
+
+[
+        [[n,differentiate],[[v,a1]],":-",
+        [        
+                [[n,writeln],["What is the first type?"]],
+                [[n,read_string],[[v,a2]]],
+
+                [[n,writeln],["What is the second type?"]],
+                [[n,read_string],[[v,a3]]],
+                
+                [[n,"->"],[[[n,equals4],[[v,a2],[v,a3]]],
+                [[n,equals4],[[v,a1],"The first and second types are the same"]],
+                [[n,equals4],[[v,a1],"The first and second types are not the same"]]]]
+
+        ]]
+]).
+
+
+
+
+

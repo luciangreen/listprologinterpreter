@@ -1306,12 +1306,16 @@ interpretstatement1(non-ssi,Functions0,Functions,[[Dbw_n,Dbw_findall],[Variable1
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("findall",Dbw_findall1),Dbw_findall1=Dbw_findall,
 get_lang_word("v",Dbw_v),
+
 %trace,
+
+%writeln1(interpretstatement1(non-ssi,Functions0,Functions,[[Dbw_n,Dbw_findall],[Variable1,Body,Variable3]],Vars1,Vars2,true,nocut)),
 
 %%writeln1(interpretstatement1(ssi,Functions0,Functions,[[n,findall],[Variable1,Body,Variable3]],Vars1,Vars2,true,nocut)),
 %%writeln1("h1/10"),
 %%trace,%%%%****
-%%	trace,
+%%	
+trace,
 	debug_call(Skip,[[Dbw_n,Dbw_findall],[Variable1,Body,Variable3]]),
 ((
 	findall(Value3,(

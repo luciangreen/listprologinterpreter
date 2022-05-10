@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=58, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=59, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -1036,3 +1036,49 @@ test_types_cases(58,[[n,store],[["milk"],"milk"]],
 ,[[]]).
 
 
+% ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Appearances 4 of 4.txt",0,algorithms,"31.    I prepared to enter the room in the heartland.  I did this by writing the Room Essay Press Release.  First, I wrote that 250 breasonings expanded to 50 As.  Second, I wrote that a breasoned out pop song expanded to 50 As.  Third, I wrote the classical music composition contained 5 pop songs.  In this way, I prepared to enter the room in the heartland by writing the Room Essay Press Release."]
+
+% * I prepared to enter the room in the heartland.
+
+% Follows a path with directions along the paths
+
+test_types_cases(59,[[n,tour_heartland],[[1,2]]],
+
+        [[[n,tour_heartland],[[[t,list],[[t,number]]]]], % path
+        [[n,tour_heartland1],
+         [[[t,list],[[[t,list], % heartland
+         [[t,number]]]]],
+         [[t,list],[[t,number]]]]], % path
+        [[n,heartland],
+         [[[t,list],[[[t,list], % heartland
+         [[t,number]]]]]]]],
+        
+        [[[n,tour_heartland],[input]],
+        [[n,tour_heartland1],[input,input]],
+        [[n,heartland],[output]]],
+[
+
+        [[n,tour_heartland],[[v,path]],":-",
+        [
+         [[n,heartland],[[v,heartland]]],
+         [[n,tour_heartland1],[[v,heartland],[v,path]]]
+        ]],
+
+        [[n,tour_heartland1],[[v,heartland],[]]],
+        [[n,tour_heartland1],[[v,heartland],[[v,single_step]]]],
+        [[n,tour_heartland1],[[v,heartland],[v,path]],":-",
+        [
+         [[n,equals4],[[v,path],[[v,curr_step],[v,next_step],"|",[v,rest]]]],
+         [[n,member2],[[v,heartland],[v,step]]],
+         [[n,equals4],[[v,step],[[v,curr_step],"|",[v,links_to]]]],	
+         [[n,member2],[[v,links_to],[v,next_step]]],
+         [[n,equals4],[[v,next],[[v,next_step],"|",[v,rest]]]],
+         [[n,tour_heartland1],[[v,heartland],[v,next]]]
+        ]],
+
+        [[n,heartland],[[[1, % node number
+        2,3 % links to
+        ],[2,3],[3]]]]
+        
+]
+,[[]]).
