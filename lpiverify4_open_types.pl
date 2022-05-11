@@ -766,6 +766,73 @@ test_open_types_cases(31,[[n,differentiate],[[v,a1]]],
         ]]
 ]).
 
+% ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Appearances 4 of 4.txt",0,algorithms,"31.    I prepared to enter the room in the heartland.  I did this by writing the Room Essay Press Release.  First, I wrote that 250 breasonings expanded to 50 As.  Second, I wrote that a breasoned out pop song expanded to 50 As.  Third, I wrote the classical music composition contained 5 pop songs.  In this way, I prepared to enter the room in the heartland by writing the Room Essay Press Release."]
+
+% * Second, I wrote that a breasoned out pop song expanded to 50 As.
+
+test_open_types_cases(32,[[n,product],[[v,a1],[v,a2]]],
+        [[[n,product],[[t,string],[t,string]]]],
+        [[[n,product],[output,output]]],
+
+[
+        [[n,product],[[v,a1],[v,a2]],":-",
+        [        
+                [[n,writeln],["What is your product?"]],
+                [[n,read_string],[[v,a1]]],
+
+                [[n,writeln],["Do you have 50 As for it?"]],
+                [[n,read_string],[[v,a2]]]
+        ]]
+]).
+
+% * Third, I wrote the classical music composition contained 5 pop songs.
+
+test_open_types_cases(33,[[n,music_form_number],[[v,a]]],
+        [[[n,music_form_number],[[t,number]]]],
+        [[[n,music_form_number],[output]]],
+
+[
+        [[n,music_form_number],[[v,a]],":-",
+        [        
+                [[n,writeln],["How many form sections should your composition have?"]],
+                [[n,read_string],[[v,a1]]],
+                [[n,stringtonumber],[[v,a1],[v,a]]]
+        ]]
+]).
+
+% * Prevents
+
+test_open_types_cases(34,[[n,prevent],[[v,a1],[v,a2]]],
+        [[[n,prevent],[[t,string],[t,string]]]],
+        [[[n,prevent],[output,output]]],
+
+[
+        [[n,prevent],[[v,a1],[v,a2]],":-",
+        [        
+                [[n,writeln],["What will you prevent?"]],
+                [[n,read_string],[[v,a1]]],
+
+                [[n,writeln],["What will you prevent it with?"]],
+                [[n,read_string],[[v,a2]]]
+        ]]
+]).
+
+% * love
+
+test_open_types_cases(35,[[n,love],[[v,a1],[v,a2]]],
+        [[[n,love],[[t,string],[t,string]]]],
+        [[[n,love],[output,output]]],
+
+[
+        [[n,love],["y","y"],":-",
+        [        
+                [[n,writeln],["Do you love your partner? (y/n)"]],
+                [[n,read_string],["y"]],
+
+                [[n,writeln],["Do they love you? (y/n)"]],
+                [[n,read_string],["y"]]
+        ]]
+]).
 
 
 

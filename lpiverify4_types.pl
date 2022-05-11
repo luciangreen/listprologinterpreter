@@ -1082,3 +1082,51 @@ test_types_cases(59,[[n,tour_heartland],[[1,2]]],
         
 ]
 ,[[]]).
+
+% * I did this by writing the Room Essay Press Release.
+
+test_types_cases(60,[[n,find_in_room],["newspaper",[v,x],[v,y]]],
+
+        [[[n,find_in_room],[[t,string],[t,number],[t,number]]],
+        [[n,room],[[[t,list],[[[t,list],[[t,number],[t,number],[t,string]]]]]]]],
+        
+        [[[n,find_in_room],[input,output,output]],
+        [[n,room],[output]]],
+
+[
+        [[n,find_in_room],[[v,string],[v,x],[v,y]],":-",
+        [
+         [[n,room],[[v,room]]],
+         [[n,member2],[[v,room],[[v,x],[v,y],[v,string]]]]
+        ]],
+
+        [[n,_room],[
+        [
+         [1,3,""],[2,3,"newspaper"],[3,3,""],
+         [1,2,""],[2,2,""],[3,2,""],
+         [1,1,"door"],[2,1,""],[3,1,""]
+        ]
+        ]]
+     
+]
+,[[[[v,x],2],[[v,y],3]]]).
+
+        
+% * First, I wrote that 250 breasonings expanded to 50 As.
+
+test_types_cases(61,[[n,return],[250,4000,[v,return]]],
+
+        [[[n,return],[[t,number],[t,number],[t,number]]]],
+
+        [[[n,return],[input,input,output]]],
+
+[
+        [[n,return],[[v,take],[v,give],[v,return]],":-",
+        [
+         [[n,/],[[v,give],[v,take],[v,return]]]
+        ]]
+]
+,[[[[v,return],16]]]).
+
+        
+        
