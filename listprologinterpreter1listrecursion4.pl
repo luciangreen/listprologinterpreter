@@ -1140,6 +1140,7 @@ get_lang_word("member",Dbw_member1),Dbw_member1=Dbw_member,
         interpretpart(member,Variable1,Variable2,Vars1,Vars2).
 
 interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+%writeln(here),
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,
 get_lang_word("member2",Dbw_member21),Dbw_member21=Dbw_member2,
@@ -1315,7 +1316,7 @@ get_lang_word("v",Dbw_v),
 %%writeln1("h1/10"),
 %%trace,%%%%****
 %%	
-trace,
+%trace,
 	debug_call(Skip,[[Dbw_n,Dbw_findall],[Variable1,Body,Variable3]]),
 ((
 	findall(Value3,(
@@ -1468,7 +1469,9 @@ Query1=[Function,Arguments],%,Function=[Dbw_n1,Function_a],atom_string(Function_
         %%not(Function=[n,grammar]->true;Function=[n,grammar_part]), ****
 %%writeln1(["Arguments",Arguments,"Vars1",Vars1]),
         %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
-        Function=[Dbw_v,_Function2],
+        Function=[Dbw_v,Function2],
+                not(reserved_word2(Function2)),
+
         getvalue(Function,Function3,Vars1),
         %reserved_word(Function3),
         append([Function3],[Arguments],Arguments1),
@@ -1504,7 +1507,8 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         %%not(Function=[n,grammar]->true;Function=[n,grammar_part]), ****
 %%writeln1(["Arguments",Arguments,"Vars1",Vars1]),
         %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
-        (Function=[Dbw_v,_]->
+        ((Function=[Dbw_v,F_name],
+                not(reserved_word2(F_name)))->
         (append([Function],Arguments,Arguments1),
         substitutevarsA1(Arguments1,Vars1,[],Vars3,[],FirstArgs),
         Vars3=[Function1|Vars31],
@@ -1512,7 +1516,9 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         (substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs),
         %simplify(Vars32,Vars3), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
 %%writeln1([substitutevarsA1,arguments,Arguments,vars1,Vars1,vars3,Vars3,firstargs,FirstArgs]),
-        Query2=[Function,Vars3])), %% Bodyvars2?
+        Query2=[Function,Vars3]
+        %not(reserved_word2(Vars3))
+        )), %% Bodyvars2?
 %%        	debug(on)->writeln1([call,[Function,[Vars3]]]),
 %%writeln1(["Query2",Query2,"Functions0",Functions0]),
         
@@ -1550,10 +1556,6 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 
 
         
-not_reserved_word(Function,Reserved_words) :-
-	        %Function=[[_,Function_a]|_]
-	        Function=[_,Function_a],(atom(Function_a)->true;string(Function_a)),atom_string(Function_a,Function_s)
-,not(member(Function_s,Reserved_words)).
 
 interpretstatement1(non-ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
         
@@ -1572,7 +1574,8 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         %trace,
         ((Query1=[[Dbw_n,Dbw_call],[Function,Arguments]]%,        not_reserved_word(Function,Reserved_words1)
         )->true;
-(Query1=[Function,Arguments]%,Function=[Dbw_n1,Function_a],atom_string(Function_a,Function_s),
+(Query1=[Function,Arguments]
+%not(reserved_word2(Function))%,Function=[Dbw_n1,Function_a],atom_string(Function_a,Function_s),
 %,not_reserved_word(Function,Reserved_words1))
 )
 ),
@@ -1581,18 +1584,28 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         %%not(Function=[n,grammar]->true;Function=[n,grammar_part]), ****
 %%writeln1(["Arguments",Arguments,"Vars1",Vars1]),
         %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
-        (Function=[Dbw_v,_]->
+        ((Function=[Dbw_v,F_name],
+                not(reserved_word2(F_name)))->
         (%trace,
         append([Function],Arguments,Arguments1),
         %trace,
         substitutevarsA1(Arguments1,Vars1,[],Vars3,[],FirstArgs),
         Vars3=[Function1|Vars31],
-        Query2=[Function1,Vars31]);
+        Query2=[Function1,Vars31]
+        );
         (%trace,
+                        
         substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs),
+        
+        Query2=[Function,Vars3],
+        
+        Function=[Dbw_n,F_name],
+                not(reserved_word2(F_name))
         %simplify(Vars32,Vars3), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
 %writeln1([substitutevarsA1,arguments,Arguments,vars1,Vars1,vars3,Vars3,firstargs,FirstArgs]),
-        Query2=[Function,Vars3])), %% Bodyvars2?
+
+        %not(reserved_word2(Vars3))
+        )), %% Bodyvars2?
 %(Function=[n,compound213]->%true
 %trace
 %;true),
@@ -1618,23 +1631,35 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 );(
 %%writeln1(here1),
 	Vars8=[])).
+	
+	
 %%**** reverse and take first instance of each variable.
 	%%findresult3(Arguments,Vars6,[],Result2)
 %%writeln1(["FirstArgs",FirstArgs,"Result1",Result1,"Vars5",Vars5,"Vars4",Vars4]),
 %%writeln1(["Vars1:",Vars1,"Vars4:",Vars4]),
 %%		debug(on)->writeln1([exit,[Function,[Result2]]]).
 interpretstatement1(non-ssi,Functions0,_Functions,Query,Vars,Vars,true,nocut) :-
-%find_pred_sm(Reserved_words1),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 
+%find_pred_sm(Reserved_words1),
+%trace,
 	Query=[Function],
+
+        Function=[Dbw_n,F_name],
+        not(reserved_word2(F_name)),
 	%trace,
-	not(reserved_word(Function)),
+	%not(reserved_word2(Function)),
 %debug_call(Skip,[Function]),
         (interpret2(Query,Functions0,Functions0,_Result1)->
 true%debug_exit(Skip,[Function])
 ;     fail%debug_fail(Skip,[Function])
 )
 ,!.
+
+not_reserved_word(Function,Reserved_words) :-
+	        %Function=[[_,Function_a]|_]
+	        Function=[_,Function_a],(atom(Function_a)->true;string(Function_a)),atom_string(Function_a,Function_s)
+,not(member(Function_s,Reserved_words)).
 
 
 debug_react(Status,115,true) :- Status=call, 

@@ -1100,7 +1100,7 @@ test_types_cases(60,[[n,find_in_room],["newspaper",[v,x],[v,y]]],
          [[n,member2],[[v,room],[[v,x],[v,y],[v,string]]]]
         ]],
 
-        [[n,_room],[
+        [[n,room],[
         [
          [1,3,""],[2,3,"newspaper"],[3,3,""],
          [1,2,""],[2,2,""],[3,2,""],
@@ -1128,5 +1128,32 @@ test_types_cases(61,[[n,return],[250,4000,[v,return]]],
 ]
 ,[[[[v,return],16]]]).
 
-        
+% ["Mind Reading","Mr Cryptography 3.txt",0,algorithms,"51. The robot was classed disabled (rather, superabled) in human terms, so was modified to be human-like when interpreting messages following decryption."]
+
+test_types_cases(62,[[n,text2b_as_per_business_hour],[[v,brs]]],
+
+        [[[n,text2b_as_per_business_hour],[[t,number]]]],
+
+        [[[n,text2b_as_per_business_hour],[output]]],
+
+[
+        [[n,text2b_as_per_business_hour],[[v,brs]],":-",
+        [
+         [[n,*],[80,% breasonings per A
+         100, % As per week allowed in Text to Breasonings
+         [v,a1]]], % br per week
+         
+         [[n,/],[[v,a1],% br per week
+         7, % days
+         [v,a2]]], % br per day
+         
+         [[n,/],[[v,a2],% br per day
+         8, % business hours per day
+         [v,a3]]], % breasonings per hour
+         
+         [[n,ceiling],[[v,a3],[v,brs]]]
+        ]]
+]
+,[[[[v,brs],143]]]).
+
         

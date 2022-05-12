@@ -25,3 +25,4 @@
 :- include('equals4_first_args.pl').
 :- include('expression_not_var.pl').
 :- include('collect_arguments.pl').
+:- include('reserved_words2.pl').
