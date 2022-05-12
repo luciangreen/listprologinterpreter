@@ -1324,7 +1324,8 @@ get_lang_word("v",Dbw_v),
 	%%writeln1(	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],Result2)),
 
 %writeln1(	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],_Result2)),
-	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],_Result2), %% 2->1
+	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],Result2), %% 2->1
+	Result2=true,
 	%%((Result2=cut)->!;true),
 	%%trace,
 	%%(cut(on)->(%%notrace,

@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=202, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=204, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -1246,14 +1246,14 @@ test(36,[[n,associative],[1,2,3]],
 
 %% audience size
 
-test(37,[[n,length],[[1],0,[v,l]]],
+test(37,[[n,length1],[[1],0,[v,l]]],
 [
-        [[n,length],[[],[v,l],[v,l]]],
-        [[n,length],[[v,l],[v,m1],[v,n]],":-",
+        [[n,length1],[[],[v,l],[v,l]]],
+        [[n,length1],[[v,l],[v,m1],[v,n]],":-",
         [       [[n,not],[[[n,=],[[v,l],[]]]]],
                 [[n,tail],[[v,l],[v,t]]],
                 [[n,+],[[v,m1],1,[v,m2]]],
-                [[n,length],[[v,t],[v,m2],[v,n]]]
+                [[n,length1],[[v,t],[v,m2],[v,n]]]
         ]
         ]
 ],[[[[v,l], 1]]]).
@@ -4119,4 +4119,52 @@ test(202,
 [[[n,function],":-",[[[n,"->"],[[[n,true]],[[n,true]],[[n,true]]]],[[n,true]]]]],
 [[]]).
 
+test(203,
+
+%a([[n,apply_all_to_all],[["m","v"],[v,inventory4]]],%
+[[n,traverse],[2,8]],
+[
+[[n,rainforest],[[[1,9,["*"]],[2,9,["*"]],[3,9,["*"]],[4,9,["*"]],[5,9,["*"]],[6,9,["*"]],[1,8,["*"]],[2,8,["m"]],[3,8,["vine"]],[4,8,[]],[5,8,[]],[6,8,["*"]],[1,7,["*"]],[2,7,["*"]],[3,7,["*"]],[4,7,["*"]],[5,7,["*"]],[6,7,["*"]]]]],
+[[n,traverse],[[v,x],[v,y]],":-",
+[
+	[[n,traverse],[[v,x],[v,y],[],[v,a],[],[v,b]]],
+	[[n,cut]]
+]],
+[[n,traverse],[[v,x],[v,y],[v,explored],[v,explored],[v,inventory],[v,inventory]],":-",
+[
+	[[n,rainforest],[[v,map]]],
+	[[n,member2],[[v,map],[[v,x],[v,y],[v,cell]]]],
+	[[n,equals4],[[v,cell],["*"]]]
+]],
+[[n,traverse],[[v,x],[v,y],[v,explored],[v,explored],[v,inventory],[v,inventory]],":-",
+[
+	[[n,rainforest],[[v,map]]],
+	[[n,member2],[[v,map],[[v,x],[v,y],[v,cell]]]],
+	[[n,not],[[[n,equals4],[[v,cell],["*"]]]]],
+	[[n,member2],[[v,explored],[[v,x],[v,y]]]]
+]],
+[[n,traverse],[[v,x],[v,y],[v,explored1],[v,explored2],[v,inventory1],[v,inventory2]],":-",
+[
+	[[n,rainforest],[[v,map]]],
+	[[n,member2],[[v,map],[[v,x],[v,y],[v,cell]]]],
+	[[n,not],[[[n,equals4],[[v,cell],["*"]]]]],
+	[[n,writeln],[[[v,x],[v,y]]]],
+	[[n,"->"],[[[n,equals4],[[v,cell],[]]],[[n,equals4],[[v,inventory4a],[v,inventory1]]],[[[n,equals4],[[v,cell],[[v,item]]]],[[n,append],[[v,inventory1],[[v,item]],[v,inventory3]]],[[n,apply_all_to_all],[[v,inventory3],[v,inventory4]]],[[n,equals4],[[v,inventory4a],[v,inventory4]]]]]],
+	[[n,writeln],[[v,inventory4a]]],
+	[[n,"->"],[[[n,member2],[[v,inventory4a],"e"]],[[[n,writeln],["Game Over"]]],[[[n,append],[[v,explored1],[[[v,x],[v,y]]],[v,explored3]]],[[n,-],[[v,x],1,[v,xm1]]],[[n,-],[[v,y],1,[v,ym1]]],[[n,+],[[v,x],1,[v,xp1]]],[[n,+],[[v,y],1,[v,yp1]]],[[n,traverse],[[v,xm1],[v,y],[v,explored3],[v,explored4],[v,inventory4a],[v,inventory5]]],[[n,traverse],[[v,x],[v,ym1],[v,explored4],[v,explored5],[v,inventory5],[v,inventory6]]],[[n,traverse],[[v,xp1],[v,y],[v,explored5],[v,explored6],[v,inventory6],[v,inventory7]]],[[n,traverse],[[v,x],[v,yp1],[v,explored6],[v,explored2],[v,inventory7],[v,inventory2]]]]]]]
+],
+[[n,apply_all_to_all],[[v,inventory1],[v,inventory2]],":-",
+[
+	[[n,findall],[[v,item3],[[[n,member2],[[v,inventory1],[v,item1]]],[[n,member2],[[v,inventory1],[v,item2]]],[[n,not],[[[n,equals4],[[v,item1],[v,item2]]]]],[[n,apply],[[v,item1],[v,item2],[v,item3]]],[[n,not],[[[n,member2],[[v,inventory1],[v,item3]]]]]],[v,addeditems]]],
+	[[n,"->"],[[[n,equals4],[[v,addeditems],[]]],[[n,equals4],[[v,inventory1],[v,inventory2]]],[[[n,append],[[v,inventory1],[v,addeditems],[v,inventory3]]],[[n,apply_all_to_all],[[v,inventory3],[v,inventory2]]]]]]
+]],
+[[n,apply],["k","c","m"]],
+[[n,apply],["m","vine","e"]]
+],
+[[]]).
+
+test(204,
+[[n,function]],
+[[[n,function],":-",[[[n,writeln],["Hello World!"]]]]],
+[[]]).
 
