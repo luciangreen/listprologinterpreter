@@ -6,5 +6,6 @@
 ["go_to_predicates","go to predicates","en2","go to predicates"],
 ["exit_function","exit function","en2","exit function"],
 ["fail_function","fail function","en2","fail function"],
-["findall_exit_function","exit find all function","en2","exit find all function"]
+["findall_exit_function","exit find all function","en2","exit find all function"],
+["findall_fail_function","fail find all function","en2","fail find all function"]
 ]
