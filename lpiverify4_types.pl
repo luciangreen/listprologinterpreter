@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test_types(Debug,NTotal,Score) :- test_types(Debug,0,NTotal,0,Score),!.
-test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=59, !.
+test_types(_Debug,NTotal,NTotal,Score,Score) :- NTotal=63, !.
 test_types(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
@@ -1156,4 +1156,20 @@ test_types_cases(62,[[n,text2b_as_per_business_hour],[[v,brs]]],
 ]
 ,[[[[v,brs],143]]]).
 
+% ["Short Arguments","God Algorithm.txt",0,algorithms,"5. I prepared to ask why why was.  I did this by stating that I knew the result of the God algorithm was why.  First, I noticed the occurrence of the event.  Second, I read the result of the God algorithm.  Third, I worked out that the result explained the occurrence."]
         
+% * I did this by stating that I knew the result of the God algorithm was why.
+
+test_types_cases(63,[[n,each_topic],[[v,return]]],
+
+        [[[n,each_topic],[[t,number]]]],
+
+        [[[n,each_topic],[output]]],
+
+[
+        [[n,each_topic],[[v,return]],":-",
+        [
+         [[n,*],[4,4000,[v,return]]]
+        ]]
+]
+,[[[[v,return],16000]]]).
