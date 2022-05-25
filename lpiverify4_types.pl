@@ -1173,3 +1173,29 @@ test_types_cases(63,[[n,each_topic],[[v,return]]],
         ]]
 ]
 ,[[[[v,return],16000]]]).
+
+% ["Medicine","MEDICINE by Lucian Green Head of State Head Ache Prevention 4 of 4.txt",0,algorithms,"32. I prepared to observe the people like my lecturer friend and meditation student was a doctor and friend.  I did this by observing the hansard.  First, I found the hansard.  Second, I observed him listen to the politician.  Third, I observed him take notes.  In this way, I prepared to observe the people like my lecturer friend and meditation student was a doctor and friend by observing the hansard."]
+
+% * I prepared to observe the people like my lecturer friend and meditation student was a doctor and friend.
+
+test_types_cases(64,[[n,characters],["Tom",[v,characters]]],
+
+        [[[n,characters],[[t,string],[[t,list],[[t,string]]]]],
+        [[n,c],[[t,string],[t,string]]]],
+
+        [[[n,characters],[input,output]],
+        [[n,c],[input,output]]],
+
+[
+        [[n,characters],[[v,person],[v,characters]],":-",
+        [
+         [[n,findall],[[v,c],[[[n,c],[[v,person],[v,c]]]],[v,characters]]]
+        ]],
+        
+        [[n,c],["Tom","Chef"]],
+        [[n,c],["Tom","Baker"]],
+        [[n,c],["Tom","Writer"]],
+        [[n,c],["John","Writer"]]
+        
+]
+,[[[[v,characters],["Chef","Baker","Writer"]]]]).
