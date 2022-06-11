@@ -2363,7 +2363,7 @@ test(108,[[n,call1b],[[1,11,111],[v,b]]],
         %[[n,equals4_off]],
         [[n,call1b],[[v,a],[v,b]],":-",
         [       [[n,call],[[lang,same],same,[[n,member2a],[[v,a],[v,b]]],
-        [[[n,member2a],[[[t,brackets],[[t,number],[t,number],[t,number]]],[t,number]]]],
+        [[[n,member2a],[[[t,number],[t,number],[t,number]],[t,number]]]],
         [[[n,member2a],[input,output]]],
 
 [[[n,member2a],[[v,a],[v,b]],":-",

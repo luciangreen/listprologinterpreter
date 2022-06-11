@@ -55,8 +55,11 @@ data_to_types(Data1,Types1,Types2) :-
 append_list(A1,B):-
 	append_list(A1,[],B),!.
 
+%/*
+
 append_list([],A,A):-!.
 append_list(List,A,B) :-
 	List=[Item|Items],
 	append(A,Item,C),
 	append_list(Items,C,B).
+%*/

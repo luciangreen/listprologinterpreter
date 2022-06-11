@@ -47,7 +47,10 @@ interpret_1(Debug,Query,TypeStatements,ModeStatements,Functions1,Result) :-
 	retractall(types(_)),
  	assertz(types(on)),
 	retractall(typestatements(_)),
- 	assertz(typestatements(TypeStatements)),
+	
+%writeln(here1),
+	findall([A,C],(member([A,B],TypeStatements),expand_types(B,[],C)),TypeStatements1),
+ 	assertz(typestatements(TypeStatements1)),
 	retractall(modestatements(_)),
  	assertz(modestatements(ModeStatements)),
 interpret11(Debug,Query,Functions1,Result).
@@ -1538,7 +1541,9 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 
 		  (Types2a=on->(
 		  	retractall(typestatements(_)),
- 	assertz(typestatements(TypeStatements2a)),
+ 
+ 	%findall([A,C],(member([A,B],TypeStatements2a),expand_types(B,[],C)),TypeStatements2a1),
+	assertz(typestatements(TypeStatements2a)),
 	retractall(modestatements(_)),
  	assertz(modestatements(ModeStatements2a)));true),
 

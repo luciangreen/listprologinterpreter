@@ -24,31 +24,10 @@ test_open_types1(Debug,N,Passed) :-
 
 test_open_types_cases(1,[[n,true_vs_good],[[v,t],[v,g]]],
 
-[[[n,true_vs_good],
 [
-[[t,brackets],
-	[
-	[[t,brackets],[[t,number],[t,number]]],
-	[[t,brackets],[[t,number],[t,number]]],
-	[[t,brackets],[[t,number],[t,number]]],
-	[[t,brackets],[[t,number],[t,number]]],
-	[[t,brackets],[[t,number],[t,number]]],
-	[[t,brackets],[[t,number],[t,number]]]
-	]
+[[n,true_vs_good],[[[[t,number],[t,number]],[[t,number],[t,number]],[[t,number],[t,number]],[[t,number],[t,number]],[[t,number],[t,number]],[[t,number],[t,number]]],[[[t,number],[t,number]],[[t,number],[t,number]],[[t,number],[t,number]],[[t,number],[t,number]],[[t,number],[t,number]],[[t,number],[t,number]]]]],
+[[n,random1],[[t,number],[t,number],[t,number]]]
 ]
-,
-[[t,brackets],
-	[
-	[[t,brackets],[[t,number],[t,number]]],
-	[[t,brackets],[[t,number],[t,number]]],
-	[[t,brackets],[[t,number],[t,number]]],
-	[[t,brackets],[[t,number],[t,number]]],
-	[[t,brackets],[[t,number],[t,number]]],
-	[[t,brackets],[[t,number],[t,number]]]
-	]
-]]
-],
-[[n,random1],[[t,number],[t,number],[t,number]]]]
 
 ,[[[n,true_vs_good],[output,output]],
 [[n,random1],[input,input,output]]],
@@ -101,9 +80,9 @@ test_open_types_cases(1,[[n,true_vs_good],[[v,t],[v,g]]],
 
 test_open_types_cases(2,[[n,true_vs_good],[[[n,a],[1]],1,[v,g2]]],
 
-        [[[n,true_vs_good],[[[t,brackets],[[t,predicatename],
-        [[t,brackets],[[t,number]]]]],
-        [t,number],[t,number]]]],
+        [
+[[n,true_vs_good],[[[t,predicatename],[[t,number]]],[t,number],[t,number]]]
+],
         
 [[[n,true_vs_good],[input,input,output]]],
 
@@ -118,7 +97,9 @@ test_open_types_cases(2,[[n,true_vs_good],[[[n,a],[1]],1,[v,g2]]],
 ]]).
 
 test_open_types_cases(3,[[n,function],[[v,a]]],
-[[[n,function],[[[t,brackets],[[t,number]]]]]],
+[
+[[n,function],[[[t,number]]]]
+],
 [[[n,function],[output]]],
 [
         [[n,function],[[1]]]
@@ -163,7 +144,7 @@ test_open_types_cases(4,[[n,cultivate_person],[[v,a],[v,b]]],
 % Prevents rumination
 
 test_open_types_cases(5,[[n,prevent_rumination],[[]]],
-        [[[n,prevent_rumination],[[[t,list],[[t,string]]]]]],
+        [[[n,prevent_rumination],[{[t,string]}]]],
         [[[n,prevent_rumination],[input]]],
 
 [
@@ -219,17 +200,14 @@ test_open_types_cases(6,[[n,t2b_checklist],[[v,a],[v,b],[v,c]]],
 % ["Fundamentals of Pedagogy and Pedagogy Indicators","FUNDAMENTALS OF PEDAGOGY by Lucian Green Part of Room 1 of 4.txt",0,algorithms,"6. The disabilities teacher student prepared to assess a “done-up” assignment (with a short story containing 64 departmental perspectives about it) and a “seen-as” version of “A” quality written by the student. He did this by placing the bird model in the hole. First, he lifted the bird model up. Second, he walked to the hole. Third, he placed it in the hole. In this way, the disabilities teacher student prepared to assess a “done-up” assignment and a “seen-as” version of “A” quality written by the student by placing the bird model in the hole."]
 
 test_open_types_cases(7,[[n,episode_character],[[v,a]]],
-        [[[n,episode_character],[[t,loop0]]],
-        [[t,loop0],[[[t,brackets],[[t,loop1],[t,loop1],[t,loop1]%,[t,loop1]
-        ]]]],
-        [[t,loop1],[[[t,brackets],[[t,loop2],[t,loop2],[t,loop2]%,[t,loop2]
-        ]]]],
-        [[t,loop2],[[[t,brackets],[[t,loop3],[t,loop3],[t,loop3]%,[t,loop3]
-        ]]]],
-        [[t,loop3],[[[t,brackets],[[t,items],[t,items],[t,items]%,[t,items]
-        ]]]],
-        
-        [[t,items],[[t,number],[t,number],[t,number],[t,number],[t,string]]]],
+        [
+[[n,episode_character],[[t,loop0]]],
+[[t,loop0],[[[t,loop1],[t,loop1],[t,loop1]]]],
+[[t,loop1],[[[t,loop2],[t,loop2],[t,loop2]]]],
+[[t,loop2],[[[t,loop3],[t,loop3],[t,loop3]]]],
+[[t,loop3],[[[t,items],[t,items],[t,items]]]],
+[[t,items],[[t,number],[t,number],[t,number],[t,number],[t,string]]]
+],
         [[[n,episode_character],[output]]],
 
 [
@@ -609,17 +587,14 @@ test_open_types_cases(24,[[n,chinese_longevity_herbs],[[v,a1]]],
 
 
 test_open_types_cases(25,[[n,episode_character],[[v,a]]],
-        [[[n,episode_character],[[t,loop0]]],
-        [[t,loop0],[[[t,brackets],[[t,loop1],[t,loop1]%,[t,loop1],[t,loop1],[t,loop1]
-        ]]]],
-        [[t,loop1],[[[t,brackets],[[t,loop2],[t,loop2]%,[t,loop2],[t,loop2],[t,loop2]
-        ]]]],
-        [[t,loop2],[[[t,brackets],[[t,loop3],[t,loop3]%,[t,loop3],[t,loop3],[t,loop3]
-        ]]]],
-        [[t,loop3],[[[t,brackets],[[t,items],[t,items]%,[t,items],[t,items],[t,items]
-        ]]]],
-        
-        [[t,items],[[t,number],[t,number],[t,number],[t,number],[t,string]]]],
+        [
+[[n,episode_character],[[t,loop0]]],
+[[t,loop0],[[[t,loop1],[t,loop1]]]],
+[[t,loop1],[[[t,loop2],[t,loop2]]]],
+[[t,loop2],[[[t,loop3],[t,loop3]]]],
+[[t,loop3],[[[t,items],[t,items]]]],
+[[t,items],[[t,number],[t,number],[t,number],[t,number],[t,string]]]
+],
         [[[n,episode_character],[output]]],
 
 [
@@ -653,13 +628,12 @@ test_open_types_cases(25,[[n,episode_character],[[v,a]]],
 
 
 test_open_types_cases(26,[[n,episode_character],[[v,a]]],
-        [[[n,episode_character],[[t,loop0]]],
-        [[t,loop0],[[[t,brackets],[[t,loop1],[t,loop1]%,[t,loop1],[t,loop1],[t,loop1]
-        ]]]],
-        [[t,loop1],[[[t,brackets],[[t,items],[t,items]%,[t,items],[t,items],[t,items]
-        ]]]],
-        
-        [[t,items],[[t,number],[t,number],[t,string]]]],
+        [
+[[n,episode_character],[[t,loop0]]],
+[[t,loop0],[[[t,loop1],[t,loop1]]]],
+[[t,loop1],[[[t,items],[t,items]]]],
+[[t,items],[[t,number],[t,number],[t,string]]]
+],
         [[[n,episode_character],[output]]],
 
 [

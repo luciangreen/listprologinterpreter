@@ -49,7 +49,9 @@ test_types_cases(2,[[n,function],[[v,a],[v,b],[v,c]]],
 ,[[[[v,a], 1],[[v,b], "a"],[[v,c], [n,a]]]]).
 
 test_types_cases(3,[[n,function],[[v,a]]],
-[[[n,function],[[[t,brackets],[[t,number]]]]]],
+[
+[[n,function],[[[t,number]]]]
+],
 [[[n,function],[output]]],
 [
         [[n,function],[[1]]]
@@ -95,16 +97,11 @@ test_types_cases(6,[[n,f],[[v,a]]],
 test_types_cases(7,[[n,map],[[[n,add],[[[n,add],[[[n,add],[1]]]]]],0,[v,d]]],
 %test_types_cases(7,[[n,map],[1,0,[v,d]]],
 [
-        [[n,map],[[t,map1],[t,number],[t,number]]],
-        
-        [[t,map1],[[t,number]]],
-
-        [[t,map1],[[[t,brackets],[[t,predicatename],
-        [[t,brackets],[[t,map1]]]]]]],
-        
-        [[n,add],[[t,number],[t,number],[t,number]]],
-        
-        [[n,getitemn],[[t,number],[[t,list],[[t,any]]],[t,any]]]
+[[n,map],[[t,map1],[t,number],[t,number]]],
+[[t,map1],[[t,number]]],
+[[t,map1],[[[t,predicatename],[[t,map1]]]]],
+[[n,add],[[t,number],[t,number],[t,number]]],
+[[n,getitemn],[[t,number],{[t,any]},[t,any]]]
 ],
 [
         [[n,map],[input,input,output]],
@@ -151,7 +148,9 @@ test_types_cases(7,[[n,map],[[[n,add],[[[n,add],[[[n,add],[1]]]]]],0,[v,d]]],
 
 
 test_types_cases(8,[[n,f],[[v,d],[v,a],[v,c]]],
-[[[n,f],[[t,number],[[t,list],[[t,number],[t,string]]],[t,number]]]],
+[
+[[n,f],[[t,number],{[t,number],[t,string]},[t,number]]]
+],
 [[[n,f],[output,output,output]]],
 [
         [[n,f],[1,[1,"a",2,"b"],1]]
@@ -187,13 +186,15 @@ test_types_cases(10,[[n,f],["a"]],
 ,[[]]).
 
 test_types_cases(11,[[n,call1b],[[1,11,111],[v,b]]],
-        [[[n,call1b],[[[t,brackets],[[t,number],[t,number],[t,number]]],[t,number]]]],
+        [
+[[n,call1b],[[[t,number],[t,number],[t,number]],[t,number]]]
+],
         [[[n,call1b],[input,output]]],
 
 [
         [[n,call1b],[[v,a],[v,b]],":-",
         [       [[n,call],[[lang,same],same,[[n,member2a],[[v,a],[v,b]]],
-        [[[n,member2a],[[[t,brackets],[[t,number],[t,number],[t,number]]],[t,number]]]],
+        [[[n,member2a],[[[t,number],[t,number],[t,number]],[t,number]]]],
         [[[n,member2a],[input,output]]],
 
 [[[n,member2a],[[v,a],[v,b]],":-",
@@ -205,7 +206,9 @@ test_types_cases(11,[[n,call1b],[[1,11,111],[v,b]]],
 
 
 test_types_cases(12,[[n,call1b],[[1,11,111],[v,b]]],
-        [[[n,call1b],[[[t,brackets],[[t,number],[t,number],[t,number]]],[t,number]]]],
+        [
+[[n,call1b],[[[t,number],[t,number],[t,number]],[t,number]]]
+],
         [[[n,call1b],[input,output]]],
 
 [
@@ -251,11 +254,13 @@ test_types_cases(14,[[n,neuroscience],["**","***",[v,output]]],
 % ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Blue Nature 1 of 4.txt",0,algorithms,"9.     *I prepared to connect together main points from cliques.  I did this by writing on something interesting to do with the song.  First, I identified the topic.  Second, I constructed an aphohedron from all the song’s parts.  Third, I thought of interconnections between clique nodes from the randomly broken down aphohedron.  In this way, I prepared to connect together main points from cliques by writing on something interesting to do with the song."]
 
 test_types_cases(15,[[n,connect_cliques],[[["a",1],[1,2],[2,"b"]],[["a",3],[3,4],[4,"b"]],[v,output]]],
-        [[[n,connect_cliques],[[t,list2],[t,list2],[t,list2]]],
-        [[t,list2],[[[t,list],[[t,set]]]]],
-        [[t,set],[[[t,list],[[t,item]]]]],
-        [[t,item],[[t,number]]],
-        [[t,item],[[t,string]]]],
+        [
+[[n,connect_cliques],[[t,list2],[t,list2],[t,list2]]],
+[[t,list2],[{[t,set]}]],
+[[t,set],[{[t,item]}]],
+[[t,item],[[t,number]]],
+[[t,item],[[t,string]]]
+],
         [[[n,connect_cliques],[input,input,output]]],
 
 [
@@ -355,11 +360,13 @@ test_types_cases(21,[[n,memorise_point],["point",[v,memory_out]]],
 % trope chain
 
 test_types_cases(22,[[n,function],[[["a","b"],["b","c"]]]],
-        [[[n,function],[[[t,list],[[t,list2]]]]],
-        [[t,list2],[[t,string],[t,string]]],
-        [[n,reverse],[[[t,list],[[t,list2]]],[[t,list],[[t,list2]]],[[t,list],[[t,list2]]]]],
-        [[n,function2],[[[t,list],[[t,list2]]],[t,string],[t,string]]],
-        [[n,length],[[[t,list],[[t,list2]]],[t,number],[t,number]]]],
+        [
+[[n,function],[{[t,list2]}]],
+[[t,list2],[[t,string],[t,string]]],
+[[n,reverse],[{[t,list2]},{[t,list2]},{[t,list2]}]],
+[[n,function2],[{[t,list2]},[t,string],[t,string]]],
+[[n,length],[{[t,list2]},[t,number],[t,number]]]
+],
         
         [[[n,function],[input]],
         [[n,reverse],[input,input,output]],
@@ -413,11 +420,13 @@ test_types_cases(22,[[n,function],[[["a","b"],["b","c"]]]],
 % recursive types
 
 test_types_cases(23,[[n,connect_cliques],[[["a",1],[1,2],[2,"b"]],[["a",3],[3,4],[4,"b"]],[v,output]]],
-        [[[n,connect_cliques],[[t,list2],[t,list2],[t,list2]]],
-        [[t,item],[[t,number]]],
-        [[t,item],[[t,string]]],
-        [[t,list2],[[[t,list],[[t,item]]]]],
-        [[t,list2],[[[t,list],[[t,list2]]]]]],
+        [
+[[n,connect_cliques],[[t,list2],[t,list2],[t,list2]]],
+[[t,item],[[t,number]]],
+[[t,item],[[t,string]]],
+[[t,list2],[{[t,item]}]],
+[[t,list2],[{[t,list2]}]]
+],
         [[[n,connect_cliques],[input,input,output]]],
 
 [
@@ -445,8 +454,10 @@ test_types_cases(24,[[n,hand_traffic],["Australia",[v,a1]]],
 % ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Finite Data will be a Solution in Conglish 2 of 4.txt",0,algorithms,"17.    *I prepared to judge the way the other person was speaking.  I did this by watching the diareasoner identify the speech rate in her partner.  First, I counted the number of words over the time.  Second, I counted the number of minutes.  Third, I calculated the speech rate to equal the number of words divided by the number of minutes.  In this way, I prepared to judge the way the other person was speaking by watching the diareasoner identify the speech rate in her partner."]
 
 test_types_cases(25,[[n,way_of_speaking1],[["high-pitched","smiling"],[v,way]]],
-        [[[n,way_of_speaking1],[[[t,list],[[t,string]]],[[t,list],[[t,string]]]]],
-[[n,way_of_speaking],[[t,string],[t,string]]]],
+        [
+[[n,way_of_speaking1],[{[t,string]},{[t,string]}]],
+[[n,way_of_speaking],[[t,string],[t,string]]]
+],
         [[[n,way_of_speaking1],[input,output]],
         [[n,way_of_speaking],[input,output]]],
 
@@ -479,7 +490,9 @@ test_types_cases(25,[[n,way_of_speaking1],[["high-pitched","smiling"],[v,way]]],
 % choose >= 10 time units after the projectile has passed.
 
 test_types_cases(26,[[n,choose_time],[[-15,-10,-5,0,5,10,15],[v,time]]],
-        [[[n,choose_time],[[[t,list],[[t,number]]],[t,number]]]],
+        [
+[[n,choose_time],[{[t,number]},[t,number]]]
+],
         [[[n,choose_time],[input,output]]],
 
 [
@@ -494,7 +507,9 @@ test_types_cases(26,[[n,choose_time],[[-15,-10,-5,0,5,10,15],[v,time]]],
 % The sequences were the same.
 
 test_types_cases(27,[[n,same],[[1,2,3,4,5,6],[1,2,3,4,5,6]]],
-        [[[n,same],[[[t,list],[[t,number]]],[[t,list],[[t,number]]]]]],
+        [
+[[n,same],[{[t,number]},{[t,number]}]]
+],
         [[[n,same],[input,input]]],
 
 [
@@ -504,7 +519,9 @@ test_types_cases(27,[[n,same],[[1,2,3,4,5,6],[1,2,3,4,5,6]]],
 % ["Lecturer","Lecturer.txt",0,algorithms,"2. *I found what the person aimed for.  I wrote on hermeneutics.  I identified the discourse.  I grouped the topics into ideologies.  I grouped the ideas into ontologies."]
 
 test_types_cases(28,[[n,aimed],[[["bulls-eye","red"],["outer-ring","blue"]],"bulls-eye",[v,object]]],
-        [[[n,aimed],[[[t,list],[[[t,list],[[t,string],[t,string]]]]],[t,string],[t,string]]]],
+        [
+[[n,aimed],[{{[t,string],[t,string]}},[t,string],[t,string]]]
+],
         [[[n,aimed],[input,input,output]]],
 
 [
@@ -517,7 +534,9 @@ test_types_cases(28,[[n,aimed],[[["bulls-eye","red"],["outer-ring","blue"]],"bul
 % ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Analysing characteristics of arguments 1 of 4.txt",0,algorithms,"Do the premises work in all cases?"]
 
 test_types_cases(29,[[n,verify_modus_ponens],[["a",["a","b"],"b"]]],
-        [[[n,verify_modus_ponens],[[[t,brackets],[[t,string],[[t,list],[[t,string],[t,string]]],[t,string]]]]]],
+        [
+[[n,verify_modus_ponens],[[[t,string],{[t,string],[t,string]},[t,string]]]]
+],
         [[[n,verify_modus_ponens],[input]]],
 
 [
@@ -532,7 +551,9 @@ test_types_cases(29,[[n,verify_modus_ponens],[["a",["a","b"],"b"]]],
 % I prepared to work the connection out.
 
 test_types_cases(30,[[n,work_modus_ponens_out],[["a","b"],[v,mp]]],
-        [[[n,work_modus_ponens_out],[[[t,list],[[t,string]]],[[t,list],[[t,string]]]]]],
+        [
+[[n,work_modus_ponens_out],[{[t,string]},{[t,string]}]]
+],
         [[[n,work_modus_ponens_out],[input,output]]],
 
 [
@@ -545,7 +566,9 @@ test_types_cases(30,[[n,work_modus_ponens_out],[["a","b"],[v,mp]]],
 % ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Exploring opposites in Hamlet 2 of 4.txt",0,algorithms,"11.    *I prepared to experience the art forms of God (the master).  I did this by trusting God (the master).  First, I trusted the art of the master.  Second, I trusted the music of the master.  Third, I trusted the architecture of the master.  In this way, I prepared to experience the art forms of God (the master) by trusting God (the master)."]
 
 test_types_cases(31,[[n,art],[["I","ate","apple"],[v,art_form]]],
-        [[[n,art],[[[t,list],[[t,string]]],[[t,brackets],[[t,string],[[t,list],[[t,string]]]]]]]],
+        
+[[[n,art],[{[t,string]},[[t,string],{[t,string]}]]]]
+,
         [[[n,art],[input,output]]],
 
 [
@@ -560,9 +583,11 @@ test_types_cases(31,[[n,art],[["I","ate","apple"],[v,art_form]]],
 % Triangle train line
 
 test_types_cases(32,[[n,triangle_train1],["Canterbury","Bambury"]],
-        [[[n,triangle_train1],[[t,string],[t,string]]],
-        [[n,triangle_train],[[t,string],[t,string]]],
-        [[n,link],[[t,string],[t,string]]]],
+        [
+[[n,triangle_train1],[[t,string],[t,string]]],
+[[n,triangle_train],[[t,string],[t,string]]],
+[[n,link],[[t,string],[t,string]]]
+],
         [[[n,triangle_train1],[input,input]],
         [[n,triangle_train],[input,output]],
         [[n,link],[input,output]]],
@@ -587,7 +612,9 @@ test_types_cases(32,[[n,triangle_train1],["Canterbury","Bambury"]],
 
 
 test_types_cases(33,[[n,wear],[["hat","head"],[v,c]]],
-        [[[n,wear],[[[t,brackets],[[t,string],[t,string]]],[[t,brackets],[[t,string],[t,string]]]]]],
+        [
+[[n,wear],[[[t,string],[t,string]],[[t,string],[t,string]]]]
+],
         [[[n,wear],[input,output]]],
 
 [
@@ -602,7 +629,9 @@ test_types_cases(33,[[n,wear],[["hat","head"],[v,c]]],
 %% travelling 10 space units and 15 time units in the maximum jump of 1 space unit and 1 time unit takes 10 space jumps and 15 time jumps
 
 test_types_cases(34,[[n,space_time_jump],[[10,15],[v,c]]],
-        [[[n,space_time_jump],[[[t,brackets],[[t,number],[t,number]]],[[t,brackets],[[t,number],[t,number]]]]]],
+        [
+[[n,space_time_jump],[[[t,number],[t,number]],[[t,number],[t,number]]]]
+],
         [[[n,space_time_jump],[input,output]]],
 
 [
@@ -692,10 +721,11 @@ test_types_cases(39,[[n,fill_or_empty_bottle],["nothing",[v,a2]]],
 % ["Lecturer","Lecturer Culturology.txt",0,algorithms,"3. *Reverse CAW was guessing the input and output.  Culturology is good.  I applied back-translation to an algorithm.  I found that reversing the algorithm resulted in the same result as the original.  Reverse interpret was CAW."]
 
 test_types_cases(40,[[n,guess_io],["+",[v,a2],[v,a3]]],
-        [[[n,guess_io],[[t,string],[[t,list],[[t,item]]],
-        [[t,list],[[t,item]]]]],
-        [[t,item],[[t,number]]],
-        [[t,item],[[t,string]]]],
+        [
+[[n,guess_io],[[t,string],{[t,item]},{[t,item]}]],
+[[t,item],[[t,number]]],
+[[t,item],[[t,string]]]
+],
         [[[n,guess_io],[input,output,output]]],
 
 [
@@ -708,7 +738,9 @@ test_types_cases(40,[[n,guess_io],["+",[v,a2],[v,a3]]],
 % Order strings by length
 
 test_types_cases(41,[[n,order_strings],[["***","*","**"],[v,ordered_strings]]],
-        [[[n,order_strings],[[[t,list],[[t,string]]],[[t,list],[[t,string]]]]]],
+        [
+[[n,order_strings],[{[t,string]},{[t,string]}]]
+],
         [[[n,order_strings],[input,output]]],
 
 [
@@ -719,7 +751,9 @@ test_types_cases(41,[[n,order_strings],[["***","*","**"],[v,ordered_strings]]],
 %  ["Medicine","MEDICINE by Lucian Green 250 Breasonings 1 of 4.txt",0,algorithms,"5. I prepared to listen to the classical music, which had an expanse of 50 As.  I did this by listening to classical music.  First, I found the record.  Second, I played it on the gramophone.  Third, I listened to the classical music.  In this way, I prepared to listen to the classical music, which had an expanse of 50 As by listening to classical music."]
 
 test_types_cases(42,[[n,as_expanse],[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50]]],
-[[[n,as_expanse],[[[t,list],[[t,number]]]]]],
+[
+[[n,as_expanse],[{[t,number]}]]
+],
         [[[n,as_expanse],[input]]],
 [
         [[n,as_expanse],[[v,numbers]],":-",
@@ -728,9 +762,11 @@ test_types_cases(42,[[n,as_expanse],[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,
 ],[[]]).
 
 test_types_cases(43,[[n,is_classical],[[2,3,5,6,7,10,11]]],
-[[[n,is_classical],[[t,numbers]]],
+[
+[[n,is_classical],[[t,numbers]]],
 [[n,is_set1],[[t,numbers],[t,numbers]]],
-[[t,numbers],[[[t,list],[[t,number]]]]]],
+[[t,numbers],[{[t,number]}]]
+],
         [[[n,is_classical],[input]],
         [[n,is_set1],[input,input]]],
 [
@@ -746,8 +782,9 @@ test_types_cases(43,[[n,is_classical],[[2,3,5,6,7,10,11]]],
 ],[[]]).
 
 test_types_cases(44,[[n,find_record],[[[1,"a"],[2,"b"]],1,[v,r]]],
-[[[n,find_record],[[[t,list],[[[t,brackets],[[t,number],[t,string]]]]],
-	[t,number],[t,string]]]],
+[
+[[n,find_record],[{[[t,number],[t,string]]},[t,number],[t,string]]]
+],
         [[[n,find_record],[input,input,output]]],
 [
         [[n,find_record],[[v,pairs],[v,num],[v,rec]],":-",
@@ -759,8 +796,9 @@ test_types_cases(44,[[n,find_record],[[[1,"a"],[2,"b"]],1,[v,r]]],
 
 
 test_types_cases(45,[[n,play_gramophone],[[1,2,3,4,5],2,[v,p]]],
-[[[n,play_gramophone],[[[t,list],[[t,number]]],[t,number],
-[[t,list],[[t,number]]]]]],
+[
+[[n,play_gramophone],[{[t,number]},[t,number],{[t,number]}]]
+],
         [[[n,play_gramophone],[input,input,output]]],
 [
         [[n,play_gramophone],[[v,tracks],[v,first_track],[v,rest]],":-",
@@ -810,8 +848,10 @@ test_types_cases(47,[[n,greater_than],[2,1]],
 % ["Short Arguments","Rebreathsoning.txt",0,algorithms,"2. *I prepared to side with the pole.  I did this by observing meantness (sic).  First, I found the statement to be unwavering through time.  Second, I found it to be unwavering in relation to other statements.  Third, I found it to be unwavering in relation with other people."]
 
 test_types_cases(48,[[n,pole],[["a",[1,2,3]],["b",[4,5,6]],3,[v,a_or_b]]],
-[[[n,pole],[[t,pole],[t,pole],[t,number],[t,string]]],
-[[t,pole],[[t,string],[[t,list],[[t,number]]]]]],
+[
+[[n,pole],[[t,pole],[t,pole],[t,number],[t,string]]],
+[[t,pole],[[t,string],{[t,number]}]]
+],
         [[[n,pole],[input,input,input,output]]],
 [
 
@@ -831,9 +871,11 @@ test_types_cases(48,[[n,pole],[["a",[1,2,3]],["b",[4,5,6]],3,[v,a_or_b]]],
 % I did this by observing meantness (sic).
 
 test_types_cases(49,[[n,meantness],[[["a","b"],["b","c"]],["a","b","c"]]],
-[[[n,meantness],[[t,lists_string],[t,list_string]]],
-[[t,lists_string],[[[t,list],[[t,list_string]]]]],
-[[t,list_string],[[[t,list],[[t,string]]]]]],
+[
+[[n,meantness],[[t,lists_string],[t,list_string]]],
+[[t,lists_string],[{[t,list_string]}]],
+[[t,list_string],[{[t,string]}]]
+],
         [[[n,meantness],[input,input]]],
 [
 
@@ -852,9 +894,11 @@ test_types_cases(49,[[n,meantness],[[["a","b"],["b","c"]],["a","b","c"]]],
 % First, I found the statement to be unwavering through time.
 
 test_types_cases(50,[[n,unwavering],[[1,1,1,1]]],
-[[[n,unwavering],[[t,list_number]]],
-[[t,list_number],[[[t,list],[[t,number]]]]],
-[[n,1],[[t,number]]]],
+[
+[[n,unwavering],[[t,list_number]]],
+[[t,list_number],[{[t,number]}]],
+[[n,1],[[t,number]]]
+],
 
 [[[n,unwavering],[input]],
 [[n,1],[input]]],
@@ -874,10 +918,12 @@ test_types_cases(50,[[n,unwavering],[[1,1,1,1]]],
 % Second, I found it to be unwavering in relation to other statements.
 
 test_types_cases(51,[[n,unwavering_list],[[[1,1,1,1],[1,1,1,1],[1,1,1,1]]]],
-[[[n,unwavering_list],[[[t,list],[[t,list_number]]]]],
+[
+[[n,unwavering_list],[{[t,list_number]}]],
 [[n,unwavering],[[t,list_number]]],
-[[t,list_number],[[[t,list],[[t,number]]]]],
-[[n,1],[[t,number]]]],
+[[t,list_number],[{[t,number]}]],
+[[n,1],[[t,number]]]
+],
 
 [[[n,unwavering_list],[input]],
 [[n,unwavering],[input]],
@@ -907,11 +953,13 @@ test_types_cases(51,[[n,unwavering_list],[[[1,1,1,1],[1,1,1,1],[1,1,1,1]]]],
 
 test_types_cases(52,[[n,unwavering_people],%[[[[1],[1]],[[1],[1]]]]],
 [[[[[1,1,1,1],[1,1,1,1],[1,1,1,1]],[[1,1,1,1],[1,1,1,1],[1,1,1,1]]],[[[1,1,1,1],[1,1,1,1],[1,1,1,1]],[[1,1,1,1],[1,1,1,1],[1,1,1,1]]]]]],
-[[[n,unwavering_people],[[t,unwavering_people1]]],
+[
+[[n,unwavering_people],[[t,unwavering_people1]]],
 [[t,unwavering_people1],[[t,number]]],
-[[t,unwavering_people1],[[[t,list],[[t,unwavering_people1]]]]],
-[[n,unwavering],[[[t,list],[[t,number]]]]],
-[[n,1],[[t,number]]]],
+[[t,unwavering_people1],[{[t,unwavering_people1]}]],
+[[n,unwavering],[{[t,number]}]],
+[[n,1],[[t,number]]]
+],
 
 [[[n,unwavering_people],[input]],
 [[n,unwavering],[input]],
@@ -965,8 +1013,9 @@ test_types_cases(53,[[n,subsidised_accreditation],[1,30]],
 
 
 test_types_cases(54,[[n,agree_with_government],[1,["a"],[v,end]]],
-[[[n,agree_with_government],[[t,number],[[t,list],[[t,string]]],
-[[t,brackets],[[t,number],[t,string]]]]]],
+[
+[[n,agree_with_government],[[t,number],{[t,string]},[[t,number],[t,string]]]]
+],
         [[[n,agree_with_government],[input,input,output]]],
 [
 
@@ -1010,7 +1059,9 @@ test_types_cases(56,[[n,amount_earned],[2,2,[v,a]]],
 % I did this by stating that the breast *cooled and stored the milk.
 
 test_types_cases(57,[[n,cool],[[-4.1,-4,-4.2],-5,-4]],
-[[[n,cool],[[[t,list],[[t,number]]],[t,number],[t,number]]]],
+[
+[[n,cool],[{[t,number]},[t,number],[t,number]]]
+],
         [[[n,cool],[input,input,input]]],
 [
 
@@ -1027,7 +1078,9 @@ test_types_cases(57,[[n,cool],[[-4.1,-4,-4.2],-5,-4]],
 % I did this by stating that the breast cooled and *stored the milk.
 
 test_types_cases(58,[[n,store],[["milk"],"milk"]],
-[[[n,store],[[[t,list],[[t,string]]],[t,string]]]],
+[
+[[n,store],[{[t,string]},[t,string]]]
+],
         [[[n,store],[input,input]]],
 [
 
@@ -1044,14 +1097,11 @@ test_types_cases(58,[[n,store],[["milk"],"milk"]],
 
 test_types_cases(59,[[n,tour_heartland],[[1,2]]],
 
-        [[[n,tour_heartland],[[[t,list],[[t,number]]]]], % path
-        [[n,tour_heartland1],
-         [[[t,list],[[[t,list], % heartland
-         [[t,number]]]]],
-         [[t,list],[[t,number]]]]], % path
-        [[n,heartland],
-         [[[t,list],[[[t,list], % heartland
-         [[t,number]]]]]]]],
+        [
+[[n,tour_heartland],[{[t,number]}]],
+[[n,tour_heartland1],[{{[t,number]}},{[t,number]}]],
+[[n,heartland],[{{[t,number]}}]]
+],
         
         [[[n,tour_heartland],[input]],
         [[n,tour_heartland1],[input,input]],
@@ -1087,8 +1137,10 @@ test_types_cases(59,[[n,tour_heartland],[[1,2]]],
 
 test_types_cases(60,[[n,find_in_room],["newspaper",[v,x],[v,y]]],
 
-        [[[n,find_in_room],[[t,string],[t,number],[t,number]]],
-        [[n,room],[[[t,list],[[[t,list],[[t,number],[t,number],[t,string]]]]]]]],
+        [
+[[n,find_in_room],[[t,string],[t,number],[t,number]]],
+[[n,room],[{{[t,number],[t,number],[t,string]}}]]
+],
         
         [[[n,find_in_room],[input,output,output]],
         [[n,room],[output]]],
@@ -1180,8 +1232,10 @@ test_types_cases(63,[[n,each_topic],[[v,return]]],
 
 test_types_cases(64,[[n,characters],["Tom",[v,characters]]],
 
-        [[[n,characters],[[t,string],[[t,list],[[t,string]]]]],
-        [[n,c],[[t,string],[t,string]]]],
+        [
+[[n,characters],[[t,string],{[t,string]}]],
+[[n,c],[[t,string],[t,string]]]
+],
 
         [[[n,characters],[input,output]],
         [[n,c],[input,output]]],
@@ -1204,7 +1258,9 @@ test_types_cases(64,[[n,characters],["Tom",[v,characters]]],
 test_types_cases(65,
 [[n,characters],[["a",[["a"],"a"]]]],
 %[[n,characters],[[["a"],"a"]]],
-        [[[n,characters],[[[t,brackets],[[t,string],[[t,brackets],[[[t,brackets],[[t,string]]],[t,string]]]]]]]],
+        [
+[[n,characters],[[[t,string],[[[t,string]],[t,string]]]]]
+],
         %[[[n,characters],[[[t,brackets],[[[t,brackets],[[t,string]]],[t,string]]]]]],
 
         [[[n,characters],[input]]],
@@ -1218,7 +1274,9 @@ test_types_cases(65,
 test_types_cases(66,
 [[n,characters],[["a",[["a"],"a"]]]],
 %[[n,characters],[[["a"],"a"]]],
-        [[[n,characters],[[[t,list],[[t,string],[[t,list],[[[t,list],[[t,string]]],[t,string]]]]]]]],
+        [
+[[n,characters],[{[t,string],{{[t,string]},[t,string]}}]]
+],
         %[[[n,characters],[[[t,brackets],[[[t,brackets],[[t,string]]],[t,string]]]]]],
 
         [[[n,characters],[input]]],
@@ -1233,7 +1291,9 @@ test_types_cases(66,
 test_types_cases(67,
 [[n,characters],[[["a",["a"]],"a"]]],
 %[[n,characters],[[["a",["a"]]]]],
-        [[[n,characters],[[[t,brackets],[[[t,brackets],[[t,string],[[t,brackets],[[t,string]]]]],[t,string]]]]]],
+        [
+[[n,characters],[[[[t,string],[[t,string]]],[t,string]]]]
+],
                 %[[[n,characters],[[[t,brackets],[[[t,brackets],[[t,string],[[t,brackets],[[t,string]]]]]]]]]],
 
         [[[n,characters],[input]]],
@@ -1248,7 +1308,9 @@ test_types_cases(67,
 test_types_cases(68,
 [[n,characters],[[["a",["a"]],"a"]]],
 %[[n,characters],[[["a",["a"]]]]],
-        [[[n,characters],[[[t,list],[[[t,list],[[t,string],[[t,list],[[t,string]]]]],[t,string]]]]]],
+        [
+[[n,characters],[{{[t,string],{[t,string]}},[t,string]}]]
+],
                 %[[[n,characters],[[[t,brackets],[[[t,brackets],[[t,string],[[t,brackets],[[t,string]]]]]]]]]],
 
         [[[n,characters],[input]]],
