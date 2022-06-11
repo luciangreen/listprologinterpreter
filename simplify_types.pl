@@ -3,7 +3,7 @@
 /**
 
 ?- simplify_types([[[t, brackets], [[t, number]]], [t, string], [t, number]],[],T).
-T = [[1],"a",1].
+T = [[[t, number]], [t, string], [t, number]].
 
 **/
 

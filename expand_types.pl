@@ -8,14 +8,8 @@
 
 /**
 
-?- expand_types1([[1],"a",1],[],T).
+?- expand_types1([[[t, number]], [t, string], [t, number]],[],T).
 T = [[[t, brackets], [[t, number]]], [t, string], [t, number]].
-
-?- expand_types1([1,["a"],1],[],T).
-T = [[t, number], [[t, brackets], [[t, string]]], [t, number]].
-
-?- expand_types1([1,"a",[1]],[],T).
-T = [[t, number], [t, string], [[t, brackets], [[t, number]]]].
 
 **/
 
