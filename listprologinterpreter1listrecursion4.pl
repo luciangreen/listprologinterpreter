@@ -594,12 +594,14 @@ get_lang_word("list",Dbw_list),
 	Vars1=[Vars2|Vars3],
 	list1(Vars2,_,_),
 	TypeStatements1=[[[T,Dbw_list]|[TypeStatements3]]|TypeStatements4a],
-(types(on)->(debug_call(Skip,[[T,Dbw_list],TypeStatements3]));true),
+(types(on)->(%TypeStatements3=[TypeStatements32],
+simplify_types([[[T,Dbw_list]|[TypeStatements3]]],[],TypeStatements31),
+debug_call(Skip,TypeStatements31));true),
 
 	((checktypes3(Vars2,TypeStatements3,TypeStatements2,TypeStatements4))->
-		((types(on)->(debug_exit(Skip,[[T,Dbw_list],Vars2]));true),
+		((types(on)->(debug_exit(Skip,{Vars2}));true),
 		checktypes1(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4))
-;     (types(on)->(debug_fail(Skip,[[T,Dbw_list],Vars2]));true)
+;     (types(on)->(debug_fail(Skip,{Vars2}));true)
 )
 %%not(variable_name(Vars2)),
 	. %% ** in brac as well
@@ -610,23 +612,25 @@ checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
 	%%Vars1=[Vars2|Vars3],
 	%%list(Vars1,_,_),%%length(Vars1,1),
 	TypeStatements1=[[[T,Dbw_list]|[TypeStatements3]]|_TypeStatements4a],
-(types(on)->(debug_call(Skip,[[T,Dbw_list],TypeStatements3]));true),
+(types(on)->(%TypeStatements3=[TypeStatements32],
+simplify_types([[[T,Dbw_list]|[TypeStatements3]]],[],TypeStatements31),debug_call(Skip,TypeStatements31));true),
 
 	((checktypes3(Vars1,TypeStatements3,TypeStatements2,TypeStatements4))->
-		(types(on)->debug_exit(Skip,[[T,Dbw_list],Vars1]);true)
-;     (types(on)->debug_fail(Skip,[[T,Dbw_list],Vars1]);true)).
+		(types(on)->debug_exit(Skip,{Vars1});true)
+;     (types(on)->debug_fail(Skip,{Vars1});true)).
 	%%checktypes1(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4). %% ** in brac as well
 	
 
 checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
 	get_lang_word("t",T),get_lang_word("brackets",Dbw_brackets),
 	TypeStatements1=[[[T,Dbw_brackets]|[TypeStatements3]]|TypeStatements4a],
-(types(on)->debug_call(Skip,[[T,Dbw_brackets],TypeStatements3]);true),
+(types(on)->(%trace,%TypeStatements3=[TypeStatements32],
+simplify_types([[[T,Dbw_brackets]|[TypeStatements3]]],[],TypeStatements31),debug_call(Skip,TypeStatements31));true),
 	(([Vars2|Vars3]=Vars1,
 	checktypes1(Vars2,TypeStatements3,TypeStatements2,TypeStatements4))->
-		((types(on)->debug_exit(Skip,[[T,Dbw_brackets],Vars1]);true),
+		((types(on)->debug_exit(Skip,Vars1);true),
 		checktypes1(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4))
-;     (types(on)->debug_fail(Skip,[[T,Dbw_brackets],Vars1]);true))
+;     (types(on)->debug_fail(Skip,Vars1);true))
 %%not(variable_name(Vars2)),
 	,!. %% ** in brac as well
 

@@ -7,6 +7,12 @@ curly_square({C}, L) :- once(conjunction_list(C, L)).
 
 curly_head_taila(Head1,C1,C2) :-
  curly_square(Head1,[C1|C2]).
+ 
+square_to_round(A,B) :-
+ conjunction_list(B,A).
+ 
+round_to_curly(A,B) :-
+ square_to_round(C,A),curly_square(B,C).
 /*
 t_or_empty([t,_]).
 t_or_empty({[t,_]}).
