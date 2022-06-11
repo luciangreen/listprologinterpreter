@@ -188,7 +188,7 @@ For example:
 [[[n,member2a],[[v,a],[v,b]],":-",
 	[[[n,member2],[[v,a],[v,b]]]]]]]]` returns `[v,b]="a"`, where Lang may be e.g. `"en"`, etc., or `same` (meaning the same language as the parent predicate) and Debug may be `on`, `off` or `same` (meaning the same debug status as the parent predicate).
 
-* (3) `[[n,call],[[lang,Lang],Debug,[Function,Arguments],Types,Modes,Functions]]` e.g. `[[n,call],[[lang,same],same,[[n,member2a],[["a","b","c"],[v,b]]],  [[[n,member2a],[[[t,brackets],[[t,number],[t,number],[t,number]]],[t,number]]]],
+* (3) `[[n,call],[[lang,Lang],Debug,[Function,Arguments],Types,Modes,Functions]]` e.g. `[[n,call],[[lang,same],same,[[n,member2a],[["a","b","c"],[v,b]]],  [[[n,member2a],[[[t, number], [t, number], [t, number]], [t, number]]]],
         [[[n,member2a],[input,output]]],
 [[[n,member2a],[[v,a],[v,b]],":-",
         [       [[n,member2],[[v,a],[v,b]]]]
@@ -343,11 +343,11 @@ where `[v,b]="ate"`.
 ```
 test_types_cases(23,[[n,connect_cliques],[[["a",1],[1,2],[2,"b"]],[["a",3],[3,4],[4,"b"]],[v,output]]],
 [
-	[[n,connect_cliques],[[t,list2],[t,list2],[t,list2]]],
-	[[t,item],[[t,number]]],
-	[[t,item],[[t,string]]],
-	[[t,list2],[[[t,list],[[t,item]]]]],
-	[[t,list2],[[[t,list],[[t,list2]]]]]
+[[n,connect_cliques],[[t,list2],[t,list2],[t,list2]]],
+[[t,item],[[t,number]]],
+[[t,item],[[t,string]]],
+[[t,list2],[{[t,item]}]],
+[[t,list2],[{[t,list2]}]]
 ],
 	[[[n,connect_cliques],[input,input,output]]],
 	[[[n,connect_cliques],[[v,a],[v,b],[v,c]],":-",
@@ -390,7 +390,9 @@ test_types_cases(1,[[n,function],[1,1,[v,c]]],
 * The following type statement tests number and bracket types.
 ```
 test_types_cases(3,[[n,function],[[v,a]]],
-[[[n,function],[[[t,brackets],[[t,number]]]]]],
+[
+[[n,function],[[[t,number]]]]
+],
 [[[n,function],[output]]],
 [
         [[n,function],[[1]]]
@@ -446,11 +448,9 @@ test_types_cases(6,[[n,f],[[v,a]]],
 * The following type statements test any types (including multiple types).
 ```
 [
-        [[n,map],[[[t,brackets],[[t,predicatename],
-        [[t,brackets],[[t,any]]]]],
-        [t,number],[t,number]]],
+        [[n,map],[[[t, predicatename], [[t, any]]], [t, number], [t, number]]],
         
-        [[n,getitemn],[[t,number],[[t,list],[[t,any]]],[t,any]]]
+        [[n,getitemn],[[t, number], {[t, any]}, [t, any]]]
 ],
 ```
 
@@ -483,16 +483,11 @@ test_types_cases(2,[[n,function],[[v,a],[v,b],[v,c]]],
 ```
 test_types_cases(7,[[n,map],[[[n,add],[[[n,add],[[[n,add],[1]]]]]],0,[v,d]]],
 [
-        [[n,map],[[t,map1],[t,number],[t,number]]],
-        
-        [[t,map1],[[t,number]]],
-
-        [[t,map1],[[[t,brackets],[[t,predicatename],
-        [[t,brackets],[[t,map1]]]]]]],
-        
-        [[n,add],[[t,number],[t,number],[t,number]]],
-        
-        [[n,getitemn],[[t,number],[[t,list],[[t,any]]],[t,any]]]
+[[n,map],[[t,map1],[t,number],[t,number]]],
+[[t,map1],[[t,number]]],
+[[t,map1],[[[t,predicatename],[[t,map1]]]]],
+[[n,add],[[t,number],[t,number],[t,number]]],
+[[n,getitemn],[[t,number],{[t,any]},[t,any]]]
 ],
 [
         [[n,map],[input,input,output]],
