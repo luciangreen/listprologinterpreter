@@ -287,7 +287,7 @@ append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,V
 (
 Value31=Value3,
 debug_call(Skip,[[Dbw_n,Dbw_append],[variable1,variable2,Value3]]),
-        ((append(Value1A,Value2A,Value3),
+        ((append1(Value1A,Value2A,Value3),
         %val1emptyorvalsequal(Value3,Value3A),
         %trace,
         putvalue_equals4(Variable1,Value1A,Vars1,Vars3),
@@ -612,13 +612,35 @@ debug_exit(Skip,[[Dbw_n,Dbw_stringconcat],[TerminalValue1,Phrase1Value1,Phrase2V
 
 interpretpart(grammar_part,Variables1,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
-%get_lang_word("grammar_part",Dbw_grammar_part),
+get_lang_word("grammar_part",Dbw_grammar_part),
 
 	Variables1=[Terminal,Phrase1,Phrase2], %% terminal can be v or "a"
         %%terminal(Terminal),
+        
+grammar_part2(Dbw_n,Dbw_grammar_part,Terminal,Phrase1,Phrase2,Vars1,Vars2).
+
+
+grammar_part2(_Dbw_n,_Dbw_grammar_part,Terminal,Phrase1,Phrase2,Vars1,Vars2) :-
+%trace,
+((not(isvar(Terminal)),is_list(Terminal))->true;
+((not(isvar(Phrase1)),is_list(Phrase1))->true;
+((not(isvar(Phrase2)),is_list(Phrase2))))),
+
+%getvalues(Terminal,Phrase1,Phrase2,TerminalValue1,Phrase1Value1,Phrase2Value1,Vars1),
+
+interpretpart(append,Terminal,Phrase2,Phrase1,Vars1,Vars2).
+
+
+grammar_part2(Dbw_n,_Dbw_grammar_part,Terminal,Phrase1,Phrase2,Vars1,Vars2) :-
+
         getvalues2([Terminal,Phrase1,Phrase2],
         	[],[TerminalValue1,Phrase1Value1,Phrase2Value1],Vars1,[],[Flag1,Flag2,_Flag3]), %% prolog vars, list of vars, [v]=[prolog var]
         %%delete(Value1,Value2,Value3A),
+
+(string(TerminalValue1)->true;
+(string(Phrase1Value1)->true;
+(string(Phrase2Value1)))),
+        
     ((    (Terminal=[_Value]->TerminalValue2=[TerminalValue1];TerminalValue2=TerminalValue1),
 
 

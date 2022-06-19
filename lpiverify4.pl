@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=209, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=210, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -4241,3 +4241,16 @@ test(209,[[n,a],[["a","b"],"",[v,a]]],
 ],
 
 [[[[v,a],"ab"]]]).
+
+
+
+test(210,[[n,grammar1],[["apple","banana"]]],
+[
+		  [[n,grammar1],[[v,s]],":-",
+		  [
+		  			 [[n,noun],[[v,s],[]]] 
+		  ]
+		  ],
+		  
+		  [[n,noun],"->",[["apple"],["banana"]]]
+],[[]]).
