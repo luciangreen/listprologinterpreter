@@ -260,17 +260,71 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("append",Dbw_append),
         	%trace,
         %getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
-	getvalue_equals4(Variable1,Value1,Vars1),
-	getvalue_equals4(Variable2,Value2,Vars1),
-	getvalue_equals4(Variable3,_Value3,Vars1),
+	getvalue_equals4(Variable1,Value11,Vars1),
+	getvalue_equals4(Variable2,Value21,Vars1),
+	getvalue_equals4(Variable3,Value31,Vars1),
+	
+append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2).	
 
+append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+
+(isvar(Variable3),
+(
+Value11=Value1,Value21=Value2,
 debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,variable3]]),
         ((append1(Value1,Value2,Value3A),
         %val1emptyorvalsequal(Value3,Value3A),
         %trace,
-        putvalue_equals4(Variable3,Value3A,Vars1,Vars2))->
+        putvalue_equals4(Variable3,Value3A,Vars1,Vars2),%)->
       debug_exit(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,Value3A]])
-;     debug_fail(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,variable3]])),!.                        	
+%;     debug_fail(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,variable3]])
+)
+)
+)).
+
+append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+	((isvar(Variable1),isvar(Variable2)),
+(
+Value31=Value3,
+debug_call(Skip,[[Dbw_n,Dbw_append],[variable1,variable2,Value3]]),
+        ((append(Value1A,Value2A,Value3),
+        %val1emptyorvalsequal(Value3,Value3A),
+        %trace,
+        putvalue_equals4(Variable1,Value1A,Vars1,Vars3),
+        putvalue_equals4(Variable2,Value2A,Vars3,Vars2),%)->
+      debug_exit(Skip,[[Dbw_n,Dbw_append],[Value1A,Value2A,Value3]])
+%;     debug_fail(Skip,[[Dbw_n,Dbw_append],[Value1A,Value2A,variable3]]))
+%);
+)))).
+
+append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+
+(isvar(Variable1),not(isvar(Variable2))),
+(
+Value21=Value2,Value31=Value3,
+debug_call(Skip,[[Dbw_n,Dbw_append],[variable1,Value2,Value3]]),
+        ((append1(Value1A,Value2,Value3),
+        %val1emptyorvalsequal(Value3,Value3A),
+        %trace,
+        putvalue_equals4(Variable1,Value1A,Vars1,Vars2),%)->
+      debug_exit(Skip,[[Dbw_n,Dbw_append],[Value1A,Value2,Value3]])
+%;     debug_fail(Skip,[[Dbw_n,Dbw_append],[variable1,Value2,Value3]]))
+%);
+))).
+
+append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+
+(isvar(Variable2),not(isvar(Variable1))),
+(
+Value11=Value1,Value31=Value3,
+debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,variable2,Value3]]),
+        ((append1(Value1,Value2A,Value3),
+        %val1emptyorvalsequal(Value3,Value3A),
+        %trace,
+        putvalue_equals4(Variable2,Value2A,Vars1,Vars2),%)->
+      debug_exit(Skip,[[Dbw_n,Dbw_append],[Value1,Value2A,Value3]])
+%;     debug_fail(Skip,[[Dbw_n,Dbw_append],[Value1,variable2,Value3]]))
+))).                        	
 
 interpretpart(date,Year,Month,Day,Hour,Minute,Seconds,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
@@ -643,7 +697,7 @@ replace_empty_with_empty_set(	[Item11,Item21,Item31],[],[Item1,Item2,Item3]),
         ((isvalstr(Item2),Item2A=[Item2]);(not(isvalstr(Item2)),Item2A=Item2)),
         %%((isvalstr(Item3),Item3A=[Item3]);(not(isvalstr(Item3)),Item3A=Item3)),
         **/
-	append(Item1,Item2,Item3),!.
+	append(Item1,Item2,Item3).
 /**delete1(Item1,Item2,Item3) :-
 	((isvalstr(Item1),Item1A=[Item1]);(not(isvalstr(Item1)),Item1A=Item1)),
         ((isvalstr(Item2),Item2A=[Item2]);(not(isvalstr(Item2)),Item2A=Item2)),
