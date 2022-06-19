@@ -297,7 +297,7 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[variable1,variable2,Value3]]),
       debug_exit(Skip,[[Dbw_n,Dbw_append],[Value1A,Value2A,Value3]])
 %;     debug_fail(Skip,[[Dbw_n,Dbw_append],[Value1A,Value2A,variable3]]))
 %);
-)))).
+))).
 
 append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
 %writeln(3),
