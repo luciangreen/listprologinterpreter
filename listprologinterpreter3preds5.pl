@@ -266,7 +266,7 @@ get_lang_word("append",Dbw_append),
 	
 append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2).	
 
-append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+append2(Dbw_n,Dbw_append,_Variable1,_Variable2,Variable3,Value11,Value21,_Value31,Vars1,Vars2) :-
 
 (isvar(Variable3),
 (
@@ -282,7 +282,7 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,variable3]]),
 )
 )).
 
-append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+append2(Dbw_n,Dbw_append,Variable1,Variable2,_Variable3,_Value11,_Value21,Value31,Vars1,Vars2) :-
 	((isvar(Variable1),isvar(Variable2)),
 (
 Value31=Value3,
@@ -297,7 +297,7 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[variable1,variable2,Value3]]),
 %);
 )))).
 
-append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+append2(Dbw_n,Dbw_append,Variable1,Variable2,_Variable3,_Value11,Value21,Value31,Vars1,Vars2) :-
 
 (isvar(Variable1),not(isvar(Variable2))),
 (
@@ -312,7 +312,7 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[variable1,Value2,Value3]]),
 %);
 ))).
 
-append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+append2(Dbw_n,Dbw_append,Variable1,Variable2,_Variable3,Value11,_Value21,Value31,Vars1,Vars2) :-
 
 (isvar(Variable2),not(isvar(Variable1))),
 (
