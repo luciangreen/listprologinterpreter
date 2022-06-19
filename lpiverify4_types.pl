@@ -1320,3 +1320,19 @@ test_types_cases(68,
  
 ]
 ,[[]]).
+
+test_types_cases(69,
+[[n,characters],[[a]]],
+%[[n,characters],[[["a"],"a"]]],
+        [
+[[n,characters],[{[t,atom]}]]
+],
+        %[[[n,characters],[[[t,brackets],[[[t,brackets],[[t,string]]],[t,string]]]]]],
+
+        [[[n,characters],[input]]],
+
+[
+        [[n,characters],[[v,person]]]
+ 
+]
+,[[]]).

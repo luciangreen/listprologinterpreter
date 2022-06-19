@@ -21,6 +21,12 @@ get_lang_word("string",Dbw_string),
 Data=[T,Dbw_string],
 	%string(Data),
 	append(Types1,[[T,Dbw_string]],Types2),!.
+simplify_types(Data,Types1,Types2) :-
+get_lang_word("t",T),
+get_lang_word("atom",Dbw_atom),
+Data=[T,Dbw_atom],
+	%string(Data),
+	append(Types1,[[T,Dbw_atom]],Types2),!.
 simplify_types(Data1,Types1,Types2) :-
 get_lang_word("t",T),
 get_lang_word("brackets",Dbw_brackets),

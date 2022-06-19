@@ -4244,7 +4244,7 @@ test(209,[[n,a],[["a","b"],"",[v,a]]],
 
 
 
-test(210,[[n,grammar1],[["apple","banana"]]],
+test(210,[[n,grammar1],[[apple,banana]]],
 [
 		  [[n,grammar1],[[v,s]],":-",
 		  [
@@ -4252,5 +4252,5 @@ test(210,[[n,grammar1],[["apple","banana"]]],
 		  ]
 		  ],
 		  
-		  [[n,noun],"->",[["apple"],["banana"]]]
+		  [[n,noun],"->",[[apple,banana]]]
 ],[[]]).

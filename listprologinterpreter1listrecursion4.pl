@@ -658,6 +658,15 @@ TypeStatements1=[T,Dbw_number],
 	((number(Vars))->
 		(types(on)->debug_exit(Skip,[[T,Dbw_number],Vars]);true)
 ;     (types(on)->debug_fail(Skip,[[T,Dbw_number],Vars]);true)).
+checktypes2(Vars,TypeStatements1,_TypeStatements2,_C) :-
+	get_lang_word("t",T),get_lang_word("atom",Dbw_atom),
+
+%%writeln(checktypes2(Vars,TypeStatements1,_TypeStatements2,C)),
+TypeStatements1=[T,Dbw_atom],
+(types(on)->debug_call(Skip,[[T,Dbw_atom],Vars]);true),
+	((atom(Vars))->
+		(types(on)->debug_exit(Skip,[[T,Dbw_atom],Vars]);true)
+;     (types(on)->debug_fail(Skip,[[T,Dbw_atom],Vars]);true)).
 checktypes2(Vars,TypeStatements1,_TypeStatements2,_) :-
 	get_lang_word("t",T),get_lang_word("predicatename",Dbw_predicatename),
 	get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
