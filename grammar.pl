@@ -273,14 +273,15 @@ variables(Variables1) :-
 terminal([]) :- !.
 terminal(Item1) :-
 	not(code(Item1)),
-	([Item2]=Item1->true;Item2=Item1),
-
-findall(y,(member(Item3,Item1),		(variable_name(Item3)->true;
-(string(Item3)->true;
-(number(Item3)->true;
-(atom(Item3)))))),Item4),
+	((not(variable_name(Item1)),is_list(Item1))->(findall(y,(member(Item3,Item1),		terminal2(Item3)),Item4),
 length(Item1,L),
-length(Item4,L),!.
+length(Item4,L));terminal2(Item1)),
+!.
+terminal2(Item):-(variable_name(Item)->true;
+(string(Item)->true;
+(number(Item)->true;
+(atom(Item))))).
+
 code(Item) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("code",Dbw_code),

@@ -268,7 +268,7 @@ append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,V
 
 append2(Dbw_n,Dbw_append,_Variable1,_Variable2,Variable3,Value11,Value21,_Value31,Vars1,Vars2) :-
 
-(isvar(Variable3),
+(contains_var(Variable3),
 (
 Value11=Value1,Value21=Value2,
 debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,variable3]]),
@@ -283,7 +283,7 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,variable3]]),
 )).
 
 append2(Dbw_n,Dbw_append,Variable1,Variable2,_Variable3,_Value11,_Value21,Value31,Vars1,Vars2) :-
-	((isvar(Variable1),isvar(Variable2)),
+	((contains_var(Variable1),contains_var(Variable2)),
 (
 Value31=Value3,
 debug_call(Skip,[[Dbw_n,Dbw_append],[variable1,variable2,Value3]]),
@@ -299,7 +299,7 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[variable1,variable2,Value3]]),
 
 append2(Dbw_n,Dbw_append,Variable1,Variable2,_Variable3,_Value11,Value21,Value31,Vars1,Vars2) :-
 
-(isvar(Variable1),not(isvar(Variable2))),
+(contains_var(Variable1),not(contains_var(Variable2))),
 (
 Value21=Value2,Value31=Value3,
 debug_call(Skip,[[Dbw_n,Dbw_append],[variable1,Value2,Value3]]),
@@ -314,7 +314,7 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[variable1,Value2,Value3]]),
 
 append2(Dbw_n,Dbw_append,Variable1,Variable2,_Variable3,Value11,_Value21,Value31,Vars1,Vars2) :-
 
-(isvar(Variable2),not(isvar(Variable1))),
+(contains_var(Variable2),not(contains_var(Variable1))),
 (
 Value11=Value1,Value31=Value3,
 debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,variable2,Value3]]),
@@ -513,7 +513,7 @@ interpretpart(atom_string,Variable1,Variable2,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("atom_string",Dbw_atom_string),
        getvalues(Variable1,Variable2,Value1,Value2,Vars1),
-        (isvar(Variable1)->
+        (contains_var(Variable1)->
         (debug_call(Skip,[[Dbw_n,Dbw_atom_string],[variable,Value2]]),
 	((string(Value2),
    atom_string(Value1A,Value2),
@@ -622,9 +622,9 @@ grammar_part2(Dbw_n,Dbw_grammar_part,Terminal,Phrase1,Phrase2,Vars1,Vars2).
 
 grammar_part2(_Dbw_n,_Dbw_grammar_part,Terminal,Phrase1,Phrase2,Vars1,Vars2) :-
 %trace,
-((not(isvar(Terminal)),is_list(Terminal))->true;
-((not(isvar(Phrase1)),is_list(Phrase1))->true;
-((not(isvar(Phrase2)),is_list(Phrase2))))),
+((not(contains_var(Terminal)),is_list(Terminal))->true;
+((not(contains_var(Phrase1)),is_list(Phrase1))->true;
+((not(contains_var(Phrase2)),is_list(Phrase2))))),
 
 %getvalues(Terminal,Phrase1,Phrase2,TerminalValue1,Phrase1Value1,Phrase2Value1,Vars1),
 

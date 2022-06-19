@@ -138,3 +138,11 @@ recursive_collect_arguments(Statement,Arguments1,Arguments2) :-
 	recursive_collect_arguments(Statement2,Arguments3,Arguments2).
 %recursive_collect_arguments(Statement,Arguments1,Arguments2) :-
 	%variable_name(Statement)->
+	
+	contains_var([]) :- fail.
+contains_var(Statement) :-
+	
+(isvar(Statement)->true;	(Statement=[Statement1|Statement2],
+	(variable_name(Statement1)->true;
+	(contains_var(Statement1)->true;
+	contains_var(Statement2))))).
