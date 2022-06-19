@@ -322,7 +322,8 @@ call_or_terminal(Item) :-
 getvalues2([],Values,Values,_Vars,Flags,Flags) :- !.
 getvalues2(VarNames1,Values1,Values2,Vars,Flags1,Flags2) :-
 	VarNames1=[VarName1|VarNames2],
-	(VarName1=[VarName2]->Flag1=true;VarName2=VarName1),
+%trace,
+	((isvar(VarName1),VarName1=[VarName2])->Flag1=true;VarName2=VarName1),
 	getvalue(VarName2,Value1,Vars),
 	(Value1=empty->Flag2=true;(Value2=Value1,Flag2=false)),
 	(Flag1=true->Value3=[Value2];Value3=Value2),
