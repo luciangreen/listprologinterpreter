@@ -266,9 +266,9 @@ get_lang_word("append",Dbw_append),
 	
 append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2).	
 
-append2(Dbw_n,Dbw_append,_Variable1,_Variable2,Variable3,Value11,Value21,_Value31,Vars1,Vars2) :-
-
-(contains_var(Variable3),
+append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,_Value31,Vars1,Vars2) :-
+%writeln(1),
+(contains_var(Variable3),not(contains_var(Variable1)),not(contains_var(Variable2)),
 (
 Value11=Value1,Value21=Value2,
 debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,variable3]]),
@@ -282,8 +282,9 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,variable3]]),
 )
 )).
 
-append2(Dbw_n,Dbw_append,Variable1,Variable2,_Variable3,_Value11,_Value21,Value31,Vars1,Vars2) :-
-	((contains_var(Variable1),contains_var(Variable2)),
+append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,_Value11,_Value21,Value31,Vars1,Vars2) :-
+%writeln(2),
+	((contains_var(Variable1),contains_var(Variable2)),not(contains_var(Variable3)),
 (
 Value31=Value3,
 debug_call(Skip,[[Dbw_n,Dbw_append],[variable1,variable2,Value3]]),
@@ -297,9 +298,9 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[variable1,variable2,Value3]]),
 %);
 )))).
 
-append2(Dbw_n,Dbw_append,Variable1,Variable2,_Variable3,_Value11,Value21,Value31,Vars1,Vars2) :-
-
-(contains_var(Variable1),not(contains_var(Variable2))),
+append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,_Value11,Value21,Value31,Vars1,Vars2) :-
+%writeln(3),
+(contains_var(Variable1),not(contains_var(Variable2))),not(contains_var(Variable3)),
 (
 Value21=Value2,Value31=Value3,
 debug_call(Skip,[[Dbw_n,Dbw_append],[variable1,Value2,Value3]]),
@@ -312,9 +313,9 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[variable1,Value2,Value3]]),
 %);
 ))).
 
-append2(Dbw_n,Dbw_append,Variable1,Variable2,_Variable3,Value11,_Value21,Value31,Vars1,Vars2) :-
-
-(contains_var(Variable2),not(contains_var(Variable1))),
+append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,_Value21,Value31,Vars1,Vars2) :-
+%writeln(4),
+(contains_var(Variable2),not(contains_var(Variable1))),not(contains_var(Variable3)),
 (
 Value11=Value1,Value31=Value3,
 debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,variable2,Value3]]),
@@ -323,6 +324,21 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,variable2,Value3]]),
         %trace,
         putvalue_equals4(Variable2,Value2A,Vars1,Vars2),%)->
       debug_exit(Skip,[[Dbw_n,Dbw_append],[Value1,Value2A,Value3]])
+%;     debug_fail(Skip,[[Dbw_n,Dbw_append],[Value1,variable2,Value3]]))
+))).                        	
+
+append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+%writeln(5),
+(not(contains_var(Variable2)),not(contains_var(Variable1))),not(contains_var(Variable3)),
+(
+Value11=Value1,Value21=Value2,Value31=Value3,
+debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,Value3]]),
+        ((append1(Value1,Value2,Value3),
+        %val1emptyorvalsequal(Value3,Value3A),
+        %trace,
+        Vars1=Vars2,
+        %putvalue_equals4(Variable2,Value2A,Vars1,Vars2),%)->
+      debug_exit(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,Value3]])
 %;     debug_fail(Skip,[[Dbw_n,Dbw_append],[Value1,variable2,Value3]]))
 ))).                        	
 
@@ -709,8 +725,7 @@ replace_empty_with_empty_set(	[Item11,Item21,Item31],[],[Item1,Item2,Item3]),
 maplist(expression,[Item1,Item2,Item3]),
 	string_concat(Item1,Item2,Item3),!.
 
-append1([],Item,Item) :-
-	!.
+%append1([],Item,Item).
 append1(Item11,Item21,Item31) :-
 	
 replace_empty_with_empty_set(	[Item11,Item21,Item31],[],[Item1,Item2,Item3]),
@@ -726,12 +741,12 @@ replace_empty_with_empty_set(	[Item11,Item21,Item31],[],[Item1,Item2,Item3]),
         %%((isvalstr(Item3),Item3A=[Item3]);(not(isvalstr(Item3)),Item3A=Item3)),
 	delete(Item1A,Item2A,Item3).
 **/
-replace_empty_with_empty_set([],A,A) :-!.
+replace_empty_with_empty_set([],A,A).
 replace_empty_with_empty_set(A,B,C) :-
 	A=[Item1|Items],
 	(var(Item1)->Item2=Item1;(Item1=empty->Item2=[];Item2=Item1)),
 	append(B,[Item2],D),
-	replace_empty_with_empty_set(Items,D,C),!.
+	replace_empty_with_empty_set(Items,D,C).
 removebrackets([[Value]],Value) :-!.
 removebrackets(Value,Value).
 
