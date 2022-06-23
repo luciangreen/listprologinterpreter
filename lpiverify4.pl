@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=212, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=214, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -4279,3 +4279,23 @@ test(212,[[n,grammar1],[[apple,banana,carrot]]],
 		  
 		  [[n,noun],"->",[[apple,banana],[carrot]]]
 ],[[]]).
+
+
+test(213,[[n,reverse],[[1,2,3],[],[v,a]]],
+[
+[[n,reverse],[[],[v,a],[v,a]]],
+[[n,reverse],[[[v,a],"|",[v,d]],[v,b],[v,c]],":-",
+[
+	[[n,reverse],[[v,d],[[v,a],"|",[v,b]],[v,c]]]
+]]
+],[[[[v,a],[3,2,1]]]]).
+
+
+test(214,[[n,append],[[1,2,3],[],[v,a]]],
+[
+[[n,append],[[],[v,a],[v,a]]],
+[[n,append],[[[v,a],"|",[v,d]],[v,b],[[v,a],"|",[v,c]]],":-",
+[
+	[[n,append],[[v,d],[v,b],[v,c]]]
+]]
+],[[[[v,a],[1,2,3]]]]).
