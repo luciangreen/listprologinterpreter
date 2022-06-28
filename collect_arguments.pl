@@ -139,14 +139,60 @@ recursive_collect_arguments(Statement,Arguments1,Arguments2) :-
 %recursive_collect_arguments(Statement,Arguments1,Arguments2) :-
 	%variable_name(Statement)->
 	
-/*	contains_var([]) :- fail.
-contains_var(Statement) :-
+%/*
+occurs_check(Variable1,Variables2) :-
+%trace,
+ (occurs_check(on)->
+ ((Variable1=Variables2->true;
+ (occurs_check2([Variable1],[Variables2])->fail;true)));
+ true).
+
+ 
+
+	contains_var(_,[]) :- fail.
 	
-(isvar(Statement)->true;	(Statement=[Statement1|Statement2],
-	(variable_name(Statement1)->true;
-	(contains_var(Statement1)->true;
-	contains_var(Statement2))))).
+contains_var(Var,Statement) :-
+	
+(Var=Statement->true;	(Statement=[Statement1|Statement2],
+	(Var=Statement1->true;
+	(contains_var(Var,Statement1)->true;
+	contains_var(Var,Statement2))))).
+%*/
+
+% if a=b(a) then fail
+	occurs_check2([],[]) :- true.
+
+occurs_check2(Variables1,Variables2) :-
+
+(Variables1=Variables2->fail;
+
+/*
+((variable_name(Variables1),
+not(variable_name(Variables2)),
+contains_var(Variables1,Variables2))->true;
+
+(variable_name(Variables2),
+not(variable_name(Variables1)),
+contains_var(Variables2,Variables1)))),
 */
+	((Variables1=[Statement1a|Statement2a],
+Variables2=[Statement1b|Statement2b]),
+	(Statement1a=Statement1b->fail;
+	
+((variable_name(Statement1a),
+not(variable_name(Statement1b)),
+contains_var(Statement1a,Statement1b))->true;
+
+((variable_name(Statement1b),
+not(variable_name(Statement1a)),
+contains_var(Statement1b,Statement1a))->true;
+
+	
+	occurs_check2(Statement1a,Statement1b)))),
+	occurs_check2(Statement2a,Statement2b))).
+
+
+
 
 contains_empty([]) :- fail.
 contains_empty(Statement) :-

@@ -4299,3 +4299,14 @@ test(214,[[n,append1],[[1,2,3],[],[v,a]]],
 	[[n,append1],[[v,d],[v,b],[v,c]]]
 ]]
 ],[[[[v,a],[1,2,3]]]]).
+
+% passes with occurs_check(on).
+/*
+test(215,[[n,function1],[[v,a]]],
+[
+        [[n,function1],[[[v,a]]],":-",
+        [
+        	[[n,true]]]]
+]
+,[]).
+*/

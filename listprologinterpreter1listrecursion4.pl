@@ -21,6 +21,8 @@
 :- dynamic number_of_current_text/1.
 :- dynamic html_api_maker_or_terminal/1.
 
+:- dynamic occurs_check/1.
+
 /** List Prolog Interpreter **/
 
 interpret(Debug,Query,Functions1,Result) :-
@@ -121,9 +123,12 @@ interpret1(Debug,Query,Functions1,Functions2,Result) :-
  	assertz(sys(1)),
 	(not(equals4(_Equals4))->(retractall(equals4(_)),assertz(equals4(on)));true),%equals4(Equals4)),
 	%trace,
-	(not(save_debug(_))->(retractall(save_debug(_)),assertz(save_debug(off)));true),
+	(not(save_debug(_))->(retractall(save_debug(_)),assertz(save_debug(off)));true),	  	
 
-	  	retractall(retry_back(_)),
+	(not(occurs_check(_))->(retractall(occurs_check(_)),assertz(occurs_check(off)));true),
+
+
+retractall(retry_back(_)),
 	  	retractall(retry_back_stack(_)),
 	  	retractall(retry_back_stack_n(_)),
 	  	retractall(cumulative_or_current_text(_)),
@@ -403,7 +408,10 @@ findall(FA6,(member([_,FA6],FirstArgs2),expression_not_var(FA6)),FA7),append(FA5
 !.
 
 checkarguments1(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2) :-
-	%trace,
+%trace,
+%writeln1(checkarguments1(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2)),
+occurs_check(Variable1,Variable2),
+%notrace,	%trace,
 	replace_vars(Variable1,[],Variable1a,[],First_vars1),
 	%writeln1(replace_vars(Variable1,[],Variable1a,[],First_vars1)),
 

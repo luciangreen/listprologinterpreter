@@ -916,6 +916,8 @@ match4_220(Variable1,Variable2,Vars1,Vars6) :-
 
 match4_222(Variable1,Variable2,Vars1,Vars2) :-
 %trace,
+occurs_check(Variable1,Variable2),
+%notrace,
 	match4_221(Variable1,Variable2,Vars1,Vars3),
 	findall([V,Val2],(member([V,Val1],Vars3),
 	simplify(Val1,Val2)),Vars2),
@@ -934,6 +936,7 @@ match4_10(Variable1,Variable2,Vars1,Vars2) :-
 	not(variable_name(Variable2)),
 	is_list(Variable2),
 	%%findall(Value2,(member(A,Variable2),getvalue(A,Value2,Vars1)),X),
+
 	getvalue_match(Variable2,X,Vars1),
 	
 %%trace,
@@ -960,6 +963,7 @@ match4(Variable1,Variable2,Vars1,Vars2) :-
 	getvalue(Variable2,Value2,Vars1),
 	not(variable_name(Variable1)),
 	is_list(Variable1),
+
 	%%findall(Value1,(
 	
 	%%interpretpart(match4,Variable1,[v,sys1],Vars1,Vars3,_),
@@ -971,11 +975,13 @@ match4(Variable1,Variable2,Vars1,Vars2) :-
 	val1emptyorvalsequal(Value2,X),
 	putvalue(Variable2,X,Vars1,Vars2),
 	length(Variable1,L),length(X,L),!.
+	
 match4(Variable1,Variable2,Vars1,Vars2) :-
 	variable_name(Variable1),
 	getvalue(Variable1,Value1,Vars1),
 	not(variable_name(Variable2)),
 	is_list(Variable2),
+
 	%%findall(Value2,(member(A,Variable2),getvalue(A,Value2,Vars1)),X),
 	getvalue_match(Variable2,X,Vars1),
 	val1emptyorvalsequal(Value1,X),
