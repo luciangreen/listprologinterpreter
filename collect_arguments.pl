@@ -201,3 +201,6 @@ contains_empty(Statement) :-
 	(isempty(Statement1)->true;
 	(contains_empty(Statement1)->true;
 	contains_empty(Statement2))))).
+	
+	length_is_list(A,B) :-
+ is_list(A),length(A,B),!.

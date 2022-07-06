@@ -1813,6 +1813,9 @@ simplify([A,"|",B],C)	:-
 	C=[A1,"|",B1]),!.
 simplify([A|B],[A1|B1])	:-
 	simplify(A,A1),
+
+%(not(is_list(B))->trace;true),
+%is_list(B),not(variable_name(B)),
 	simplify(B,B1),!.
 	
 	
@@ -1987,7 +1990,7 @@ expression([]) :-
 	!.
 expression(N) :-
 	not(atom(N)),
-	length(N,L),L>=1,
+	length_is_list(N,L),L>=1,
 	expression2(N).
 expression2([]).
 expression2([N|Ns]) :-

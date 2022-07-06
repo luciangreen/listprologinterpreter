@@ -974,7 +974,7 @@ match4(Variable1,Variable2,Vars1,Vars2) :-
 	%%),X),
 	val1emptyorvalsequal(Value2,X),
 	putvalue(Variable2,X,Vars1,Vars2),
-	length(Variable1,L),length(X,L),!.
+	length_is_list(Variable1,L),length_is_list(X,L),!.
 	
 match4(Variable1,Variable2,Vars1,Vars2) :-
 	variable_name(Variable1),
@@ -986,7 +986,7 @@ match4(Variable1,Variable2,Vars1,Vars2) :-
 	getvalue_match(Variable2,X,Vars1),
 	val1emptyorvalsequal(Value1,X),
 	putvalue(Variable1,X,Vars1,Vars2),
-	length(Variable2,L),length(X,L),!.
+	length_is_list(Variable2,L),length_is_list(X,L),!.
 
 
 match4(Variable1,Variable2,Vars1,Vars2) :-
