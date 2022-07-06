@@ -266,7 +266,7 @@ get_lang_word("append",Dbw_append),
 	
 append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2).	
 
-append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+append2(Dbw_n,Dbw_append,_Variable1,_Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
 %writeln(1),
 (contains_empty(Value31),not(contains_empty(Value11)),not(contains_empty(Value21))),
 (
@@ -282,7 +282,7 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,variable3]]),
 )
 ).
 
-append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+append2(Dbw_n,Dbw_append,Variable1,Variable2,_Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
 %writeln(2),
 %trace,
 	(contains_empty(Value11),contains_empty(Value21),not(contains_empty(Value31))),
@@ -299,7 +299,7 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[variable1,variable2,Value3]]),
 %);
 ))).
 
-append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+append2(Dbw_n,Dbw_append,Variable1,_Variable2,_Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
 %writeln(3),
 (contains_empty(Value11),not(contains_empty(Value21)),not(contains_empty(Value31))),
 (
@@ -328,7 +328,7 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,variable2,Value3]]),
 %;     debug_fail(Skip,[[Dbw_n,Dbw_append],[Value1,variable2,Value3]]))
 ))).                        	
 
-append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+append2(Dbw_n,Dbw_append,_Variable1,_Variable2,_Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
 %writeln(5),
 (not(contains_empty(Value21)),not(contains_empty(Value11)),not(contains_empty(Value31))),
 (
