@@ -4313,3 +4313,16 @@ test(215,[[n,function1],[[v,a]]],
 
 test(215,[[n,findall],[[[v,a],[v,b]],[[n,append],[[v,a],[v,b],[1,2,3]]],[v,c]]],
 [],[[[[v,a],empty],[[v,b],empty],[[v,c],[[[],[1,2,3]],[[1],[2,3]],[[1,2],[3]],[[1,2,3],[]]]]]]).
+
+/*
+% cut deletes cp data back to and including pred id call
+
+test(216,[[n,count],[1,[v,n]]],
+[
+        [[n,count],[1,[v,a]],":-",[[[n,member2],[[2,3],[v,a]]],[[n,cut]],[[n,fail]]]],
+        [[n,count],[1,3],":-",[[[n,cut]]]]
+
+        
+] ,[[[[v,n], 2]]]).
+
+*/
