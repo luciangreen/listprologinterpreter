@@ -29,3 +29,4 @@
 :- include('collect_arguments.pl').
 :- include('reserved_words2.pl').
 :- include('expand_types.pl').
+:- include('replace_in_term.pl').

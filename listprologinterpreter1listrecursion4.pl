@@ -1186,14 +1186,14 @@ get_lang_word("delete",Dbw_delete1),Dbw_delete1=Dbw_delete,
         interpretpart(delete,Variable1,Variable2,Variable3,Vars1,Vars2).
 %%** all in form f,[1,1,etc], including + with 0,1
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_append],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
+interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_append],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("append",Dbw_append1),Dbw_append1=Dbw_append,
 %%writeln1(9),
         interpretpart(append,Variable1,Variable2,Variable3,Vars1,Vars2).
 
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_stringconcat],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
+interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_stringconcat],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("stringconcat",Dbw_stringconcat1),Dbw_stringconcat1=Dbw_stringconcat,
         interpretpart(stringconcat,Variable1,Variable2,Variable3,Vars1,Vars2).

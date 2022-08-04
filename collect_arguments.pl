@@ -204,3 +204,5 @@ contains_empty(Statement) :-
 	
 	length_is_list(A,B) :-
  is_list(A),length(A,B),!.
+ 
+

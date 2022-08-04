@@ -343,6 +343,101 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,Value3]]),
 %;     debug_fail(Skip,[[Dbw_n,Dbw_append],[Value1,variable2,Value3]]))
 ))).                        	
 
+
+
+
+
+interpretpart(stringconcat,Variable1,Variable2,Variable3,Vars1,Vars2) :-
+%trace,
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("stringconcat",Dbw_stringconcat),
+        	%trace,
+        %getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
+	getvalue_equals4(Variable1,Value11,Vars1),
+	getvalue_equals4(Variable2,Value21,Vars1),
+	getvalue_equals4(Variable3,Value31,Vars1),
+	
+stringconcat2(Dbw_n,Dbw_stringconcat,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2).	
+
+stringconcat2(Dbw_n,Dbw_stringconcat,_Variable1,_Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+%writeln(1),
+(contains_empty(Value31),not(contains_empty(Value11)),not(contains_empty(Value21))),
+(
+Value11=Value1,Value21=Value2,
+debug_call(Skip,[[Dbw_n,Dbw_stringconcat],[Value1,Value2,variable3]]),
+        ((string_concat(Value1,Value2,Value3A),
+        %val1emptyorvalsequal(Value3,Value3A),
+        %trace,
+        putvalue_equals4(Variable3,Value3A,Vars1,Vars2),%)->
+      debug_exit(Skip,[[Dbw_n,Dbw_stringconcat],[Value1,Value2,Value3A]])
+%;     debug_fail(Skip,[[Dbw_n,Dbw_stringconcat],[Value1,Value2,variable3]])
+)
+)
+).
+
+stringconcat2(Dbw_n,Dbw_stringconcat,Variable1,Variable2,_Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+%writeln(2),
+%trace,
+	(contains_empty(Value11),contains_empty(Value21),not(contains_empty(Value31))),
+(
+Value31=Value3,
+debug_call(Skip,[[Dbw_n,Dbw_stringconcat],[variable1,variable2,Value3]]),
+        ((string_concat(Value1A,Value2A,Value3),
+        %val1emptyorvalsequal(Value3,Value3A),
+        %trace,
+        putvalue_equals4(Variable1,Value1A,Vars1,Vars3),
+        putvalue_equals4(Variable2,Value2A,Vars3,Vars2),%)->
+      debug_exit(Skip,[[Dbw_n,Dbw_stringconcat],[Value1A,Value2A,Value3]])
+%;     debug_fail(Skip,[[Dbw_n,Dbw_stringconcat],[Value1A,Value2A,variable3]]))
+%);
+))).
+
+stringconcat2(Dbw_n,Dbw_stringconcat,Variable1,_Variable2,_Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+%writeln(3),
+(contains_empty(Value11),not(contains_empty(Value21)),not(contains_empty(Value31))),
+(
+Value21=Value2,Value31=Value3,
+debug_call(Skip,[[Dbw_n,Dbw_stringconcat],[variable1,Value2,Value3]]),
+        ((string_concat(Value1A,Value2,Value3),
+        %val1emptyorvalsequal(Value3,Value3A),
+        %trace,
+        putvalue_equals4(Variable1,Value1A,Vars1,Vars2),%)->
+      debug_exit(Skip,[[Dbw_n,Dbw_stringconcat],[Value1A,Value2,Value3]])
+%;     debug_fail(Skip,[[Dbw_n,Dbw_stringconcat],[variable1,Value2,Value3]]))
+%);
+))).
+
+stringconcat2(Dbw_n,Dbw_stringconcat,_Variable1,Variable2,_Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+%writeln(4),
+(contains_empty(Value21),not(contains_empty(Value11)),not(contains_empty(Value31))),
+(
+Value11=Value1,Value31=Value3,
+debug_call(Skip,[[Dbw_n,Dbw_stringconcat],[Value1,variable2,Value3]]),
+        ((string_concat(Value1,Value2A,Value3),
+        %val1emptyorvalsequal(Value3,Value3A),
+        %trace,
+        putvalue_equals4(Variable2,Value2A,Vars1,Vars2),%)->
+      debug_exit(Skip,[[Dbw_n,Dbw_stringconcat],[Value1,Value2A,Value3]])
+%;     debug_fail(Skip,[[Dbw_n,Dbw_stringconcat],[Value1,variable2,Value3]]))
+))).                        	
+
+stringconcat2(Dbw_n,Dbw_stringconcat,_Variable1,_Variable2,_Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+%writeln(5),
+(not(contains_empty(Value21)),not(contains_empty(Value11)),not(contains_empty(Value31))),
+(
+Value11=Value1,Value21=Value2,Value31=Value3,
+debug_call(Skip,[[Dbw_n,Dbw_stringconcat],[Value1,Value2,Value3]]),
+        ((string_concat(Value1,Value2,Value3),
+        %val1emptyorvalsequal(Value3,Value3A),
+        %trace,
+        Vars1=Vars2,
+        %putvalue_equals4(Variable2,Value2A,Vars1,Vars2),%)->
+      debug_exit(Skip,[[Dbw_n,Dbw_stringconcat],[Value1,Value2,Value3]])
+%;     debug_fail(Skip,[[Dbw_n,Dbw_stringconcat],[Value1,variable2,Value3]]))
+))).                        	
+
+
+
 interpretpart(date,Year,Month,Day,Hour,Minute,Seconds,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("date",Dbw_date),
@@ -595,6 +690,7 @@ debug_call(Skip,[[Dbw_n,Dbw_stringconcat],[variable1,variable2,Value2]]),
 ).%,!.
 **/
 
+/*
 interpretpart(stringconcat,Terminal,Phrase2,Phrase1,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("stringconcat",Dbw_stringconcat),
@@ -625,7 +721,7 @@ debug_exit(Skip,[[Dbw_n,Dbw_stringconcat],[TerminalValue1,Phrase1Value1,Phrase2V
         	debug_fail(Skip,[[Dbw_n,Dbw_stringconcat],[variable1,variable2,variable3]])
         	)).%!.
 
-        	
+        */	
 
 interpretpart(grammar_part,Variables1,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
