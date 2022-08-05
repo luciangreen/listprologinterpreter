@@ -4421,7 +4421,7 @@ test(216,
 [[n,apply],["k","c","m"]],
 [[n,apply],["m","vine","e"]]
 ],
-[[]]
+[]
 %[[[[v,inventory4],["k","c","m","vine","e"]]]]
 ).
 
