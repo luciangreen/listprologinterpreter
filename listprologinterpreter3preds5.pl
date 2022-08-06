@@ -111,12 +111,51 @@ debug_call(Skip,[[Dbw_n,Dbw_member],[Value1,Value2]]),
 interpretpart(member2,Variable1,Variable2,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("member2",Dbw_member2),
+%trace,
         getvalues_equals4(Variable1,Variable2,Value1,Value2,Vars1),
-	((%Value2=empty,
+
+
+	matrix_member(Matrix),findall(X,(member(Y,[Value1,Value2]),(contains_var(empty,Y)->X=o;X=i)),Z),
+foldr(atom_concat,Z,'',W),(member(W,Matrix)->true;(writeln([incorrect,member2,modes,W]),abort)),
+
+((W=ii->true;W=io)->	((%Value2=empty,
 	((member(Value2a,Value1),
 	debug_call(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2]]),
 	putvalue_equals4(Variable2,Value2a,Vars1,Vars2)))),
-      debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2a]])).
+      debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2a]]));
+      
+      
+      
+
+(W=oi,%trace,	
+%replace_in_term([Value2,],_%'$VAR'(_)
+%        ,empty,Value1A1),
+             command_n_sols(N),
+%trace,
+%writeln(Value2),
+	findnsols(N,Value1A1,(member(Value2,Value1A),
+        
+        %Value1A=[Value3A2|Value3A3],
+        %ValueIA1=[Value3A2,"|",Value3A3],
+        	        	
+        replace_in_term(Value1A,_%'$VAR'(_)
+        ,empty,Value1A2),
+        
+        convert_to_lp_pipe(Value1A2,Value1A1)
+        )
+        ,ValueA),!,
+        
+        
+        %val1emptyorvalsequal(Value3,Value3A),
+        %trace,
+        %Vars1=Vars2,
+        member(Value1a,ValueA),
+        putvalue_equals4(Variable1,Value1a,Vars1,Vars2),
+        
+        
+        	debug_call(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2]]),
+      debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value1a,Value2]])))     
+      .
 %%;     %%debug_fail(Skip,[[n,member2],[Value1,Value2]])),!.
 %%		((debug(on)->(writeln1([fail,[[n,member2],[Value1,value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail))))).
 
@@ -260,6 +299,7 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("append",Dbw_append),
         	%trace,
         %getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
+%trace,
 	getvalue_equals4(Variable1,Value11,Vars1),
 	getvalue_equals4(Variable2,Value21,Vars1),
 	getvalue_equals4(Variable3,Value31,Vars1),
@@ -340,6 +380,63 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,Value3]]),
         Vars1=Vars2,
         %putvalue_equals4(Variable2,Value2A,Vars1,Vars2),%)->
       debug_exit(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,Value3]])
+%;     debug_fail(Skip,[[Dbw_n,Dbw_append],[Value1,variable2,Value3]]))
+))).                        	
+
+%oio
+append2(Dbw_n,Dbw_append,Variable1,_Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+%writeln(5),
+%trace,
+(contains_empty(Value11),not(contains_empty(Value21)),contains_empty(Value31)),
+(
+%trace,
+%Value11=Value1,
+Value21=Value2,%Value31=Value3,
+debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,Value3]]),
+command_n_sols(N),
+%trace,
+        ((findnsols(N,[Value1A1,Value3A1],(append1(Value1A,Value2,Value3A),
+        replace_in_term(Value1A,_%'$VAR'(_)
+        ,empty,Value1A1),
+        replace_in_term(Value3A,_%'$VAR'(_)
+        ,empty,Value3A1))
+        ,ValueA),!,
+        %val1emptyorvalsequal(Value3,Value3A),
+        %trace,
+        %Vars1=Vars2,
+        member([Value1A,Value3A],ValueA),
+        putvalue_equals4(Variable1,Value1A,Vars1,Vars3),%)->
+        putvalue_equals4(Variable3,Value3A,Vars3,Vars2),%)->
+        
+        %putvalue_equals4(Variable2,Value2A,Vars1,Vars2),%)->
+      debug_exit(Skip,[[Dbw_n,Dbw_append],[Value1A,Value2,Value3A]])
+%;     debug_fail(Skip,[[Dbw_n,Dbw_append],[Value1,variable2,Value3]]))
+))).                        	
+
+%ioo
+append2(Dbw_n,Dbw_append,Variable1,_Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+%writeln(5),
+(not(contains_empty(Value11)),contains_empty(Value21),contains_empty(Value31)),
+(
+%trace,
+%Value11=Value1,
+Value11=Value1,%Value31=Value3,
+debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value21,Value31]]),
+%command_n_sols(N),
+        ((%findnsols(N,[Value1A,Value3A],
+        append1(Value1,_Value2A,Value3A),%ValueA),
+        replace_in_term(Value3A,_%'$VAR'(_)
+        ,empty,Value3A1),
+        Value3A1=[Value3A2|Value3A3],
+        Value3A4=[Value3A2,"|",Value3A3],
+        %val1emptyorvalsequal(Value3,Value3A),
+        %trace,
+        %Vars1=Vars2,
+        %member([Value1A,Value3A],ValueA),
+        putvalue_equals4(Variable3,Value3A4,Vars1,Vars2),%)->
+        
+        %putvalue_equals4(Variable2,Value2A,Vars1,Vars2),%)->
+      debug_exit(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,Value3A4]])
 %;     debug_fail(Skip,[[Dbw_n,Dbw_append],[Value1,variable2,Value3]]))
 ))).                        	
 

@@ -1,4 +1,4 @@
-/*
+%/*
 match1(A,B) :-
  (var(A)->A1=empty1;A1=A),
  (var(B)->B1=empty1;B1=B),
@@ -22,4 +22,4 @@ replace_empty_with_undefined(Values,Values_u) :-
 	findall(Values_u1,(member(Value,Values),replace_in_term(Value,empty,_,Values_u1)),Values_u),!.
 replace_undefined_with_empty(Values,Values_e) :-
 	findall(Values_e1,(member(Value,Values),replace_in_term(Value,_,empty,Values_e1)),Values_e),!.
-*/
+%*/

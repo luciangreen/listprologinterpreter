@@ -23,6 +23,8 @@
 
 :- dynamic occurs_check/1.
 
+command_n_sols(10).
+
 /** List Prolog Interpreter **/
 
 interpret(Debug,Query,Functions1,Result) :-
