@@ -1,3 +1,4 @@
+convert_to_lp_pipe(empty,empty) :- !.
 convert_to_lp_pipe(Value1A,Value1A) :-
  foldr(append,[Value1A],[],_).
 
@@ -20,5 +21,5 @@ oii,
 oio,
 ooi]).
 
-matrix_member([ii,oi,io]).
+matrix_member([ii,oi,io,oo]).
 	

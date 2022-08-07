@@ -154,7 +154,43 @@ foldr(atom_concat,Z,'',W),(member(W,Matrix)->true;(writeln([incorrect,member2,mo
         
         
         	debug_call(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2]]),
-      debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value1a,Value2]])))     
+      debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value1a,Value2]]));
+      
+      
+(W=oo->%**** change this
+
+
+(command_n_sols(N),
+	%findall([Vars2b,[Value1a,Value3a],Value1a,Value3a],(
+	findnsols(N,%[Value1A2,
+	Value2A2%]
+	,(member(Value1A,Value2A),
+        %replace_in_term(Value1A,_%'$VAR'(_)
+        %,empty,Value1A1),
+        replace_in_term(Value2A,_%'$VAR'(_)
+        ,empty,Value2A1),
+        
+        %convert_to_lp_pipe(Value1A1,Value1A2),
+        convert_to_lp_pipe(Value2A1,Value2A2)
+        )
+        ,ValueA),!,
+        %val1emptyorvalsequal(Value3,Value3A),
+        %trace,
+        %Vars1=Vars2,
+        member(%[Value1a,
+        Value2a%]
+        ,ValueA),
+        %putvalue_equals4(Variable1,Value1a,Vars1,Vars3),%)->
+        putvalue_equals4(Variable2,Value2a,Vars1,Vars2)
+	,%,Vars2a),Vars2a=[[Vars2,_,Value1a,Value3a]|Vars2d],
+		%findall([Vars2e,Vals2g],member([Vars2e,Vals2g,_,_],Vars2d),Vars2c1),
+		
+					%Vars2c=[[Dbw_n,Dbw_member2],[Value1,Value3],_,_,%,%Value2a
+			%_,_,%[Value1,Value2a]
+			%Vars2c1],
+        	 debug_call(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2]]),
+
+      debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2a]]))))           
       .
 %%;     %%debug_fail(Skip,[[n,member2],[Value1,Value2]])),!.
 %%		((debug(on)->(writeln1([fail,[[n,member2],[Value1,value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail))))).
@@ -354,7 +390,7 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[variable1,Value2,Value3]]),
 %);
 ))).
 
-append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+append2(Dbw_n,Dbw_append,_Variable1,Variable2,_Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
 %writeln(4),
 (contains_empty(Value21),not(contains_empty(Value11)),not(contains_empty(Value31))),
 (
@@ -392,7 +428,7 @@ append2(Dbw_n,Dbw_append,Variable1,_Variable2,Variable3,Value11,Value21,Value31,
 %trace,
 %Value11=Value1,
 Value21=Value2,%Value31=Value3,
-debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,Value3]]),
+debug_call(Skip,[[Dbw_n,Dbw_append],[_Value1,Value2,_Value3]]),
 command_n_sols(N),
 %trace,
         ((findnsols(N,[Value1A1,Value3A1],(append1(Value1A,Value2,Value3A),
@@ -414,13 +450,14 @@ command_n_sols(N),
 ))).                        	
 
 %ioo
-append2(Dbw_n,Dbw_append,Variable1,_Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+append2(Dbw_n,Dbw_append,_Variable1,_Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
 %writeln(5),
 (not(contains_empty(Value11)),contains_empty(Value21),contains_empty(Value31)),
 (
 %trace,
 %Value11=Value1,
 Value11=Value1,%Value31=Value3,
+Value21=Value2,
 debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value21,Value31]]),
 %command_n_sols(N),
         ((%findnsols(N,[Value1A,Value3A],
