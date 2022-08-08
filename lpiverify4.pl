@@ -4176,8 +4176,8 @@ test(203,
 	[[n,writeln],[[[v,x],[v,y]]]],
 	[[n,"->"],[[[n,equals4],[[v,cell],[]]],[[n,equals4],[[v,inventory4a],[v,inventory1]]],[[[n,equals4],[[v,cell],[[v,item]]]],[[n,append],[[v,inventory1],[[v,item]],[v,inventory3]]],[[n,apply_all_to_all],[[v,inventory3],[v,inventory4]]],[[n,equals4],[[v,inventory4a],[v,inventory4]]]]]],
 	[[n,writeln],[[v,inventory4a]]],
-	[[n,"->"],[[[n,member2],[[v,inventory4a],"e"]],[[[n,writeln],["Game Over"]]%[[n,equals4],[[v,explored1],[v,explored2]]],[[n,equals4],[[v,inventory2],[v,inventory4a]]]
-	,[[n,cut]]%
+	[[n,"->"],[[[n,member2],[[v,inventory4a],"e"]],[[[n,writeln],["Game Over"]],[[n,equals4],[[v,explored1],[v,explored2]]],[[n,equals4],[[v,inventory2],[v,inventory4a]]]
+	%,[[n,cut]]%
 	%,[[n,trace]]
 	],[[[n,append],[[v,explored1],[[[v,x],[v,y]]],[v,explored3]]],[[n,-],[[v,x],1,[v,xm1]]],[[n,-],[[v,y],1,[v,ym1]]],[[n,+],[[v,x],1,[v,xp1]]],[[n,+],[[v,y],1,[v,yp1]]],[[n,traverse],[[v,xm1],[v,y],[v,explored3],[v,explored4],[v,inventory4a],[v,inventory5]]],[[n,traverse],[[v,x],[v,ym1],[v,explored4],[v,explored5],[v,inventory5],[v,inventory6]]],[[n,traverse],[[v,xp1],[v,y],[v,explored5],[v,explored6],[v,inventory6],[v,inventory7]]],[[n,traverse],[[v,x],[v,yp1],[v,explored6],[v,explored2],[v,inventory7],[v,inventory2]]]]]]]]]]
 ],
@@ -4189,7 +4189,7 @@ test(203,
 [[n,apply],["k","c","m"]],
 [[n,apply],["m","vine","e"]]
 ],
-[]).
+[[]]).
 
 test(204,
 [[n,function]],
@@ -4412,7 +4412,7 @@ test(216,
 	[[n,writeln],[[[v,x],[v,y]]]],
 	[[n,"->"],[[[n,equals4],[[v,cell],[]]],[[n,equals4],[[v,inventory4a],[v,inventory1]]],[[[n,equals4],[[v,cell],[[v,item]]]],[[n,append],[[v,inventory1],[[v,item]],[v,inventory3]]],[[n,apply_all_to_all],[[v,inventory3],[v,inventory4]]],[[n,equals4],[[v,inventory4a],[v,inventory4]]]]]],
 	[[n,writeln],[[v,inventory4a]]],
-	[[n,"->"],[[[n,member2],[[v,inventory4a],"e"]],[[[n,writeln],["Game Over"]],[[n,equals4],[[v,explored1],[v,explored2]]],[[n,equals4],[[v,inventory2],[v,inventory4a]]],[[n,cut]]%,[[n,trace]]
+	[[n,"->"],[[[n,member2],[[v,inventory4a],"e"]],[[[n,writeln],["Game Over"]],[[n,equals4],[[v,explored1],[v,explored2]]],[[n,equals4],[[v,inventory2],[v,inventory4a]]]%,[[n,cut]]%,[[n,trace]]
 	],[[[n,append],[[v,explored1],[[[v,x],[v,y]]],[v,explored3]]],[[n,-],[[v,x],1,[v,xm1]]],[[n,-],[[v,y],1,[v,ym1]]],[[n,+],[[v,x],1,[v,xp1]]],[[n,+],[[v,y],1,[v,yp1]]],[[n,traverse],[[v,xm1],[v,y],[v,explored3],[v,explored4],[v,inventory4a],[v,inventory5]]],[[n,traverse],[[v,x],[v,ym1],[v,explored4],[v,explored5],[v,inventory5],[v,inventory6]]],[[n,traverse],[[v,xp1],[v,y],[v,explored5],[v,explored6],[v,inventory6],[v,inventory7]]],[[n,traverse],[[v,x],[v,yp1],[v,explored6],[v,explored2],[v,inventory7],[v,inventory2]]]]]]]]]]
 ],
 [[n,apply_all_to_all],[[v,inventory1],[v,inventory2]],":-",
@@ -4423,7 +4423,7 @@ test(216,
 [[n,apply],["k","c","m"]],
 [[n,apply],["m","vine","e"]]
 ],
-[]
+[[]]
 %[[[[v,inventory4],["k","c","m","vine","e"]]]]
 ).
 
@@ -4518,7 +4518,7 @@ test(217,
 [[n,apply],["k","c","m"]],
 [[n,apply],["m","vine","e"]]
 ],
-[]
+[[]]
 %[[[[v,inventory4],["k","c","m","vine","e"]]]]
 ).
 
