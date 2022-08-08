@@ -4612,3 +4612,7 @@ test(234,[[n,member2],[["a","b"],[v,a]]],
 test(235,[[n,findall],[[[v,a],[v,b]],[[n,member2],[[v,a],[v,b]]],[v,d]]],
 [],
 [[[[v,a],empty],[[v,b],empty],[[v,d],[[empty,[empty,"|",empty]],[empty,[empty,empty,"|",empty]],[empty,[empty,empty,empty,"|",empty]],[empty,[empty,empty,empty,empty,"|",empty]],[empty,[empty,empty,empty,empty,empty,"|",empty]],[empty,[empty,empty,empty,empty,empty,empty,"|",empty]],[empty,[empty,empty,empty,empty,empty,empty,empty,"|",empty]],[empty,[empty,empty,empty,empty,empty,empty,empty,empty,"|",empty]],[empty,[empty,empty,empty,empty,empty,empty,empty,empty,empty,"|",empty]],[empty,[empty,empty,empty,empty,empty,empty,empty,empty,empty,empty,"|",empty]]]]]]).
+
+test(236,[[n,findall],[[[v,a],[v,b],[v,c]],[[n,append],[[v,a],["a"],[[v,b],"|",[v,c]]]],[v,d]]],
+[],
+[[[[v,a],empty],[[v,b],empty],[[v,c],empty],[[v,d],[[[],"a",[]],[[empty],empty,["a"]],[[empty,empty],empty,[empty,"a"]],[[empty,empty,empty],empty,[empty,empty,"a"]],[[empty,empty,empty,empty],empty,[empty,empty,empty,"a"]],[[empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,"a"]],[[empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,"a"]],[[empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,"a"]],[[empty,empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,"a"]],[[empty,empty,empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,empty,"a"]]]]]]).
