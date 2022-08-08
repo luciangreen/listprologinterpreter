@@ -4368,7 +4368,7 @@ test(216,
 [
 	[[n,"->"],
 	[
-		[[n,traverse],[[v,x],[v,y],[],[v,'_'],[],[v,'_'],"n",[v,'_']]],
+		[[n,traverse],[[v,x],[v,y],[],[v,c],[],[v,a],"n",[v,b]]],
 
 		[
 		[[n,true]]
@@ -4377,8 +4377,8 @@ test(216,
 		[
 		[[n,false]]
 		]
-	]],
-	[[n,cut]]
+	]]%,
+	%[[n,cut]]
 ]],
 [[n,traverse],[[v,'_x'],[v,'_y'],[v,explored],[v,explored],[v,inventory],[v,inventory],[v,e],[v,e]],":-",
 [
@@ -4386,11 +4386,11 @@ test(216,
 	[
 		[[n,equals4],[[v,e],"e"]],
 
-		[[n,cut]],
+		[[n,true]],
 
 		[[n,fail]]
 	]]%,
-	[[n,cut]]
+	%[[n,cut]]
 ]],
 [[n,traverse],[[v,x],[v,y],[v,explored1],[v,explored2],[v,inventory1],[v,inventory2],[v,e1],[v,e2]],":-",
 [
@@ -4449,7 +4449,8 @@ test(216,
 			[[n,writeln],["Game Over"]],
 			[[n,equals4],[[v,explored1],[v,explored2]]],
 			[[n,equals4],[[v,inventory2],[v,inventory4a]]],
-			[[n,=],[[v,e2],["e"]]]
+			[[n,=],[[v,e2],"e"]]%,
+			,[[n,trace]]
 			]
 			],
 
