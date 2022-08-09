@@ -31,3 +31,4 @@
 :- include('expand_types.pl').
 :- include('replace_in_term.pl').
 :- include('preds_converters_and_matrices.pl').
+:- include('numbers_of_items_correspond.pl').

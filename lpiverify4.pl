@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=235, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=240, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -20,7 +20,7 @@ test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 test1(Debug,N,Passed) :-
 	test(N,Query,Functions,Result),
 	((international_interpret([lang,"en"],Debug,Query,Functions,Result1),
-	%writeln1([result1,Result1]),
+	writeln1([result1,Result1]),
 	Result=Result1
 	)->(Passed=passed,writeln0([test,N,passed]));(Passed=failed,writeln0([test,N,failed]))),!.
 
@@ -3797,8 +3797,10 @@ test(174,[[n,function1],[[v,e],[v,c],[v,a],[v,c],[v,a]]],
 ,[[[[v, a], 1], [[v, c], 1], [[v, e], 1]]]).
 
 test(175,[[n,equals4],
-	[[[[v,e1],[v,e2]]	,[v,c],[v,a],[v,c],[v,a],[v,e1]],
-	[[v,d]          ,[v,d],[[1,1],[1,1]],[v,b],[v,b],[[v,f],[v,f2]]]]],
+	[
+	[[[v,e1],[v,e2]]	,[v,c],[v,a],[v,c],[v,a],[v,e1]],
+	[[v,d],[v,d],[[1,1],[1,1]],[v,b],[v,b],[[v,f],[v,f2]]]
+	]],
 [],
 [[[[v,a],[[1,1],[1,1]]],[[v,b],[[1,1],[1,1]]],[[v,c],[[1,1],[1,1]]],[[v,d],[[1,1],[1,1]]],[[v,e1],[1,1]],[[v,e2],[1,1]],[[v,f],1],[[v,f2],1]]]).
 
@@ -4892,3 +4894,19 @@ test(235,[[n,findall],[[[v,a],[v,b]],[[n,member2],[[v,a],[v,b]]],[v,d]]],
 test(236,[[n,findall],[[[v,a],[v,b],[v,c]],[[n,append],[[v,a],["a"],[[v,b],"|",[v,c]]]],[v,d]]],
 [],
 [[[[v,a],empty],[[v,b],empty],[[v,c],empty],[[v,d],[[[],"a",[]],[[empty],empty,["a"]],[[empty,empty],empty,[empty,"a"]],[[empty,empty,empty],empty,[empty,empty,"a"]],[[empty,empty,empty,empty],empty,[empty,empty,empty,"a"]],[[empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,"a"]],[[empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,"a"]],[[empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,"a"]],[[empty,empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,"a"]],[[empty,empty,empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,empty,"a"]]]]]]).
+
+test(237,[[n,findall],[[[v,a],[v,b],[v,c]],[[n,append],[[v,a],["b",[v,b]],[v,c]]],[v,d]]],
+[],
+[[[[v,a],empty],[[v,b],empty],[[v,c],empty],[[v,d],[[[],empty,["b",empty]],[[empty],empty,[empty,"b",empty]],[[empty,empty],empty,[empty,empty,"b",empty]],[[empty,empty,empty],empty,[empty,empty,empty,"b",empty]],[[empty,empty,empty,empty],empty,[empty,empty,empty,empty,"b",empty]],[[empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,"b",empty]],[[empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,"b",empty]],[[empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,"b",empty]],[[empty,empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,empty,"b",empty]],[[empty,empty,empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,empty,empty,"b",empty]]]]]]).
+
+test(238,[[n,findall],[[[v,a],[v,b],[v,c]],[[n,append],[[v,a],[v,b],[v,c]]],[v,d]]],
+[],
+[[[[v,a],empty],[[v,b],empty],[[v,c],empty],[[v,d],[[[],empty,empty],[[empty],empty,[empty,"|",empty]],[[empty,empty],empty,[empty,empty,"|",empty]],[[empty,empty,empty],empty,[empty,empty,empty,"|",empty]],[[empty,empty,empty,empty],empty,[empty,empty,empty,empty,"|",empty]],[[empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,"|",empty]],[[empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,"|",empty]],[[empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,"|",empty]],[[empty,empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,empty,"|",empty]],[[empty,empty,empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,empty,empty,"|",empty]]]]]]).
+
+test(239,[[n,append],[[v,a],["b",[v,b]],[[v,c]]]],
+[],
+[]).
+
+test(240,[[n,append],[[v,a],["b"],[[v,c]]]],
+[],
+[[[[v,a],[]],[[v,c],"b"]]]).

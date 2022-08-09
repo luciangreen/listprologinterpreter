@@ -477,9 +477,50 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value21,Value31]]),
 %;     debug_fail(Skip,[[Dbw_n,Dbw_append],[Value1,variable2,Value3]]))
 ))).                        	
 
+%ooo
+append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+%writeln(5),
+(contains_empty(Value11),contains_empty(Value21),contains_empty(Value31)),
+(
+%trace,
+%Value11=Value1,
+Value11=Value1,Value31=Value3,
+Value21=Value2,
+debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value2,Value3]]),
+command_n_sols(N),
+replace_in_term(Value2,empty,%'$VAR'(_)
+        _,Value22),
+        ((findnsols(N,[Value1A1,Value3A1],
+(
+        append1(Value1A,Value22,Value3A),
+        replace_in_term(Value1A,_%'$VAR'(_)
+        ,empty,Value1A2),
+        %replace_in_term(Value2A,_%'$VAR'(_)
+        %,empty,Value2A1),
+        replace_in_term(Value3A,_%'$VAR'(_)
+        ,empty,Value3A2),
+        convert_to_lp_pipe(Value1A2,Value1A1),
+        %convert_to_lp_pipe(Value2A2,Value2A1),
+        convert_to_lp_pipe(Value3A2,Value3A1)),ValueA),!,
+        member([Value1a,Value3a],ValueA),
+
+        %Value1A1=Value1a,
+        %Value3A1=Value3a,
+        %trace,
+        putvalue_equals4(Variable1,Value1a,Vars1,Vars3b),%)->
+        %putvalue_equals4(Variable2,Value2a,Vars3b,Vars3),%)->
+        %trace,
+        putvalue_equals4(Variable3,Value3a,Vars3b,Vars2),
+        
+      debug_exit(Skip,[[Dbw_n,Dbw_append],[Value1a,Value2,Value3a]]))
+%;     debug_fail(Skip,[[Dbw_n,Dbw_append],[Value1,variable2,Value3]]))
+)).      
 
 
 
+      
+      
+      
 
 interpretpart(stringconcat,Variable1,Variable2,Variable3,Vars1,Vars2) :-
 %trace,
@@ -1113,6 +1154,8 @@ match4_21(Variable1,Variable2,Vars1,Vars2) :-
 
 % [A,A]=[[1,B],[1,1]].
 match4_2(Variable1,Variable2,Vars1,Vars2) :-
+%trace,
+numbers_of_items_correspond([Variable1],[Variable2]),
 	match4_22(Variable1,Variable2,Vars1,Vars2),!.
 
 match4_22(Variable1,Variable2,Vars1,Vars2) :-
@@ -1269,9 +1312,11 @@ match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 	%%,notrace
 	,!.
 
+%split_into_head_and_tail([],Head1c,Tail1c,Pipe,Head_is_list_of_lists) :- fail, !.
+
 split_into_head_and_tail(Variable,Head1c,Tail1c,Pipe,Head_is_list_of_lists) :-
 %writeln1(split_into_head_and_tail(Variable,Head1c,Tail1c,Pipe,Head_is_list_of_lists)),
-
+%not(Variable=[]),
 not(variable_name(Variable)),
 	(findall(_FA,member("|",Variable),FA2),length(FA2,FA3),FA3=<1),
 	%%Variable=[[v, a], "|", [v, d]]->trace,%%((
@@ -1284,7 +1329,9 @@ not(variable_name(Variable)),
 	%%(
 	((is_list(Variable),not(variable_name(Variable)),
 	Variable=[Head1|Tail1],Pipe=false,head_is_list_of_lists(Head1,Head_is_list_of_lists))->true;
-	(Head1=Variable,Tail1=[],Pipe=false,head_is_list_of_lists(Head1,Head_is_list_of_lists)))),
+	(%fail
+	Head1=Variable,Tail1=[],Pipe=false,head_is_list_of_lists(Head1,Head_is_list_of_lists)
+	))),
 	(Head1=empty->Head1c=[];Head1=Head1c),
 	(Tail1=empty->Tail1c=[];Tail1=Tail1c),!.
 	%%(.%%->true;

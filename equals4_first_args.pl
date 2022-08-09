@@ -109,6 +109,8 @@ e4_fa_getvalue_match_pipe([Variable1|Variable1b],Value1,Vars1) :-
 e4_fa_match4_2(Variable1,Variable2,Vars1,Vars2) :-
 	e4_fa_match4_10(Variable1,Variable2,Vars1,Vars2),!.
 e4_fa_match4_2(Variable1,Variable2,Vars1,Vars2) :-
+%trace,
+numbers_of_items_correspond([Variable1],[Variable2]),
 	e4_fa_match4(Variable1,Variable2,Vars1,Vars2),!.
 
 
@@ -217,9 +219,11 @@ e4_fa_match4(Variable1,Variable2,Vars1,Vars2%%,Top_flag
 	%%,notrace
 	,!.
 
+%e4_fa_split_into_head_and_tail([],Head1c,Tail1c,Pipe,Head_is_list_of_lists) :- fail, !.
+
 e4_fa_split_into_head_and_tail(Variable,Head1c,Tail1c,Pipe,Head_is_list_of_lists) :-
 %writeln1(split_into_head_and_tail(Variable,Head1c,Tail1c,Pipe,Head_is_list_of_lists)),
-
+%not(Variable=[]),
 not(variable_name(Variable)),
 	(findall(_FA,member("|",Variable),FA2),length(FA2,FA3),FA3=<1),
 	%%Variable=[[v, a], "|", [v, d]]->trace,%%((

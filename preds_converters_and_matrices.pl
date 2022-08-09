@@ -19,7 +19,8 @@ ioi,
 ioo,
 oii,
 oio,
-ooi]).
+ooi,
+ooo]).
 
 matrix_member([ii,oi,io,oo]).
 	
