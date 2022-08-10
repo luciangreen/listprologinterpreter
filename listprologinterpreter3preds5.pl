@@ -478,7 +478,7 @@ debug_call(Skip,[[Dbw_n,Dbw_append],[Value1,Value21,Value31]]),
 ))).                        	
 
 %ooo
-append2(Dbw_n,Dbw_append,Variable1,Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
+append2(Dbw_n,Dbw_append,Variable1,_Variable2,Variable3,Value11,Value21,Value31,Vars1,Vars2) :-
 %writeln(5),
 (contains_empty(Value11),contains_empty(Value21),contains_empty(Value31)),
 (
