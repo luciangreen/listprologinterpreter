@@ -4230,6 +4230,7 @@ test(203,
 			[[n,equals4],[[v,explored1],[v,explored2]]],
 			[[n,equals4],[[v,inventory2],[v,inventory4a]]],
 			[[n,=],[[v,e2],"e"]]%,
+			%,[[n,cut]]
 			%,[[n,trace]]
 			]
 			],
@@ -4547,6 +4548,7 @@ test(216,
 			[[n,equals4],[[v,explored1],[v,explored2]]],
 			[[n,equals4],[[v,inventory2],[v,inventory4a]]],
 			[[n,=],[[v,e2],"e"]]%,
+			%,[[n,cut]]
 			%,[[n,trace]]
 			]
 			],
