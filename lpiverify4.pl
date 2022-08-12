@@ -4158,7 +4158,7 @@ test(203,
 		[[n,false]]
 		]
 	]]%,
-	%[[n,cut]]
+	%,[[n,cut]]
 ]],
 [[n,traverse],[[v,'_x'],[v,'_y'],[v,explored],[v,explored],[v,inventory],[v,inventory],[v,e],[v,e]],":-",
 [
@@ -4170,7 +4170,7 @@ test(203,
 
 		[[n,fail]]
 	]]%,
-	%[[n,cut]]
+	%,[[n,cut]]
 ]],
 [[n,traverse],[[v,x],[v,y],[v,explored1],[v,explored2],[v,inventory1],[v,inventory2],[v,e1],[v,e2]],":-",
 [
@@ -4196,6 +4196,7 @@ test(203,
 		[[n,equals4],[[v,explored1],[v,explored2]]],
 		[[n,equals4],[[v,inventory1],[v,inventory2]]],
 		[[n,=],[[v,e2],[v,e1]]]
+		,[[n,cut]]
 		]
 		],
 
@@ -4230,7 +4231,7 @@ test(203,
 			[[n,equals4],[[v,explored1],[v,explored2]]],
 			[[n,equals4],[[v,inventory2],[v,inventory4a]]],
 			[[n,=],[[v,e2],"e"]]%,
-			%,[[n,cut]]
+			,[[n,cut]]
 			%,[[n,trace]]
 			]
 			],
@@ -4252,6 +4253,7 @@ test(203,
 		]
 		]
 	]]
+%,[[n,cut]]
 ]],
 [[n,apply_all_to_all],[[v,inventory1],[v,inventory2]],":-",
 [
@@ -4284,6 +4286,7 @@ test(203,
 		]
 		]
 	]]
+%,[[n,cut]]
 ]],
 [[n,apply],["k","c","m"]],
 [[n,apply],["m","vine","e"]]
