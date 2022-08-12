@@ -4196,7 +4196,7 @@ test(203,
 		[[n,equals4],[[v,explored1],[v,explored2]]],
 		[[n,equals4],[[v,inventory1],[v,inventory2]]],
 		[[n,=],[[v,e2],[v,e1]]]
-		,[[n,cut]]
+		%,[[n,cut]] speeds up in ssi but crashes lpi
 		]
 		],
 
