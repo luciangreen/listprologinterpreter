@@ -338,6 +338,8 @@ where `[v,b]="ate"`.
 
 * Note: Mode statements, described in the next section, are required after Type Statements.
 
+* Types with lists (0-infinite repeats of type statements) are written inside {}.  There may be nested curly brackets.
+
 * Type Statements may be recursive (see test 23 in <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_types.pl">lpiverify4_types.pl</a>), i.e. they may repeat until triggering the base case:
 
 ```
