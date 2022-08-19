@@ -91,6 +91,9 @@ foldr(append,A,B) :-
 foldr(string_concat,A,B) :-
 	foldr(string_concat,A,"",B),!.
 
+foldr(atom_concat,A,B) :-
+	foldr(atom_concat,A,'',B),!.
+
 concat_list([],""):-!.
 concat_list(A1,B):-
 	%A1=[A|List],
