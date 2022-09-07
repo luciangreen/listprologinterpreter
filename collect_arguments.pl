@@ -197,8 +197,8 @@ contains_var(Statement1b,Statement1a))->true;
 contains_empty([]) :- fail.
 contains_empty(Statement) :-
 	
-(isempty(Statement)->true;	(Statement=[Statement1|Statement2],
-	(isempty(Statement1)->true;
+(is_empty(Statement)->true;	(Statement=[Statement1|Statement2],
+	(is_empty(Statement1)->true;
 	(contains_empty(Statement1)->true;
 	contains_empty(Statement2))))).
 	

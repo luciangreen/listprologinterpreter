@@ -24,11 +24,12 @@
 :- include('../Languages/make_docs.pl').
 :- include('../SSI/find_pred_sm.pl').
 :- include('e4_fa_get_vals.pl').
-:- include('equals4_first_args.pl').
+%:- include('equals4_first_args.pl').
 :- include('expression_not_var.pl').
 :- include('collect_arguments.pl').
 :- include('reserved_words2.pl').
 :- include('expand_types.pl').
 :- include('replace_in_term.pl').
 :- include('preds_converters_and_matrices.pl').
-:- include('numbers_of_items_correspond.pl').
+%:- include('numbers_of_items_correspond.pl').
+:- include('match_put_get_vals.pl').

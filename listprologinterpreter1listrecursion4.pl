@@ -397,6 +397,13 @@ member23(Query,Functions,Functions2,Vars8) :-
 	);(turncut(off),fail)).
 	
 checkarguments(Variable1a,Variable2a,Vars1,Vars2,_,FirstArgs2) :-
+%writeln1(a1checkarguments(Variable1a,Variable2a,Vars1,Vars2,_,FirstArgs2)),
+
+%(a1checkarguments(Variable1a,Variable2a,Vars1,Vars2,_,FirstArgs2)=a1checkarguments([[v,a],[[v,b],[v,c]]],[[[v,d],[v,e]],[v,f]],[],_346892,_346906,_346894)->trace;true),
+
+%(not(Variable1a=[[v,a],[v,d]])->trace;true),
+%writeln([Variable1a,Variable2a]),
+%(Variable2a=[[[v,a],"|",_]|_]->trace;true),
 	simplify(Variable1a,Variable1),
 	simplify(Variable2a,Variable2),
 	(equals4(on)->checkarguments1(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2);
@@ -407,6 +414,8 @@ checkarguments2(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2)),
 findall(FA3,(member([_,FA3],FirstArgs2),not(expression_not_var(FA3))),FA4),sort(FA4,FA5),
 findall(FA6,(member([_,FA6],FirstArgs2),expression_not_var(FA6)),FA7),append(FA5,FA7,FA8),length(FA8,L),
 */
+%writeln1(a2checkarguments(Variable1a,Variable2a,Vars1,Vars2,_,FirstArgs2)),
+
 !.
 
 checkarguments1(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2) :-
@@ -421,7 +430,10 @@ occurs_check(Variable1,Variable2),
 	%writeln1(replace_vars(Variable2,[],Variable2a,[],First_vars2)),
 	
 	append(First_vars1,First_vars2,First_vars3),
-	match4_21(Variable2a,Variable1a,Vars1,Vars3),
+
+	%match4_21(Variable2a,Variable1a,Vars1,Vars3),
+	match4_new_22(Variable2a,Variable1a,Vars1,Vars3,standard), 	
+	
 	%writeln1(match4_21(Variable2a,Variable1a,Vars1,Vars3)),
 %	match4_21(Arguments2,Arguments1,Vars1,Vars2),
 
@@ -1192,6 +1204,7 @@ interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_append],[Variable1,Variab
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("append",Dbw_append1),Dbw_append1=Dbw_append,
 %%writeln1(9),
+        %trace,
         interpretpart(append,Variable1,Variable2,Variable3,Vars1,Vars2).
 
 
@@ -1790,9 +1803,9 @@ getvalue(Variable,Value,Vars) :-
         */
 getvar(Variable,Value,Vars) :-
 	((member([Variable,Value],Vars),
-	not(Value=empty))->true;
+	not(is_empty(Value)))->true;
 	        ((aggregate_all(count,member([Variable,_Value],Vars),0)->true;%%
-	member([Variable,empty],Vars)),Value=empty))
+	(member([Variable,Empty],Vars),is_empty(Empty))),is_empty(Value)))
 .
 getvar(undef,undef,_Vars) :-
 	!.
@@ -1813,22 +1826,27 @@ simplify([A,"|",B],C)	:-
 	((not(isvar(B1)),is_list(B1))->
 	C=[A1|B1];
 	C=[A1,"|",B1]),!.
-simplify([A|B],[A1|B1])	:-
-	simplify(A,A1),
-
+simplify(AB,[A1|B1])	:-
+	AB=[A|B],
 %(not(is_list(B))->trace;true),
 %is_list(B),not(variable_name(B)),
+(AB=[A2,"|"|B2]->
+(B2=[B3],(((is_list(B3),not(variable_name(B3)))->true;variable_name(B3))));true),
+	simplify(A,A1),
 	simplify(B,B1),!.
 	
 	
 all_empty([]) :-	!.
-all_empty(empty) :-	!.
+all_empty(Empty) :-	is_empty(Empty),!.
 all_empty([A|B]) :-	
 	all_empty(A),all_empty(B),!.
 	
 updatevar(undef,_Value,Vars,Vars) :-
 	!.
-updatevar(Variable,Value,Vars1,Vars2) :-
+updatevar(Variable,Value,Vars1,Vars2a) :-
+%writeln1(updatevar(Variable,Value,Vars1,Vars2))
+%trace,	
+	
 	((((member([Variable,A],Vars1),
 	%trace,
 	%(isvar(Variable)->Value2=Value;
@@ -1839,16 +1857,30 @@ updatevar(Variable,Value,Vars1,Vars2) :-
 	append(Vars3,[[Variable,Value2]],Vars2)
 	)->true;
 	((not(member([Variable,Value1],Vars1)),
-	((Value1=empty)->true;(Value1=Value)))),
+	((is_empty(Value1))->true;(Value1=Value)))),
         append(Vars1,[[Variable,Value]],Vars2))->true;
 	(member([Variable,Value],Vars1),Vars2=Vars1))->true;
 	(undef(Variable),
-	append(Vars1,[[Variable,Value]],Vars2))).
+	append(Vars1,[[Variable,Value]],Vars2))),
+	
+		%(%variable_name(Variable)->
+	%(
+	%/*trace,
+	findall([Variable1,B],(member([Variable1,C],Vars2),
+	replace_in_term(C,Variable,Value,B)),
+	Vars2a)
+	%*/
+	%Vars2=Vars2a
+	%,writeln1(replace_in_term(Vars1a,Variable,Value,Vars1))
+	%);
+	%Vars1a=Vars1),
+
+.
 	
 updatevar_recursive([],[],[]) :- !.
 updatevar_recursive(Variable,A,Value) :-
-	(Variable=empty->Value=A;
-	(A=empty->Value=Variable;
+	(is_empty(Variable)->Value=A;
+	(is_empty(A)->Value=Variable;
 	(Variable=A->Value=Variable;
 	(Variable=[B|C],
 	A=[D|E],
@@ -1872,8 +1904,17 @@ updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
 	updatevars(FirstArgs,Vars5,Vars2,Vars3).**/
 
 updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
-(equals4(on)->e4_updatevars(FirstArgs,Vars1,Vars2,
-	Vars3);	updatevars1(FirstArgs,Vars1,Vars2,Vars3)),!.
+%writeln1(updatevars(FirstArgs,Vars1,Vars2,Vars3)),
+
+%(updatevars(FirstArgs,Vars1,Vars2,Vars3)=updatevars([[[v,vgp3],[v,vgp2]],[[v,i],[v,t]]],[[[v,t1],"b"],[[v,vgp2],",""c"",[]],1]"],[[v,vgp1],"b,""c"",[]],1]"],[[v,t],b]],[],_181890)->trace;true),
+
+
+%trace,
+(equals4(on)->
+%(writeln1(e4_updatevars_1(FirstArgs,Vars1,Vars2,Vars3)),
+e4_updatevars(FirstArgs,Vars1,Vars2,Vars3)
+%,writeln1(e4_updatevars_2(FirstArgs,Vars1,Vars2,Vars3)))
+;	updatevars1(FirstArgs,Vars1,Vars2,Vars3)),!.
 	
 
 updatevars1([],_Vars1,Vars2,Vars2) :- !.
@@ -1890,20 +1931,51 @@ updatevars2(FirstArgs,Vars1,Vars2,Vars3) :-
 %writeln(updatevars2(FirstArgs,Vars1,Vars2,Vars3)),
 %trace,
         Vars1=[[Variable,Value]|Vars4],
-        (member(Variable,FirstArgs), %% removed brackets around firstargs here and 2 line below, ** vars1 into arg in (10), check cond
+        (%member(Variable,FirstArgs), %% removed brackets around firstargs here and 2 line below, ** vars1 into arg in (10), check cond
         append(Vars2,[[Variable,Value]],Vars5)),
         updatevars2(FirstArgs,Vars4,Vars5,Vars3).
-updatevars3(Vars1,[],Vars1).
+
 updatevars3(Vars1,Vars2,Vars4) :-
+ updatevars31(Vars1,Vars2,Vars11),
+ updatevars32(Vars11,Vars2,Vars4).
+
+updatevars31(Vars1,Vars2,Vars11) :-
+ findall([V,Value3],(member([V,Val],Vars1),
+ 
+get_lang_word("v",Dbw_v),
+get_lang_word("sys1",Dbw_sys1),
+%%writeln1(5),
+%trace,
+         remember_and_turn_off_debug(Debug),
+ 	%trace,
+         %(interpretpart(match4,Variable1,Variable2,Vars1,Vars5,_)->true;(turn_back_debug(Debug),
+         %fail
+         %interpretpart(match4,Variable1,Variable2,Vars1,_Vars2,_))),
+         
+         interpretpart(match4,Val,[Dbw_v,Dbw_sys1],Vars2,Vars4,_),
+
+  	  	  getvalue([Dbw_v,Dbw_sys1],Value3,Vars4),
+ 	  	  
+ 	  	  turn_back_debug(Debug)),Vars11).
+ 
+ 
+        %interpretpart(match4,Variable1,Variable2,Vars1,Vars2,Value3)
+        %)
+ 
+ %)
+
+updatevars32(Vars1,[],Vars1).
+updatevars32(Vars1,Vars2,Vars4) :-
+ get_lang_word("v",Dbw_v),
 	Vars2=[[Variable,Value]|Vars5],
-	delete(Vars1,[Variable,empty],Vars6),
+	delete(Vars1,[Variable,[Dbw_v,_]],Vars6),
 	append(Vars6,[[Variable,Value]],Vars7),
-	updatevars3(Vars7,Vars5,Vars4),
+	updatevars32(Vars7,Vars5,Vars4),
 	!.
-updatevars3(Vars1,Vars2,Vars4) :-
+updatevars32(Vars1,Vars2,Vars4) :-
 	Vars2=[[Variable,Value]|Vars5],
 	append(Vars1,[[Variable,Value]],Vars6),
-        updatevars3(Vars6,Vars5,Vars4).
+        updatevars32(Vars6,Vars5,Vars4).
 reverse([],List,List).
 reverse(List1,List2,List3) :-
 	List1=[Head|Tail],
@@ -1943,9 +2015,9 @@ isval(Value) :-
 isvalstr(N) :-
 	isval(N);string(N).
 isvalempty(N) :-
-	isval(N);(N=empty).
-isempty(N) :-
-	N=empty.
+	isval(N);(is_empty(N)).
+is_empty(N) :-
+	variable_name(N).%=empty.
 /**isvalstrempty(N) :-
 	isval(N);(string(N);N=empty).**/
 isvalstrempty(N) :-
@@ -1956,7 +2028,7 @@ isvalstrempty(N) :-
 get_lang_word("v",Dbw_v),
 	not(N=Dbw_v),not(N=[Dbw_v,_]),
 	string(N).
-isvalstrempty(empty).
+isvalstrempty(Empty) :- is_empty(Empty).
 isvalstrempty([]).
 /**isvalstrempty(N) :-
 	atom(N),fail,!.
@@ -1980,7 +2052,7 @@ expression([N|Ns]):-
 	expression(N),expression(Ns).
 **/
 
-expression(empty) :-
+expression(Empty) :- is_empty(Empty),
 	!.
 expression(N) :-
 	isval(N),!.
@@ -2042,10 +2114,14 @@ expressionnotatom2([N|Ns]) :-
 	expressionnotatom2(Ns).
 
 substitutevarsA1(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2) :-
+%writeln1(substitutevarsA1(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2)),
+%(Arguments=[[v,d],[[v,a],"|",[v,b]],[v,c]]->trace;true),
 	        %simplify(Arguments1,Arguments),
 %trace,writeln(substitutevarsA1(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2)),
-	(equals4(on)->e4_substitutevarsA1(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2);
-	substitutevarsA11(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2)),
+	(equals4(on)->e4_substitutevarsA1(Arguments,Vars1,Vars2,Vars33,FirstArgs1,FirstArgs2);
+	substitutevarsA11(Arguments,Vars1,Vars2,Vars33,FirstArgs1,FirstArgs2)),
+	
+	findall(Vars31,(member(Vars32,Vars33),simplify(Vars32,Vars31)),Vars3),
 	%substitutevarsA2(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2),
 	!.
 	substitutevarsA11(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2) :-
@@ -2055,7 +2131,7 @@ substitutevarsA2([],_Vars1,Vars2,Vars2,FirstArgs,FirstArgs):-!.
 substitutevarsA2(Arguments,Vars1,Vars2,Vars3,FirstArgs1,FirstArgs2) :-
 	Arguments=[Variable|Variables],
 	((getvalue(Variable,Value,Vars1),
-	Value=empty)->
+	is_empty(Value))->
 	((append(Vars2,[Variable],Vars4)),
 	(isvar(Variable)->append(FirstArgs1,[Variable],
 	FirstArgs3);FirstArgs3=FirstArgs1));
@@ -2126,4 +2202,7 @@ find_query_box_n(Name2) :-
 	retractall(sys(_)),
  	assertz(query_box_n(N2)).
 
-
+find_v_sys(V_sys) :-
+ get_lang_word("v",Dbw_v),
+ find_sys(Sys_name),
+ V_sys=[Dbw_v,Sys_name],!.

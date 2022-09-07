@@ -4,7 +4,7 @@ e4_fa_getvalues2(VarNames1,Values1,Values2,Vars,Flags1,Flags2) :-
 	VarNames1=[VarName1|VarNames2],
 	(VarName1=[VarName2]->Flag1=true;VarName2=VarName1),
 	e4_fa_getvalue(VarName2,Value1,Vars),
-	(Value1=empty->Flag2=true;(Value2=Value1,Flag2=false)),
+	(is_empty(Value1)->Flag2=true;(Value2=Value1,Flag2=false)),
 	(Flag1=true->Value3=[Value2];Value3=Value2),
 	append(Values1,Value3,Values3),
 	append(Flags1,[Flag2],Flags3),
@@ -21,6 +21,8 @@ e4_fa_getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars) :-
 e4_fa_getvalue(Variable,Value,Vars) :-
         ((not(isvar(Variable)),isvalstrorundef(Value),Variable=Value)->true;
         (isvar(Variable),isvalstrorundef(Value),e4_fa_getvar(Variable,Value,Vars))).
+%putvalue(empty,A,Vars,Vars) :- %writeln1(A),
+% not(isvar(A)),!.
 putvalue(Variable,Value,Vars1,Vars2) :-
         ((not(isvar(Variable)),isvalstrorundef_or_compound(Value),Variable=Value,Vars1=Vars2)->true;
         (isvar(Variable),isvalstrorundef_or_compound(Value),updatevar(Variable,Value,Vars1,Vars2))),!. 
@@ -29,9 +31,9 @@ isvalstrorundef_or_compound(Value):-
 	isvalstrorundef(Value)),!.
 e4_fa_getvar(Variable,Value,Vars) :-
 	((member([Variable,Value],Vars),
-	not(Value=empty))->true;
+	not(is_empty(Value)))->true;
 	        ((aggregate_all(count,member([Variable,_Value],Vars),0)->true;%%
-	member([Variable,empty],Vars)),Value=Variable))
+	(member([Variable,Empty],Vars),is_empty(Empty))),Value=Variable))
 .
 e4_fa_getvar(undef,undef,_Vars) :-
 	!.
@@ -71,8 +73,9 @@ equals4_first_args1(Length0,Length1,Variable1,Variable2,First_args0,First_args01
 	%get_item_n(Variable1,N1,Item1),
 	%get_item_n(Variable2,N1,Item2),
 	%trace,
-	e4_fa_match4_2([Item1],[Item2],[],First_args1),
-	
+	%e4_fa_match4_2([Item1],[Item2],[],First_args1),
+	match4_new_22([Item1],[Item2],[],First_args1,e4),
+
 	collect_vars(Item2,[],Vars2),
 	%trace,
 	findall(Value2,(member([First_args5,Value],First_args1),
@@ -116,7 +119,7 @@ equals4_first_args1(Length0,Length1,Variable1,Variable2,First_args0,First_args01
 
 e4_updatevars([],_,Vars2,Vars2) :- !.
 e4_updatevars(FirstArgs,Vars1,Vars2,Vars3) :-
-%writeln1(e4_updatevars(FirstArgs,Vars1,Vars2,Vars3)),
+%writeln1(e4_updatevars_1(FirstArgs,Vars1,Vars2,Vars3)),
 %trace,
 	%get_lang_word("v",Dbw_v),
 	FirstArgs=[[Orig,New]|Rest],
@@ -326,7 +329,7 @@ e4_substitutevarsA1(Variable2,Vars1,_,X,FirstArgs1,FirstArgs2) :-
 e4_substitutevarsA2_getvalue_match1(Variable1,Value1,Vars1,FirstArgs1,FirstArgs3) :-
 	single_item_or_var(Variable1),
 	getvalue(Variable1,Value,Vars1),
-	((Value=empty->
+	((is_empty(Value)->
 	((Value1=Variable1),
 	(isvar(Variable1)->append(FirstArgs1,[Variable1],
 	FirstArgs3);FirstArgs3=FirstArgs1));

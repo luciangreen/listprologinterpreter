@@ -5,13 +5,14 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=240, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=241, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
-	(international_interpret([lang,"en"],Debug,Query,Functions,Result)
-	%%writeln1(Result2
-	->(Score3 is Score1+1,writeln0([test,NTotal3,passed]));(Score3=Score1,writeln0([test,NTotal3,failed]))),
+	((international_interpret([lang,"en"],Debug,Query,Functions,Result1),
+	%writeln1([result1,Result1]),
+	Result=Result1	
+	)->(Score3 is Score1+1,writeln0([test,NTotal3,passed]));(Score3=Score1,writeln0([test,NTotal3,failed]))),
 	writeln0(""),
 	test(Debug,NTotal3,NTotal2,Score3,Score2),!.
 
@@ -20,7 +21,7 @@ test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 test1(Debug,N,Passed) :-
 	test(N,Query,Functions,Result),
 	((international_interpret([lang,"en"],Debug,Query,Functions,Result1),
-	%writeln1([result1,Result1]),
+	writeln1([result1,Result1]),
 	Result=Result1
 	)->(Passed=passed,writeln0([test,N,passed]));(Passed=failed,writeln0([test,N,failed]))),!.
 
@@ -260,10 +261,13 @@ test(14,[[n,grammar1],["[a]",[v,t]]],
 % n,letters needs to include chars except quote
 
 %test(15,[[n,grammar1],["[[\"aa,]\",\"b\",a],1]",[v,t]]],
-test(15,[[n,grammar1],[%"[[1],1]"
+test(15,
 
+[[n,grammar1],[%"[[1],1]"
 "[[\"aa,]\",b,\"c\",[]],1]"
 ,[v,t]]],
+
+%[[n,item],["b,""c"",[]],1]",[v,vgp3],[v,i]]],
 
 %test(15,[[n,grammar1],["[]"]],
 %est(15,[[n,item],["\"aa,\"","",[v,t]]],
@@ -442,6 +446,7 @@ test(15,[[n,grammar1],[%"[[1],1]"
 %],[[[[v,t],[["aa,]","b",a],1]]]]).
 
 ],[[[[v,t],[["aa,]",b,"c",[]],1]]]]).
+%],[[[[v,i],b]]]).
 
 %],[[[[v,t],[[1],1]]]]).
 
@@ -1348,7 +1353,7 @@ test(42,%[[n,or12],[[v,a]]],
         [[n,or12],[1]],
         [[n,or12],[2]]        
         
-],[[[[v,a],[1,2]],[[v,b],empty]]]).
+],[[[[v,a],[1,2]]]]).
 
 test(43,[[n,intersection1],[[1,2,3],[3,4,5],[],[v,a]]],
 
@@ -4082,20 +4087,20 @@ test(195,%[[n,or12],[[v,a]]],
         [[n,or12],[2],":-",[[[n,fail]]]],
         [[n,or12],[3],":-",[[[n,fail]]]]
         
-],[[[[v,a],[1]],[[v,b],empty]]]).
+],[[[[v,a],[1]]]]).
 
 test(196,%[[n,or12],[[v,a]]],
 [[n,findall],[[v,b],[[[n,or12],[[v,b]]]],[v,a]]],
 [
         [[n,or12],[1]]        
         
-],[[[[v,a],[1]],[[v,b],empty]]]).
+],[[[[v,a],[1]]]]).
 
 test(197,%[[n,or12],[[v,a]]],
 [[n,findall],[[v,b],[[[n,member2],[[1],[v,b]]]],[v,a]]],
 [
         
-],[[[[v,a],[1]],[[v,b],empty]]]).
+],[[[[v,a],[1]]]]).
 
 test(198,
 [[n,function]],
@@ -4329,7 +4334,7 @@ test(206,%[[n,or12],[[v,a]]],
         [[n,or12],[2,2]],
         [[n,or12],[1,3]]
         
-],[[[[v,a],[1,3]],[[v,b],empty]]]).
+],[[[[v,a],[1,3]]]]).
 
 
 test(207,[[n,findall1],[[1,2],[v,b1]]],%[[[1,11,111],[2,22,222],[3,33,333]],[v,b]]],
@@ -4357,7 +4362,7 @@ test(207,[[n,findall1],[[1,2],[v,b1]]],%[[[1,11,111],[2,22,222],[3,33,333]],[v,b
 test(208,[[n,reverse1],[[1,2,3],[],[v,c],[v,b],[v,g]]],%[[[1,11,111],[2,22,222],[3,33,333]],[v,b]]],
 [[[n,reverse1],[[],[v,a],[v,c],[v,b],[v,a]]],
 [[n,reverse1],[[v,a],[v,b],[v,c],[v,f],[v,g]],":-",[[[n,head],[[v,a],[v,b1]]],[[n,tail],[[v,a],[v,c1]]],[[n,wrap],[[v,b1],[v,d]]],[[n,append],[[v,d],[v,b],[v,f]]],[[n,reverse1],[[v,c1],[v,f],[v,h],[v,j],[v,g]]]]]]
-,[[[[v,b],[1]],[[v,c],empty],[[v,g],[3,2,1]]]]).
+,[[[[v,b],[1]],[[v,g],[3,2,1]]]]).
 %*/
 
 test(209,[[n,a],[["a","b"],"",[v,a]]],
@@ -4444,7 +4449,7 @@ test(215,[[n,function1],[[v,a]]],
 */
 
 test(215,[[n,findall],[[[v,a],[v,b]],[[n,append],[[v,a],[v,b],[1,2,3]]],[v,c]]],
-[],[[[[v,a],empty],[[v,b],empty],[[v,c],[[[],[1,2,3]],[[1],[2,3]],[[1,2],[3]],[[1,2,3],[]]]]]]).
+[],[[[[v,c],[[[],[1,2,3]],[[1],[2,3]],[[1,2],[3]],[[1,2,3],[]]]]]]).
 
 /*
 % cut deletes cp data back to and including pred id call
@@ -4832,7 +4837,7 @@ test(218,[[n,findall1],[[[1,2],[3,4]],[v,b]]],%[[[1,11,111],[2,22,222],[3,33,333
 
 
 test(219,[[n,findall],[[[v,a],[v,b]],[[n,stringconcat],[[v,a],[v,b],"abc"]],[v,c]]],
-[],[[[[v,a],empty],[[v,b],empty],[[v,c],[["","abc"],["a","bc"],["ab","c"],["abc",""]]]]]).
+[],[[[[v,c],[["","abc"],["a","bc"],["ab","c"],["abc",""]]]]]).
 
 
 test(220,[[n,stringconcat],["a","b","ab"]],
@@ -4870,18 +4875,18 @@ test(227,[[n,append],[[v,a],["b"],["a","b"]]],
 
 
 test(228,[[n,findall],[[[v,a],[v,b]],[[n,append],[[v,a],[v,b],["a","b","c"]]],[v,c]]],
-[],[[[[v,a],empty],[[v,b],empty],[[v,c],[[[],["a","b","c"]],[["a"],["b","c"]],[["a","b"],["c"]],[["a","b","c"],[]]]]]]).
+[],[[[[v,c],[[[],["a","b","c"]],[["a"],["b","c"]],[["a","b"],["c"]],[["a","b","c"],[]]]]]]).
 
 test(229,[[n,findall],[[v,a],[[n,member2],[["a","b"],[v,a]]],[v,c]]],
-[],[[[[v,a],empty],[[v,c],["a","b"]]]]).
+[],[[[[v,c],["a","b"]]]]).
 
 test(230,[[n,append],[["a"],[v,a],[v,b]]],
 [],
-[[[[v,a],empty],[[v,b],["a","|",empty]]]]).
+[[[[v,b],["a","|",[v,_]]]]]).
 
 test(231,[[n,findall],[[[v,a],[v,c]],[[n,append],[[v,a],["a","b"],[v,c]]],[v,d]]],
 [],
-[[[[v,a],empty],[[v,c],empty],[[v,d],[[[],["a","b"]],[[empty],[empty,"a","b"]],[[empty,empty],[empty,empty,"a","b"]],[[empty,empty,empty],[empty,empty,empty,"a","b"]],[[empty,empty,empty,empty],[empty,empty,empty,empty,"a","b"]],[[empty,empty,empty,empty,empty],[empty,empty,empty,empty,empty,"a","b"]],[[empty,empty,empty,empty,empty,empty],[empty,empty,empty,empty,empty,empty,"a","b"]],[[empty,empty,empty,empty,empty,empty,empty],[empty,empty,empty,empty,empty,empty,empty,"a","b"]],[[empty,empty,empty,empty,empty,empty,empty,empty],[empty,empty,empty,empty,empty,empty,empty,empty,"a","b"]],[[empty,empty,empty,empty,empty,empty,empty,empty,empty],[empty,empty,empty,empty,empty,empty,empty,empty,empty,"a","b"]]]]]]).
+[[[[v,d],[[[],["a","b"]],[[[v,_]],[[v,_],"a","b"]],[[[v,_],[v,_]],[[v,_],[v,_],"a","b"]],[[[v,_],[v,_],[v,_]],[[v,_],[v,_],[v,_],"a","b"]],[[[v,_],[v,_],[v,_],[v,_]],[[v,_],[v,_],[v,_],[v,_],"a","b"]],[[[v,_],[v,_],[v,_],[v,_],[v,_]],[[v,_],[v,_],[v,_],[v,_],[v,_],"a","b"]],[[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_]],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"a","b"]],[[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_]],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"a","b"]],[[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_]],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"a","b"]],[[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_]],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"a","b"]]]]]]).
 
 test(232,[[n,member2],[["a","b"],"a"]],
 [],
@@ -4889,7 +4894,7 @@ test(232,[[n,member2],[["a","b"],"a"]],
 
 test(233,[[n,findall],[[v,a],[[n,member2],[[v,a],"a"]],[v,d]]],
 [],
-[[[[v,a],empty],[[v,d],[["a","|",empty],[empty,"a","|",empty],[empty,empty,"a","|",empty],[empty,empty,empty,"a","|",empty],[empty,empty,empty,empty,"a","|",empty],[empty,empty,empty,empty,empty,"a","|",empty],[empty,empty,empty,empty,empty,empty,"a","|",empty],[empty,empty,empty,empty,empty,empty,empty,"a","|",empty],[empty,empty,empty,empty,empty,empty,empty,empty,"a","|",empty],[empty,empty,empty,empty,empty,empty,empty,empty,empty,"a","|",empty]]]]]).
+[[[[v,d],[["a","|",[v,_]],[[v,_],"a","|",[v,_]],[[v,_],[v,_],"a","|",[v,_]],[[v,_],[v,_],[v,_],"a","|",[v,_]],[[v,_],[v,_],[v,_],[v,_],"a","|",[v,_]],[[v,_],[v,_],[v,_],[v,_],[v,_],"a","|",[v,_]],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"a","|",[v,_]],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"a","|",[v,_]],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"a","|",[v,_]],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"a","|",[v,_]]]]]]).
 
 test(234,[[n,member2],[["a","b"],[v,a]]],
 [],
@@ -4897,19 +4902,19 @@ test(234,[[n,member2],[["a","b"],[v,a]]],
 
 test(235,[[n,findall],[[[v,a],[v,b]],[[n,member2],[[v,a],[v,b]]],[v,d]]],
 [],
-[[[[v,a],empty],[[v,b],empty],[[v,d],[[empty,[empty,"|",empty]],[empty,[empty,empty,"|",empty]],[empty,[empty,empty,empty,"|",empty]],[empty,[empty,empty,empty,empty,"|",empty]],[empty,[empty,empty,empty,empty,empty,"|",empty]],[empty,[empty,empty,empty,empty,empty,empty,"|",empty]],[empty,[empty,empty,empty,empty,empty,empty,empty,"|",empty]],[empty,[empty,empty,empty,empty,empty,empty,empty,empty,"|",empty]],[empty,[empty,empty,empty,empty,empty,empty,empty,empty,empty,"|",empty]],[empty,[empty,empty,empty,empty,empty,empty,empty,empty,empty,empty,"|",empty]]]]]]).
+[[[[v,d],[[[v,_],[[v,_],"|",[v,_]]],[[v,_],[[v,_],[v,_],"|",[v,_]]],[[v,_],[[v,_],[v,_],[v,_],"|",[v,_]]],[[v,_],[[v,_],[v,_],[v,_],[v,_],"|",[v,_]]],[[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],"|",[v,_]]],[[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"|",[v,_]]],[[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"|",[v,_]]],[[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"|",[v,_]]],[[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"|",[v,_]]],[[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"|",[v,_]]]]]]]).
 
 test(236,[[n,findall],[[[v,a],[v,b],[v,c]],[[n,append],[[v,a],["a"],[[v,b],"|",[v,c]]]],[v,d]]],
 [],
-[[[[v,a],empty],[[v,b],empty],[[v,c],empty],[[v,d],[[[],"a",[]],[[empty],empty,["a"]],[[empty,empty],empty,[empty,"a"]],[[empty,empty,empty],empty,[empty,empty,"a"]],[[empty,empty,empty,empty],empty,[empty,empty,empty,"a"]],[[empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,"a"]],[[empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,"a"]],[[empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,"a"]],[[empty,empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,"a"]],[[empty,empty,empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,empty,"a"]]]]]]).
+[[[[v,d],[[[],"a",[]],[[[v,_]],[v,_],["a"]],[[[v,_],[v,_]],[v,_],[[v,_],"a"]],[[[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],"a"]],[[[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],"a"]],[[[v,_],[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],"a"]],[[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],"a"]],[[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"a"]],[[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"a"]],[[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"a"]]]]]]).
 
 test(237,[[n,findall],[[[v,a],[v,b],[v,c]],[[n,append],[[v,a],["b",[v,b]],[v,c]]],[v,d]]],
 [],
-[[[[v,a],empty],[[v,b],empty],[[v,c],empty],[[v,d],[[[],empty,["b",empty]],[[empty],empty,[empty,"b",empty]],[[empty,empty],empty,[empty,empty,"b",empty]],[[empty,empty,empty],empty,[empty,empty,empty,"b",empty]],[[empty,empty,empty,empty],empty,[empty,empty,empty,empty,"b",empty]],[[empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,"b",empty]],[[empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,"b",empty]],[[empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,"b",empty]],[[empty,empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,empty,"b",empty]],[[empty,empty,empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,empty,empty,"b",empty]]]]]]).
+[[[[v,d],[[[],[v,_],["b",[v,_]]],[[[v,_]],[v,_],[[v,_],"b",[v,_]]],[[[v,_],[v,_]],[v,_],[[v,_],[v,_],"b",[v,_]]],[[[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],"b",[v,_]]],[[[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],"b",[v,_]]],[[[v,_],[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],"b",[v,_]]],[[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"b",[v,_]]],[[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"b",[v,_]]],[[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"b",[v,_]]],[[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"b",[v,_]]]]]]]).
 
 test(238,[[n,findall],[[[v,a],[v,b],[v,c]],[[n,append],[[v,a],[v,b],[v,c]]],[v,d]]],
 [],
-[[[[v,a],empty],[[v,b],empty],[[v,c],empty],[[v,d],[[[],empty,empty],[[empty],empty,[empty,"|",empty]],[[empty,empty],empty,[empty,empty,"|",empty]],[[empty,empty,empty],empty,[empty,empty,empty,"|",empty]],[[empty,empty,empty,empty],empty,[empty,empty,empty,empty,"|",empty]],[[empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,"|",empty]],[[empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,"|",empty]],[[empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,"|",empty]],[[empty,empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,empty,"|",empty]],[[empty,empty,empty,empty,empty,empty,empty,empty,empty],empty,[empty,empty,empty,empty,empty,empty,empty,empty,empty,"|",empty]]]]]]).
+[[[[v,d],[[[],[v,_],[v,_]],[[[v,_]],[v,_],[[v,_],"|",[v,_]]],[[[v,_],[v,_]],[v,_],[[v,_],[v,_],"|",[v,_]]],[[[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],"|",[v,_]]],[[[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],"|",[v,_]]],[[[v,_],[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],"|",[v,_]]],[[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"|",[v,_]]],[[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"|",[v,_]]],[[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"|",[v,_]]],[[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_]],[v,_],[[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],[v,_],"|",[v,_]]]]]]]).
 
 test(239,[[n,append],[[v,a],["b",[v,b]],[[v,c]]]],
 [],
@@ -4918,3 +4923,17 @@ test(239,[[n,append],[[v,a],["b",[v,b]],[[v,c]]]],
 test(240,[[n,append],[[v,a],["b"],[[v,c]]]],
 [],
 [[[[v,a],[]],[[v,c],"b"]]]).
+
+
+test(241,%[[n,reverse1],[[v,d],[empty,empty,empty],[3,2,1]]],%
+[[n,reverse1],[[v,a],[],[3,
+2,1]]],
+[
+[[n,reverse1],[[],[v,a],[v,a]],":-",[[[n,cut]]]],
+[[n,reverse1],[[[v,a],"|",[v,d]],[v,b],[v,c]],":-",
+[
+	[[n,reverse1],[[v,d],[[v,a],"|",[v,b]],[v,c]]],
+	[[n,cut]]
+]]
+],[[[[v,a],[1,2,3
+]]]]).

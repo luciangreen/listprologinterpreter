@@ -19,7 +19,9 @@ replace_in_term(A,B,_,A) :- not(match1(A,B)),!.
 
 
 replace_empty_with_undefined(Values,Values_u) :-
-	findall(Values_u1,(member(Value,Values),replace_in_term(Value,empty,_,Values_u1)),Values_u),!.
+ get_lang_word("v",Dbw_v),
+	findall(Values_u1,(member(Value,Values),replace_in_term(Value,[Dbw_v,_],_,Values_u1)),Values_u),!.
 replace_undefined_with_empty(Values,Values_e) :-
-	findall(Values_e1,(member(Value,Values),replace_in_term(Value,_,empty,Values_e1)),Values_e),!.
+find_v_sys(V_sys),
+	findall(Values_e1,(member(Value,Values),replace_in_term(Value,_,V_sys,Values_e1)),Values_e),!.
 %*/
