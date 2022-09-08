@@ -4154,7 +4154,7 @@ test(203,
 [
 	[[n,"->"],
 	[
-		[[n,traverse],[[v,x],[v,y],[],[v,c],[],[v,a],"n",[v,b]]],
+		[[n,traverse],[[v,x],[v,y],[],[v,c],[],[v,a],"no",[v,b]]],
 
 		[
 		[[n,true]]
@@ -4477,7 +4477,7 @@ test(216,
 [
 	[[n,"->"],
 	[
-		[[n,traverse],[[v,x],[v,y],[],[v,c],[],[v,a],"n",[v,b]]],
+		[[n,traverse],[[v,x],[v,y],[],[v,c],[],[v,a],"no",[v,b]]],
 
 		[
 		[[n,true]]
@@ -4670,7 +4670,7 @@ test(217,
 [
 	[[n,"->"],
 	[
-		[[n,traverse],[[v,x],[v,y],[],[v,c],[],[v,a],"n",[v,b]]],
+		[[n,traverse],[[v,x],[v,y],[],[v,c],[],[v,a],"no",[v,b]]],
 
 		[
 		[[n,true]]
