@@ -312,7 +312,8 @@ get_lang_word("equals4",Dbw_equals4),
         %trace,
         remember_and_turn_off_debug(Debug),
         
-        ((match4_new_22(Variable1,Variable2,Vars1,Vars2,standard), 
+        ((match4_new_22(Variable1,Variable2,Vars1,Vars2%,standard
+        ), 
 
 %match4_2(Variable1,Variable2,Vars1,Vars2),
         
@@ -320,7 +321,8 @@ get_lang_word("equals4",Dbw_equals4),
         
 	%trace,
 find_sys(Sys_name),
-        match4_new_22(Variable1,[Dbw_v,Sys_name],Vars2,Vars3,standard),
+        match4_new_22(Variable1,[Dbw_v,Sys_name],Vars2,Vars3%,standard
+        ),
 %%writeln1(        interpretpart(match4,Variable1,[v,sys1],Vars3,Vars2,_)),
 %%interpretstatement1(ssi,Functions0,Functions,[[n,equals4],[Variable1,Variable3]],Vars3,Vars2,true,nocut),
 	getvalue([Dbw_v,Sys_name],Value3,Vars3),

@@ -74,7 +74,8 @@ equals4_first_args1(Length0,Length1,Variable1,Variable2,First_args0,First_args01
 	%get_item_n(Variable2,N1,Item2),
 	%trace,
 	%e4_fa_match4_2([Item1],[Item2],[],First_args1),
-	match4_new_22([Item1],[Item2],[],First_args1,e4),
+	match4_new_22([Item1],[Item2],[],First_args1%,e4
+	),
 
 	collect_vars(Item2,[],Vars2),
 	%trace,

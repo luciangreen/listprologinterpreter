@@ -432,7 +432,8 @@ occurs_check(Variable1,Variable2),
 	append(First_vars1,First_vars2,First_vars3),
 
 	%match4_21(Variable2a,Variable1a,Vars1,Vars3),
-	match4_new_22(Variable2a,Variable1a,Vars1,Vars3,standard), 	
+	match4_new_22(Variable2a,Variable1a,Vars1,Vars3%,standard
+	), 	
 	
 	%writeln1(match4_21(Variable2a,Variable1a,Vars1,Vars3)),
 %	match4_21(Arguments2,Arguments1,Vars1,Vars2),
