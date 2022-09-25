@@ -42,16 +42,16 @@ occurs_check(Variable1,Variable2),
 
 
 match4_new(S1,S2,V1,V2,_Standard_or_e4) :-
- match_put_vals(S1,[],S3,V1),
+ match_get_vals(S1,[],S3,V1),
  simplify(S3,S5),
- match_put_vals(S2,[],S4,V1),
+ match_get_vals(S2,[],S4,V1),
  simplify(S4,S6), 
  match_put_vals(S5,S6,V1,V2,_Standard_or_e4),!.
  
  
-match_put_vals([],S1,S1,_) :- !.
+match_get_vals([],S1,S1,_) :- !.
 	
-match_put_vals(Statement,S1,S2,Vars) :-
+match_get_vals(Statement,S1,S2,Vars) :-
 	
 %variable_name(Statement)->
 %match_get_val(Statement,Value,Vars),
@@ -63,9 +63,9 @@ append(S1,[Value1],S3));
  (single_item_or_var(Statement1)->
  (Value1=Statement1,
 append(S1,[Value1],S3));
-	(match_put_vals(Statement1,[],S31,Vars),
+	(match_get_vals(Statement1,[],S31,Vars),
 	S3=[S31]))),
-	match_put_vals(Statement2,[],S4,Vars)),
+	match_get_vals(Statement2,[],S4,Vars)),
 	foldr(append,[S3,S4],S5),
 	%trace,
 	%S6=[S5],
