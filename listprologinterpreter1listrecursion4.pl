@@ -1483,7 +1483,8 @@ interpretpart(grammar_part,Vars9,[],Result1),
 **/
 
 interpretstatement1(non-ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
-        %writeln1(interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut)),
+        
+        %(Query1=[[n, flatten2], [[v, e], [v, f], [v, c]]]->trace;true),%writeln1(interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut)),
         %trace,
                %writeln(interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut)),
 %
