@@ -1556,7 +1556,26 @@ member([Command,Args],
  ["put_code",[i,i]],
  ["put_code",[i]],
  ["nl",[]],
- ["nl",[i]]
+ ["nl",[i]],
+ 
+ ["read_term",[i,i,i]],
+ ["read_term",[i,o,i]],
+ ["read_term",[i,i]],
+ ["read_term",[i,o]],
+ ["read",[i,i]],
+ ["read",[i,o]],
+ ["read",[i]],
+ ["read",[o]],
+
+ ["write_term",[i,i,i]],
+ ["write_term",[i,i]],
+ ["write",[i,i]],
+ ["write",[i]],
+ ["writeq",[i,i]],
+ ["writeq",[i]],
+ ["write_canonical",[i]],
+ ["write_canonical",[i]]
+
 ]),
  
 get_lang_word(Command,Dbw_command1),Dbw_command1=Dbw_command,
