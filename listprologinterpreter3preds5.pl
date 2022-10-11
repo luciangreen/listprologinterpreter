@@ -870,6 +870,82 @@ get_lang_word("get_lang_word",Dbw_get_lang_word),
       debug_exit(Skip,[[Dbw_n,Dbw_get_lang_word],[Value1,Value2A]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_get_lang_word],[Value1,variable]])),!.
 
+
+interpretpart(Command1,Args,Variables,Vars1,Vars2) :- get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("v",Dbw_v1),Dbw_v1=Dbw_v,
+get_lang_word(Command1,Dbw_command),
+%trace,
+(length(Variables,0)->
+(Variables=[],
+       Values=[]);
+(length(Variables,1)->
+(Variables=[Variable1],
+       getvalue(Variable1,Value1,Vars1),Values=[Value1]);
+(length(Variables,2)->
+(Variables=[Variable1,Variable2],
+       getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+       Values=[Value1,Value2]);
+(length(Variables,3)->
+(Variables=[Variable1,Variable2,Variable3],
+       getvalue(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
+    	Values=[Value1,Value2,Value3]))))),
+       
+length(Variables,VL),
+numbers(VL,1,[],VLN),
+
+% check modes of arguments
+forall(member(VLN1,VLN),(get_item_n(Args,VLN1,Arg),
+get_item_n(Variables,VLN1,Variable),
+Arg=o->contains_var([Dbw_v,_],Variable);true)),
+
+findall(Debug_variable,(member(VLN1,VLN),
+ get_item_n(Args,VLN1,Arg),get_item_n(Values,VLN1,Value),
+ (Arg=i->Debug_variable=Value;Debug_variable=variable)),
+ Debug_variables),
+ 
+ Command_vars=[A,B,C],
+ 
+findall(Command_variable,(member(VLN1,VLN),
+ get_item_n(Args,VLN1,Arg),get_item_n(Values,VLN1,Value),
+ get_item_n(Command_vars,VLN1,Command_vars_val),
+ (Arg=i->Command_variable=Value;
+ Command_variable=Command_vars_val)),
+ Command_variables),
+  
+         debug_call(Skip,[[Dbw_n,Dbw_command],Debug_variables]),
+	((%is_list(Value1),
+	string_atom(Command1,Command1_atom),
+	%trace,
+	functor(Command2,Command1_atom,VL),
+	(length(Command_variables,0)->Command3=Command2;
+	(arg2(VLN,Command2,Command_variables),Command2=Command3)),
+	Command3,
+	%string_atom(Value2A,Value2A1), % *** LPI only takes strings
+   %sort(Value1,Value2A),
+
+forall(member(VLN1,VLN),(get_item_n(Args,VLN1,Arg),
+get_item_n(Command_vars,VLN1,Command_vars_n),
+get_item_n(Values,VLN1,Value),
+(Arg=o->val1emptyorvalsequal(Value,Command_vars_n);true))),
+
+putvalues2(Args,Variables,Command_variables,Vars1,Vars2)
+        %putvalue(Variable2,Value2A,Vars1,Vars2)
+        )->
+      debug_exit(Skip,[[Dbw_n,Dbw_command],Command_variables])
+;     debug_fail(Skip,[[Dbw_n,Dbw_command],Debug_variables])),!.
+
+arg2([],Command,Args) :- !.
+arg2([Arg_n|Arg_n2],Command,[Arg|Args]) :-
+ arg(Arg_n,Command,Arg),
+ arg2(Arg_n2,Command,Args).
+
+putvalues2([],_Variables,_Command_vars,Vars,Vars) :- !.
+putvalues2([Arg|Args],[Variable|Variables],[Command_var|Command_vars],Vars1,Vars2) :-
+ (Arg=o->putvalue(Variable,Command_var,Vars1,Vars3);
+ Vars1=Vars3),
+ putvalues2(Args,Variables,Command_vars,Vars3,Vars2).
+ 
+
 /**
 A,B,x*
 A,x,B
@@ -1145,3 +1221,4 @@ not((L=[])),L=[H|T],
 	
 %%(F,(M1,H,M2)),
 map(Functions0,Functions,F,T,M2,N,Vars1).
+
