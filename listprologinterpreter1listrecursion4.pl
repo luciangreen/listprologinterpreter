@@ -1573,7 +1573,7 @@ member([Command,Args],
  ["write",[i]],
  ["writeq",[i,i]],
  ["writeq",[i]],
- ["write_canonical",[i]],
+ ["write_canonical",[i,i]],
  ["write_canonical",[i]]
 
 ]),
