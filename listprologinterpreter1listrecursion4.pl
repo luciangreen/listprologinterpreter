@@ -1574,8 +1574,13 @@ member([Command,Args],
  ["writeq",[i,i]],
  ["writeq",[i]],
  ["write_canonical",[i,i]],
- ["write_canonical",[i]]
+ ["write_canonical",[i]],
 
+ ["abs",[i,o]],
+ ["sign",[i,o]],
+ ["floor",[i,o]],
+ ["round",[i,o]],
+ ["ceiling",[i,o]]
 ]),
  
 get_lang_word(Command,Dbw_command1),Dbw_command1=Dbw_command,
