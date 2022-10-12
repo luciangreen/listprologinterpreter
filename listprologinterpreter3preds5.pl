@@ -875,6 +875,11 @@ interpretpart(Command1,Args,Variables,Vars1,Vars2) :- get_lang_word("n",Dbw_n1),
 get_lang_word("v",Dbw_v1),Dbw_v1=Dbw_v,
 get_lang_word(Command1,Dbw_command),
 %trace,
+
+findall(Value,(member(Variable,Variables),
+getvalue(Variable,Value,Vars1)),Values),
+
+/*
 (length(Variables,0)->
 (Variables=[],
        Values=[]);
@@ -889,6 +894,7 @@ get_lang_word(Command1,Dbw_command),
 (Variables=[Variable1,Variable2,Variable3],
        getvalue(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars1),
     	Values=[Value1,Value2,Value3]))))),
+*/
        
 length(Variables,VL),
 numbers(VL,1,[],VLN),
@@ -896,14 +902,15 @@ numbers(VL,1,[],VLN),
 % check modes of arguments
 forall(member(VLN1,VLN),(get_item_n(Args,VLN1,Arg),
 get_item_n(Variables,VLN1,Variable),
-Arg=o->contains_var([Dbw_v,_],Variable);true)),
+(Arg=o->contains_var([Dbw_v,_],Variable);
+not(contains_var([Dbw_v,_],Variable))))),
 
 findall(Debug_variable,(member(VLN1,VLN),
  get_item_n(Args,VLN1,Arg),get_item_n(Values,VLN1,Value),
  (Arg=i->Debug_variable=Value;Debug_variable=variable)),
  Debug_variables),
  
- Command_vars=[A,B,C],
+ length(Command_vars,VL),%=[A,B,C],
  
 findall(Command_variable,(member(VLN1,VLN),
  get_item_n(Args,VLN1,Arg),get_item_n(Values,VLN1,Value),
@@ -930,9 +937,10 @@ get_item_n(Values,VLN1,Value),
 
 putvalues2(Args,Variables,Command_variables,Vars1,Vars2)
         %putvalue(Variable2,Value2A,Vars1,Vars2)
-        )->
+        ),%->
       debug_exit(Skip,[[Dbw_n,Dbw_command],Command_variables])
-;     debug_fail(Skip,[[Dbw_n,Dbw_command],Debug_variables])),!.
+      ).
+%;     debug_fail(Skip,[[Dbw_n,Dbw_command],Debug_variables])).
 
 arg2([],Command,Args) :- !.
 arg2([Arg_n|Arg_n2],Command,[Arg|Args]) :-
