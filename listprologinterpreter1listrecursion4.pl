@@ -1435,7 +1435,7 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("get_lang_word",Dbw_get_lang_word1),Dbw_get_lang_word1=Dbw_get_lang_word,
         interpretpart(get_lang_word,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_command]|Variables2],Vars1,Vars2,true,nocut) :-
+interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_command]|Variables2],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,
 (Variables2=[]->Variables=[];Variables2=[Variables]),
