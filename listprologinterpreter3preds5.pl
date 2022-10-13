@@ -897,6 +897,7 @@ getvalue(Variable,Value,Vars1)),Values),
 */
        
 length(Variables,VL),
+length(Args,VL),
 numbers(VL,1,[],VLN),
 
 % check modes of arguments

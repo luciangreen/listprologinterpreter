@@ -1582,8 +1582,11 @@ member([Command,Args],
  ["round",[i,o]],
  ["ceiling",[i,o]]
 ]),
- 
+
 get_lang_word(Command,Dbw_command1),Dbw_command1=Dbw_command,
+
+ %trace,
+
         interpretpart(Command,Args,Variables,Vars1,Vars2).
 
 	%%interpretpart(findall,[Variable1,Variable3],Vars3,Vars2).
