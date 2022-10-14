@@ -871,7 +871,7 @@ get_lang_word("get_lang_word",Dbw_get_lang_word),
 ;     debug_fail(Skip,[[Dbw_n,Dbw_get_lang_word],[Value1,variable]])),!.
 
 
-interpretpart(Command1,Args,Variables,Vars1,Vars2) :- get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+interpretpart(command,Command1,Args,Variables,Vars1,Vars2) :- get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("v",Dbw_v1),Dbw_v1=Dbw_v,
 get_lang_word(Command1,Dbw_command),
 %trace,

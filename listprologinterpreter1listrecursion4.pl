@@ -1171,18 +1171,19 @@ get_lang_word("tail",Dbw_tail1),Dbw_tail1=Dbw_tail,
 %%writeln1(61),
         interpretpart(tail,Variable1,Variable2,Vars1,Vars2).
 
-
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_member],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+/*
+interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_member],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("member",Dbw_member1),Dbw_member1=Dbw_member,
 %%writeln1(8),
-        interpretpart(member,Variable1,Variable2,Vars1,Vars2).
-
+        interpretpart(member2,Variable1,Variable2,Vars1,Vars2).
+*/
 interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 %writeln(here),
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,
-get_lang_word("member2",Dbw_member21),Dbw_member21=Dbw_member2,
+((get_lang_word("member2",Dbw_member21),Dbw_member21=Dbw_member2)->true;
+Dbw_member2=member),
 %%writeln1(8),
 
         interpretpart(member2,Variable1,Variable2,Vars1,Vars2).
@@ -1208,10 +1209,17 @@ get_lang_word("append",Dbw_append1),Dbw_append1=Dbw_append,
         %trace,
         interpretpart(append,Variable1,Variable2,Variable3,Vars1,Vars2).
 
+/*
+interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_stringconcat],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("string_concat",Dbw_stringconcat1),Dbw_stringconcat1=Dbw_stringconcat,
+        interpretpart(stringconcat,Variable1,Variable2,Variable3,Vars1,Vars2).
+        */
 
 interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_stringconcat],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
-get_lang_word("stringconcat",Dbw_stringconcat1),Dbw_stringconcat1=Dbw_stringconcat,
+((get_lang_word("stringconcat",Dbw_stringconcat1),Dbw_stringconcat1=Dbw_stringconcat)->true;
+Dbw_stringconcat=string_concat),
         interpretpart(stringconcat,Variable1,Variable2,Variable3,Vars1,Vars2).
 
 /**
@@ -1587,7 +1595,7 @@ get_lang_word(Command,Dbw_command1),Dbw_command1=Dbw_command,
 
  %trace,
 
-        interpretpart(Command,Args,Variables,Vars1,Vars2).
+        interpretpart(command,Command,Args,Variables,Vars1,Vars2).
 
 	%%interpretpart(findall,[Variable1,Variable3],Vars3,Vars2).
 
