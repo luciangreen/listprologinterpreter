@@ -4959,3 +4959,88 @@ test(243,
 	[[n,equals4],[[v,b],1]]
 ]]
 ],[[[[v,a],1]]]).
+
+% similar to test 56
+
+test(244,[[n,foldl1],[[n,add],[1,2,3],0,[v,d]]],
+%test(244,[[n,var],[[v,a]]],
+%test(244,[[n,string_chars],["a",[v,a]]],
+%test(244,[[n,string_concat1],[["a","b"],"",[v,d]]],
+%test(244,[[n,string_chars1],["ab",[v,d]]],
+%test(244,[[n,foldl1],[[n,string_concat1],["a","b"],"",[v,d]]],
+%test(244,[[n,foldl1],[[n,add],[1,2,3],0,[v,d]]],
+[
+        [[n,foldl1],[[v,f],[],[v,l],[v,l]],":-",[[[n,cut]]]],
+        [[n,foldl1],[[v,f],[[v,h],"|",[v,t]],[v,m1],[v,n]],":-",
+        [       [[v,f],[[v,m1],[v,h],[v,m2]]],
+                [[n,foldl1],[[v,f],[v,t],[v,m2],[v,n]]]
+        ]
+        ],
+
+        [[n,add],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,+],[[v,a],[v,b],[v,c]]]
+        ]
+        ],
+        
+
+[[n,string_concat1],[[v,a],[v,b],[v,c]],":-",
+[
+	[[n,"->"],
+	[
+		[[n,"->"],
+		[
+			[
+			[[n,var],[[v,a]]],
+			[[n,not],[[[n,var],[[v,b]]]]],
+			[[n,var],[[v,c]]]
+			],
+
+			[[n,true]],
+
+			[
+			[
+			[[n,not],[[[n,var],[[v,a]]]]],
+			[[n,var],[[v,b]]],
+			[[n,var],[[v,c]]]
+			]
+			]
+		]],
+
+		[[n,fail]],
+
+		[
+		[[n,string_chars1],[[v,a],[v,a1]]],
+		[[n,string_chars1],[[v,b],[v,b1]]],
+		[[n,string_chars1],[[v,c],[v,c1]]],
+		[[n,append1],[[v,a1],[v,b1],[v,c1]]],
+		[[n,string_chars1],[[v,a],[v,a1]]],
+		[[n,string_chars1],[[v,b],[v,b1]]],
+		[[n,string_chars1],[[v,c],[v,c1]]]
+		]
+	]]
+]],
+[[n,string_chars1],[[v,a],[v,b]],":-",
+[
+	[[n,var],[[v,a]]],
+	[[n,var],[[v,b]]],
+	[[n,cut]]
+]],
+[[n,string_chars1],[[v,a],[v,b]],":-",
+[
+	[[n,string_chars],[[v,a],[v,b]]]
+]],
+[[n,append1],[[],[v,a],[v,a]]],
+[[n,append1],[[[v,a],"|",[v,d]],[v,b],[[v,a],"|",[v,c]]],":-",
+[
+	[[n,append1],[[v,d],[v,b],[v,c]]]
+]]
+        
+]
+
+,[[[[v,d], 6]]]).
+%,[[]]).
+%,[[[[v,a], [a]]]]).
+%,[[[[v,d], "ab"]]]).
+%,[[[[v,d], [a,b]]]]).
+%,[[[[v,d], "ab"]]]).
+%,[[[[v,d], 6]]]).

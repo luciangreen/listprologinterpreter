@@ -1046,11 +1046,13 @@ debug_exit(Skip,[[Dbw_n,Dbw_letters],[Value]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_letters],[Value]])),!.
 
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_variable],[Variable]],Vars,Vars,true,nocut) :-
+%trace,
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
-get_lang_word("variable",Dbw_variable1),Dbw_variable1=Dbw_variable,
+get_lang_word("variable",Dbw_variable1),(Dbw_variable1=Dbw_variable->true;Dbw_variable=var),
 
 debug_call(Skip,[[Dbw_n,Dbw_variable],[Variable]]),
-        (isvar(Variable)->
+	getvalue(Variable,Value,Vars),
+        (isvar(Value)->
 debug_exit(Skip,[[Dbw_n,Dbw_variable],[Variable]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_variable],[Variable]])),!.
 
@@ -1443,14 +1445,17 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("get_lang_word",Dbw_get_lang_word1),Dbw_get_lang_word1=Dbw_get_lang_word,
         interpretpart(get_lang_word,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_command]|Variables2],Vars1,Vars2,true,nocut) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_command]|Variables2],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,
 (Variables2=[]->Variables=[];Variables2=[Variables]),
 
 %trace,
 member([Command,Args],
-[["atom_chars",[i,o]],
+[
+ ["string_chars",[i,o]],
+ ["string_chars",[o,i]],
+ ["atom_chars",[i,o]],
  ["atom_chars",[o,i]],
  ["atom_codes",[i,o]],
  ["atom_codes",[o,i]],
@@ -1593,6 +1598,7 @@ member([Command,Args],
 
 get_lang_word(Command,Dbw_command1),Dbw_command1=Dbw_command,
 
+%(Dbw_command=string_chars->trace;true),
  %trace,
 
         interpretpart(command,Command,Args,Variables,Vars1,Vars2).
