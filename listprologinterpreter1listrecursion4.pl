@@ -1453,6 +1453,7 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,
 member([Command,Args],
 [
+ ["string_chars",[i,i]],
  ["string_chars",[i,o]],
  ["string_chars",[o,i]],
  ["atom_chars",[i,o]],
@@ -1828,7 +1829,7 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 
         interpret2(Query2,Functions0,Functions0,Result1), 
         
-                %writeln1(interpret2(Query2,Functions0,Functions0,Result1)),
+      %trace,          %writeln1(interpret2(Query2,Functions0,Functions0,Result1)),
 	%writeln1(updatevars2(FirstArgs,Result1,[],Vars5)),
 
 	updatevars2(FirstArgs,Result1,[],Vars5),
@@ -1975,7 +1976,7 @@ getvar(Variable,Value,Vars) :-
 	((member([Variable,Value],Vars),
 	not(is_empty(Value)))->true;
 	        ((aggregate_all(count,member([Variable,_Value],Vars),0)->true;%%
-	(member([Variable,Empty],Vars),is_empty(Empty))),is_empty(Value)))
+	(member([Variable,Empty],Vars),is_empty(Empty))),(Empty=Value)))
 .
 getvar(undef,undef,_Vars) :-
 	!.
@@ -1985,7 +1986,7 @@ getvar(undef,undef,_Vars) :-
 	%%.
 	
 simplify(A,A)	:-
-	(string(A)->true;(number(A)->true;(atom(A)->true;A=[]))),!.
+	(variable_name(A)->true;(string(A)->true;(number(A)->true;(atom(A)->true;A=[])))),!.
 %simplify([A,"|",[B|B0]],[A1|[B1|B10]])	:-
 %	simplify(A,A1),
 %	simplify(B,B1),

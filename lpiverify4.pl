@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=243, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=244, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -4962,12 +4962,13 @@ test(243,
 
 % similar to test 56
 
-test(244,[[n,foldl1],[[n,add],[1,2,3],0,[v,d]]],
+%test(244,[[n,foldl1],[[n,add],[1,2,3],0,[v,d]]],
 %test(244,[[n,var],[[v,a]]],
-%test(244,[[n,string_chars],["a",[v,a]]],
-%test(244,[[n,string_concat1],[["a","b"],"",[v,d]]],
+%test(244,[[n,string_chars1],[[v,a],[v,d]]],
+%test(244,[[n,string_concat1],["a","",[v,d]]],
+%test(244,[[n,append1],[[a],[],[v,d]]],
 %test(244,[[n,string_chars1],["ab",[v,d]]],
-%test(244,[[n,foldl1],[[n,string_concat1],["a","b"],"",[v,d]]],
+test(244,[[n,foldl1],[[n,string_concat1],["a","b"],"",[v,d]]],
 %test(244,[[n,foldl1],[[n,add],[1,2,3],0,[v,d]]],
 [
         [[n,foldl1],[[v,f],[],[v,l],[v,l]],":-",[[[n,cut]]]],
@@ -5012,6 +5013,8 @@ test(244,[[n,foldl1],[[n,add],[1,2,3],0,[v,d]]],
 		[[n,string_chars1],[[v,a],[v,a1]]],
 		[[n,string_chars1],[[v,b],[v,b1]]],
 		[[n,string_chars1],[[v,c],[v,c1]]],
+		%[[n,writeln],[[v,c1]]],
+		%[[n,trace2]],
 		[[n,append1],[[v,a1],[v,b1],[v,c1]]],
 		[[n,string_chars1],[[v,a],[v,a1]]],
 		[[n,string_chars1],[[v,b],[v,b1]]],
@@ -5021,26 +5024,62 @@ test(244,[[n,foldl1],[[n,add],[1,2,3],0,[v,d]]],
 ]],
 [[n,string_chars1],[[v,a],[v,b]],":-",
 [
+
+	[[n,"->"],
+	[[
+
 	[[n,var],[[v,a]]],
-	[[n,var],[[v,b]]],
-	[[n,cut]]
-]],
-[[n,string_chars1],[[v,a],[v,b]],":-",
-[
+	[[n,var],[[v,b]]]
+	],
+	[[n,true]],
+	
 	[[n,string_chars],[[v,a],[v,b]]]
+	]]
 ]],
+%[[n,string_chars1],[[v,a],[v,b]],":-",
+%[
+%	[[n,string_chars],[[v,a],[v,b]]]
+%]],
 [[n,append1],[[],[v,a],[v,a]]],
 [[n,append1],[[[v,a],"|",[v,d]],[v,b],[[v,a],"|",[v,c]]],":-",
 [
 	[[n,append1],[[v,d],[v,b],[v,c]]]
 ]]
-        
+
 ]
 
-,[[[[v,d], 6]]]).
-%,[[]]).
-%,[[[[v,a], [a]]]]).
-%,[[[[v,d], "ab"]]]).
-%,[[[[v,d], [a,b]]]]).
-%,[[[[v,d], "ab"]]]).
 %,[[[[v,d], 6]]]).
+%,[[]]).
+%,[[]]).
+%,[[[[v,d], "a"]]]).
+%,[[[[v,d], [a]]]]).
+%,[[[[v,d], [a]]]]).
+,[[[[v,d], "ab"]]]).
+%,[[[[v,d], 6]]]).
+
+/*
+test(245,[[n,string_concat1],[[v,a],[v,b],[v,d]]],
+%test(244,[[n,string_concat1],["a","",[v,d]]],
+%test(244,[[n,append1],[[a],[],[v,d]]],
+%test(244,[[n,string_chars1],["ab",[v,d]]],
+%test(244,[[n,foldl1],[[n,string_concat1],["a","b"],"",[v,d]]],
+%test(244,[[n,foldl1],[[n,add],[1,2,3],0,[v,d]]],
+[[[n,string_concat1],[[v,a],[v,b],[v,c]],":-",
+[
+		
+		%[[n,string_chars1],[[v,c],[v,c1]]],
+		%[[n,equals4],[[v,c],[v,c1]]],
+		%[[n,writeln],[[v,c1]]],
+		%[[n,trace2]],
+		[[n,append1],[[a],[],[v,c1]]]]],
+
+[[n,append1],[[],[v,a],[v,a]]],
+[[n,append1],[[[v,a],"|",[v,d]],[v,b],[[v,a],"|",[v,c]]],":-",
+[
+	[[n,append1],[[v,d],[v,b],[v,c]]]
+]]
+		]
+	
+,[[]]).
+
+*/
