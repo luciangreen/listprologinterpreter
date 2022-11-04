@@ -1048,7 +1048,10 @@ debug_exit(Skip,[[Dbw_n,Dbw_letters],[Value]])
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_variable],[Variable]],Vars,Vars,true,nocut) :-
 %trace,
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
-get_lang_word("variable",Dbw_variable1),(Dbw_variable1=Dbw_variable->true;Dbw_variable=var),
+get_lang_word("variable",Dbw_variable1),
+get_lang_word("var",Dbw_variable2)
+,(Dbw_variable1=Dbw_variable->true;
+Dbw_variable2=Dbw_variable),
 
 debug_call(Skip,[[Dbw_n,Dbw_variable],[Variable]]),
 	getvalue(Variable,Value,Vars),
@@ -1184,8 +1187,10 @@ interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable1,Varia
 %writeln(here),
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,
-((get_lang_word("member2",Dbw_member21),Dbw_member21=Dbw_member2)->true;
-Dbw_member2=member),
+get_lang_word("member2",Dbw_member21),
+get_lang_word("member",Dbw_member22),
+(Dbw_member21=Dbw_member2->true;
+Dbw_member22=Dbw_member2),
 %%writeln1(8),
 
         interpretpart(member2,Variable1,Variable2,Vars1,Vars2).
@@ -1220,8 +1225,10 @@ get_lang_word("string_concat",Dbw_stringconcat1),Dbw_stringconcat1=Dbw_stringcon
 
 interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_stringconcat],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
-((get_lang_word("stringconcat",Dbw_stringconcat1),Dbw_stringconcat1=Dbw_stringconcat)->true;
-Dbw_stringconcat=string_concat),
+get_lang_word("stringconcat",Dbw_stringconcat1),
+get_lang_word("string_concat",Dbw_stringconcat2),
+(Dbw_stringconcat1=Dbw_stringconcat->true;
+Dbw_stringconcat2=Dbw_stringconcat),
         interpretpart(stringconcat,Variable1,Variable2,Variable3,Vars1,Vars2).
 
 /**
@@ -1456,8 +1463,10 @@ member([Command,Args],
  ["string_chars",[i,i]],
  ["string_chars",[i,o]],
  ["string_chars",[o,i]],
+ ["atom_chars",[i,i]],
  ["atom_chars",[i,o]],
  ["atom_chars",[o,i]],
+ ["atom_codes",[i,i]],
  ["atom_codes",[i,o]],
  ["atom_codes",[o,i]],
  ["atom_concat",[i,i,i]],
@@ -1466,6 +1475,7 @@ member([Command,Args],
  ["atom_concat",[o,o,i]],
  ["atom_concat",[i,i,o]],
  ["atomic",[i]],
+ ["atom_length",[i,i]],
  ["atom_length",[i,o]],
  ["sub_atom",[i,i,i,i,i]],
  ["sub_atom",[i,i,i,i,o]],
@@ -1558,11 +1568,17 @@ member([Command,Args],
  ["open",[i,i,o]],
  ["nonvar",[i]],
 
+ ["sin",[i,i]],
  ["sin",[i,o]],
  ["cos",[i,o]],
+ ["cos",[i,i]],
+ ["atan",[i,i]],
  ["atan",[i,o]],
+ ["exp",[i,i]],
  ["exp",[i,o]],
+ ["log",[i,i]],
  ["log",[i,o]],
+ ["sqrt",[i,i]],
  ["sqrt",[i,o]],
 
  ["put_char",[i,i]],
@@ -1590,11 +1606,15 @@ member([Command,Args],
  ["write_canonical",[i,i]],
  ["write_canonical",[i]],
 
+ ["abs",[i,i]],
  ["abs",[i,o]],
+ ["sign",[i,i]],
  ["sign",[i,o]],
+ ["floor",[i,i]],
  ["floor",[i,o]],
- ["round",[i,o]],
- ["ceiling",[i,o]]
+ ["round",[i,i]],
+ ["round",[i,o]]
+ %["ceiling",[i,o]]
 ]),
 
 get_lang_word(Command,Dbw_command1),Dbw_command1=Dbw_command,
