@@ -871,7 +871,9 @@ get_lang_word("get_lang_word",Dbw_get_lang_word),
 ;     debug_fail(Skip,[[Dbw_n,Dbw_get_lang_word],[Value1,variable]])),!.
 
 
-interpretpart(command,Command1,Args,Variables,Vars1,Vars2) :- get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+interpretpart(command,Command1,Args,Variables,Vars1,Vars2) :- 
+%trace,
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("v",Dbw_v1),Dbw_v1=Dbw_v,
 get_lang_word(Command1,Dbw_command),
 %trace,
@@ -950,7 +952,7 @@ arg2([Arg_n|Arg_n2],Command,[Arg|Args]) :-
 
 putvalues2([],_Variables,_Command_vars,Vars,Vars) :- !.
 putvalues2([Arg|Args],[Variable|Variables],[Command_var|Command_vars],Vars1,Vars2) :-
- (Arg=o->putvalue(Variable,Command_var,Vars1,Vars3);
+ (Arg=o->match4_new_22(Variable,Command_var,Vars1,Vars3);
  Vars1=Vars3),
  putvalues2(Args,Variables,Command_vars,Vars3,Vars2).
  

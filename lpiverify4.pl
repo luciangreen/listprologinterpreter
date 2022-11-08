@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=244, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=245, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -5083,3 +5083,9 @@ test(245,[[n,string_concat1],[[v,a],[v,b],[v,d]]],
 ,[[]]).
 
 */
+
+test(245,[[[n,equals4],[[v,a],"abc"]],[[n,string_chars],[[v,a],[[v,x],[v,y],[v,z]]]]],
+
+[]
+
+,[[[[v,a], "abc"],[[v,x], a],[[v,y], b],[[v,z], c]]]).
