@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=245, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=247, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -5089,3 +5089,57 @@ test(245,[[[n,equals4],[[v,a],"abc"]],[[n,string_chars],[[v,a],[[v,x],[v,y],[v,z
 []
 
 ,[[[[v,a], "abc"],[[v,x], a],[[v,y], b],[[v,z], c]]]).
+
+
+
+test(246,[[n,findall],[[[v,f],[v,g]],[[n,append1],[[v,f],[v,g],["c","d","h"]]],[v,e]]],
+
+[
+[[n,append1],[[],[v,a],[v,a]]],
+[[n,append1],[[[v,a],"|",[v,d]],[v,b],[[v,a],"|",[v,c]]],":-",
+[
+	[[n,append1],[[v,d],[v,b],[v,c]]]
+]]
+]
+
+,[[[[v,e],[[[],["c","d","h"]],[["c"],["d","h"]],[["c","d"],["h"]],[["c","d","h"],[]]]]]]).
+
+
+/*
+test(247,[[n,append1],[[v,f],[v,g],["c","d","h"]]],
+
+[
+[[n,append1],[[],[v,a],[v,a]]],
+[[n,append1],[[[v,a],"|",[v,d]],[v,b],[[v,a],"|",[v,c]]],":-",
+[
+	[[n,append1],[[v,d],[v,b],[v,c]]]
+]]
+]
+
+,[[[[v,f],[]],[[v,g],["c","d","h"]]],[[[v,f],["c"]],[[v,g],["d","h"]]],[[[v,f],["c","d"]],[[v,g],["h"]]],[[[v,f],["c","d","h"]],[[v,g],[]]]]).
+*/
+
+test(247,[[n,findall],[[[v,f],[v,g]],[[n,append1],[[v,f],[v,g],["c","d"]]],[v,e]]],
+[
+[[n,append1],[[],[v,a],[v,a]]],
+[[n,append1],[[[v,a],"|",[v,d]],[v,b],[[v,a],"|",[v,c]]],":-",
+[
+	[[n,append1],[[v,d],[v,b],[v,c]]]
+]]
+]
+
+,[[[[v,e],[[[],["c","d"]],[["c"],["d"]],[["c","d"],[]]]]]]).
+
+/*
+test(249,[[n,append1],[[v,f],[v,g],["c","d"]]],
+
+[
+[[n,append1],[[],[v,a],[v,a]]],
+[[n,append1],[[[v,a],"|",[v,d]],[v,b],[[v,a],"|",[v,c]]],":-",
+[
+	[[n,append1],[[v,d],[v,b],[v,c]]]
+]]
+]
+
+,[[[[v,f],[]],[[v,g],["c","d"]]],[[[v,f],["c"]],[[v,g],["d"]]],[[[v,f],["c","d"]],[[v,g],[]]]]).
+*/
