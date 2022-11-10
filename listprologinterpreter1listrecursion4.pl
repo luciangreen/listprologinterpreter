@@ -276,7 +276,8 @@ member1(Query,Functions,Functions2,Result) :-
 	Result=[],
         %%interpretbody(Functions,[],_Vars2,Body,true),
         debug_exit(Skip,[Function])
-	)./*;%%->true;
+	).
+	/*;%%->true;
 	(%%Query=[Function],*/
 
 member1(Query,Functions,Functions2,Result) :-
@@ -415,7 +416,7 @@ member2(Query,Functions,Functions2,Vars8) :-
 	%Functions2=[_Function|Functions3],
 	%member2(Query,Functions,Functions3,Vars8))
 	% );(turncut(off),fail))
-	.
+	
 	
 checkarguments(Variable1a,Variable2a,Vars1,Vars2,_,FirstArgs2) :-
 %writeln1(a1checkarguments(Variable1a,Variable2a,Vars1,Vars2,_,FirstArgs2)),

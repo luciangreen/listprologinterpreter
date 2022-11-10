@@ -198,9 +198,11 @@ test_types_cases(11,[[n,call1b],[[1,11,111],[v,b]]],
         [[[n,member2a],[input,output]]],
 
 [[[n,member2a],[[v,a],[v,b]],":-",
-        [       [[n,member2],[[v,a],[v,b]]],[[n,cut]]]
-        ]]]],
-        [[n,cut]]]]       
+        [       [[n,equals4],[[v,a],[[v,b],"|",[v,list]]]]%][[n,equals4],[[v,a],[v,b]]],[[n,cut]]
+        ]
+        ]]]]
+        %[[n,cut]]
+        ]]       
         
 ],[[[[v,b],1]]]).
 
@@ -218,9 +220,12 @@ test_types_cases(12,[[n,call1b],[[1,11,111],[v,b]]],
         %[[[n,member2a],[input,output]]],
 
 [[[n,member2a],[[v,a],[v,b]],":-",
-        [       [[n,member2],[[v,a],[v,b]]],[[n,cut]]]
-        ]]]],
-        [[n,cut]]]]       
+        [       %[[n,member2],[[v,a],[v,b]]],[[n,cut]]
+        		[[n,equals4],[[v,a],[[v,b],"|",[v,list]]]
+        		]]
+        ]]]]%,
+        %[[n,cut]]
+        ]]       
         
 ],[[[[v,b],1]]]).
 
