@@ -1886,7 +1886,7 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 true%debug_exit(Skip,[Function])
 ;     fail%debug_fail(Skip,[Function])
 )
-,!.
+.
 
 not_reserved_word(Function,Reserved_words) :-
 	        %Function=[[_,Function_a]|_]

@@ -5,7 +5,7 @@
 %% Test cases, Debug=trace=on or off, NTotal=output=total cases, Score=output=result
 
 test(Debug,NTotal,Score) :- test(Debug,0,NTotal,0,Score),!.
-test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=246, !.
+test(_Debug,NTotal,NTotal,Score,Score) :- NTotal=247, !.
 test(Debug,NTotal1,NTotal2,Score1,Score2) :-
 	NTotal3 is NTotal1+1,
 	test(NTotal3,Query,Functions,Result),
@@ -5246,14 +5246,15 @@ test(249,[[[n,a],[[v,e]]],[[n,cut]]
 
 ,[[[[v,e],[[[],["c","d","h"]],[["c"],["d","h"]],[["c","d"],["h"]],[["c","d","h"],[]]]]]]).
 
-/*
+*/
 
-test(250,[[n,subtract1],[[1,2,3],[2,3],[v,c]]],
+test(247,[[[n,subtract1],[[1,2,3],[2,3],[v,c]]],[[n,cut]]],
 
 [
 [[n,subtract1],[[v,c],[],[v,c]],":-",
 [
-	[[n,cut]]
+	[[n,true%cut
+	]]
 ]],
 [[n,subtract1],[[v,a],[[v,b1],"|",[v,b2]],[v,e]],":-",
 [
@@ -5262,17 +5263,20 @@ test(250,[[n,subtract1],[[1,2,3],[2,3],[v,c]]],
 ]],
 [[n,delete1],[[],[v,'_'],[v,c],[v,c]],":-",
 [
-	[[n,cut]]
+	[[n,true%cut
+	]]
 ]],
 [[n,delete1],[[[v,a1],"|",[v,a2]],[v,a1],[v,c],[v,d]],":-",
 [
 	[[n,delete1],[[v,a2],[v,a1],[v,c],[v,d]]],
-	[[n,cut]]
+	[[n,true%cut
+	]]
 ]],
 [[n,delete1],[[[v,a1],"|",[v,a2]],[v,b],[v,c],[v,d]],":-",
 [
 	[[n,delete1],[[v,a2],[v,b],[[v,a1],"|",[v,c]],[v,d]]],
-	[[n,cut]]
+	[[n,true%cut
+	]]
 ]],
 [[n,intersection1],[[v,a],[v,b],[v,c]],":-",
 [
@@ -5318,4 +5322,3 @@ test(250,[[n,subtract1],[[1,2,3],[2,3],[v,c]]],
 
 ,[[[[v,c],[1]]]]).
 
-*/
