@@ -536,7 +536,7 @@ replace_in_term(Value2,[Dbw_v,_],%'$VAR'(_)
         ,V_sys1,Value1A1),
 
         replace_in_term(Value3A3,empty2%'$VAR'(_)
-        ,V_sys1,Value3A1)
+        ,V_sys2,Value3A1)
 
         ),ValueA),!,
         member([Value1a,Value3a],ValueA),
@@ -945,7 +945,7 @@ putvalues2(Args,Variables,Command_variables,Vars1,Vars2)
       ).
 %;     debug_fail(Skip,[[Dbw_n,Dbw_command],Debug_variables])).
 
-arg2([],Command,Args) :- !.
+arg2([],_Command,_Args) :- !.
 arg2([Arg_n|Arg_n2],Command,[Arg|Args]) :-
  arg(Arg_n,Command,Arg),
  arg2(Arg_n2,Command,Args).

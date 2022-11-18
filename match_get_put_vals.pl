@@ -55,6 +55,12 @@ occurs_check(Variable1,Variable2),
 
 match4_new(S1,S2,V1,V2%,_Standard_or_e4
 ) :-
+
+%writeln1(match4_new(S1,S2,V1,V2%,_Standard_or_e
+%)),%trace,
+ %simplify(S10,S1),
+ %simplify(S20,S2),
+
  match_get_vals(S1,[],S3,V1),
  simplify(S3,S5),
  match_get_vals(S2,[],S4,V1),
@@ -103,15 +109,15 @@ match_put_vals([],Variables2,Vars1,Vars2%,Standard_or_e4
 ) :-
  Variables2=[Statement1b|Statement2b],
  (Statement1b="|"->
-match_put_vals([[]],Statement2b,Vars1,Vars2%,Standard_or_e4
-)),!.
+((length(Statement2b,0)->true;length(Statement2b,1)),match_put_vals([[]],Statement2b,Vars1,Vars2%,Standard_or_e4
+))),!.
 
 match_put_vals(Variables1,[],Vars1,Vars2%,Standard_or_e4
 ) :-
  Variables1=[Statement1a|Statement2a],
  (Statement1a="|"->
-match_put_vals(Statement2a,[[]],Vars1,Vars2%,Standard_or_e4
-)),!.
+((length(Statement2a,0)->true;length(Statement2a,1)),match_put_vals(Statement2a,[[]],Vars1,Vars2%,Standard_or_e4
+))),!.
 
 match_put_vals(Variables1,Variables2,Vars1,Vars2%,Standard_or_e4
 ) :-

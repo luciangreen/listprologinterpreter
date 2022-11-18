@@ -33,3 +33,4 @@
 :- include('preds_converters_and_matrices.pl').
 %:- include('numbers_of_items_correspond.pl').
 :- include('match_get_put_vals.pl').
+:- include('pred_id.pl').
