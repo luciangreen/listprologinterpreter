@@ -5144,19 +5144,6 @@ test(245,[[[n,equals4],[[v,a],"abc"]],[[n,string_chars],[[v,a],[[v,x],[v,y],[v,z
 ,[[[[v,a], "abc"],[[v,x], a],[[v,y], b],[[v,z], c]]]).
 
 
-/*
-test(246,[[n,findall],[[[v,f],[v,g]],[[n,append1],[[v,f],[v,g],["c","d","h"]]],[v,e]]],
-
-[
-[[n,append1],[[],[v,a],[v,a]]],
-[[n,append1],[[[v,a],"|",[v,d]],[v,b],[[v,a],"|",[v,c]]],":-",
-[
-	[[n,append1],[[v,d],[v,b],[v,c]]]
-]]
-]
-
-,[[[[v,e],[[[],["c","d","h"]],[["c"],["d","h"]],[["c","d"],["h"]],[["c","d","h"],[]]]]]]).
-*/
 
 /*
 test(247,[[n,append1],[[v,f],[v,g],["c","d","h"]]],
@@ -5322,3 +5309,20 @@ test(247,[[[n,subtract1],[[1,2,3],[2,3],[v,c]]],[[n,cut]]],
 
 ,[[[[v,c],[1]]]]).
 
+/*
+only works in ssi
+- could remove if then from member1 etc in lpi
+- this would remove cut
+
+test(248,[[n,findall],[[[v,f],[v,g]],[[n,append1],[[v,f],[v,g],["c","d","h"]]],[v,e]]],
+
+[
+[[n,append1],[[],[v,a],[v,a]]],
+[[n,append1],[[[v,h],"|",[v,d]],[v,b],[[v,h],"|",[v,c]]],":-",
+[
+	[[n,append1],[[v,d],[v,b],[v,c]]]
+]]
+]
+
+,[[[[v,e],[[[],["c","d","h"]],[["c"],["d","h"]],[["c","d"],["h"]],[["c","d","h"],[]]]]]]).
+*/
