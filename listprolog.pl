@@ -23,6 +23,7 @@
 :- include('lpiverify4_test_bt_lang_all.pl').
 :- include('../Languages/make_docs.pl').
 :- include('../SSI/find_pred_sm.pl').
+%:- include('../add_line_numbers_to_algorithm.pl').
 :- include('e4_fa_get_vals.pl').
 %:- include('equals4_first_args.pl').
 :- include('expression_not_var.pl').
@@ -34,3 +35,5 @@
 %:- include('numbers_of_items_correspond.pl').
 :- include('match_get_put_vals.pl').
 :- include('pred_id.pl').
+:- include('add_pred_numbers.pl').
+:- include('cut_cps_lpi.pl').

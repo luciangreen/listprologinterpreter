@@ -1227,7 +1227,7 @@ get_lang_word("v",Dbw_v),
 get_lang_word("sys1",Dbw_sys1),
 not((L=[])),L=[H|T],
 
-	interpretstatement1(_,Functions0,Functions,[F,[M1,H,[Dbw_v,Dbw_sys1]]],Vars1,Vars2,true,nocut),
+	interpretstatement1(_,Functions0,Functions,[F,[M1,H,[Dbw_v,Dbw_sys1]]],Vars1,Vars2,true,nocut,_N,_Pred_num),
 	getvalue([Dbw_v,Dbw_sys1],M2,Vars2),
 	
 %%(F,(M1,H,M2)),
