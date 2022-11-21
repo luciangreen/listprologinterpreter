@@ -1134,6 +1134,8 @@ false(false).
 %%	.
 
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals4_on]|_],Vars,Vars,true,nocut,_N,_Pred_num) :- %writeln(here),
+%writeln1(interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals4_on]|_],Vars,Vars,true,nocut,_N,_Pred_num)),
+
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("equals4_on",Dbw_equals4_on1),Dbw_equals4_on1=Dbw_equals4_on,
 turnequals4(on),
@@ -1909,7 +1911,7 @@ Query1=[Function,Arguments],%,Function=[Dbw_n1,Function_a],atom_string(Function_
         %reserved_word(Function3),
         append([Function3],[Arguments],Arguments1),
         
-interpretstatement1(_,Functions0,_Functions,Arguments1,Vars1,Vars8,true,nocut,N,Pred_num).
+interpretstatement1(_,Functions0,_Functions,Arguments1,Vars1,Vars8,true,nocut,N,Pred_num),!.
 
         
 interpretstatement1(non-ssi,_Functions0,_Functions,Query1,Vars1,Vars8,true,nocut,_N,_Pred_num) :-
