@@ -37,3 +37,4 @@
 :- include('pred_id.pl').
 :- include('add_pred_numbers.pl').
 :- include('cut_cps_lpi.pl').
+:- include('lib_preds.pl').

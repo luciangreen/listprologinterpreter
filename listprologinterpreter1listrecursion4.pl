@@ -76,13 +76,33 @@ interpret11(Debug,Query,Functions,Result) :-
 	true),
 	load_lang_db,
 
-	query_box(Query,Query1,Functions,Functions1),
+	query_box(Query,Query1,Functions,Functions1a),
 
 %trace,
 %writeln1(query_box(Query,Query1,Functions,Functions1)),
 %%writeln1([i1]),
 	%%writeln1(convert_to_grammar_part1(Functions1,[],Functions2,_)),
-	convert_to_grammar_part1(Functions1,[],Functions2b,_),
+	
+	
+lib_preds([Types,Modes,Preds]),
+
+append(Functions1a,Preds,Functions1),
+
+(types(on)->(
+typestatements(Typestatements),
+	retractall(typestatements(_)),
+	
+%writeln(here1),
+	findall([A,C],(member([A,B],Types),expand_types(B,[],C)),TypeStatements1),
+	append(Typestatements,TypeStatements1,TypeStatements2),
+ 	assertz(typestatements(TypeStatements2)),
+ 	modestatements(Modestatements),
+	retractall(modestatements(_)),
+	%trace,
+	append(Modestatements,Modes,Modestatements2),
+ 	assertz(modestatements(Modestatements2)));true),
+
+convert_to_grammar_part1(Functions1,[],Functions2b,_),
 
 
 	add_pred_numbers(Functions2b,Functions2),
@@ -176,7 +196,7 @@ retractall(retry_back(_)),
 	  	retractall(pred_number(_)),
  assertz(pred_number(0)),
 
-find_cut_pred(N),
+find_cut_pred(Pred_id),
 
 	  	%retractall(tracea(_)),
 % assertz(tracea(off)),
@@ -185,20 +205,21 @@ find_cut_pred(N),
 %%writeln1(member1(Query,Functions1,Functions2,Result)),
 %trace,
 
-	member1(Query,Functions1,Functions2,Result,N).
+	member1(Query,Functions1,Functions2,Result,Pred_id).
 %%member1([_,R],_,[],R).
 %%member1(_,_,[],[]).
 /*
-cut_above(N,Pred_id_chain,Cut_preds) :-
+cut_above(Pred_id,Pred_id_chain,Cut_preds) :-
  not((member([pred_id_chain,N2,N],Pred_id_chain),member(N2,Cut_preds))),fail,!.
-cut_above(N,Pred_id_chain,Cut_preds) :-
+cut_above(Pred_id,Pred_id_chain,Cut_preds) :-
 */
  
-test_cut_off(N,Pred_num) :-
+test_cut_off(Pred_id,Pred_num) :-
 
+%([Pred_id,Pred_num]=[5,3]->trace;true),
 %tracea,writeln1(test_cut_off(Cut_pred)),
 	pred_num(Pred_num1),
-	append(Pred_num1,[[[pred_num,N],Pred_num]],Pred_num2),
+	append(Pred_num1,[[[pred_num,Pred_id],Pred_num]],Pred_num2),
 	retractall(pred_num(_)),
 	assertz(pred_num(Pred_num2)),
 
@@ -208,34 +229,34 @@ test_cut_off(N,Pred_num) :-
 	% if there is a cut above this level, then cut
 	% the group extends to same pred name, arity
 	
-	%(member(N,))
+	%(member(Pred_id))
 	%member([pred_id_chain,N1,N],Pred_id_chain),
 	 
 	%append(Cut_preds,N2,Cut_preds2),
 	
 	cut_preds(Cut_preds),
-	(not(member(N,%N2%
+	(not(member(Pred_id,%N2%
 	Cut_preds
 	))%test_cut(Cut_pred,off)
 	->(%notrace,
 	
-	/*writeln1(member(N,%N2%
+	/*writeln1(member(Pred_id,%N2%
 	Cut_preds
 	)),*/
 	true);(%turncut(off),%notrace,
 	
-	%writeln1(not(member(N,%N2%
+	%writeln1(not(member(Pred_id,%N2%
 	%Cut_preds
 	%))),
 	
 	fail)).
 
-member1(_Query,_,[],_,_N) :-
+member1(_Query,_,[],_,_Pred_id) :-
 %writeln(member1bc),
 %trace,
 	/*
 	cut_preds(Cut_preds),
-	delete(Cut_preds,N,Cut_preds2),
+	delete(Cut_preds,Pred_id,Cut_preds2),
 	retractall(cut_preds(_)),
 	assertz(cut_preds(Cut_preds2)),
 	*/
@@ -245,13 +266,13 @@ member1(_Query,_,[],_,_N) :-
 fail.
 
 
-member1(Query,Functions,Functions2,Vars8,N) :-
+member1(Query,Functions,Functions2,Vars8,Pred_id) :-
 %%writeln1([m1]),
 %trace,
 	(%cut(off)->(
         (Query=[Function,Arguments1],
 	(Functions2=[[Pred_num,Function,Arguments2,":-",Body]|_Functions3]),
-	test_cut_off(N,Pred_num),
+	test_cut_off(Pred_id,Pred_num),
 	length(Arguments1,Length),
 	length(Arguments2,Length),
 
@@ -267,7 +288,7 @@ checktypes_inputs(Function,Arguments1),
         %notrace,
         %%->ca2 
 %writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
-	interpretbody(Functions,Functions2,Vars1,Vars2,Body,true,N,Pred_num),
+	interpretbody(Functions,Functions2,Vars1,Vars2,Body,true,Pred_id,Pred_num),
 	updatevars(FirstArgs,Vars2,[],Result),
 	%writeln1(updatevars(FirstArgs,Vars2,[],Result)),
 	%trace,
@@ -302,16 +323,16 @@ checktypes_inputs(Function,Arguments1),
 	)
 	).%;(turncut(off),fail%%,Result=[]
 	%)).
-member1(Query,Functions,Functions2,Result,N) :-
+member1(Query,Functions,Functions2,Result,Pred_id) :-
 %%writeln1([m11]),
 %%writeln1(["Query",Query,"Functions",Functions,"Functions2",Functions2,"Result",Result]),
 	(%cut(off)->(
         (Query=[Function],
         (Functions2=[[Pred_num,Function,":-",Body]|_Functions3]),
-        test_cut_off(N,Pred_num),
+        test_cut_off(Pred_id,Pred_num),
         debug_call(Skip,[Function]),
 	Result=[],
-        (interpretbody(Functions,Functions2,[],_Vars2,Body,true,N,Pred_num),debug_fail_fail(Skip)%;debug_fail(Skip,[Function])
+        (interpretbody(Functions,Functions2,[],_Vars2,Body,true,Pred_id,Pred_num),debug_fail_fail(Skip)%;debug_fail(Skip,[Function])
         ),
     debug_exit(Skip,[Function])
 		        %,Functions2=[_|Functions3]
@@ -322,12 +343,12 @@ member1(Query,Functions,Functions2,Result,N) :-
 	true%member1(Query,Functions,Functions2,Result)
 	)
 	).%;(turncut(off),fail)).
-member1(Query,_Functions,Functions2,Vars8,N) :-
+member1(Query,_Functions,Functions2,Vars8,Pred_id) :-
 %%writeln1([m12]),
 	(%cut(off)->(
         (Query=[Function,Arguments1],
         (Functions2=[[Pred_num,Function,Arguments2]|_Functions3]),
-        test_cut_off(N,Pred_num),
+        test_cut_off(Pred_id,Pred_num),
         length(Arguments1,Length),
         length(Arguments2,Length),
         
@@ -362,12 +383,12 @@ debug_call(Skip,[Function,Arguments1]),
 	true%member13(Query,Functions,Functions2,Vars8)
 	)
 	).%;(turncut(off),fail)).
-member1(Query,_Functions,Functions2,Result,N) :-
+member1(Query,_Functions,Functions2,Result,Pred_id) :-
 %%writeln1([m13]),
 	(%cut(off)->(
         (Query=[Function],
         (Functions2=[[Pred_num,Function]|_Functions3]),
-        test_cut_off(N,Pred_num),
+        test_cut_off(Pred_id,Pred_num),
         debug_call(Skip,[Function]),
 	Result=[],
         debug_fail_fail(Skip),%%interpretbody(Functions,[],_Vars2,Body,true),
@@ -380,12 +401,14 @@ member1(Query,_Functions,Functions2,Result,N) :-
 	)
 	).%;(turncut(off),fail)).
 
-member1(Query,Functions,Functions2,Result,N) :-
+member1(Query,Functions,Functions2,Result,Pred_id) :-
 %turncut(off),
 Functions2=[_Function|Functions3],
-	member1(Query,Functions,Functions3,Result,N).
+	member1(Query,Functions,Functions3,Result,Pred_id).
 	
-interpret2(Query,Functions1,Functions2,Result,Prev_N) :-
+interpret2(Query,Functions1,Functions2,Result,Prev_pred_id,Pred_id) :-
+
+%writeln1(interpret2(Query,_,_,Result,Prev_pred_id,Pred_id)),
 /*writeln(Query),
 %trace,
 loop_id(ID),Query=[Function,Arguments],
@@ -404,38 +427,37 @@ assertz(loop_id(Query)),
 find_cut_pred(N),
 %writeln1([2-N]),
 */
-find_cut_pred(N),
 %trace,
 pred_id_chain(Pred_id_chain),
-append(Pred_id_chain,[[pred_id_chain,Prev_N,N]],Pred_id_chain2),
+append(Pred_id_chain,[[pred_id_chain,Prev_pred_id,Pred_id]],Pred_id_chain2),
 retractall(pred_id_chain(_)),
 assertz(pred_id_chain(Pred_id_chain2)),
 
 
         %*/
-        member2(Query,Functions1,Functions2,Result,N)
+        member2(Query,Functions1,Functions2,Result,Pred_id)
         .
         /*
-all_dependent_preds(N,Pred_id_chain,N1,N1) :- 
- not(member([pred_id_chain,N,_],Pred_id_chain)),!.
-all_dependent_preds(N,Pred_id_chain,N1,N2) :-
+all_dependent_preds(Pred_id,Pred_id_chain,N1,N1) :- 
+ not(member([pred_id_chain,Pred_id,_],Pred_id_chain)),!.
+all_dependent_preds(Pred_id,Pred_id_chain,N1,N2) :-
 
 writeln(all_dependent_preds),
 
- findall(N4,(member([pred_id_chain,N,N3],Pred_id_chain),
+ findall(N4,(member([pred_id_chain,Pred_id,N3],Pred_id_chain),
  all_dependent_preds(N3,Pred_id_chain,[],N5),
  append([N3],N5,N4)),N6),append(N1,N6,N7), flatten(N7,N2).
 */
 %%member2([_,R],_,[],R).
 %%member2(_,_,[],[]).
-member2(_Query,_,[],_,_N) :- 
+member2(_Query,_,[],_,_Pred_id) :- 
 %writeln(member2bc),
 
-%tracea,writeln1(member2(_Query,_,[],_,N)),
+%tracea,writeln1(member2(_Query,_,[],_,Pred_id)),
 
 	%cut_preds(Cut_preds),
 %	pred_id_chain(Pred_id_chain),
-%	all_dependent_preds(N, Pred_id_chain,[N],N2),
+%	all_dependent_preds(Pred_id, Pred_id_chain,[N],N2),
 	
 %	subtract(Cut_preds,[]%N2
 %	,Cut_preds2),
@@ -445,7 +467,7 @@ member2(_Query,_,[],_,_N) :-
 %turncut(off),
 !, %%writeln1(["The query",Query,"matches no predicates."]),
 fail.
-member2(Query,Functions,Functions2,Vars8,N) :-
+member2(Query,Functions,Functions2,Vars8,Pred_id) :-
 %writeln(1),
 %writeln1(member2(Query,Functions,Functions2,Vars8)),
 %%writeln1([m2]),
@@ -453,7 +475,8 @@ member2(Query,Functions,Functions2,Vars8,N) :-
         (%trace,
         Query=[Function,Arguments1],
         (Functions2=[[Pred_num,Function,Arguments2,":-",Body]|_Functions3]),
-        test_cut_off(N,Pred_num),
+        %writeln1(test_cut_off(Pred_id,Pred_num)),
+        test_cut_off(Pred_id,Pred_num),
         length(Arguments1,Length),
         length(Arguments2,Length),
 
@@ -466,7 +489,7 @@ debug_call(Skip,[Function,Arguments1]),
 
         
 %%writeln1([checkarguments,"Arguments1",Arguments1,"Arguments2",Arguments2,"Vars1",Vars1,"FirstArgs",FirstArgs]),
-        interpretbody(Functions,Functions2,Vars1,Vars2,Body,true,N,Pred_num),
+        interpretbody(Functions,Functions2,Vars1,Vars2,Body,true,Pred_id,Pred_num),
         updatevars(FirstArgs,Vars2,[],Result),
         %trace,
         unique1(Result,[],Vars8)%,notrace
@@ -490,16 +513,16 @@ debug_call(Skip,[Function,Arguments1]),
 	true%member21(Query,Functions,Functions2,Vars8)
 	)
 	).%;(turncut(off),fail)).
-member2(Query,Functions,Functions2,_Result,N) :-
+member2(Query,Functions,Functions2,_Result,Pred_id) :-
 %writeln(2),
 %%writeln1([m21]),
 	(%cut(off)->(
         (Query=[Function],
         (Functions2=[[Pred_num,Function,":-",Body]|_Functions3]),
-        test_cut_off(N,Pred_num),
+        test_cut_off(Pred_id,Pred_num),
         Vars1=[],
 		  debug_call(Skip,[Function]),
-        (interpretbody(Functions,Functions2,Vars1,_Vars2,Body,true,N,Pred_num),debug_fail_fail(Skip)
+        (interpretbody(Functions,Functions2,Vars1,_Vars2,Body,true,Pred_id,Pred_num),debug_fail_fail(Skip)
         %debug_fail(Skip,[Function])
         ), %%**arg2 change
         debug_exit(Skip,[Function])
@@ -512,13 +535,13 @@ member2(Query,Functions,Functions2,_Result,N) :-
 	true%member22(Query,Functions,Functions2,Result)
 	)
 	).%;(turncut(off),fail)).
-member2(Query,_Functions,Functions2,Vars8,N) :-
+member2(Query,_Functions,Functions2,Vars8,Pred_id) :-
 %writeln(3),
 %%writeln1([m22]),
 	(%cut(off)->(
         (Query=[Function,Arguments1],
         (Functions2=[[Pred_num,Function,Arguments2]|_Functions3]),
-        test_cut_off(N,Pred_num),
+        test_cut_off(Pred_id,Pred_num),
         length(Arguments1,Length),
         length(Arguments2,Length),
 
@@ -550,13 +573,13 @@ debug_call(Skip,[Function,Arguments1]),
 	true%member23(Query,Functions,Functions2,Vars8)
 	)
 	).%;(turncut(off),fail)).
-member2(Query,_Functions,Functions2,Vars8,N) :-
+member2(Query,_Functions,Functions2,Vars8,Pred_id) :-
 %writeln(4),
 %%writeln1([m23]),
 	(%cut(off)->(
         (Query=[Function],
         (Functions2=[[Pred_num,Function]|_Functions3]),
-        test_cut_off(N,Pred_num),
+        test_cut_off(Pred_id,Pred_num),
         	debug_call(Skip,[Function]),
 	Vars8=[],
 	debug_fail_fail(Skip),
@@ -569,11 +592,11 @@ member2(Query,_Functions,Functions2,Vars8,N) :-
 )
 	).%;(turncut(off),fail)).
 	
-member2(Query,Functions,Functions2,Vars8,N) :-
+member2(Query,Functions,Functions2,Vars8,Pred_id) :-
 %writeln(5),
 %turncut(off),
 	Functions2=[_Function|Functions3],
-	member2(Query,Functions,Functions3,Vars8,N).
+	member2(Query,Functions,Functions3,Vars8,Pred_id).
 	
 checkarguments(Variable1a,Variable2a,Vars1,Vars2,_,FirstArgs2) :-
 %writeln1(a1checkarguments(Variable1a,Variable2a,Vars1,Vars2,_,FirstArgs2)),
@@ -688,11 +711,15 @@ checktypes_inputs(Function,Vars1):-%%,TypeStatements1) :-
 	get_lang_word("query_box",Dbw_query_box),
 
 	(((%trace,
-	types(on),Function=[Dbw_n,Dbw_query_box1],
-	not(string_concat(Dbw_query_box,_,Dbw_query_box1)))%,notrace
+	types(on),%trace,
+	Function=[Dbw_n,Dbw_query_box1],
+	not(string_concat(Dbw_query_box,_,Dbw_query_box1))
+	%,trace
+	)%,notrace
 	)->(typestatements(TypeStatements1),
 	modestatements(ModeStatements1),
-	checktypes0_inputs(Function,Vars1,TypeStatements1,ModeStatements1));true),!.
+	checktypes0_inputs(Function,Vars1,TypeStatements1,ModeStatements1));true),!
+	.
 checktypes0_inputs(Function,Vars1,_TypeStatements1,_ModeStatements1) :- 
 	length(Vars1,L),L is 0,Vars1=[],
 	get_lang_word("input type check",Input_type_check),
@@ -721,7 +748,8 @@ checktypes0_inputs(Function,Vars1,TypeStatements1,ModeStatements1) :-
 ;(
 	(types(on)->debug_fail(Skip,[Function,Vars1]);true),
 
-(types(on)->(debug_types_fail([Function,/,~,L,Input_type_check]));true)))),!.
+(types(on)->(debug_types_fail([Function,/,~,L,Input_type_check]));true)))),!
+.
 
 extract_modes1(TypeStatements1,TypeStatements3,Vars1,Vars2,ModeStatements1) :-
 	%%TypeStatements1=[TypeStatements2|TypeStatements3],
@@ -939,7 +967,9 @@ checktypes3(Vars,TypeStatements3,TypeStatements2,TypeStatements6) :-
 
 
 
-interpretbody(_Functions1,_Functions2,Vars,Vars,[],true,_N,_Pred_num) :- true.%%!.
+interpretbody(_Functions1,_Functions2,Vars,Vars,[],true,Pred_id,Pred_num) :-
+	%test_cut_off(Pred_id,Pred_num),
+ true.%%!.
 
 
 
@@ -962,18 +992,20 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1) :-
         logicalconjunction(Result1,Result2,Result3),!.
 **/
 
-interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1,N,Pred_num) :-
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1,Pred_id,Pred_num) :-
+	%test_cut_off(Pred_id,Pred_num),
+
         Body=[[Statements1|Statements1a]|Statements2
         ],
 	
 		not(predicate_or_rule_name(Statements1)),
 %%writeln1(interpretbody(Functions0,Functions,Vars1,Vars3,[Statement],Result2)),
-	interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2,N,Pred_num), %% 2->1
+	interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2,Pred_id,Pred_num), %% 2->1
         %%((Result2=cut)->!;true),
 
-	interpretbody(Functions0,Functions,Vars3,Vars4,Statements1a,Result22,N,Pred_num), %% 2->1
+	interpretbody(Functions0,Functions,Vars3,Vars4,Statements1a,Result22,Pred_id,Pred_num), %% 2->1
         %%((Result22=cut)->!;true),
-        interpretbody(Functions0,Functions,Vars4,Vars2,Statements2,Result3,N,Pred_num),
+        interpretbody(Functions0,Functions,Vars4,Vars2,Statements2,Result3,Pred_id,Pred_num),
        %%((Result3=cut)->!;true),
   %%()      logicalnot(Result2,Result4), 
 logicalconjunction(Result1a,Result2,Result22),
@@ -983,19 +1015,20 @@ logicalconjunction(Result1,Result1a,Result3),
 
 
         
-interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1,N,Pred_num) :-
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1,Pred_id,Pred_num) :-
+	%test_cut_off(Pred_id,Pred_num),
 	get_lang_word("n",Dbw_n),get_lang_word("not",Dbw_not),
         Body=[[[Dbw_n,Dbw_not],[Statement]]|Statements2
         ],
 
 debug_call(Skip,[[Dbw_n,Dbw_not]]),
-        (	(not(interpretbody(Functions0,Functions,Vars1,_Vars3,[Statement],Result22,N,Pred_num)))-> %% 2->1
+        (	(not(interpretbody(Functions0,Functions,Vars1,_Vars3,[Statement],Result22,Pred_id,Pred_num)))-> %% 2->1
         %%((Result22=cut)->!;true)),%%->
 debug_exit(Skip,[[Dbw_n,Dbw_not]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_not]])),
 	%%writeln1(interpretbody(Functions0,Functions,Vars1,Vars3,[Statement],Result2)),
 
-        interpretbody(Functions0,Functions,Vars1,Vars2,Statements2,Result32,N,Pred_num),
+        interpretbody(Functions0,Functions,Vars1,Vars2,Statements2,Result32,Pred_id,Pred_num),
         %%((Result32=cut)->!;true),
        logicalnot(Result1a,Result22), 
 logicalconjunction(Result1,Result1a,Result32),
@@ -1004,18 +1037,19 @@ logicalconjunction(Result1,Result1a,Result32),
 	
 
 
-interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result0,N,Pred_num) :-
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result0,Pred_id,Pred_num) :-
+	%test_cut_off(Pred_id,Pred_num),
 	get_lang_word("n",Dbw_n),get_lang_word("or",Dbw_or),
 
         Body=[[[Dbw_n,Dbw_or],[Statements1,Statements2]]|Statements3],
-        (interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result1,N,Pred_num)
+        (interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result1,Pred_id,Pred_num)
         %%((Result1=cut)->!;true)); %% *** changed from 1 to Result2
 	%%,((Value1=cut)->!;true))
 	;
-        interpretbody(Functions0,Functions,Vars1,Vars3,[Statements2],Result2,N,Pred_num)),%%!. *** changed from 1 to Result2
+        interpretbody(Functions0,Functions,Vars1,Vars3,[Statements2],Result2,Pred_id,Pred_num)),%%!. *** changed from 1 to Result2
         %%((Result2=cut)->!;true),
 
-        interpretbody(Functions0,Functions,Vars3,Vars2,Statements3,Result3,N,Pred_num),
+        interpretbody(Functions0,Functions,Vars3,Vars2,Statements3,Result3,Pred_id,Pred_num),
         %%((Result3=cut)->!;true),
         logicaldisjunction(Result1a,Result1,Result2),
         logicalconjunction(Result0,Result1a,Result3),
@@ -1026,18 +1060,19 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result0,N,Pred_num) :-
 	%%(logicaldisjunction(Result1,Value1,Value2)->true;(Result1=false)).
 
 
-interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1,N,Pred_num) :-
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1,Pred_id,Pred_num) :-
+	%test_cut_off(Pred_id,Pred_num),
 	get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 
 
         Body=[[[Dbw_n,"->"],[Statements1,Statements2]]|Statements3],
-        (interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2,N,Pred_num)
+        (interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2,Pred_id,Pred_num)
                 %%((Result2=cut)->!;true))
 -> 
-                interpretbody(Functions0,Functions,Vars3,Vars4,[Statements2],Result22,N,Pred_num)),
+                interpretbody(Functions0,Functions,Vars3,Vars4,[Statements2],Result22,Pred_id,Pred_num)),
                  %%((Result22=cut)->!;true))),
 
-        interpretbody(Functions0,Functions,Vars4,Vars2,Statements3,Result3,N,Pred_num),
+        interpretbody(Functions0,Functions,Vars4,Vars2,Statements3,Result3,Pred_id,Pred_num),
                %%((Result3=cut)->!;true),
         logicalconjunction(Result1a,Result2,Result22),
         logicalconjunction(Result1,Result1a,Result3),
@@ -1047,20 +1082,21 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1,N,Pred_num) :-
 
 
 
-interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1,N,Pred_num) :-
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1,Pred_id,Pred_num) :-
+	%test_cut_off(Pred_id,Pred_num),
 	get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 
         Body=[[[Dbw_n,"->"],[Statements1,Statements2,Statements2a]]|Statements3],
-        ((interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2,N,Pred_num)
+        ((interpretbody(Functions0,Functions,Vars1,Vars3,[Statements1],Result2,Pred_id,Pred_num)
            %%((Result2=cut)->!;true))
            -> 
-                interpretbody(Functions0,Functions,Vars3,Vars4,[Statements2],Result22,N,Pred_num)
+                interpretbody(Functions0,Functions,Vars3,Vars4,[Statements2],Result22,Pred_id,Pred_num)
                 %%((Result22=cut)->!;true))
                 ;
-                interpretbody(Functions0,Functions,Vars1,Vars4,[Statements2a],Result23,N,Pred_num))),
+                interpretbody(Functions0,Functions,Vars1,Vars4,[Statements2a],Result23,Pred_id,Pred_num))),
                 %%((Result23=cut)->!;true))),
 
-        interpretbody(Functions0,Functions,Vars4,Vars2,Statements3,Result3,N,Pred_num),
+        interpretbody(Functions0,Functions,Vars4,Vars2,Statements3,Result3,Pred_id,Pred_num),
         
                 logicalconjunction(Result1a,Result2,Result22),
                 logicaldisjunction(Result1b,Result1a,Result23),
@@ -1070,21 +1106,22 @@ interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1,N,Pred_num) :-
         	true.%%!.
 
 
-interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1,N,Pred_num) :-
+interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1,Pred_id,Pred_num) :-
+	test_cut_off(Pred_id,Pred_num),
 %writeln1(interpretbody(Functions0,Functions,Vars1,Vars2,Body,Result1)),
 %trace,
 	Body=[Statement|Statements],
 %%writeln1(["Functions0",Functions0,"Functions",Functions,"Statement",Statement,"Vars1",Vars1,"Vars3",Vars3,"Result2",Result2,"Cut",Cut]),
 	not(predicate_or_rule_name(Statement)),
 %trace,
-	interpretstatement1(_,Functions0,Functions,Statement,Vars1,Vars3,Result2,Cut,N,Pred_num),
+	interpretstatement1(_,Functions0,Functions,Statement,Vars1,Vars3,Result2,Cut,Pred_id,Pred_num),
 %%writeln1(["here1"]),
 %trace,
 	((not(Cut=cut))->(Functions2=Functions);(%%trace,
 	!,turncut(on))
 	), %% cut to interpret1/2 (assertz)
 %%writeln1(["here3"]),
-	interpretbody(Functions0,Functions2,Vars3,Vars2,Statements,Result3,N,Pred_num),
+	interpretbody(Functions0,Functions2,Vars3,Vars2,Statements,Result3,Pred_id,Pred_num),
 	%%((Result3=cut)->!;true),
 %%writeln1(["here4"]),
 	logicalconjunction(Result1,Result2,Result3)	,true.%%,!.
@@ -1133,36 +1170,44 @@ false(false).
 %%writeln1("AND HERE!")
 %%	.
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals4_on]|_],Vars,Vars,true,nocut,_N,_Pred_num) :- %writeln(here),
-%writeln1(interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals4_on]|_],Vars,Vars,true,nocut,_N,_Pred_num)),
+%interpretstatement1(A,B,C,D,E,F,G,H,I,J) :- %writeln(here),
+%writeln1(interpretstatement1(A,B,C,D,E,F,G,H,I,J)),
+%fail.
+
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals4_on]|_],Vars,Vars,true,nocut,_Pred_id,_Pred_num) :- %writeln(here),
+%writeln1(interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals4_on]|_],Vars,Vars,true,nocut,Pred_id,_Pred_num)),
 
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("equals4_on",Dbw_equals4_on1),Dbw_equals4_on1=Dbw_equals4_on,
 turnequals4(on),
 !.
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals4_off]|_],Vars,Vars,true,nocut,_N,_Pred_num) :- %writeln(here),
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals4_off]|_],Vars,Vars,true,nocut,_Pred_id,_Pred_num) :- %writeln(here),
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("equals4_off",Dbw_equals4_off1),Dbw_equals4_off1=Dbw_equals4_off,
 turnequals4(off),
 !.
 
-interpretstatement1(ssi,_F0,_Functions,[[n,trace2]|_],Vars,Vars,true,nocut,_N,_Pred_num) :- %writeln(here),
+interpretstatement1(ssi,_F0,_Functions,[[n,trace2]|_],Vars,Vars,true,nocut,_Pred_id,_Pred_num) :- %writeln(here),
 trace,!.
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_trace]|_],Vars,Vars,true,nocut,_N,_Pred_num) :- 
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_trace]|_],Vars,Vars,true,nocut,_Pred_id,_Pred_num) :- 
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("trace",Dbw_trace1),Dbw_trace1=Dbw_trace,
 turndebug(on),
 !.
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_notrace]|_],Vars,Vars,true,nocut,_N,_Pred_num) :- 
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_notrace]|_],Vars,Vars,true,nocut,_Pred_id,_Pred_num) :- 
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("notrace",Dbw_notrace1),Dbw_notrace1=Dbw_notrace,
 turndebug(off),
 !.
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_cut]|_],Vars,Vars,true,cut,N,Predicate_number) :- 
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_cut]|A],Vars,Vars,true,%changed to nocut
+nocut,Pred_id,Predicate_number) :- 
+
+%writeln1(interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_cut]|A],Vars,Vars,true,cut,Pred_id,Predicate_number)),
+
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("cut",Dbw_cut1),Dbw_cut1=Dbw_cut,
 %trace,
@@ -1174,11 +1219,11 @@ pred_id_chain(Pred_id_chain),
 pred_num(Pred_num),
 append(Pred_id_chain,Pred_num,Globals3),
 
-cut_cps_lpi(N,Predicate_number,Globals3),
+cut_cps_lpi(Pred_id,Predicate_number,Globals3),
 
 /*cut_preds(List),
 pred_id_chain(Pred_id_chain),
-all_dependent_preds(N,Pred_id_chain,[%N
+all_dependent_preds(_Pred_id,Pred_id_chain,[%N
 	],N2),
 
 append(List,N2,List2),
@@ -1186,14 +1231,14 @@ append(List,N2,List2),
 sort(List2,List3),
 retractall(cut_preds(_)),
 assertz(cut_preds(List3)),
-%writeln1([N,"\n"]),
+%writeln1([_Pred_id,"\n"]),
 */
 !.
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_true]|_],Vars,Vars,_,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_true]|_],Vars,Vars,_,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("true",Dbw_true1),Dbw_true1=Dbw_true,!.
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_fail]|_],Vars,Vars,_,nocut,_N,_Pred_num) :- 
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_fail]|_],Vars,Vars,_,nocut,_Pred_id,_Pred_num) :- 
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("fail",Dbw_fail1),Dbw_fail1=Dbw_fail,
 fail.
@@ -1210,7 +1255,7 @@ interpretstatement1(ssi,Functions0,Functions,[[n,or],[Statement1,Statement2]],Va
 		Statement2,Result2)).
 **/
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_atom],[Variable]],Vars,Vars,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_atom],[Variable]],Vars,Vars,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("atom",Dbw_atom1),Dbw_atom1=Dbw_atom,
 
@@ -1220,7 +1265,7 @@ debug_call(Skip,[[Dbw_n,Dbw_atom],[Value]]),
 debug_exit(Skip,[[Dbw_n,Dbw_atom],[Value]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_atom],[Value]])),!.
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_string],[Variable]],Vars,Vars,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_string],[Variable]],Vars,Vars,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("string",Dbw_string1),Dbw_string=Dbw_string1,
 
@@ -1230,7 +1275,7 @@ debug_call(Skip,[[Dbw_n,Dbw_string],[Value]]),
 debug_exit(Skip,[[Dbw_n,Dbw_string],[Value]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_string],[Value]])),!.
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_number],[Variable]],Vars,Vars,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_number],[Variable]],Vars,Vars,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("number",Dbw_number1),Dbw_number1=Dbw_number,
         getvalue(Variable,Value,Vars),
@@ -1239,7 +1284,7 @@ debug_call(Skip,[[Dbw_n,Dbw_number],[Value]]),
 debug_exit(Skip,[[Dbw_n,Dbw_number],[Value]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_number],[Value]])),!.
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_letters],[Variable]],Vars,Vars,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_letters],[Variable]],Vars,Vars,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("letters",Dbw_letters1),Dbw_letters1=Dbw_letters,
 
@@ -1250,7 +1295,7 @@ debug_call(Skip,[[Dbw_n,Dbw_letters],[Value]]),
 debug_exit(Skip,[[Dbw_n,Dbw_letters],[Value]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_letters],[Value]])),!.
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_variable],[Variable]],Vars,Vars,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_variable],[Variable]],Vars,Vars,true,nocut,_Pred_id,_Pred_num) :-
 %trace,
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("variable",Dbw_variable1),
@@ -1270,7 +1315,7 @@ debug_exit(Skip,[[Dbw_n,Dbw_variable],[Variable]])
 **/
 
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 	isop(Operator),
 	%trace,
@@ -1283,7 +1328,7 @@ interpretstatement1(ssi,_F0,_Functions,[[n,Operator],[Variable1,Variable2]],Vars
         interpretpart(is,Variable2,Variable1,Vars1,Vars2).
 **/
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Operator],[Variable2,Variable3,Variable1]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Operator],[Variable2,Variable3,Variable1]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 	operator(Operator),
 %%writeln1(4),
@@ -1291,7 +1336,7 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,
         interpretpart(isop,Operator,Variable1,Variable2,Variable3,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 	comparisonoperator(Operator),
 %%writeln1(4),
@@ -1306,28 +1351,28 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
         interpretpart(is,Variable1,Variable2,Vars1,Vars2).
 **/
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals1],[Variable1,[Variable2,Variable3]]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals1],[Variable1,[Variable2,Variable3]]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("equals1",Dbw_equals11),Dbw_equals11=Dbw_equals1,
 
 %%writeln1(5),
         interpretpart(match1,Variable1,Variable2,Variable3,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals2],[Variable1,[Variable2,Variable3]]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals2],[Variable1,[Variable2,Variable3]]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("equals2",Dbw_equals21),Dbw_equals21=Dbw_equals2,
 
 %%writeln1(5),
         interpretpart(match2,Variable1,Variable2,Variable3,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals3],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals3],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("equals3",Dbw_equals31),Dbw_equals31=Dbw_equals3,
 %%writeln1(5),
         interpretpart(match3,Variable1,Variable2,Vars1,Vars2).
 
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 %trace,
 %writeln1(interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_equals4],[Variable1,Variable2]],Vars1,Vars2,true,nocut)),
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
@@ -1355,27 +1400,27 @@ get_lang_word("sys1",Dbw_sys1),
 %%writeln1(51),
 %%        interpretpart(match,Variable1,Variable2,Variable3,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_wrap],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_wrap],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("wrap",Dbw_wrap1),Dbw_wrap1=Dbw_wrap,
 %%writeln1(52), wrap
 %%writeln([[n,wrap],[Variable1,Variable2]]),
         interpretpart(bracket1,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_unwrap],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_unwrap],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("unwrap",Dbw_unwrap1),Dbw_unwrap1=Dbw_unwrap,
 %%writeln1(53), unwrap
         interpretpart(bracket2,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_head],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_head],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("head",Dbw_head1),Dbw_head1=Dbw_head,
 
 %%writeln1(6),
         interpretpart(head,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_tail],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_tail],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("tail",Dbw_tail1),Dbw_tail1=Dbw_tail,
 %%writeln1(61),
@@ -1388,7 +1433,7 @@ get_lang_word("member",Dbw_member1),Dbw_member1=Dbw_member,
 %%writeln1(8),
         interpretpart(member2,Variable1,Variable2,Vars1,Vars2).
 */
-interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1-del(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 %writeln(here),
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,
@@ -1400,21 +1445,21 @@ Dbw_member22=Dbw_member2),
 
         interpretpart(member2,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1-del(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,
 get_lang_word("member3",Dbw_member21),Dbw_member21=Dbw_member2,
 %%writeln1(8),
         interpretpart(member3,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_delete],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1-del(ssi,_F0,_Functions,[[Dbw_n,Dbw_delete],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("delete",Dbw_delete1),Dbw_delete1=Dbw_delete,
 %%writeln1(),
         interpretpart(delete,Variable1,Variable2,Variable3,Vars1,Vars2).
 %%** all in form f,[1,1,etc], including + with 0,1
 
-interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_append],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1-del(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_append],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("append",Dbw_append1),Dbw_append1=Dbw_append,
 %%writeln1(9),
@@ -1428,7 +1473,7 @@ get_lang_word("string_concat",Dbw_stringconcat1),Dbw_stringconcat1=Dbw_stringcon
         interpretpart(stringconcat,Variable1,Variable2,Variable3,Vars1,Vars2).
         */
 
-interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_stringconcat],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1-del(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_stringconcat],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("stringconcat",Dbw_stringconcat1),
 get_lang_word("string_concat",Dbw_stringconcat2),
@@ -1449,32 +1494,32 @@ get_lang_word("stringconcat1",Dbw_stringconcat1),Dbw_stringconcat1=Dbw_stringcon
 		  [Variables2]=Variables1,
         interpretpart(grammar_part,Variables2,Vars1,Vars2),!.**/
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_stringtonumber],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_stringtonumber],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("stringtonumber",Dbw_stringtonumber1),Dbw_stringtonumber1=Dbw_stringtonumber,
         interpretpart(stringtonumber,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_random],[Variable1]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_random],[Variable1]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("random",Dbw_random1),Dbw_random1=Dbw_random,
         interpretpart(random,Variable1,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_length],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_length],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("length",Dbw_length1),Dbw_length1=Dbw_length,
         interpretpart(length,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_ceiling],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_ceiling],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("ceiling",Dbw_ceiling1),Dbw_ceiling1=Dbw_ceiling,
         interpretpart(ceiling,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_date],[Year,Month,Day,Hour,Minute,Seconds]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_date],[Year,Month,Day,Hour,Minute,Seconds]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("date",Dbw_date1),Dbw_date1=Dbw_date,
         interpretpart(date,Year,Month,Day,Hour,Minute,Seconds,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_round],[N1,N2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_round],[N1,N2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("round",Dbw_round1),Dbw_round1=Dbw_round,
         interpretpart(round,N1,N2,Vars1,Vars2).
@@ -1555,7 +1600,8 @@ Vars2=[Phrase2|Vars4],
 	Vars8=[])))),!.
 ***/
 
-interpretstatement1(ssi,_Grammar,_Grammar2,[[Dbw_n,grammar_part],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+
+interpretstatement1(ssi,_Grammar,_Grammar2,[[Dbw_n,grammar_part],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %get_lang_word("grammar_part",Dbw_grammar_part1),Dbw_grammar_part1=Dbw_grammar_part,
 
@@ -1564,7 +1610,7 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %%trace,%%%%****
 	interpretpart(grammar_part,[Variable1,Variable2,Variable3],Vars1,Vars2).
 
-interpretstatement1(non-ssi,Functions0,Functions,[[Dbw_n,Dbw_findall],[Variable1,Body,Variable3]],Vars1,Vars2,true,nocut,N,Pred_num) :-
+interpretstatement1(non-ssi,Functions0,Functions,[[Dbw_n,Dbw_findall],[Variable1,Body,Variable3]],Vars1,Vars2,true,nocut,Pred_id,Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("findall",Dbw_findall1),Dbw_findall1=Dbw_findall,
 get_lang_word("v",Dbw_v),
@@ -1585,7 +1631,7 @@ get_lang_word("v",Dbw_v),
 	%%writeln1(	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],Result2)),
 %trace,
 %writeln1(	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],Result2)),
-	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],Result2,N,Pred_num), %% 2->1
+	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],Result2,Pred_id,Pred_num), %% 2->1
 	Result2=true,
 	%%((Result2=cut)->!;true),
 	%%trace,
@@ -1610,54 +1656,54 @@ debug_exit(Skip,[[Dbw_n,Dbw_findall],[Variable1,Body,Value3a]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_findall],[Variable1,Body,Variable3]])).
 
 
-interpretstatement1(ssi,_Functions0,_Functions,[[Dbw_n,Dbw_string_from_file],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_Functions0,_Functions,[[Dbw_n,Dbw_string_from_file],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("string_from_file",Dbw_string_from_file1),Dbw_string_from_file1=Dbw_string_from_file,
         interpretpart(string_from_file,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(ssi,Functions0,Functions,[[Dbw_n,Dbw_maplist],[Variable1,Variable2,Variable3,Variable4]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,Functions0,Functions,[[Dbw_n,Dbw_maplist],[Variable1,Variable2,Variable3,Variable4]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("maplist",Dbw_maplist1),Dbw_maplist1=Dbw_maplist,
 
         interpretpart(maplist,Functions0,Functions,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2).
 
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_string_length],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_string_length],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("string_length",Dbw_string_length1),Dbw_string_length1=Dbw_string_length,
         interpretpart(string_length,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_sort],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_sort],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("sort",Dbw_sort1),Dbw_sort1=Dbw_sort,
         interpretpart(sort,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_intersection],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1-del(ssi,_F0,_Functions,[[Dbw_n,Dbw_intersection],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("intersection",Dbw_intersection1),Dbw_intersection1=Dbw_intersection,
         interpretpart(intersection,Variable1,Variable2,Variable3,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_read_string],[Variable1]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_read_string],[Variable1]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("read_string",Dbw_read_string1),Dbw_read_string1=Dbw_read_string,
         interpretpart(read_string,Variable1,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_writeln],[Variable1]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_writeln],[Variable1]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("writeln",Dbw_writeln1),Dbw_writeln1=Dbw_writeln,
         interpretpart(writeln,Variable1,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_atom_string],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_atom_string],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("atom_string",Dbw_atom_string1),Dbw_atom_string1=Dbw_atom_string,
         interpretpart(atom_string,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_get_lang_word],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_get_lang_word],[Variable1,Variable2]],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("get_lang_word",Dbw_get_lang_word1),Dbw_get_lang_word1=Dbw_get_lang_word,
         interpretpart(get_lang_word,Variable1,Variable2,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_command]|Variables2],Vars1,Vars2,true,nocut,_N,_Pred_num) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_command]|Variables2],Vars1,Vars2,true,nocut,_Pred_id,_Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,
 (Variables2=[]->Variables=[];Variables2=[Variables]),
@@ -1876,8 +1922,10 @@ interpretpart(grammar_part,Vars9,[],Result1),
 	!.
 **/
 
-interpretstatement1(non-ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut,N,Pred_num) :-
+interpretstatement1-del(non-ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut,Pred_id,Pred_num) :-
         
+        %test_cut_off(Pred_id,Pred_num),
+
         %(Query1=[[n, flatten2], [[v, e], [v, f], [v, c]]]->trace;true),%writeln1(interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut)),
         %trace,
                %writeln(interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut)),
@@ -1905,19 +1953,21 @@ Query1=[Function,Arguments],%,Function=[Dbw_n1,Function_a],atom_string(Function_
 %%writeln1(["Arguments",Arguments,"Vars1",Vars1]),
         %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
         Function=[Dbw_v,Function2],
-                not(reserved_word2(Function2)),
+                %not(reserved_word2(Function2)),
 
         getvalue(Function,Function3,Vars1),
         %reserved_word(Function3),
         append([Function3],[Arguments],Arguments1),
         
-interpretstatement1(_,Functions0,_Functions,Arguments1,Vars1,Vars8,true,nocut,N,Pred_num),!.
+interpretstatement1(_,Functions0,_Functions,Arguments1,Vars1,Vars8,true,nocut,Pred_id,Pred_num).
 
         
-interpretstatement1(non-ssi,_Functions0,_Functions,Query1,Vars1,Vars8,true,nocut,_N,_Pred_num) :-
+interpretstatement1(non-ssi,_Functions0,Functions3,Query1,Vars1,Vars8,true,nocut,Pred_id,Pred_num) :-
 get_lang_word("v",Dbw_v),
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
+%trace,
+        test_cut_off(Pred_id,Pred_num),
 
 %%writeln1("h1/10"),
 %trace,
@@ -1929,7 +1979,7 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         (Query1=[[Dbw_n,Dbw_call],[[lang,Lang1],Debug1,[Function,Arguments],Types,Modes,Functions%,Result
         ]],Tm=on)),        
         
-        %trace,
+        %trace,%writeln1(Query1),
         
         lang(Lang2a),
         types(Types2a),
@@ -1942,8 +1992,9 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         %%not(Function=[n,grammar]->true;Function=[n,grammar_part]), ****
 %%writeln1(["Arguments",Arguments,"Vars1",Vars1]),
         %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
-        ((Function=[Dbw_v,F_name],
-                not(reserved_word2(F_name)))->
+        ((Function=[Dbw_v,F_name]
+                %not(reserved_word2(F_name))
+                )->
         (append([Function],Arguments,Arguments1),
         substitutevarsA1(Arguments1,Vars1,[],Vars3,[],FirstArgs),
         Vars3=[Function1|Vars31],
@@ -1959,9 +2010,15 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         
         
         %interpret2(Query2,Functions0,Functions0,Result1), 
-        
-(Tm=off->international_interpret([lang,Lang2],Debug2,Query2,Functions,Result1a);
-	international_interpret([lang,Lang2],Debug2,Query2,Types,Modes,Functions,Result1a)),
+%lib_preds(Lib_preds),
+
+        foldr(append,[Functions%,Lib_preds
+        ],%Functions3,
+        Functions4),
+        %writeln1(Functions4),
+        %trace,
+(Tm=off->international_interpret([lang,Lang2],Debug2,Query2,Functions4,Result1a);
+	international_interpret([lang,Lang2],Debug2,Query2,Types,Modes,Functions4,Result1a)),
 	member(Result1,Result1a),
 
 	retractall(lang(_)),
@@ -1994,8 +2051,9 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 
         
 
-interpretstatement1(non-ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut,N,_Pred_num) :-
-        
+interpretstatement1(non-ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut,Prev_pred_id,Pred_num) :-
+        	%test_cut_off(Prev_pred_id,Pred_num),
+
         %trace,
                %writeln(interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut)),
 
@@ -2021,8 +2079,9 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         %%not(Function=[n,grammar]->true;Function=[n,grammar_part]), ****
 %%writeln1(["Arguments",Arguments,"Vars1",Vars1]),
         %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
-        ((Function=[Dbw_v,F_name],
-                not(reserved_word2(F_name)))->
+        ((Function=[Dbw_v,F_name]
+                %not(reserved_word2(F_name))
+                )->
         (%trace,
         append([Function],Arguments,Arguments1),
         %trace,
@@ -2036,8 +2095,8 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
         
         Query2=[Function,Vars3],
         
-        Function=[Dbw_n,F_name],
-                not(reserved_word2(F_name))
+        Function=[Dbw_n,F_name]%,
+                %not(reserved_word2(F_name))
         %simplify(Vars32,Vars3), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
 %writeln1([substitutevarsA1,arguments,Arguments,vars1,Vars1,vars3,Vars3,firstargs,FirstArgs]),
 
@@ -2053,7 +2112,9 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 %writeln1(interpret2(Query2,Functions0,Functions0,Result1)),
 %trace,
 %writeln([Query2,here]),
-        interpret2(Query2,Functions0,Functions0,Result1,N), 
+find_cut_pred(Pred_id),
+
+        interpret2(Query2,Functions0,Functions0,Result1,Prev_pred_id,Pred_id), 
         
       %trace,          %writeln1(interpret2(Query2,Functions0,Functions0,Result1)),
 	%writeln1(updatevars2(FirstArgs,Result1,[],Vars5)),
@@ -2077,19 +2138,22 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 %%writeln1(["FirstArgs",FirstArgs,"Result1",Result1,"Vars5",Vars5,"Vars4",Vars4]),
 %%writeln1(["Vars1:",Vars1,"Vars4:",Vars4]),
 %%		debug(on)->writeln1([exit,[Function,[Result2]]]).
-interpretstatement1(non-ssi,Functions0,_Functions,Query,Vars,Vars,true,nocut,N,_Pred_num) :-
+interpretstatement1(non-ssi,Functions0,_Functions,Query,Vars,Vars,true,nocut,Prev_pred_id,Pred_num) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+
+        	%test_cut_off(Prev_pred_id,Pred_num),
 
 %find_pred_sm(Reserved_words1),
 %trace,
 	Query=[Function],
 
         Function=[Dbw_n,F_name],
-        not(reserved_word2(F_name)),
+        %not(reserved_word2(F_name)),
 	%trace,
 	%not(reserved_word2(Function)),
 %debug_call(Skip,[Function]),
-        (interpret2(Query,Functions0,Functions0,_Result1,N)->
+        find_cut_pred(Pred_id),
+(interpret2(Query,Functions0,Functions0,_Result1,Prev_pred_id,Pred_id)->
 true%debug_exit(Skip,[Function])
 ;     fail%debug_fail(Skip,[Function])
 )
