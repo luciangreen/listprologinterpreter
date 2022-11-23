@@ -2852,6 +2852,7 @@ test(116,[[[n,grammar1],[".aaa.bbb.",[".","?",""],[v,t]]],[[n,cut]]],
 %]%,[[[[v,t],["a","b"]]]]).
 
 test(117,[[[n,grammar1],["a   a. a ",[" ","."],[v,t]]],[[n,cut]]],
+%test(117,[[[n,grammar1],["a ",[" ","."],[v,t]]],[[n,cut]]],
 %test(17,[[n,grammar1],["aaa1 ,-'! a? b! b.",[v,t]]],
 %%test(15,[[n,compound213],["","",[["a"],1],[v,t]]],
 
@@ -2866,12 +2867,12 @@ test(117,[[[n,grammar1],["a   a. a ",[" ","."],[v,t]]],[[n,cut]]],
 
 		  %[[n,compound213],["","",[v,t],[v,t]]],
 
-		  [[n,compound213],[[v,u],[v,u],[v,t],[v,t]]], %% swapped these
+	/*	  [[n,compound213],[[v,u],[v,u],[v,t],[v,t]]], %% swapped these
 
 		  [[n,compound],[[v,cs],[v,t],[v,u]],"->",
 		  [[[n,compound21],[[v,cs],[v,t],[v,v]]],
 		  [[n,compound213],[[v,v],[v,u]]]]],
-
+*/
 		  %[[n,compound212],["","",[v,t],[v,t]]],
 
 		  [[n,compound212],[[v,u],[v,u],[v,t],[v,t]]],
@@ -2898,7 +2899,7 @@ test(117,[[[n,grammar1],["a   a. a ",[" ","."],[v,t]]],[[n,cut]]],
 **/
 		  [[n,item],[[v,t],[v,cs]],"->",[[[n,word21],[[v,cs],"",[v,t]]]]],
 
-		  [[n,item],[[v,t],[v,cs]],"->",[[[n,compound],[[v,cs],[],[v,t]]]]],
+		  %[[n,item],[[v,t],[v,cs]],"->",[[[n,compound21],[[v,cs],[],[v,t]]]]],
 /**
 		  [[n,number212],["","",[v,t],[v,t]]],
 
@@ -2936,8 +2937,10 @@ test(117,[[[n,grammar1],["a   a. a ",[" ","."],[v,t]]],[[n,cut]]],
 		  [%[v,a],
 		  [v,b],%[[n,lookahead1],[[v,cs]]],
 		  [[n,code],%[[n,sentencechars],[[v,a]]],
+		  %[[n,string_length],[[v,b],1]],
 		  [[n,finalchar],[[v,b],[v,cs]]],
 		  [[n,stringconcat],[[v,t],[v,b],[v,v1]]]
+		  %,[[n,writeln],[1]]
 		  %[[n,stringconcat],[[v,t],[v,b],[v,v]]]
 		  ],
 		  [[n,word212],[[v,v1],[v,u]]]]],
@@ -2946,11 +2949,13 @@ test(117,[[[n,grammar1],["a   a. a ",[" ","."],[v,t]]],[[n,cut]]],
 		  [%[v,a],
 		  [v,b],[[n,lookahead],[[v,c]]],
 		  [[n,code],
+		  %[[n,string_length],[[v,b],1]],
 		  %[[n,trace]],
 		  [[n,finalchar],[[v,c],[v,cs]]],
 		  %
 		  [[n,sentencechars],[[v,b],[v,cs]]],
 		  [[n,stringconcat],[[v,t],[v,b],[v,v1]]]
+		  %,[[n,writeln],[2]]
 		  %[[n,stringconcat],[[v,t],[v,b],[v,v]]]
 		  ],
 		  [[n,word212],[[v,v1],[v,u]]]]],
@@ -2961,9 +2966,10 @@ test(117,[[[n,grammar1],["a   a. a ",[" ","."],[v,t]]],[[n,cut]]],
 		  [[n,code],
 		  %[[n,trace]],
 		  %[[n,sentencechars],[[v,c],[v,cs]]],
-		  %
+		  %[[n,string_length],[[v,b],1]],%
 		  [[n,sentencechars],[[v,b],[v,cs]]],
 		  [[n,stringconcat],[[v,t],[v,b],[v,v1]]]
+		  %,[[n,writeln],[3]]
 		  %[[n,stringconcat],[[v,t],[v,b],[v,v]]]
 		  ],
 		  [[n,word213],[[v,v1],[v,u]]]]],
@@ -3011,11 +3017,29 @@ test(117,[[[n,grammar1],["a   a. a ",[" ","."],[v,t]]],[[n,cut]]],
 		  [[v,a],
 		  % lookahead sent
 		   %[[n,lookahead],[[v,c]]],
-		  [[n,code],[[n,sentencechars],[[v,a],[v,cs]]],
-		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
-		  [[n,word21],[[v,cs],"",[v,wordstring]]],
 		  [[n,code],
-		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]],
+		  [[n,string_length],[[v,a],1]],
+[[n,sentencechars],[[v,a],[v,cs]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word211],[[v,cs],"",[v,wordstring]]],
+		  [[n,code],
+		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]
+		  %,[[n,writeln],[4]]
+		  ]]],
+
+		  [[n,word211],[[v,cs],[v,t],[v,u]],"->",
+		  [[v,a],
+		  % lookahead sent
+		   %[[n,lookahead],[[v,c]]],
+		  [[n,code],
+		  [[n,string_length],[[v,a],1]],
+[[n,sentencechars],[[v,a],[v,cs]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word211],[[v,cs],"",[v,wordstring]]],
+		  [[n,code],
+		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]
+		  %,[[n,writeln],[5]]
+		  ]]],
 		  
 		  [[n,sentencechars],[[v,c],[v,cs]],":-",
 		  [[[n,not],[[[n,member],[[v,cs],[v,c]]]]]]],
@@ -3071,6 +3095,7 @@ test(117,[[[n,grammar1],["a   a. a ",[" ","."],[v,t]]],[[n,cut]]],
 %%],[[[v,t],[["a"],1]]]).
 %],[[[[v,t],["aaa1 ,-'!","a?","b!","b."]]]]).
 ],[[[[v,t],["a", " ", " ", " ", "a", ".", " ", "a", " "]]]]).
+%],[[[[v,t],["a", " "]]]]).
 
 % a types state machine
 
