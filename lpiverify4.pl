@@ -1157,7 +1157,206 @@ test(both,24,[[[n,modus_ponens],["a",[["a","b"],["c","d"],["e","f"]],[v,s]]],[[n
 %% Two Uses - original argument and algorithm (file)
 %% splits on \n, removes 1 duplicate per line, returns score of duplicates
 
-test(both,25,[[[n,grammar1],["aaa1 ,-'\na\nb\nb\n",
+test(lpi,25,[[n,grammar1],["aaa1 ,-'\na\nb\nb\n",
+"aaa1 ,-'\na\nb\na",
+[v,s]]],
+%%()test(15,[[n,compound213],["","",[["a"],1],[v,t]]],
+%%test(25,[[n,word21],["a\n","","",[v,t]]],
+%%test(25,[[n,deletea2],[["a","b"],"a",[v,m1]]],
+%%test(25,[[n,deletea2],[["a","a","b"],"a",[v,m1]]],
+%%test(25,[[n,membera3],[["a","b"],"c"]],
+%%test(25,[[n,positivityscore],[["a","b"],["a","b"],0,[v,m1]]],
+
+[
+		  [[n,grammar1],[[v,u],[v,t],[v,s]],":-",
+		  [
+		  			 [[n,compound21],[[v,u],"",[],[v,u1]]],
+		  			 [[n,compound21],[[v,t],"",[],[v,t1]]],
+		  			 [[n,positivityscore],[[v,u1],[v,t1],0,[v,s]]]
+		  			 %%[[n,membera3],[["a","b"],"a"]]
+		  			 %%[[n,number21],[[v,u],"","",[v,t]]]
+		  			 %%[[n,compound213],["","",[["a"],1],[v,t]]]
+		  ]
+		  ],
+
+		  [[n,compound213],["","",[v,t],[v,t]]],
+
+		  [[n,compound213],[[v,u],[v,u],[v,t],[v,t]]], %% swapped these
+
+		  [[n,compound],[[v,t],[v,u]],"->",
+		  [[[n,compound21],[[v,t],[v,v]]],
+		  [[n,compound213],[[v,v],[v,u]]]]],
+
+		  [[n,compound212],["","",[v,t],[v,t]]],
+
+		  [[n,compound212],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,compound21],[[v,t],[v,u]],"->",
+		  [[[n,item],[[v,i]]],
+		  [[n,code],%%[[n,stringconcat],[[v,i],".",[v,i2]]],
+		  [[n,wrap],[[v,i],[v,itemname1]]],
+		  [[n,append],[[v,t],[v,itemname1],[v,v]]]],
+		  [[n,compound212],[[v,v],[v,u]]]]],
+
+		  [[n,compound21],[[v,t],[v,u]],"->",
+		  [[[n,item],[[v,i]]],
+		  [[n,compound21],[[],[v,compound1name]]],
+		  [[n,code],%%[[n,stringconcat],[[v,i],".",[v,i2]]],
+		  [[n,wrap],[[v,i],[v,itemname1]]],
+		  [[n,append],[[v,t],[v,itemname1],[v,v]]],
+		  [[n,append],[[v,v],[v,compound1name],[v,u]]]]]],
+/**
+		  [[n,item],[[v,t]],"->",
+		  [[[n,number21],["",[v,t]]]]],
+**/
+		  [[n,item],[[v,t]],"->",[[[n,word21],["",[v,t]]]]],
+
+		  [[n,item],[[v,t]],"->",[[[n,compound],[[],[v,t]]]]],
+/**
+		  [[n,number212],["","",[v,t],[v,t]]],
+
+		  [[n,number212],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,number21],[[v,t],[v,u]],"->",
+		  [[v,a],[[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,number212],[[v,v],[v,u]]]]],
+
+		  [[n,number21],[[v,t],[v,u]],"->",
+		  [[v,a],
+		  [[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+	 	  [[n,number21],["",[v,numberstring]]],
+		  [[n,code],[[n,stringconcat],
+		  [[v,v],[v,numberstring],[v,u]]]]]],
+**/
+		  [[n,word212],["","",[v,t],[v,t]]],
+
+		  [[n,word212],[[v,u],[v,u],[v,t],[v,t]]],
+
+/**
+		  [[n,word21],[[v,t],[v,u]],"->",
+		  [[v,a],[[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word212],[[v,v],[v,u]]]]],
+**/
+		  [[n,word21],[[v,t],[v,u]],"->",
+		  [[v,b],
+		  [[n,code],%%[[n,sentencechars],[[v,a]]],
+		  [[n,finalchar],[[v,b]]]
+		  %%[[n,stringconcat],[[v,t],[v,a],[v,v1]]],
+		  %%[[n,stringconcat],[[v,t],[v,b],[v,v]
+		  ],
+		  [[n,word212],[[v,t],[v,u]]]]],
+
+/**
+		  [[n,word21],[[v,t],[v,u]],"->",
+		  [[v,a],
+		  [[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+	 	  [[n,word21],["",[v,numberstring]]],
+		  [[n,code],[[n,stringconcat],
+		  [[v,v],[v,numberstring],[v,u]]]]]]
+
+**/
+		  [[n,word21],[[v,t],[v,u]],"->",
+		  [[v,a],%%[[n,not_return_next]],
+		  [[n,code],[[n,not],[[[n,=],[[v,a],"\n"]]]],
+		  %%[[n,sentencechars],[[v,a]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word21],["",[v,wordstring]]],
+		  [[n,code],
+		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]],
+
+/**		  
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,letters],[[v,c]]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[[n,stringtonumber],[[v,c],[v,n]]],
+		  [[n,number],[[v,n]]]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,=],[[v,c]," "]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,=],[[v,c],","]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,=],[[v,c],"-"]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,=],[[v,c],"'"]]]],
+**/		  
+		  [[n,finalchar],[[v,c]],":-",
+		  [[[n,=],[[v,c],"\n"]]]],
+		  
+		  [[n,finalchar],[[v,c]],":-",
+		  [[[n,=],[[v,c],""]]]],
+		  
+%%		  [[n,not_return_next],[[v,a],[v,a]],":-",
+%%		  [[[n,not],[[[n,stringconcat],["\n",[v,d],[v,a]]]]]]]
+
+        [[n,positivityscore],[[],[v,l],[v,s],[v,s]]],
+        [[n,positivityscore],[[v,l],[v,m],[v,s1],[v,s2]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,member],[[v,m],[v,h]]],
+                [[n,"->"],[[[n,deletea2],[[v,m],[v,h],[v,m1]]],
+                [[n,true]],
+                [[n,=],[[v,m],[v,m1]]]]],
+                [[n,+],[[v,s1],1,[v,s3]]],
+                [[n,positivityscore],[[v,t],[v,m1],[v,s3],
+                	[v,s2]]]
+        ]],
+        
+        [[n,positivityscore],[[v,l],[v,m],[v,s1],[v,s2]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,not],[[[n,membera3],[[v,m],[v,h]]]]],
+                [[n,positivityscore],[[v,t],[v,m],[v,s1],
+                	[v,s2]]]]],
+                	
+        [[n,deletea2],[[],[v,l],[v,m1]],":-",[[[n,fail]]]], %%%**
+        [[n,deletea2],[[v,l],[v,m],[v,t]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,=],[[v,m],[v,h]]]
+                %%[[n,delete],[[v,m],[v,h],[v,m1]]]]],
+                ]],
+                
+        [[n,deletea2],[[v,l],[v,m],[v,m1]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,not],[[[n,=],[[v,m],[v,h]]]]],
+                %%[[n,not],[[[n,membera3],[[v,m],[v,h]]]]],
+                [[n,deletea2],[[v,t],[v,m],[v,m1]]]
+        ]],
+        
+        [[n,membera3],[[],[v,l]],":-",[[[n,fail]]]],
+        [[n,membera3],[[v,l],[v,m]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[[n,=],[[v,m],[v,h]]]]
+        ]],
+        
+        [[n,membera3],[[v,l],[v,m]],":-",
+        [       [[n,head],[[v,l],[v,h]]],
+                [[n,tail],[[v,l],[v,t]]],
+                [[n,not],[[[[n,=],[[v,m],[v,h]]]]]],
+                [[n,membera3],[[v,t],[v,m]]]
+        ]]
+
+
+
+%%()],[[[v,t],[["a"],1]]]).
+],[[[[v,s],3]]]).
+
+test(ssi,25,[[[n,grammar1],["aaa1 ,-'\na\nb\nb\n",
 "aaa1 ,-'\na\nb\na",
 [v,s]]],[[n,cut]]],
 %%()test(both,15,[[n,compound213],["","",[["a"],1],[v,t]]],
@@ -1412,7 +1611,20 @@ test(both,28,[[n,number11],[1]],
         
 ],[[]]).
 
-test(both,29,[[[n,minus11],[[1,2,3],[3],[v,c]]],[[n,cut]]],
+test(lpi,29,[[n,minus11],[[1,2,3],[3],[v,c]]],
+
+[
+        [[n,minus11],[[v,a],[],[v,a]]],
+        [[n,minus11],[[v,a],[v,b],[v,c]],":-",
+        [       [[n,head],[[v,b],[v,h]]],
+                [[n,tail],[[v,b],[v,t]]],
+                [[n,delete],[[v,a],[v,h],[v,c]]],
+                [[n,minus11],[[v,c],[v,t],[v,c]]]
+        ]]
+        
+],[[[[v,c],[1,2]]]]).
+
+test(ssi,29,[[[n,minus11],[[1,2,3],[3],[v,c]]],[[n,cut]]],
 
 [
         [[n,minus11],[[v,a],[],[v,a]]],
@@ -3010,7 +3222,228 @@ test(both,116,[[[n,grammar1],[".aaa.bbb.",[".","?",""],[v,t]]],[[n,cut]]],
 %],[[[[v,t],["a"]]]]).
 %]%,[[[[v,t],["a","b"]]]]).
 
-test(both,117,[[[n,grammar1],["a   a. a ",[" ","."],[v,t]]],[[n,cut]]],
+test(lpi,117,[[n,grammar1],["a   a. a ",[" ","."],[v,t]]],
+%test(17,[[n,grammar1],["aaa1 ,-'! a? b! b.",[v,t]]],
+%%test(15,[[n,compound213],["","",[["a"],1],[v,t]]],
+
+[
+		  [[n,grammar1],[[v,u],[v,cs],[v,t]],":-",
+		  [
+		  			 [[n,compound21],[[v,u],"",[v,cs],[],[v,t]]]
+		  			 %%[[n,number21],[[v,u],"","",[v,t]]]
+		  			 %%[[n,compound213],["","",[["a"],1],[v,t]]]
+		  ]
+		  ],
+
+		  %[[n,compound213],["","",[v,t],[v,t]]],
+
+		  [[n,compound213],[[v,u],[v,u],[v,t],[v,t]]], %% swapped these
+
+		  [[n,compound],[[v,cs],[v,t],[v,u]],"->",
+		  [[[n,compound21],[[v,cs],[v,t],[v,v]]],
+		  [[n,compound213],[[v,v],[v,u]]]]],
+
+		  %[[n,compound212],["","",[v,t],[v,t]]],
+
+		  [[n,compound212],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,compound21],["","",[v,cs],[],[""]]],
+
+		  [[n,compound21],[[v,cs],[v,t],[v,u]],"->",
+		  [[[n,item],[[v,i],[v,cs]]],
+		  [[n,code],%%[[n,stringconcat],[[v,i],".",[v,i2]]],
+		  [[n,wrap],[[v,i],[v,itemname1]]],
+		  [[n,append],[[v,t],[v,itemname1],[v,v]]]],
+		  [[n,compound212],[[v,v],[v,u]]]]],
+
+		  [[n,compound21],[[v,cs],[v,t],[v,u]],"->",
+		  [[[n,item],[[v,i],[v,cs]]],%" ",
+		  [[n,compound21],[[v,cs],[],[v,compound1name]]],
+		  [[n,code],%%[[n,stringconcat],[[v,i],".",[v,i2]]],
+		  [[n,wrap],[[v,i],[v,itemname1]]],
+		  [[n,append],[[v,t],[v,itemname1],[v,v]]],
+		  [[n,append],[[v,v],[v,compound1name],[v,u]]]]]],
+/**
+		  [[n,item],[[v,t]],"->",
+		  [[[n,number21],["",[v,t]]]]],
+**/
+		  [[n,item],[[v,t],[v,cs]],"->",[[[n,word21],[[v,cs],"",[v,t]]]]],
+
+		  [[n,item],[[v,t],[v,cs]],"->",[[[n,compound],[[v,cs],[],[v,t]]]]],
+/**
+		  [[n,number212],["","",[v,t],[v,t]]],
+
+		  [[n,number212],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,number21],[[v,t],[v,u]],"->",
+		  [[v,a],[[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,number212],[[v,v],[v,u]]]]],
+
+		  [[n,number21],[[v,t],[v,u]],"->",
+		  [[v,a],
+		  [[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+	 	  [[n,number21],["",[v,numberstring]]],
+		  [[n,code],[[n,stringconcat],
+		  [[v,v],[v,numberstring],[v,u]]]]]],
+**/
+		  [[n,word212],["","",[v,t],[v,t]]],
+
+		  [[n,word212],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,word213],["","",[v,t],[v,t]]],
+
+/**
+		  [[n,word21],[[v,t],[v,u]],"->",
+		  [[v,a],[[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word212],[[v,v],[v,u]]]]],
+**/
+		  [[n,word21],[[v,cs],[v,t],[v,u]],"->",
+		  [%[v,a],
+		  [v,b],%[[n,lookahead1],[[v,cs]]],
+		  [[n,code],%[[n,sentencechars],[[v,a]]],
+		  [[n,finalchar],[[v,b],[v,cs]]],
+		  [[n,stringconcat],[[v,t],[v,b],[v,v1]]]
+		  %[[n,stringconcat],[[v,t],[v,b],[v,v]]]
+		  ],
+		  [[n,word212],[[v,v1],[v,u]]]]],
+
+		  [[n,word21],[[v,cs],[v,t],[v,u]],"->",
+		  [%[v,a],
+		  [v,b],[[n,lookahead],[[v,c]]],
+		  [[n,code],
+		  %[[n,trace]],
+		  [[n,finalchar],[[v,c],[v,cs]]],
+		  %
+		  [[n,sentencechars],[[v,b],[v,cs]]],
+		  [[n,stringconcat],[[v,t],[v,b],[v,v1]]]
+		  %[[n,stringconcat],[[v,t],[v,b],[v,v]]]
+		  ],
+		  [[n,word212],[[v,v1],[v,u]]]]],
+
+		  [[n,word21],[[v,cs],[v,t],[v,u]],"->",
+		  [%[v,a],
+		  [v,b],%[[n,lookahead],[[v,c]]],
+		  [[n,code],
+		  %[[n,trace]],
+		  %[[n,sentencechars],[[v,c],[v,cs]]],
+		  %
+		  [[n,sentencechars],[[v,b],[v,cs]]],
+		  [[n,stringconcat],[[v,t],[v,b],[v,v1]]]
+		  %[[n,stringconcat],[[v,t],[v,b],[v,v]]]
+		  ],
+		  [[n,word213],[[v,v1],[v,u]]]]],
+
+/** nothing in string
+		  [[n,word21],[[v,cs],[v,t],[v,u]],"->",
+		  [%[v,a],
+		  "",%[[n,lookahead],[[v,c]]],
+		  %[[n,code],%[[n,sentencechars],[[v,a]]],
+		  %[[n,finalchar],[[v,b],[v,cs]]]
+		  %[[n,stringconcat],[[v,t],[v,a],[v,v1]]],
+		  %[[n,stringconcat],[[v,t],[v,b],[v,v]]]
+		  %],
+		  %[[n,code],%[[n,sentencechars],[[v,b],[v,cs]]],
+		  %[[n,stringconcat],[[v,t],[v,b],[v,v]]],
+		  %[[n,not],[[n,finalchar],[[v,c],[v,cs]]]]],
+		  [[n,word212],[[v,t],[v,u]]]]],
+**/
+/**
+		  [[n,word21],[[v,cs],[v,t],[v,u]],"->",
+		  [%[v,a],
+		  %[[n,code],[[n,trace]]],
+		  [v,b],[[n,lookahead],[[v,c]]],
+		  [[n,code],[[n,sentencechars],[[v,b],[v,cs]]],
+		  [[n,stringconcat],[[v,t],[v,b],[v,v]]],
+		  [[n,not],[[n,finalchar],[[v,c],[v,cs]]]]]
+		  %[[n,finalchar],[[v,b],[v,cs]]]
+		  %[[n,stringconcat],[[v,t],[v,a],[v,v1]]],
+		  %[[n,stringconcat],[[v,t],[v,b],[v,v]]]
+		  ,
+		  [[n,word212],[[v,v],[v,u]]]]],
+**/
+/**
+		  [[n,word21],[[v,t],[v,u]],"->",
+		  [[v,a],
+		  [[n,code],[[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+	 	  [[n,word21],["",[v,numberstring]]],
+		  [[n,code],[[n,stringconcat],
+		  [[v,v],[v,numberstring],[v,u]]]]]]
+
+**/
+		  [[n,word21],[[v,cs],[v,t],[v,u]],"->",
+		  [[v,a],
+		  % lookahead sent
+		   %[[n,lookahead],[[v,c]]],
+		  [[n,code],[[n,sentencechars],[[v,a],[v,cs]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word21],[[v,cs],"",[v,wordstring]]],
+		  [[n,code],
+		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]],
+		  
+		  [[n,sentencechars],[[v,c],[v,cs]],":-",
+		  [[[n,not],[[[n,member],[[v,cs],[v,c]]]]]]],
+
+/**		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,letters],[[v,c]]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[[n,stringtonumber],[[v,c],[v,n]]],
+		  [[n,number],[[v,n]]]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,=],[[v,c]," "]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,=],[[v,c],","]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,=],[[v,c],"-"]]]],
+
+		  [[n,sentencechars],[[v,c]],":-",
+		  [[[n,=],[[v,c],"'"]]]],
+		  
+		  [[n,finalchar],[[v,c]],":-",
+		  [[[n,=],[[v,c],"."]]]],
+
+**/
+		  [[n,finalchar],[[v,c],[v,cs]],":-",
+		  [[[n,member],[[v,cs],[v,c]]]]],
+
+/**
+		  [[n,lookahead1],[[v,c],[v,cs]],":-", %?
+		  [[[n,member],[[v,cs],[v,c]]],
+		  [[n,lookahead],[[v,c]]]]],
+
+		  [[n,finalchar],[[v,c]],":-",
+		  [[[n,=],[[v,c],"!"]]]],
+
+		  [[n,finalchar],[[v,c]],":-",
+		  [[[n,=],[[v,c],"?"]]]]
+		  **/
+
+		  [[n,lookahead],[[v,a],[v,a],[v,b]],":-",
+		  [%[[n,trace]],
+		  [[n,stringconcat],[[v,b],[v,d],[v,a]]],
+		  
+[[n,string_length],[[v,b],1]]
+		  
+		  %[[n,trace]],
+		  %[[n,string_length],[[v,b],1]]]]
+		  ]]
+
+%%],[[[v,t],[["a"],1]]]).
+%],[[[[v,t],["aaa1 ,-'!","a?","b!","b."]]]]).
+],[[[[v,t],["a", " ", " ", " ", "a", ".", " ", "a", " "]]]]).
+
+test(ssi,117,[[[n,grammar1],["a   a. a ",[" ","."],[v,t]]],[[n,cut]]],
 %test(both,117,[[[n,grammar1],["a ",[" ","."],[v,t]]],[[n,cut]]],
 %test(both,17,[[n,grammar1],["aaa1 ,-'! a? b! b.",[v,t]]],
 %%test(both,15,[[n,compound213],["","",[["a"],1],[v,t]]],
@@ -3107,7 +3540,7 @@ test(both,117,[[[n,grammar1],["a   a. a ",[" ","."],[v,t]]],[[n,cut]]],
 		  [[n,word21],[[v,cs],[v,t],[v,u]],"->",
 		  [%[v,a],
 		  [[n,code],
-		  [[n,trace]],
+		  %[[n,trace]],
 		  [[n,finalchar],[[v,c],[v,cs]]]
 		  
 		  ],
@@ -5652,7 +6085,14 @@ only works in ssi
 - this would remove cut
 
 */
-test(both,248,[[n,findall],[[[v,f],[v,g]],[[n,append1],[[v,f],[v,g],["c","d","h"]]],[v,e]]],
+test(lpi,248,[[n,findall],[[[v,f],[v,g]],[[n,append],[[v,f],[v,g],["c","d","h"]]],[v,e]]],
+
+[]
+
+,[[[[v,e],[[[],["c","d","h"]],[["c"],["d","h"]],[["c","d"],["h"]],[["c","d","h"],[]]]]]]).
+
+
+test(ssi,248,[[n,findall],[[[v,f],[v,g]],[[n,append1],[[v,f],[v,g],["c","d","h"]]],[v,e]]],
 
 [
 [[n,append1],[[],[v,a],[v,a]]],
