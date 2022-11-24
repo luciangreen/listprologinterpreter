@@ -94,7 +94,7 @@ test_types_cases(6,[[n,f],[[v,a]]],
 ]
 ,[[[[v,a], "a"]]]).
 
-test_types_cases(7,[[[[n,map],[[[n,add],[[[n,add],[[[n,add],[1]]]]]],0,[v,d]]],[[n,cut]]],[[n,cut]]],
+test_types_cases(7,[[n,map],[[[n,add],[[[n,add],[[[n,add],[1]]]]]],0,[v,d]]],
 %test_types_cases(7,[[n,map],[1,0,[v,d]]],
 [
 [[n,map],[[t,map1],[t,number],[t,number]]],
@@ -198,11 +198,9 @@ test_types_cases(11,[[n,call1b],[[1,11,111],[v,b]]],
         [[[n,member2a],[input,output]]],
 
 [[[n,member2a],[[v,a],[v,b]],":-",
-        [       [[n,equals4],[[v,a],[[v,b],"|",[v,list]]]]%][[n,equals4],[[v,a],[v,b]]],[[n,cut]]
-        ]
-        ]]]]
-        %[[n,cut]]
-        ]]       
+        [       [[n,member2],[[v,a],[v,b]]],[[n,cut]]]
+        ]]]],
+        [[n,cut]]]]       
         
 ],[[[[v,b],1]]]).
 
@@ -220,18 +218,15 @@ test_types_cases(12,[[n,call1b],[[1,11,111],[v,b]]],
         %[[[n,member2a],[input,output]]],
 
 [[[n,member2a],[[v,a],[v,b]],":-",
-        [       %[[n,member2],[[v,a],[v,b]]],[[n,cut]]
-        		[[n,equals4],[[v,a],[[v,b],"|",[v,list]]]
-        		]]
-        ]]]]%,
-        %[[n,cut]]
-        ]]       
+        [       [[n,member2],[[v,a],[v,b]]],[[n,cut]]]
+        ]]]],
+        [[n,cut]]]]       
         
 ],[[[[v,b],1]]]).
 
 
 
-test_types_cases(13,[[[n,person],["not-care",[v,output]]],[[n,cut]]],
+test_types_cases(13,[[n,person],["not-care",[v,output]]],
         [[[n,person],[[t,string],[t,string]]]],
         [[[n,person],[input,output]]],
 
@@ -364,7 +359,7 @@ test_types_cases(21,[[n,memorise_point],["point",[v,memory_out]]],
 
 % trope chain
 
-test_types_cases(22,[[[n,function],[[["a","b"],["b","c"]]]],[[n,cut]]],
+test_types_cases(22,[[n,function],[[["a","b"],["b","c"]]]],
         [
 [[n,function],[{[t,list2]}]],
 [[t,list2],[[t,string],[t,string]]],
@@ -445,7 +440,7 @@ test_types_cases(23,[[n,connect_cliques],[[["a",1],[1,2],[2,"b"]],[["a",3],[3,4]
 
 % Aus, UK - left hand traffic, US - right hand traffic
 
-test_types_cases(24,[[[n,hand_traffic],["Australia",[v,a1]]],[[n,cut]]],
+test_types_cases(24,[[n,hand_traffic],["Australia",[v,a1]]],
         [[[n,hand_traffic],[[t,string],[t,string]]]],
         [[[n,hand_traffic],[input,output]]],
 
@@ -523,7 +518,7 @@ test_types_cases(27,[[n,same],[[1,2,3,4,5,6],[1,2,3,4,5,6]]],
 
 % ["Lecturer","Lecturer.txt",0,algorithms,"2. *I found what the person aimed for.  I wrote on hermeneutics.  I identified the discourse.  I grouped the topics into ideologies.  I grouped the ideas into ontologies."]
 
-test_types_cases(28,[[[n,aimed],[[["bulls-eye","red"],["outer-ring","blue"]],"bulls-eye",[v,object]]],[[n,cut]]],
+test_types_cases(28,[[n,aimed],[[["bulls-eye","red"],["outer-ring","blue"]],"bulls-eye",[v,object]]],
         [
 [[n,aimed],[{{[t,string],[t,string]}},[t,string],[t,string]]]
 ],
@@ -587,7 +582,7 @@ test_types_cases(31,[[n,art],[["I","ate","apple"],[v,art_form]]],
 
 % Triangle train line
 
-test_types_cases(32,[[[n,triangle_train1],["Canterbury","Bambury"]],[[n,cut]]],
+test_types_cases(32,[[n,triangle_train1],["Canterbury","Bambury"]],
         [
 [[n,triangle_train1],[[t,string],[t,string]]],
 [[n,triangle_train],[[t,string],[t,string]]],
@@ -646,7 +641,7 @@ test_types_cases(34,[[n,space_time_jump],[[10,15],[v,c]]],
 
 % ["Short Arguments","Medicine - Quantum Box of Circulatory System 1.txt",0,algorithms,"5. *I used cardiovascular activity to maintain circulatory system flow."]
 
-test_types_cases(35,[[[n,circulation1],["heart1","cells"]],[[n,cut]]],
+test_types_cases(35,[[n,circulation1],["heart1","cells"]],
         [[[n,circulation1],[[t,string],[t,string]]],
         [[n,circulation],[[t,string],[t,string]]],
         [[n,link],[[t,string],[t,string]]]],
@@ -714,7 +709,7 @@ test_types_cases(38,[[n,run_checklist],["true","true","true",[v,run]]],
 
 % fill or empty a bottle
 
-test_types_cases(39,[[[n,fill_or_empty_bottle],["nothing",[v,a2]]],[[n,cut]]],
+test_types_cases(39,[[n,fill_or_empty_bottle],["nothing",[v,a2]]],
         [[[n,fill_or_empty_bottle],[[t,string],[t,string]]]],
         [[[n,fill_or_empty_bottle],[input,output]]],
 
@@ -725,7 +720,7 @@ test_types_cases(39,[[[n,fill_or_empty_bottle],["nothing",[v,a2]]],[[n,cut]]],
 
 % ["Lecturer","Lecturer Culturology.txt",0,algorithms,"3. *Reverse CAW was guessing the input and output.  Culturology is good.  I applied back-translation to an algorithm.  I found that reversing the algorithm resulted in the same result as the original.  Reverse interpret was CAW."]
 
-test_types_cases(40,[[[n,guess_io],["+",[v,a2],[v,a3]]],[[n,cut]]],
+test_types_cases(40,[[n,guess_io],["+",[v,a2],[v,a3]]],
         [
 [[n,guess_io],[[t,string],{[t,item]},{[t,item]}]],
 [[t,item],[[t,number]]],
@@ -786,7 +781,7 @@ test_types_cases(43,[[n,is_classical],[[2,3,5,6,7,10,11]]],
 
 ],[[]]).
 
-test_types_cases(44,[[[n,find_record],[[[1,"a"],[2,"b"]],1,[v,r]]],[[n,cut]]],
+test_types_cases(44,[[n,find_record],[[[1,"a"],[2,"b"]],1,[v,r]]],
 [
 [[n,find_record],[{[[t,number],[t,string]]},[t,number],[t,string]]]
 ],
@@ -824,7 +819,7 @@ test_types_cases(45,[[n,play_gramophone],[[1,2,3,4,5],2,[v,p]]],
 1. The product was spoon-fed to the customer.
 */
 
-test_types_cases(46,[[[n,spoon_feed],[1]],[[n,cut]]],
+test_types_cases(46,[[n,spoon_feed],[1]],
 [[[n,spoon_feed],[[t,number]]]],
         [[[n,spoon_feed],[input]]],
 [
@@ -852,7 +847,7 @@ test_types_cases(47,[[n,greater_than],[2,1]],
 
 % ["Short Arguments","Rebreathsoning.txt",0,algorithms,"2. *I prepared to side with the pole.  I did this by observing meantness (sic).  First, I found the statement to be unwavering through time.  Second, I found it to be unwavering in relation to other statements.  Third, I found it to be unwavering in relation with other people."]
 
-test_types_cases(48,[[[n,pole],[["a",[1,2,3]],["b",[4,5,6]],3,[v,a_or_b]]],[[n,cut]]],
+test_types_cases(48,[[n,pole],[["a",[1,2,3]],["b",[4,5,6]],3,[v,a_or_b]]],
 [
 [[n,pole],[[t,pole],[t,pole],[t,number],[t,string]]],
 [[t,pole],[[t,string],{[t,number]}]]
@@ -875,8 +870,7 @@ test_types_cases(48,[[[n,pole],[["a",[1,2,3]],["b",[4,5,6]],3,[v,a_or_b]]],[[n,c
 
 % I did this by observing meantness (sic).
 
-test_types_cases(49,[[[n,meantness],[[["a","b"],["b","c"]],["a","b","c"]]],[[n,cut]]
-],
+test_types_cases(49,[[n,meantness],[[["a","b"],["b","c"]],["a","b","c"]]],
 [
 [[n,meantness],[[t,lists_string],[t,list_string]]],
 [[t,lists_string],[{[t,list_string]}]],
@@ -885,7 +879,7 @@ test_types_cases(49,[[[n,meantness],[[["a","b"],["b","c"]],["a","b","c"]]],[[n,c
         [[[n,meantness],[input,input]]],
 [
 
-        [[n,meantness],[[v,lists],[]],":-",[[[n,cut]]]],
+        [[n,meantness],[[v,lists],[]]],
         [[n,meantness],[[v,lists],[v,list]],":-",
         [       %[[n,trace2]],
         	[[n,equals4],[[v,list],[[v,head],"|",[v,tail]]]],
@@ -899,7 +893,7 @@ test_types_cases(49,[[[n,meantness],[[["a","b"],["b","c"]],["a","b","c"]]],[[n,c
 
 % First, I found the statement to be unwavering through time.
 
-test_types_cases(50,[[[n,unwavering],[[1,1,1,1]]],[[n,cut]]],
+test_types_cases(50,[[n,unwavering],[[1,1,1,1]]],
 [
 [[n,unwavering],[[t,list_number]]],
 [[t,list_number],[{[t,number]}]],
@@ -923,7 +917,7 @@ test_types_cases(50,[[[n,unwavering],[[1,1,1,1]]],[[n,cut]]],
 
 % Second, I found it to be unwavering in relation to other statements.
 
-test_types_cases(51,[[[n,unwavering_list],[[[1,1,1,1],[1,1,1,1],[1,1,1,1]]]],[[n,cut]]],
+test_types_cases(51,[[n,unwavering_list],[[[1,1,1,1],[1,1,1,1],[1,1,1,1]]]],
 [
 [[n,unwavering_list],[{[t,list_number]}]],
 [[n,unwavering],[[t,list_number]]],
@@ -957,8 +951,8 @@ test_types_cases(51,[[[n,unwavering_list],[[[1,1,1,1],[1,1,1,1],[1,1,1,1]]]],[[n
 
 % Third, I found it to be unwavering in relation with other people.
 
-test_types_cases(52,[[[n,unwavering_people],%[[[[1],[1]],[[1],[1]]]]],
-[[[[[1,1,1,1],[1,1,1,1],[1,1,1,1]],[[1,1,1,1],[1,1,1,1],[1,1,1,1]]],[[[1,1,1,1],[1,1,1,1],[1,1,1,1]],[[1,1,1,1],[1,1,1,1],[1,1,1,1]]]]]],[[n,cut]]],
+test_types_cases(52,[[n,unwavering_people],%[[[[1],[1]],[[1],[1]]]]],
+[[[[[1,1,1,1],[1,1,1,1],[1,1,1,1]],[[1,1,1,1],[1,1,1,1],[1,1,1,1]]],[[[1,1,1,1],[1,1,1,1],[1,1,1,1]],[[1,1,1,1],[1,1,1,1],[1,1,1,1]]]]]],
 [
 [[n,unwavering_people],[[t,unwavering_people1]]],
 [[t,unwavering_people1],[[t,number]]],
@@ -1003,7 +997,7 @@ test_types_cases(52,[[[n,unwavering_people],%[[[[1],[1]],[[1],[1]]]]],
 
 % ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Heads of State 4 of 4.txt",0,algorithms,"39. *I prepared to enjoy subsidised accreditation.  I did this by agreeing with the government.  First, I read the government policy.  Second, I verified that it was a good idea.  Third, I agreed with it.  In this way, I prepared to enjoy subsidised accreditation by agreeing with the government."]
 
-test_types_cases(53,[[[n,subsidised_accreditation],[1,30]],[[n,cut]]],
+test_types_cases(53,[[n,subsidised_accreditation],[1,30]],
 [[[n,subsidised_accreditation],[[t,number],[t,number]]]],
         [[[n,subsidised_accreditation],[input,input]]],
 [
@@ -1064,7 +1058,7 @@ test_types_cases(56,[[n,amount_earned],[2,2,[v,a]]],
 
 % I did this by stating that the breast *cooled and stored the milk.
 
-test_types_cases(57,[[[n,cool],[[-4.1,-4,-4.2],-5,-4]],[[n,cut]]],
+test_types_cases(57,[[n,cool],[[-4.1,-4,-4.2],-5,-4]],
 [
 [[n,cool],[{[t,number]},[t,number],[t,number]]]
 ],
@@ -1101,7 +1095,7 @@ test_types_cases(58,[[n,store],[["milk"],"milk"]],
 
 % Follows a path with directions along the paths
 
-test_types_cases(59,[[[n,tour_heartland],[[1,2]]],[[n,cut]]],
+test_types_cases(59,[[n,tour_heartland],[[1,2]]],
 
         [
 [[n,tour_heartland],[{[t,number]}]],
@@ -1141,7 +1135,7 @@ test_types_cases(59,[[[n,tour_heartland],[[1,2]]],[[n,cut]]],
 
 % * I did this by writing the Room Essay Press Release.
 
-test_types_cases(60,[[[n,find_in_room],["newspaper",[v,x],[v,y]]],[[n,cut]]],
+test_types_cases(60,[[n,find_in_room],["newspaper",[v,x],[v,y]]],
 
         [
 [[n,find_in_room],[[t,string],[t,number],[t,number]]],

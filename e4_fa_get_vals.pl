@@ -33,7 +33,7 @@ e4_fa_getvar(Variable,Value,Vars) :-
 	((member([Variable,Value],Vars),
 	not(is_empty(Value)))->true;
 	        ((aggregate_all(count,member([Variable,_Value],Vars),0)->true;%%
-	(member([Variable,Empty],Vars),is_empty(Empty))),Empty=Value))
+	(member([Variable,Empty],Vars),is_empty(Empty))),Value=Variable))
 .
 e4_fa_getvar(undef,undef,_Vars) :-
 	!.

@@ -536,7 +536,7 @@ replace_in_term(Value2,[Dbw_v,_],%'$VAR'(_)
         ,V_sys1,Value1A1),
 
         replace_in_term(Value3A3,empty2%'$VAR'(_)
-        ,V_sys2,Value3A1)
+        ,V_sys1,Value3A1)
 
         ),ValueA),!,
         member([Value1a,Value3a],ValueA),
@@ -945,7 +945,7 @@ putvalues2(Args,Variables,Command_variables,Vars1,Vars2)
       ).
 %;     debug_fail(Skip,[[Dbw_n,Dbw_command],Debug_variables])).
 
-arg2([],_Command,_Args) :- !.
+arg2([],Command,Args) :- !.
 arg2([Arg_n|Arg_n2],Command,[Arg|Args]) :-
  arg(Arg_n,Command,Arg),
  arg2(Arg_n2,Command,Args).
@@ -1227,7 +1227,7 @@ get_lang_word("v",Dbw_v),
 get_lang_word("sys1",Dbw_sys1),
 not((L=[])),L=[H|T],
 
-	interpretstatement1(_,Functions0,Functions,[F,[M1,H,[Dbw_v,Dbw_sys1]]],Vars1,Vars2,true,nocut,_N,_Pred_num),
+	interpretstatement1(_,Functions0,Functions,[F,[M1,H,[Dbw_v,Dbw_sys1]]],Vars1,Vars2,true,nocut),
 	getvalue([Dbw_v,Dbw_sys1],M2,Vars2),
 	
 %%(F,(M1,H,M2)),
