@@ -16,7 +16,7 @@ test_all_bt00(Lang,Debug,NTotal,Score) :-
 	retractall(lang(_)),
 	assertz(lang(Lang)),
 
-	test_all_bt0(test,5,Lang,Debug,NT1,S1),
+	test_all_bt0(test,4,Lang,Debug,NT1,S1),
 	writeln0([lpiverify4,S1,/,NT1,passed]),
 	writeln0(""),	writeln0(""),
 	
@@ -37,11 +37,7 @@ test_all_bt00(Lang,Debug,NTotal,Score) :-
 	
 test_all_bt0(Test,Arity,Lang,Debug,NTotal,Score) :-
 	functor(Test2,Test,Arity),
-	findall(Test2,(Test2),B1),
-	functor(Test3,Test,Arity),
-	arg(1,Test3,ssi),
-	delete(B1,Test3,B),
-	length(B,NTotal1),
+	findall(Test2,(Test2),B),length(B,NTotal1),
 test_all_bt0(Test,Arity,Lang,Debug,0,NTotal,0,Score,NTotal1),!.
 test_all_bt0(_Test,_Arity,_Lang,_Debug,NTotal,NTotal,Score,Score,NTotal) :- 
 %NTotal=105, 
@@ -70,8 +66,7 @@ test_all_bt01(Test,_Arity,Lang,Debug,NTotal3,Passed) :-
 	!.
 
 test_all_bt000(test,Debug,NTotal3,Score1,Score3,Lang) :-
-	test(Version,NTotal3,Query,Functions,Result),
-	(Version=both->true;Version=lpi),
+	test(NTotal3,Query,Functions,Result),
 	trans_alg1(Query,"en",Lang,Query1),
 	(Query=Query1->true%writeln("Query=Query1")
 	;(writeln0("not(Query=Query1)"),abort)),
