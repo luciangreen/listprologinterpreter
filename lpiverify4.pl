@@ -2947,11 +2947,16 @@ test(117,[[[n,grammar1],["a   a. a ",[" ","."],[v,t]]],[[n,cut]]],
 
 		  [[n,word21],[[v,cs],[v,t],[v,u]],"->",
 		  [%[v,a],
+		  [[n,code],
+		  [[n,trace]],
+		  [[n,finalchar],[[v,c],[v,cs]]]
+		  
+		  ],
 		  [v,b],[[n,lookahead],[[v,c]]],
 		  [[n,code],
 		  %[[n,string_length],[[v,b],1]],
 		  %[[n,trace]],
-		  [[n,finalchar],[[v,c],[v,cs]]],
+		  
 		  %
 		  [[n,sentencechars],[[v,b],[v,cs]]],
 		  [[n,stringconcat],[[v,t],[v,b],[v,v1]]]
@@ -3020,8 +3025,11 @@ test(117,[[[n,grammar1],["a   a. a ",[" ","."],[v,t]]],[[n,cut]]],
 		  [[n,code],
 		  [[n,string_length],[[v,a],1]],
 [[n,sentencechars],[[v,a],[v,cs]]],
-		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
-		  [[n,word211],[[v,cs],"",[v,wordstring]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]
+		  %,[[n,trace]]
+		   ],
+		 
+		  [[n,word21],[[v,cs],"",[v,wordstring]]],
 		  [[n,code],
 		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]
 		  %,[[n,writeln],[4]]
