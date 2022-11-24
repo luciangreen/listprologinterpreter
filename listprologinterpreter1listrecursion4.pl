@@ -103,6 +103,8 @@ typestatements(Typestatements),
  	assertz(modestatements(Modestatements2)));true),
 
 convert_to_grammar_part1(Functions1,[],Functions2b,_),
+	  	retractall(pred_number(_)),
+ assertz(pred_number(0)),
 
 
 	add_pred_numbers(Functions2b,Functions2),
@@ -193,8 +195,6 @@ retractall(retry_back(_)),
 	  	retractall(pred_id_chain(_)),
  assertz(pred_id_chain([])),
 
-	  	retractall(pred_number(_)),
- assertz(pred_number(0)),
 
 find_cut_pred(Pred_id),
 
