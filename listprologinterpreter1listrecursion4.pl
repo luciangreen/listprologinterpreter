@@ -1460,6 +1460,8 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,
 member([Command,Args],
 [
+ ["phrase_from_file",[i,i]],
+ ["phrase_from_file",[i,i]],
  ["string_chars",[i,i]],
  ["string_chars",[i,o]],
  ["string_chars",[o,i]],
@@ -1673,6 +1675,7 @@ interpretpart(grammar_part,Vars9,[],Result1),
 
 interpretstatement1(non-ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
         
+        %trace,
         %(Query1=[[n, flatten2], [[v, e], [v, f], [v, c]]]->trace;true),%writeln1(interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut)),
         %trace,
                %writeln(interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut)),
@@ -2006,7 +2009,9 @@ getvar(undef,undef,_Vars) :-
 	%%.
 	
 simplify(A,A)	:-
-	(variable_name(A)->true;(string(A)->true;(number(A)->true;(atom(A)->true;A=[])))),!.
+	(blob(A,stream)->%false
+	true
+	;(variable_name(A)->true;(string(A)->true;(number(A)->true;(atom(A)->true;A=[]))))),!.
 %simplify([A,"|",[B|B0]],[A1|[B1|B10]])	:-
 %	simplify(A,A1),
 %	simplify(B,B1),
@@ -2226,6 +2231,8 @@ isvalstrempty([]).
 **/
 isvalstrorundef(N) :- 
 	var(N),!.
+isvalstrorundef(N) :- 
+	blob(N,stream),!.
 isvalstrorundef(N) :- 
 	not(var(N)),isval(N),!.
 isvalstrorundef(N) :- 

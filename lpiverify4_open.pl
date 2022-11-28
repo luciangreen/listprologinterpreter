@@ -1,6 +1,6 @@
 %% Test cases, Debug=trace=on or off, N=output=result
 testopen(Debug,NTotal) :- testopen(Debug,0,NTotal),!.
-testopen(_Debug,NTotal,NTotal) :- NTotal=4, !.
+testopen(_Debug,NTotal,NTotal) :- NTotal=6, !.
 testopen(Debug,NTotal1,NTotal2) :-
 	NTotal3 is NTotal1+1,
 	testopen_cases(NTotal3,Query,Functions),
@@ -305,3 +305,432 @@ testopen_cases(3,[[n,episode_character],[[v,a]]],
 testopen_cases(4,[[n,test]],
 
 [[[n,test],":-",[[[n,findall],[[[v,x1],[v,y1],[v,s]],[[[n,member2],[[1,2],[v,y1]]],[[n,member2],[[a,b],[v,x1]]],[[n,writeln],["Enter cell"]],[[n,writeln],[[v,y1]]],[[n,writeln],[[v,x1]]],[[n,read_string],[[v,s]]]],[v,z]]],[[n,findall],[["<tr>",[v,z1],"</tr>"],[[[n,member2],[[1,2],[v,y2]]],[[n,findall],[["<td>",[v,s2],"</td>"],[[[n,member2],[[a,b],[v,x2]]],[[n,member2],[[v,z],[[v,x2],[v,y2],[v,s2]]]]],[v,z1]]]],[v,z2]]],[[n,equals4],[[v,z3],["<table>",[v,z2],"</table>"]]],[[n,flatten1],[[v,z3],[v,z4]]],[[n,concat_list],[[v,z4],[v,z5]]],[[n,writeln],[[v,z5]]]]],[[n,flatten1],[[v,a],[v,b]],":-",[[[n,flatten2],[[v,a],[],[v,b]]]]],[[n,flatten2],[[],[v,b],[v,b]]],[[n,flatten2],[[v,a],[v,b],[v,c]],":-",[[[n,"->"],[[[n,not],[[[n,"->"],[[[n,equals4],[[v,a],[[v,a1],"|",[v,a2]]]],[[n,true]],[[n,equals4],[[v,a],[]]]]]]],[[n,append],[[v,b],[[v,a]],[v,c]]],[[[n,equals4],[[v,a],[[v,d],"|",[v,e]]]],[[n,flatten2],[[v,d],[v,b],[v,f]]],[[n,flatten2],[[v,e],[v,f],[v,c]]]]]]]],[[n,concat_list],[[v,a1],[v,b]],":-",[[[n,equals4],[[v,a1],[[v,a],"|",[v,list]]]],[[n,concat_list],[[v,a],[v,list],[v,b]]],[[n,cut]]]],[[n,concat_list],[[v,a],[],[v,a]],":-",[[[n,cut]]]],[[n,concat_list],[[v,a],[v,list],[v,b]],":-",[[[n,equals4],[[v,list],[[v,item],"|",[v,items]]]],[[n,stringconcat],[[v,a],[v,item],[v,c]]],[[n,concat_list],[[v,c],[v,items],[v,b]]]]]]).
+
+
+% 5 - form to enter data, save
+
+testopen_cases(5,[[n,test]],
+
+[[[n,test],":-",[[[n,writeln],["Enter your name:"]],[[n,read_string],[[v,s]]],
+[[n,write_file],['file.txt',["Name",[v,s]]]]
+]],
+[[n,write_file],[[v,path],[v,file_term]],":-",
+[
+	[[n,list_to_string],[[v,file_term],[v,file_terma]]],
+	[[n,stringconcat],[[v,file_terma],".",[v,file_termb]]],
+	[[n,open],[[v,path],write,[v,stream1]]],
+	[[n,write],[[v,stream1],[v,file_termb]]],
+	[[n,close],[[v,stream1]]]
+	%,[[n,cut]]
+]],
+
+		
+%()%],[[[v,t],[["a"],1]]]).
+%],[[[[v,t],[["aa,]","b",a],1]]]]).
+
+[[n,list_to_string],[[v,a],[v,b]],":-",
+[
+	[[n,list_to_string],[[v,a],"",[v,b]]]
+	%,[[n,cut]]
+]],
+[[n,list_to_string],["",[v,b],[v,c]],":-",
+[
+	[[n,concat],[[v,b],"\"\"","",[v,c]]]
+	%,[[n,cut]]
+]],
+[[n,list_to_string],[[],[v,b],[v,c]],":-",
+[
+	[[n,concat],["[",[v,b],"]",[v,c]]]
+	%,[[n,cut]]
+]],
+[[n,list_to_string],[[v,a],"",[v,c]],":-",
+[
+	[
+	[[n,"->"],
+	[
+		[[n,atom],[[v,a]]],
+
+		[[n,true]],
+
+		[
+		[[n,number],[[v,a]]]
+		]
+	]],
+	[[n,atom_string],[[v,a],[v,c]]]
+	]
+	%,[[n,cut]]
+]],
+[[n,list_to_string],[[v,a],[v,b],[v,c]],":-",
+[
+	[[n,"->"],
+	[
+		[
+		[[n,not],[[[n,"->"],[[[n,equals4],[[v,a],[[v,a1],"|",[v,a2]]]],[[n,true]],
+		[[n,equals4],[[v,a],[]]]]]
+		]]
+		],
+
+		[
+		[[n,"->"],
+		[
+			[[n,equals4],[[v,b],""]],
+
+			[[n,equals4],[[v,g],""]],
+
+			[[n,equals4],[[v,g],[","]]]
+		]],
+		[[n,concat],[[v,b],[v,g],[v,a],[v,c]]]
+		],
+
+		[
+		[[n,equals4],[[v,a],[[v,d],"|",[v,e]]]],
+		[[n,wrap_if_string],[[v,d],[v,d1]]],
+		%[[n,trace2]],
+		[[n,list_to_string],[[v,d1],"",[v,f]]],
+		[[n,"->"],
+		[
+			[[n,equals4],[[v,b],""]],
+
+			[
+			[[n,equals4],[[v,g],""]],
+			[[n,equals4],[[v,f],[v,f2]]]
+			],
+
+			[
+			[[n,equals4],[[v,g],","]],[[n,equals4],[[v,f],[v,f2]]]
+			]
+		]],
+		[[n,concat],[[v,b],[v,g],[v,f2],[v,f1]]],
+		[[n,list_to_string],[[v,e],[v,f1],[v,c]]]
+		]
+	]]
+	%,[[n,cut]]
+]],
+[[n,wrap_if_string],[[v,a],[v,b]],":-",
+[
+	[[n,"->"],
+	[
+		[
+		[[n,not],[[[n,equals4],[[v,a],""]]]],
+		[[n,string],[[v,a]]]
+		],
+
+		[[n,maplist],[[n,string_concat],["\"",[v,a],"\""],"",[v,b]]],
+
+		[[n,equals4],[[v,a],[v,b]]]
+	]]
+	%,[[n,cut]]
+]],
+[[n,concat],[[v,b],[v,g],[v,a],[v,c]],":-",
+[
+	[[n,maplist],[[n,string_concat],[[v,b],[v,g],[v,a]],"",[v,c]]]
+	%,[[n,cut]]
+]]
+]
+
+).
+
+% 6 - load data
+
+testopen_cases(6,[[n,test]],
+
+[
+[[n,test],":-",[[[n,open_file],['file.txt',["Name",[v,t]]]],
+%[[n,list_to_string],[[v,t1],[v,t]]],
+[[n,writeln],[["Name",[v,t]]]]]],
+
+[[n,open_file],[[v,path],[v,file_term]],":-",
+[
+	[[n,open],[[v,path],read,[v,stream]]],
+	[[n,read],[[v,stream],[v,file_term]]],
+	[[n,close],[[v,stream]]]
+	%[[n,atom_string],[[v,file_term1],[v,file_term2]]],
+	
+	%,[[n,cut]]
+]],
+
+[[n,string],[[v,string]],"->",
+[
+	[[n,list],[[v,string]]]
+]],
+[[n,list],[],"->",
+[
+	
+	[[v,l]]
+	
+]],
+[[n,list],[[[v,l],"|",[v,ls]]],"->",
+[
+	
+	[[v,l]],
+	
+	[[n,list],[[v,ls]]]
+]],
+/*,
+
+  [[n,atom_to_term],[[v,u],[v,t]],":-",
+		  [
+		  			 [[n,compound],[[v,u],"",[],[v,t]]]
+		  %,[[n,cut]]
+		  			 %%[[n,number21],[[v,u],"","",[v,t]]]
+		  			 %%[[n,compound213],["","",[["a"],1],[v,t]]]
+		  ]
+		  ],
+
+		  %[[n,compound213],["","",[v,t],[v,t]]],
+
+		  [[n,compound213],[[v,u],[v,u],[v,t],[v,t]]], %% swapped these
+
+		  [[n,compound],[[v,t],[v,u]],"->",
+		  ["[","]",
+		  [[n,compound213],[[v,t],[v,u]]]]],
+
+		  [[n,compound],[[v,t],[v,u]],"->",
+		  ["[",[[n,compound21],[[v,t],[v,v]]],"]",%[[n,code],[[n,trace2]]],
+		  [[n,compound213],[[v,v],[v,u]]]]],
+
+		  %[[n,compound212],["","",[v,t],[v,t]]],
+
+		  [[n,compound212],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,compound21],[[v,t],[v,u]],"->",
+		  [[[n,item],[[v,i]]],
+		  [[n,lookahead],["]"]],
+		  [[n,code],[[n,wrap],[[v,i],[v,itemname1]]],
+		  [[n,append],[[v,t],[v,itemname1],[v,v]]]],
+		  [[n,compound212],[[v,v],[v,u]]]
+		  %,[[n,code],[[n,cut]]]
+		  ]],
+
+		  [[n,compound21],[[v,t],[v,u]],"->",
+		  [[[n,item],[[v,i]]],",",
+		  
+		  %[[n,code],[[n,trace]]],
+		  
+		  [[n,compound21],[[],[v,compound1name]]],
+		  [[n,code],[[n,wrap],[[v,i],[v,itemname1]]],
+		  [[n,append],[[v,t],[v,itemname1],[v,v]]],
+		  [[n,append],[[v,v],[v,compound1name],[v,u]]]
+		  		  %,[[n,cut]]
+			]]],
+
+		  [[n,item],[[v,t]],"->",["\"",[[n,word21],["",[v,t]]],
+		    "\""
+		    %[[n,code],[[n,cut]]]
+		    ]],
+
+		  [[n,item],[[v,t]],"->",
+		  [[[n,number21],["",[v,u]]],[[n,code],
+		  [[n,stringtonumber],[[v,u],[v,t]]]
+		  %,[[n,cut]]
+		  ]]],
+
+		  [[n,item],[[v,t]],"->",[[[n,word21_atom],["",[v,t1]]],
+		  [[n,code],[[n,atom_string],[[v,t],[v,t1]]]
+		  %,[[n,cut]]
+		  ]]], % atoms
+		  [[n,item],[[v,t]],"->",[[[n,compound],[[],[v,t]]]
+		  		    %,[[n,code],[[n,cut]]]
+			]],
+
+		  %[[n,number212],["","",[v,t],[v,t]]],
+
+		  [[n,number212],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,number21],[[v,t],[v,u]],"->",
+		  [[v,a],[[n,commaorrightbracketnext]],
+		  [[n,code],
+		  [[n,"->"],[[
+		  [[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]
+		  ]],
+		  [[n,true]],
+		  [[n,"->"],[
+		  [[n,equals4],[[v,a],"."]],
+		  [[n,true]],
+		  [[n,equals4],[[v,a],"-"]]
+		  ]]
+		  ]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,number212],[[v,v],[v,u]]]]],
+
+		  [[n,number21],[[v,t],[v,u]],"->",
+		  [[v,a],
+		  [[n,code],
+		  [[n,"->"],[[
+		  [[n,stringtonumber],[[v,a],[v,a1]]],
+		  [[n,number],[[v,a1]]
+		  ]],
+		  [[n,true]],
+		  [[n,"->"],[
+		  [[n,equals4],[[v,a],"."]],
+		  [[n,true]],
+		  [[n,equals4],[[v,a],"-"]]
+		  ]]
+		  ]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+	 	  [[n,number21],["",[v,numberstring]]],
+		  [[n,code],[[n,stringconcat],
+		  [[v,v],[v,numberstring],[v,u]]]]]],
+
+		  %[[n,word212],["","",[v,t],[v,t]]],
+
+		  [[n,word212],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,word21],[[v,t],[v,u]],"->",
+		  [[v,a],[[n,quote_next]],
+		  [[n,code],%[[n,letters],[[v,a]]],
+		  [[n,not],[[[n,equals4],[[v,a],"\""]]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word212],[[v,v],[v,u]]]]],
+
+		  [[n,word21],[[v,t],[v,u]],"->",
+		  [[v,a],
+		  [[n,code],%[[n,letters],[[v,a]]],
+		  [[n,not],[[[n,equals4],[[v,a],"\""]]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word21],["",[v,wordstring]]],
+		  [[n,code],
+		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]],
+
+
+		  %[[n,word212_atom],["","",[v,t],[v,t]]],
+
+		  [[n,word212_atom],[[v,u],[v,u],[v,t],[v,t]]],
+
+		  [[n,word21_atom],[[v,t],[v,u]],"->",
+		  [[v,a],[[n,commaorrightbracketnext]],
+		  [[n,code],%[[n,letters],[[v,a]]],
+		  [[n,not],[[[n,equals4],[[v,a],"\""]]]],
+		  [[n,not],[[[n,equals4],[[v,a],"["]]]],
+		  [[n,not],[[[n,equals4],[[v,a],"]"]]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word212_atom],[[v,v],[v,u]]]]],
+
+		  [[n,word21_atom],[[v,t],[v,u]],"->",
+		  [[v,a],
+		  [[n,code],%[[n,letters],[[v,a]]],
+		  [[n,not],[[[n,equals4],[[v,a],"\""]]]],
+		  [[n,not],[[[n,equals4],[[v,a],"["]]]],
+		  [[n,not],[[[n,equals4],[[v,a],"]"]]]],
+		  [[n,stringconcat],[[v,t],[v,a],[v,v]]]],
+		  [[n,word21_atom],["",[v,wordstring]]],
+		  [[n,code],
+		  [[n,stringconcat],[[v,v],[v,wordstring],[v,u]]]]]],
+		  
+		  [[n,commaorrightbracketnext],"->",
+		  [[[n,lookahead],[","]]]],
+
+		  [[n,commaorrightbracketnext],"->",
+		  [[[n,lookahead],["]"]]]],
+		  
+		  
+		  [[n,quote_next],"->",
+		  [[[n,lookahead],["\""]]]],
+
+		  
+		  [[n,lookahead],[[v,a],[v,a],[v,b]],":-",
+		  [[[n,stringconcat],[[v,b],[v,d],[v,a]]]]]
+		*/
+
+[[n,list_to_string],[[v,a],[v,b]],":-",
+[
+	[[n,list_to_string],[[v,a],"",[v,b]]]
+	%,[[n,cut]]
+]],
+[[n,list_to_string],["",[v,b],[v,c]],":-",
+[
+	[[n,concat],[[v,b],"\"\"","",[v,c]]]
+	%,[[n,cut]]
+]],
+[[n,list_to_string],[[],[v,b],[v,c]],":-",
+[
+	[[n,concat],["[",[v,b],"]",[v,c]]]
+	%,[[n,cut]]
+]],
+[[n,list_to_string],[[v,a],"",[v,c]],":-",
+[
+	[
+	[[n,"->"],
+	[
+		[[n,atom],[[v,a]]],
+
+		[[n,true]],
+
+		[
+		[[n,number],[[v,a]]]
+		]
+	]],
+	[[n,atom_string],[[v,a],[v,c]]]
+	]
+	%,[[n,cut]]
+]],
+[[n,list_to_string],[[v,a],[v,b],[v,c]],":-",
+[
+	[[n,"->"],
+	[
+		[
+		[[n,not],[[[n,"->"],[[[n,equals4],[[v,a],[[v,a1],"|",[v,a2]]]],[[n,true]],
+		[[n,equals4],[[v,a],[]]]]]
+		]]
+		],
+
+		[
+		[[n,"->"],
+		[
+			[[n,equals4],[[v,b],""]],
+
+			[[n,equals4],[[v,g],""]],
+
+			[[n,equals4],[[v,g],[","]]]
+		]],
+		[[n,concat],[[v,b],[v,g],[v,a],[v,c]]]
+		],
+
+		[
+		[[n,equals4],[[v,a],[[v,d],"|",[v,e]]]],
+		[[n,wrap_if_string],[[v,d],[v,d1]]],
+		%[[n,trace2]],
+		[[n,list_to_string],[[v,d1],"",[v,f]]],
+		[[n,"->"],
+		[
+			[[n,equals4],[[v,b],""]],
+
+			[
+			[[n,equals4],[[v,g],""]],
+			[[n,equals4],[[v,f],[v,f2]]]
+			],
+
+			[
+			[[n,equals4],[[v,g],","]],[[n,equals4],[[v,f],[v,f2]]]
+			]
+		]],
+		[[n,concat],[[v,b],[v,g],[v,f2],[v,f1]]],
+		[[n,list_to_string],[[v,e],[v,f1],[v,c]]]
+		]
+	]]
+	%,[[n,cut]]
+]],
+[[n,wrap_if_string],[[v,a],[v,b]],":-",
+[
+	[[n,"->"],
+	[
+		[
+		[[n,not],[[[n,equals4],[[v,a],""]]]],
+		[[n,string],[[v,a]]]
+		],
+
+		[[n,maplist],[[n,string_concat],["\"",[v,a],"\""],"",[v,b]]],
+
+		[[n,equals4],[[v,a],[v,b]]]
+	]]
+	%,[[n,cut]]
+]],
+[[n,concat],[[v,b],[v,g],[v,a],[v,c]],":-",
+[
+	[[n,maplist],[[n,string_concat],[[v,b],[v,g],[v,a]],"",[v,c]]]
+	%,[[n,cut]]
+]]
+]
+
+).

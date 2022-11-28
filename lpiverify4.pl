@@ -5089,3 +5089,4 @@ test(245,[[[n,equals4],[[v,a],"abc"]],[[n,string_chars],[[v,a],[[v,x],[v,y],[v,z
 []
 
 ,[[[[v,a], "abc"],[[v,x], a],[[v,y], b],[[v,z], c]]]).
+

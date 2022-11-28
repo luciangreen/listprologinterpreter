@@ -1164,6 +1164,8 @@ single_item(A) :- variable_name(A),!.
 single_item(A) :- A="|",fail,!.
 single_item(A) :- string(A),!.
 single_item(A) :- number(A),!.
+single_item(A) :- blob(A,stream),!.
+
 %single_item(A) :- atom(A),!.
 %single_item([A,B]) :- atom(A),atom(b),!.
 
@@ -1173,11 +1175,13 @@ single_item_or_atom(A) :- variable_name(A),!.
 single_item_or_atom(A) :- string(A),!.
 single_item_or_atom(A) :- number(A),!.
 single_item_or_atom(A) :- atom(A),!.
+single_item_or_atom(A) :- blob(A,stream),!.
 
 is_value_match(A) :- predicate_or_rule_name(A),!.
 is_value_match(A) :- A="|",fail,!.
 is_value_match(A) :- string(A),!.
 is_value_match(A) :- number(A),!.
+is_value_match(A) :- blob(A,stream),!.
 %is_value_match(A) :- atom(A),!.
 %is_value_match([A,B]) :- atom(A),atom(b),!.
 
