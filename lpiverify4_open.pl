@@ -312,7 +312,9 @@ testopen_cases(4,[[n,test]],
 testopen_cases(5,[[n,test]],
 %[[n,list_to_string],["a",[v,file_terma]]],
 
-[[[n,test],":-",[[[n,writeln],["Enter your name:"]],[[n,read_string],[[v,s]]],
+[[[n,test],":-",[[[n,writeln],["Enter your name:"]],
+[[n,trace2]],
+[[n,read_password],[[v,s]]],
 [[n,write_file],['file.txt',["Name",[v,s]]]]
 ]],
 [[n,write_file],[[v,path],[v,file_term]],":-",
@@ -571,3 +573,13 @@ testopen_cases(6,[[n,test]],
 ]
 
 ).
+
+
+testopen_cases(7,[[n,test]],
+%[[n,list_to_string],["a",[v,file_terma]]],
+
+[[[n,test],":-",[
+%[[n,trace2]],
+[[n,read_password
+],[[v,s]]]
+]]]).

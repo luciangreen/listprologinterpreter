@@ -1434,7 +1434,9 @@ get_lang_word("intersection",Dbw_intersection1),Dbw_intersection1=Dbw_intersecti
 
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_read_string],[Variable1]],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
-get_lang_word("read_string",Dbw_read_string1),Dbw_read_string1=Dbw_read_string,
+get_lang_word("read_string",Dbw_read_string1),
+get_lang_word("read_password",Dbw_read_string2),
+(Dbw_read_string1=Dbw_read_string->true;Dbw_read_string2=Dbw_read_string),
         interpretpart(read_string,Variable1,Vars1,Vars2).
 
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_writeln],[Variable1]],Vars1,Vars2,true,nocut) :-
