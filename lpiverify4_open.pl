@@ -313,8 +313,8 @@ testopen_cases(5,[[n,test]],
 %[[n,list_to_string],["a",[v,file_terma]]],
 
 [[[n,test],":-",[[[n,writeln],["Enter your name:"]],
-[[n,trace2]],
-[[n,read_password],[[v,s]]],
+%[[n,trace2]],
+[[n,read_string],[[v,s]]],
 [[n,write_file],['file.txt',["Name",[v,s]]]]
 ]],
 [[n,write_file],[[v,path],[v,file_term]],":-",
