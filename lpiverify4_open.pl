@@ -1,6 +1,6 @@
 %% Test cases, Debug=trace=on or off, N=output=result
 testopen(Debug,NTotal) :- testopen(Debug,0,NTotal),!.
-testopen(_Debug,NTotal,NTotal) :- NTotal=6, !.
+testopen(_Debug,NTotal,NTotal) :- NTotal=7, !.
 testopen(Debug,NTotal1,NTotal2) :-
 	NTotal3 is NTotal1+1,
 	testopen_cases(NTotal3,Query,Functions),
