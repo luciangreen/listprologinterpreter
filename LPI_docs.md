@@ -204,7 +204,7 @@ For example:
 
 * `[[n,equals4_off]]` switches off equals4 mode, for debugging.
 
-
+* See also <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/additional_lpi_commands.md">Additional LPI Commands</a>.
 
 * See lpiverify4.pl for examples of rules (predicates without bodies) and calls to predicates.
 
