@@ -95,7 +95,7 @@ get_lang_word("n",Dbw_n),
 	(Query1=[[Dbw_n,Query_box_n],[]],
 	append(
 	[
-        [[Dbw_n,Query_box_n],[],":-",
+        [[Dbw_n,Query_box_n],":-",
         [
                 Query
         ]]
