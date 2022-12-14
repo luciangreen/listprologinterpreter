@@ -3010,13 +3010,13 @@ test(118,%[[n,types],["on"]],
 % later: $ trace status to display
 
 
-[[n,types],["on"]], % need assertz command in ssi, not in lpi
+[[n,types],["off"]], % need assertz command in ssi, not in lpi
 
 [[n,checktypes_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]],":-", % need these last 2 vars for output check as well
 [
-	[[n,"->"],[[[n,types],["on"]],[[
+	[[n,"->"],[[[n,types],["on"]],
 	%[[n,typestatements],[[v,typestatements1]]],[[n,modestatements],[[v,modestatements1]]],
-	[[n,checktypes0_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]]]]],[[n,true]]]],
+	[[n,checktypes0_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]]],[[n,true]]]],
 	[[n,cut]]
 ]],
 [[n,checktypes0_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]],":-",
@@ -5090,3 +5090,172 @@ test(245,[[[n,equals4],[[v,a],"abc"]],[[n,string_chars],[[v,a],[[v,x],[v,y],[v,z
 
 ,[[[[v,a], "abc"],[[v,x], a],[[v,y], b],[[v,z], c]]]).
 
+/*
+test(246,[[n,a],[[v,b]]],
+%test(244,[[n,foldl1],[[n,add],[1,2,3],0,[v,d]]],
+[
+        [[n,a],[[v,b]],":-",
+        [       [[n,not],[[[[n,c],[v,c]]]]]
+        ]]
+]
+,[[]]).
+
+test(247,[[n,a],[[v,b]]],
+%test(244,[[n,foldl1],[[n,add],[1,2,3],0,[v,d]]],
+[
+        [[n,a],[[v,b]],":-",
+        [       [[n,"->"],[[[[n,c],[[v,c]]]],[[[n,c],[[v,c]]]],[[[n,c],[[v,c]]]]]]
+        ]]
+]
+,[[]]).
+
+
+test(248,[[n,a],[[v,b]]],
+%test(244,[[n,foldl1],[[n,add],[1,2,3],0,[v,d]]],
+[
+        [[n,a],[[v,b]],":-",
+        [       [[n,"->"],[[[[n,c],[[v,c]]]],[[[n,c],[[v,c]]]],[[n,"->"],[[[[n,c],[[v,c]]]],[[[n,c],[[v,c]]]],[[[n,c],[[v,c]]]]]]]]
+        ]]
+]
+,[[]]).
+
+test(249,[[n,conjunction],["true","false",[v,c]]],
+
+[
+        [[n,findall1],[[v,f],[v,l],[v,m1],[v,n]],":-",
+        [       [[n,"->"],[[[v,f],[[v,h],[v,m2]]],
+                [       [[n,wrap],[[v,m2],[v,m3]]],
+                        [[n,append],[[v,m1],[v,m3],[v,m4]]]
+                ],
+                [
+                        [[n,=],[[v,m1],[v,m4]]]
+                ]]],
+                [[n,findall1],[[v,f],[v,t],[v,m4],[v,n]]]
+
+        ]
+        ]]
+        
+,[[[[v,c], "false"]]]).
+
+test(250,[[n,a]],
+
+[[[n,a],":-",
+	[
+	[
+	[[n,member3],[[[v,function],"|",[[v,typestatements2]]],[v,typestatements1]]],
+	[[n,member3],[[[v,function],"|",[[v,modestatements2]]],[v,modestatements1]]],
+	[[n,extract_modes1],[[v,typestatements2],[v,typestatements3],[v,vars1],[v,vars2],[v,modestatements2]]],
+	[[n,"->"],
+	[
+		[[n,types],["on"]],
+
+		[[n,debug_call],[[v,skip],[[v,function],[v,vars2]]]],
+
+		[[n,true]]
+	]],
+	[[n,"->"],
+	[
+		[
+		[[n,checktypes1],[[v,vars2],[v,typestatements3],[v,typestatements3],[v,typestatements1]]]
+		],
+
+		[
+		[
+		[[n,"->"],
+		[
+			[[n,types],["on"]],
+
+			[[n,debug_exit],[[v,skip],[[v,function],[v,vars2]]]],
+
+			[[n,true]]
+		]],
+		[[n,"->"],
+		[
+			[[n,types],["on"]],
+
+			[
+			[[n,debug_types_exit],[[[v,function],"/","~",[v,l],[v,input_type_check]]]]
+			],
+
+			[[n,true]]
+		]]
+		]
+		],
+
+		[
+		[
+		[[n,"->"],
+		[
+			[[n,types],["on"]],
+
+			[[n,debug_fail],[[v,skip],[[v,function],[v,vars1]]]],
+
+			[[n,true]]
+		]],
+		[[n,"->"],
+		[
+			[[n,types],["on"]],
+
+			[
+			[[n,debug_types_fail],[[[v,function],"/","~",[v,l],[v,input_type_check]]]]
+			],
+
+			[[n,true]]
+		]]
+		]
+		]
+	]]
+	]
+		]]],
+[[]]).
+
+test(251,[[n,a]],
+
+[
+[[n,checktypes1],[[v,vars1],[v,typestatements1],[v,typestatements2],[v,typestatements4]],":-",
+[
+
+	[
+	[[n,not],[[[n,=],[[v,type],[v,dbw_list]]]]],
+	[[n,not],[[[n,=],[[v,type],[v,dbw_brackets]]]]]
+	]
+	
+	,[[n,not],[[[n,=],[[v,type],[v,dbw_list]]]]]
+	
+	]]],
+[[]]).
+
+
+test(252,[[n,a]],
+
+[
+[[n,checktypes1],[[v,vars1],[v,typestatements1],[v,typestatements2],[v,typestatements4]],":-",
+[
+
+	[[
+	[[n,true]],
+	[[n,true]]
+	]]
+	
+	,[[n,true]]
+	
+	]]],
+[[]]).
+
+test(253,[[n,a]],
+
+[
+[[n,checktypes1],[[v,vars1],[v,typestatements1],[v,typestatements2],[v,typestatements4]],":-",
+[
+
+	[[n,"->"],
+	[
+		[[n,types],["on"]],
+
+		[[n,checktypes0_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]]],
+
+		[[n,true]]
+	]]]]],
+	
+[[]]).
+*/
