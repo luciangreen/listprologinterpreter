@@ -95,7 +95,7 @@ get_lang_word("n",Dbw_n),
 	(Query1=[[Dbw_n,Query_box_n],[]],
 	append(
 	[
-        [[Dbw_n,Query_box_n],":-",
+        [[Dbw_n,Query_box_n],[],":-",
         [
                 Query
         ]]
@@ -2028,7 +2028,7 @@ simplify(AB,[A1|B1])	:-
 	AB=[A|B],
 %(not(is_list(B))->trace;true),
 %is_list(B),not(variable_name(B)),
-(AB=[A2,"|"|B2]->
+(AB=[_A2,"|"|B2]->
 (B2=[B3],(((is_list(B3),not(variable_name(B3)))->true;variable_name(B3))));true),
 	simplify(A,A1),
 	simplify(B,B1),!.
