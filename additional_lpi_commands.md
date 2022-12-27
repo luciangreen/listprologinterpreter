@@ -3,8 +3,6 @@
  ["read_password",[i]],
  ["read_password",[o]],
 
- ["phrase_from_file",[i,i]],
- ["phrase_from_file",[i,i]],
  ["string_chars",[i,i]],
  ["string_chars",[i,o]],
  ["string_chars",[o,i]],
@@ -119,8 +117,6 @@
  ["cos",[i,i]],
  ["atan",[i,i]],
  ["atan",[i,o]],
- ["exp",[i,i]],
- ["exp",[i,o]],
  ["log",[i,i]],
  ["log",[i,o]],
  ["sqrt",[i,i]],
@@ -142,14 +138,10 @@
  ["read",[i]],
  ["read",[o]],
 
- ["write_term",[i,i,i]],
- ["write_term",[i,i]],
  ["write",[i,i]],
  ["write",[i]],
  ["writeq",[i,i]],
  ["writeq",[i]],
- ["write_canonical",[i,i]],
- ["write_canonical",[i]],
 
  ["abs",[i,i]],
  ["abs",[i,o]],
