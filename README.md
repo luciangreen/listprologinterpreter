@@ -103,12 +103,12 @@ test_all01(testopen_cases,  3,"en2",off,1,Passed).
 test_all01(test_open_types, 5,"en2",off,1,Passed).
 ```
 where 1 is replaced with the test number from
-```
-lpiverify4.pl
-lpiverify4_types.pl
-lpiverify4_open.pl
-lpiverify4_open_types.pl
-```
+
+* <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a>
+* <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_types.pl">lpiverify4_types.pl</a>
+* <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open.pl">lpiverify4_open.pl</a>
+* <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open_types.pl">lpiverify4_open_types.pl</a>
+
 respectively.
 
 * See note 1 above.
@@ -126,12 +126,12 @@ test_all_bt01(testopen_cases,  3,"en2",off,1,Passed).
 test_all_bt01(test_open_types, 5,"en2",off,1,Passed).
 ```
 where 1 is replaced with the test number from
-```
-lpiverify4.pl
-lpiverify4_types.pl
-lpiverify4_open.pl
-lpiverify4_open_types.pl
-```
+
+* <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4.pl">lpiverify4.pl</a>
+* <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_types.pl">lpiverify4_types.pl</a>
+* <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open.pl">lpiverify4_open.pl</a>
+* <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/lpiverify4_open_types.pl">lpiverify4_open_types.pl</a>
+
 respectively.
 
 * See note 1 above.
