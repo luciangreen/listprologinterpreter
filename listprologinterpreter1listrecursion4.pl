@@ -1454,6 +1454,20 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("get_lang_word",Dbw_get_lang_word1),Dbw_get_lang_word1=Dbw_get_lang_word,
         interpretpart(get_lang_word,Variable1,Variable2,Vars1,Vars2).
 
+
+
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_shell],[Variable1]],Vars1,Vars2,true,nocut) :-
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("shell",Dbw_shell1),Dbw_shell1=Dbw_shell,
+        interpretpart(shell,Variable1,Vars1,Vars2).
+
+
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_date_time_stamp],[Y,M,D,Ho,Mi,Se,Se2,Variable1]],Vars1,Vars2,true,nocut) :-
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("date_time_stamp",Dbw_date_time_stamp1),Dbw_date_time_stamp1=Dbw_shell,
+        interpretpart(date_time_stamp,Y,M,D,Ho,Mi,Se,Se2,Variable1,Vars1,Vars2).
+
+
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_command]|Variables2],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,
@@ -1462,8 +1476,9 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,
 member([Command,Args],
 [
- ["phrase_from_file",[i,i]],
- ["phrase_from_file",[i,i]],
+ %["phrase_from_file",[i,i]],
+ %["phrase_from_file",[i,i]],
+ ["get_time",[o]],
  ["string_chars",[i,i]],
  ["string_chars",[i,o]],
  ["string_chars",[o,i]],
@@ -1578,8 +1593,8 @@ member([Command,Args],
  ["cos",[i,i]],
  ["atan",[i,i]],
  ["atan",[i,o]],
- ["exp",[i,i]],
- ["exp",[i,o]],
+ %["exp",[i,i]],
+ %["exp",[i,o]],
  ["log",[i,i]],
  ["log",[i,o]],
  ["sqrt",[i,i]],
@@ -1601,14 +1616,14 @@ member([Command,Args],
  ["read",[i]],
  ["read",[o]],
 
- ["write_term",[i,i,i]],
- ["write_term",[i,i]],
+ %["write_term",[i,i,i]],
+ %["write_term",[i,i]],
  ["write",[i,i]],
  ["write",[i]],
  ["writeq",[i,i]],
  ["writeq",[i]],
- ["write_canonical",[i,i]],
- ["write_canonical",[i]],
+ %["write_canonical",[i,i]],
+ %["write_canonical",[i]],
 
  ["abs",[i,i]],
  ["abs",[i,o]],

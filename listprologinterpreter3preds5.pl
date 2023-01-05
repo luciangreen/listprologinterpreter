@@ -871,6 +871,47 @@ get_lang_word("get_lang_word",Dbw_get_lang_word),
 ;     debug_fail(Skip,[[Dbw_n,Dbw_get_lang_word],[Value1,variable]])),!.
 
 
+
+interpretpart(shell,Variable1,Vars1,Vars2) :- 
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("shell",Dbw_shell),
+       getvalue(Variable1,Value1,Vars1),
+        debug_call(Skip,[[Dbw_n,Dbw_shell],[Value1]]),
+	((%is_list(Value1),
+	shell1_s(Value1)
+	%Value2A=Value2A1,
+	%string_atom(Value2A,Value2A1), % *** LPI only takes strings
+   %sort(Value1,Value2A),
+        %val1emptyorvalsequal(Value2,Value2A),
+        %putvalue(Variable2,Value2A,Vars1,Vars2)
+        )->
+      debug_exit(Skip,[[Dbw_n,Dbw_shell],[Value1]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_shell],[Value1]])),!.
+
+
+
+interpretpart(date_time_stamp,Y,M,D,Ho,Mi,Se,Se2,Variable,Vars1,Vars2) :- 
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("date_time_stamp",Dbw_date_time_stamp),
+
+        getvalues(Y,M,D,YearValueA,MonthValueA,DayValueA,Vars1),
+        getvalues(Ho,Mi,Se,HourValueA,MinuteValueA,SecondsValueA,Vars1),
+        getvalues(Se2,Variable,Se2ValueA,ValueA,Vars1),
+        
+       %getvalue(Variable1,Value1,Vars1),
+        debug_call(Skip,[[Dbw_n,Dbw_shell],[YearValueA,MonthValueA,DayValueA,HourValueA,MinuteValueA,SecondsValueA,Se2ValueA,variable]]),
+	((%is_list(Value1),
+	date_time_stamp(date(YearValueA,MonthValueA,DayValueA,HourValueA,MinuteValueA,SecondsValueA,Se2ValueA,-,-),Value1A),
+	%Value2A=Value2A1,
+	%string_atom(Value2A,Value2A1), % *** LPI only takes strings
+   %sort(Value1,Value2A),
+        %val1emptyorvalsequal(ValueA,Value1A),
+        putvalue(Variable,Value1A,Vars1,Vars2)
+        )->
+      debug_exit(Skip,[[Dbw_n,Dbw_date_time_stamp],[YearValueA,MonthValueA,DayValueA,HourValueA,MinuteValueA,SecondsValueA,Se2ValueA,Value1A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_sdate_time_stamp],[YearValueA,MonthValueA,DayValueA,HourValueA,MinuteValueA,SecondsValueA,Se2ValueA,variable]])),!.
+
+
 interpretpart(command,Command1,Args,Variables,Vars1,Vars2) :- 
 %trace,
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
