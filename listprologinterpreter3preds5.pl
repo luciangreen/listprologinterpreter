@@ -911,6 +911,28 @@ get_lang_word("date_time_stamp",Dbw_date_time_stamp),
       debug_exit(Skip,[[Dbw_n,Dbw_date_time_stamp],[YearValueA,MonthValueA,DayValueA,HourValueA,MinuteValueA,SecondsValueA,Se2ValueA,Value1A]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_sdate_time_stamp],[YearValueA,MonthValueA,DayValueA,HourValueA,MinuteValueA,SecondsValueA,Se2ValueA,variable]])),!.
 
+interpretpart(phrase_from_file,Variable1,In,Vars1,Vars2) :- 
+%trace,
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("phrase_from_file",Dbw_phrase_from_file),
+       getvalue(Variable1,Value1,Vars1),
+       getvalue(In,Value2,Vars1),
+        %trace,
+
+%trace,
+        debug_call(Skip,[[Dbw_n,Dbw_phrase_from_file],[variable,Value2]]),
+	((%is_list(Value1),
+	phrase_from_file(string(Out),Value2),
+	%shell1_s(Value1)
+	%Value2A=Value2A1,
+	%string_atom(Value2A,Value2A1), % *** LPI only takes strings
+   %sort(Value1,Value2A),
+        val1emptyorvalsequal(Value1,Out),
+        putvalue(Variable1,Out,Vars1,Vars2)
+        )->
+      debug_exit(Skip,[[Dbw_n,Dbw_phrase_from_file],[Out,Value2]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_phrase_from_file],[variable,Value2]])),!.
+
 
 interpretpart(command,Command1,Args,Variables,Vars1,Vars2) :- 
 %trace,

@@ -1464,8 +1464,15 @@ get_lang_word("shell",Dbw_shell1),Dbw_shell1=Dbw_shell,
 
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_date_time_stamp],[Y,M,D,Ho,Mi,Se,Se2,Variable1]],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
-get_lang_word("date_time_stamp",Dbw_date_time_stamp1),Dbw_date_time_stamp1=Dbw_shell,
+get_lang_word("date_time_stamp",Dbw_date_time_stamp1),Dbw_date_time_stamp1=Dbw_date_time_stamp,
         interpretpart(date_time_stamp,Y,M,D,Ho,Mi,Se,Se2,Variable1,Vars1,Vars2).
+
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_phrase_from_file],[[[Dbw_n,Dbw_string],[Out]],Path]],Vars1,Vars2,true,nocut) :-
+%trace,
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("phrase_from_file",Dbw_phrase_from_file1),Dbw_phrase_from_file1=Dbw_phrase_from_file,
+get_lang_word("string",Dbw_string1),Dbw_string1=Dbw_string,
+        interpretpart(phrase_from_file,Out,Path,Vars1,Vars2).
 
 
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_command]|Variables2],Vars1,Vars2,true,nocut) :-
