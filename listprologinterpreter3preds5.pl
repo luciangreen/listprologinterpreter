@@ -933,6 +933,35 @@ get_lang_word("phrase_from_file",Dbw_phrase_from_file),
       debug_exit(Skip,[[Dbw_n,Dbw_phrase_from_file],[Out,Value2]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_phrase_from_file],[variable,Value2]])),!.
 
+interpretpart(term_to_atom,Variable1,Variable2,Vars1,Vars2) :- 
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("term_to_atom",Dbw_term_to_atom),
+       getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        
+((contains_empty(Value1),not(contains_empty(Value2)))->       
+        
+        (debug_call(Skip,[[Dbw_n,Dbw_term_to_atom],[variable,Value2]]),
+	((%is_list(Value1),
+	term_to_atom(Value1A,Value2),
+	%string_atom(Value2A,Value2A1), % *** LPI only takes strings
+   %sort(Value1,Value2A),
+        val1emptyorvalsequal(Value1,Value1A),
+        putvalue(Variable1,Value1A,Vars1,Vars2))->
+      debug_exit(Skip,[[Dbw_n,Dbw_term_to_atom],[Value1A,Value2]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_term_to_atom],[variable,Value2]])));
+
+(        (debug_call(Skip,[[Dbw_n,Dbw_term_to_atom],[Value1,variable]]),
+	((%is_list(Value1),
+	term_to_atom(Value1,Value2A),
+	%string_atom(Value2A,Value2A1), % *** LPI only takes strings
+   %sort(Value1,Value2A),
+        val1emptyorvalsequal(Value2,Value2A),
+        putvalue(Variable2,Value2A,Vars1,Vars2))->
+      debug_exit(Skip,[[Dbw_n,Dbw_term_to_atom],[Value1,Value2A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_term_to_atom],[Value1,variable]])))
+))
+,!.
+
 
 interpretpart(command,Command1,Args,Variables,Vars1,Vars2) :- 
 %trace,
