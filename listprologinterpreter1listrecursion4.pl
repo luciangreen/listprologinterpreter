@@ -1439,6 +1439,12 @@ get_lang_word("read_password",Dbw_read_string2),
 (Dbw_read_string1=Dbw_read_string->true;Dbw_read_string2=Dbw_read_string),
         interpretpart(read_string,Variable1,Vars1,Vars2).
 
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_text_area],[Variable1,Variable2,Variable3]],Vars1,Vars2,true,nocut) :-
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("text_area",Dbw_text_area1),
+(Dbw_text_area1=Dbw_text_area),
+        interpretpart(text_area,Variable1,Variable2,Variable3,Vars1,Vars2).
+
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_writeln],[Variable1]],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("writeln",Dbw_writeln1),Dbw_writeln1=Dbw_writeln,

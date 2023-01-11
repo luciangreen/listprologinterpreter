@@ -804,6 +804,21 @@ get_lang_word("read_string",Dbw_read_string),
       debug_exit(Skip,[[Dbw_n,Dbw_read_string],[Value1A]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_read_string],[variable]])),!.
 
+
+interpretpart(text_area,Variable1,Variable2,Variable3,Vars1,Vars2) :- 
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("text_area",Dbw_textarea),
+       getvalue(Variable1,Value1,Vars1),
+       getvalue(Variable2,Value2,Vars1),
+       getvalue(Variable3,Value3,Vars1),
+        debug_call(Skip,[[Dbw_n,Dbw_text_area],[Value1,Value2,variable]]),
+	((writeln(Value2),
+	read_string(user_input, "\n", "\r", _End1, Value3A),
+        val1emptyorvalsequal(Value3,Value3A),
+        putvalue(Variable3,Value3A,Vars1,Vars2))->
+      debug_exit(Skip,[[Dbw_n,Dbw_text_area],[Value3A]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_text_area],[variable]])),!.
+
 interpretpart(writeln,Variable1,Vars1,Vars1) :- 
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("writeln",Dbw_writeln),

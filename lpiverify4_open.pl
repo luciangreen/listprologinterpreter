@@ -1,6 +1,6 @@
 %% Test cases, Debug=trace=on or off, N=output=result
 testopen(Debug,NTotal) :- testopen(Debug,0,NTotal),!.
-testopen(_Debug,NTotal,NTotal) :- NTotal=7, !.
+testopen(_Debug,NTotal,NTotal) :- NTotal=8, !.
 testopen(Debug,NTotal1,NTotal2) :-
 	NTotal3 is NTotal1+1,
 	testopen_cases(NTotal3,Query,Functions),
@@ -582,4 +582,15 @@ testopen_cases(7,[[n,test]],
 %[[n,trace2]],
 [[n,read_password
 ],[[v,s]]]
+]]]).
+
+
+testopen_cases(8,[[n,test]],
+%[[n,list_to_string],["a",[v,file_terma]]],
+
+[[[n,test],":-",[
+%[[n,trace2]],
+[[n,text_area
+],["rows=\"4\" style=\"width:100%\"","a",[v,s]]],
+[[n,equals4],[[v,s],"a"]]
 ]]]).
