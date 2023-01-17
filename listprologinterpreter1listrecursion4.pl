@@ -23,6 +23,8 @@
 
 :- dynamic occurs_check/1.
 
+%:- dynamic assertz_functions/1.
+
 command_n_sols(10).
 
 /** List Prolog Interpreter **/
@@ -75,6 +77,8 @@ interpret11(Debug,Query,Functions,Result) :-
 %%writeln1([i1]),
 	%%writeln1(convert_to_grammar_part1(Functions1,[],Functions2,_)),
 	convert_to_grammar_part1(Functions1,[],Functions2,_),
+	%retractall(assertz_functions(_)),
+ 	%assertz(assertz_functions(Functions2)),
 	%trace,
 	%writeln1(convert_to_grammar_part1(Functions1,[],Functions2,_)),
 	%writeln1(Functions2),
@@ -1487,6 +1491,21 @@ get_lang_word("term_to_atom",Dbw_term_to_atom1),Dbw_term_to_atom1=Dbw_term_to_at
         %trace,
         interpretpart(term_to_atom,Variable1,Variable2,Vars1,Vars2).
 
+/*
+interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_assertz],[[[Dbw_n,Variable1],[Variable2]]]],Vars1,Vars2,true,nocut) :-
+%trace,
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("assertz",Dbw_assertz1),Dbw_assertz1=Dbw_assertz,
+        %trace,
+        interpretpart(assertz,Variable1,Variable2,Vars1,Vars2).
+
+interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_retractall],[[[Dbw_n,Variable1],[Variable2]]]],Vars1,Vars2,true,nocut) :-
+%trace,
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("retractall",Dbw_retractall1),Dbw_retractall1=Dbw_retractall,
+        %trace,
+        interpretpart(retractall,Variable1,Variable2,Vars1,Vars2).
+*/
 
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_command]|Variables2],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
@@ -1498,6 +1517,9 @@ member([Command,Args],
 [
  %["phrase_from_file",[i,i]],
  %["phrase_from_file",[i,i]],
+ ["reverse",[i,o]],
+ ["reverse",[i,i]],
+ ["reverse",[o,i]],
  ["get_time",[o]],
  ["string_chars",[i,i]],
  ["string_chars",[i,o]],
