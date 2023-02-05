@@ -17,8 +17,8 @@ numbers1(N2,N1,Numbers1,Numbers2) :-
 	append(Numbers1,[N1],Numbers3),
 	numbers1(N2,N3,Numbers3,Numbers2),!.
 
-%% get_item_n([1,2,3],3,Item).
-%% Item = 3
+%% get_item_n([a,b,c],3,Item).
+%% Item = c
 
 get_item_n([],_,[]) :-!.
 get_item_n(Exposition,Number1,Item) :-
@@ -32,11 +32,21 @@ put_item_n(Exposition,Number1,Item2,Exposition2) :-
 	append(List,[_Item1|Rest],Exposition),
 	append(List,[Item2|Rest],Exposition2),!.
 
+% put_item_ns([a,b,c,b],[[2,d],[4,e]],F).
+% F = [a, d, c, e].
+
+put_item_ns(A,[],A) :- !.
+put_item_ns(A,BCs,D) :-
+ BCs=[[B,C]|BCs2],
+ put_item_n(A,B,C,E),
+ put_item_ns(E,BCs2,D).
+
+
 % get_n_item([4,6,7],6,L).
 % L = 2
 
 get_n_item(A,C,L2) :-
-	append(B,[C|_],A),length(B,L),L2 is L+1,!.
+	append(B,[C|_],A),length(B,L),L2 is L+1.
 
 % delete_item_n([4,5,6],2,D).
 % D = [4,6]
