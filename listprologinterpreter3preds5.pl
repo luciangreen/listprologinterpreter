@@ -536,7 +536,7 @@ replace_in_term(Value2,[Dbw_v,_],%'$VAR'(_)
         ,V_sys1,Value1A1),
 
         replace_in_term(Value3A3,empty2%'$VAR'(_)
-        ,V_sys1,Value3A1)
+        ,V_sys2,Value3A1)
 
         ),ValueA),!,
         member([Value1a,Value3a],ValueA),
@@ -807,7 +807,7 @@ get_lang_word("read_string",Dbw_read_string),
 
 interpretpart(text_area,Variable1,Variable2,Variable3,Vars1,Vars2) :- 
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
-get_lang_word("text_area",Dbw_textarea),
+get_lang_word("text_area",Dbw_text_area),
        getvalue(Variable1,Value1,Vars1),
        getvalue(Variable2,Value2,Vars1),
        getvalue(Variable3,Value3,Vars1),
@@ -887,7 +887,7 @@ get_lang_word("get_lang_word",Dbw_get_lang_word),
 
 
 
-interpretpart(shell,Variable1,Vars1,Vars2) :- 
+interpretpart(shell,Variable1,Vars1,Vars1) :- 
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("shell",Dbw_shell),
        getvalue(Variable1,Value1,Vars1),
@@ -1052,7 +1052,7 @@ putvalues2(Args,Variables,Command_variables,Vars1,Vars2)
       ).
 %;     debug_fail(Skip,[[Dbw_n,Dbw_command],Debug_variables])).
 
-arg2([],Command,Args) :- !.
+arg2([],_Command,_Args) :- !.
 arg2([Arg_n|Arg_n2],Command,[Arg|Args]) :-
  arg(Arg_n,Command,Arg),
  arg2(Arg_n2,Command,Args).
