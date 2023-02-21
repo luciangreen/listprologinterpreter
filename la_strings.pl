@@ -88,6 +88,9 @@ foldr(Function,A,L,B) :-
 foldr(append,A,B) :-
 	foldr(append,A,[],B),!.
 	
+%foldr(append1,A,B) :-
+%	foldr(append1,A,[],B),!.
+	
 foldr(string_concat,A,B) :-
 	foldr(string_concat,A,"",B),!.
 
@@ -253,3 +256,5 @@ string_concat("%",A1,A2),
 string_concat(A2,"%",A),		split_string(A,Find,Find,B),findall([C,Replace],(member(C,B)),D),maplist(append,[D],[E]),concat_list(E,F1),string_concat(F2,G,F1),string_length(G,Replace_l),
 	string_concat("%",F3,F2),	
 	string_concat(F,"%",F3),!.
+
+%append1(A,B,C):-append([A],B,C).
