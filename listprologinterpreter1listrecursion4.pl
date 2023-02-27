@@ -1979,6 +1979,8 @@ member_exit_fail(exit).
 member_exit_fail(fail).
 
 debug_call(Skip,FunctionArguments1) :-
+%debug(On),leash1(On2),
+%writeln1([debug(on),debug(On),leash1(on),leash1(On2)]),
 get_lang_word("call",Dbw_call),
 get_lang_word("Press c to creep, s to skip or a to abort.",Dbw_note1),
 %trace,
