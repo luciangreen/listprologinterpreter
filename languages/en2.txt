@@ -7,5 +7,110 @@
 ["exit_function","exit function","en2","exit function"],
 ["fail_function","fail function","en2","fail function"],
 ["findall_exit_function","exit find all function","en2","exit find all function"],
-["findall_fail_function","fail find all function","en2","fail find all function"]
+["findall_fail_function","fail find all function","en2","fail find all function"],
+
+["abs","absolute","en2","absolute"],
+
+["at_end_of_stream","at end of stream","en2","at end of stream"],
+
+["atan","arc tangent","en2","arc tangent"],
+
+["atom_chars","atom characters","en2","atom characters"],
+
+["atom_codes","atom codes","en2","atom codes"],
+
+["atom_concat","concatenate atoms","en2","concatenate atoms"],
+
+["atom_length","atom length","en2","atom length"],
+
+["atomic","atomic","en2","atomic"],
+
+["char_code","character code","en2","character code"],
+
+["close","close","en2","close"],
+
+["compound","compound","en2","compound"],
+
+["copy_term","copy term","en2","copy term"],
+
+["cos","cosine","en2","cosine"],
+
+["current_input","current input","en2","current input"],
+
+["current_output","current output","en2","current output"],
+
+["current_prolog_flag","current prolog flag","en2","current prolog flag"],
+
+["float","float","en2","float"],
+
+["floor","floor","en2","floor"],
+
+["get_byte","get byte","en2","get byte"],
+
+["get_char","get character","en2","get character"],
+
+["get_code","get code","en2","get code"],
+
+["halt","halt","en2","halt"],
+
+["integer","integer","en2","integer"],
+
+["log","logarithm","en2","logarithm"],
+
+["nl","new line","en2","new line"],
+
+["nonvar","non variable","en2","non variable"],
+
+["number_chars","number characters","en2","number characters"],
+
+["number_codes","number codes","en2","number codes"],
+
+["open","open","en2","open"],
+
+["peek_byte","peek byte","en2","peek byte"],
+
+["peek_char","peek character","en2","peek character"],
+
+["peek_code","peek code","en2","peek code"],
+
+["put_byte","put byte","en2","put byte"],
+
+["put_char","put character","en2","put character"],
+
+["put_code","put code","en2","put code"],
+
+["read","read","en2","read"],
+
+["read_password","read password","en2","read password"],
+
+["read_term","read term","en2","read term"],
+
+["round","round","en2","round"],
+
+["set_input","set input","en2","set input"],
+
+["set_output","set output","en2","set output"],
+
+["set_prolog_flag","set prolog flag","en2","set prolog flag"],
+
+["set_stream_position","set stream position","en2","set stream position"],
+
+["sign","sign","en2","sign"],
+
+["sin","sine","en2","sine"],
+
+["sqrt","square root","en2","square root"],
+
+["stream_property","stream property","en2","stream property"],
+
+["string_chars","string characters","en2","string characters"],
+
+["sub_atom","subatom","en2","subatom"],
+
+["text_area","text area","en2","text area"],
+
+["write","write","en2","write"],
+
+["writeq","write q","en2","write q"]
+
 ]
