@@ -399,7 +399,12 @@ member23(Query,Functions,Functions2,Vars8) :-
 	Functions2=[_Function|Functions3],
 	member2(Query,Functions,Functions3,Vars8))
 	);(turncut(off),fail)).
-	
+
+turn_occurs_check(on) :-
+	retractall(occurs_check(_)),assertz(occurs_check(on)),!.
+turn_occurs_check(off) :-
+	retractall(occurs_check(_)),assertz(occurs_check(off)),!.
+
 checkarguments(Variable1a,Variable2a,Vars1,Vars2,_,FirstArgs2) :-
 %writeln1(a1checkarguments(Variable1a,Variable2a,Vars1,Vars2,_,FirstArgs2)),
 

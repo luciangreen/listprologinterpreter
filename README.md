@@ -180,6 +180,17 @@ See <a href="https://github.com/luciangreen/listprologinterpreter/blob/master/D2
 
 See <a href="https://github.com/luciangreen/Simple-List-Prolog-to-List-Prolog">Simple-List-Prolog-to-List-Prolog</a>, <a href="https://github.com/luciangreen/Prolog-to-List-Prolog">Prolog-to-List-Prolog (includes Prolog to Simple List Prolog)</a> and <a href="https://github.com/luciangreen/List-Prolog-to-Prolog-Converter">List-Prolog-to-Prolog-Converter</a>.
 
+# Occurs Check
+
+* To return false if an equals4 variable is in terms of itself, for example:
+
+```
+occurs_check([v,a],[[v,a]]).
+false.
+```
+
+* then enter `turn_occurs_check(on).`.  To return `true.` above, indicating an occurrence has not been found, enter `turn_occurs_check(off).` (the default).
+
 # Versioning
 
 We will use SemVer for versioning.
