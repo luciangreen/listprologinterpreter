@@ -189,7 +189,7 @@ occurs_check([v,a],[[v,a]]).
 false.
 ```
 
-* then enter `turn_occurs_check(on).`.  To return `true.` above, indicating an occurrence has been found but ignored, enter `turn_occurs_check(off).` (the default).
+* then enter `turn_occurs_check(on).`.  To return `true.` above, indicating any occurrence have been ignored, enter `turn_occurs_check(off).` (the default).
 
 # Versioning
 
