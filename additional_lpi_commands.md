@@ -3,21 +3,23 @@
  * [[n,phrase_from_file],[[[n,string],[[v,out]]],[v,path]]]
  * [v,out] - replace with variable to save string to
  * [v,path] - atom file path to read
- 
+ -
  * [[n,text_area
 ],["rows=\"4\" style=\"width:100%\"","a",[v,s]]]
  * "rows=\"4\" style=\"width:100%\"" - text area parameters
  * "a" - replace with value already in field
  * [v,s] - text entered in field
-
+-
  * [[n,date_time_stamp],[Year,Month,Day,Hour,Minute,Seconds,Seconds2,Variable1]],
  * Converts the date and time to a number stamp
- 
- ["term_to_atom"],[i,o]],
- ["term_to_atom"],[o,i]],
- ["term_to_atom"],[i,i]],
+-
+* In the following, ["predicate_name",[i,o]] is called as [[n,predicate_name],[[v,i],[v,o]]]
 
- ["shell"],[i]],
+ ["term_to_atom",[i,o]],
+ ["term_to_atom",[o,i]],
+ ["term_to_atom",[i,i]],
+
+ ["shell",[i]],
  
  ["read_password",[i]],
  ["read_password",[o]],
