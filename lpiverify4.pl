@@ -5058,29 +5058,6 @@ test(244,[[n,foldl1],[[n,string_concat1],["a","b"],"",[v,d]]],
 %,[[[[v,d], 6]]]).
 
 /*
-test(245,[[n,string_concat1],[[v,a],[v,b],[v,d]]],
-%test(244,[[n,string_concat1],["a","",[v,d]]],
-%test(244,[[n,append1],[[a],[],[v,d]]],
-%test(244,[[n,string_chars1],["ab",[v,d]]],
-%test(244,[[n,foldl1],[[n,string_concat1],["a","b"],"",[v,d]]],
-%test(244,[[n,foldl1],[[n,add],[1,2,3],0,[v,d]]],
-[[[n,string_concat1],[[v,a],[v,b],[v,c]],":-",
-[
-		
-		%[[n,string_chars1],[[v,c],[v,c1]]],
-		%[[n,equals4],[[v,c],[v,c1]]],
-		%[[n,writeln],[[v,c1]]],
-		%[[n,trace2]],
-		[[n,append1],[[a],[],[v,c1]]]]],
-
-[[n,append1],[[],[v,a],[v,a]]],
-[[n,append1],[[[v,a],"|",[v,d]],[v,b],[[v,a],"|",[v,c]]],":-",
-[
-	[[n,append1],[[v,d],[v,b],[v,c]]]
-]]
-		]
-	
-,[[]]).
 
 */
 
@@ -5279,3 +5256,70 @@ test(246,[[n,test]],
         [[n,member2],[[1,2],3]]
 ]]        
 ],[[[[v,a],[1,2]]]]).
+
+%test(247,[[[n,equals4],[[v,a],[]]]][[n,findall],[[v,d],[[n,append1],[[v,a],[v,b],[v,d]]],
+%test(244,[[n,string_concat1],["a","",[v,d]]],
+%test(244,[[n,append1],[[a],[],[v,d]]],
+%test(244,[[n,string_chars1],["ab",[v,d]]],
+%test(244,[[n,foldl1],[[n,string_concat1],["a","b"],"",[v,d]]],
+%test(244,[[n,foldl1],[[n,add],[1,2,3],0,[v,d]]],
+%[
+/*
+[[n,string_concat1],[[v,a],[v,b],[v,c]],":-",
+[
+		
+		%[[n,string_chars1],[[v,c],[v,c1]]],
+		%[[n,equals4],[[v,c],[v,c1]]],
+		%[[n,writeln],[[v,c1]]],
+		%[[n,trace2]],
+		[[n,append1],[[a],[],[v,c1]]]]],
+
+
+[[n,append1],[[],[v,a],[v,a]]],
+[[n,append1],[[[v,a],"|",[v,d]],[v,b],[[v,a],"|",[v,c]]],":-",
+[
+	[[n,append1],[[v,d],[v,b],[v,c]]]
+]]
+		
+	
+],[[[[v,a],[1,2]]]]).
+
+*/
+/*
+test(247,[[n,findall],[[[v,a],[v,b]],[[n,append200],[[v,a],[v,b],["a","b","c"]]],[v,c]]],
+[
+[[n,append200],[[],[v,a],[v,a]],":-",[[[n,cut]]]],
+[[n,append200],[[[v,a],"|",[v,d]],[v,b],[[v,a],"|",[v,c]]],":-",
+[
+	[[n,append200],[[v,d],[v,b],[v,c]]]
+	,[[n,cut]]
+]]
+
+],[[[[v,c],[[[],["a","b","c"]],[["a"],["b","c"]],[["a","b"],["c"]],[["a","b","c"],[]]]]]]).
+
+test(248,[[n,test2]],
+
+[
+[[n,test2],":-",
+[
+	[[n,a],[1,[v,t]]],
+	[[n,b],[[v,t]]]%,
+	%[[n,cut]]
+]],
+[[n,test2],":-",
+[
+	[[n,=],[[v,t],[v,false]]],
+	[[n,b],[[v,t]]]
+]],
+[[n,a],[1,true]],
+[[n,b],[true],":-",
+[
+	[[n,writeln],[true]]
+]],
+[[n,b],[false],":-",
+[
+	[[n,writeln],[false]]
+]]
+],
+[[]]).
+*/
