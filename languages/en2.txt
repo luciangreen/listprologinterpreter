@@ -111,6 +111,8 @@
 
 ["write","write","en2","write"],
 
+["word1","word 1","en2","word 1"],
+
 ["writeq","write q","en2","write q"]
 
 ]

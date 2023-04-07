@@ -15,6 +15,8 @@
 -
 * In the following, ["predicate_name",[i,o]] is called as [[n,predicate_name],[[v,i],[v,o]]]
 
+ ["word1",[i]],
+
  ["term_to_atom",[i,o]],
  ["term_to_atom",[o,i]],
  ["term_to_atom",[i,i]],

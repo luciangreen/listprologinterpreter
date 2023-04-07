@@ -736,6 +736,24 @@ get_lang_word("string_from_file",Dbw_string_from_file),
       debug_exit(Skip,[[Dbw_n,Dbw_string_from_file],[Value1A,Value2]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_string_from_file],[variable,Value2]])),!.                        	
 
+interpretpart(word1,Variable1,Vars1) :-  
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("word1",Dbw_word1),
+
+        getvalue(Variable1,Value1,Vars1),
+
+        debug_call(Skip,[[Dbw_n,Dbw_word1],[variable]]),
+	%%A=..[a,1]
+	((phrase(word1(Value1),_))->
+	%phrase_from_file_s(string_g(String00a),Value2),
+	%string_codes(Value1A,String00a),
+%%interpretstatement1(ssi,Functions0,Functions,[[Value1,Value2]],Vars1,Vars2,true,nocut),
+        
+        %val1emptyorvalsequal(Value1,Value1A),
+        %putvalue(Variable2,Value1A,Vars1,Vars2))->
+      debug_exit(Skip,[[Dbw_n,Dbw_word1],[Value1]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_word1],[variable]])),!.                        	
+
 
 interpretpart(maplist,Functions0,Functions,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
