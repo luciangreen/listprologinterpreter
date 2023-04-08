@@ -113,6 +113,10 @@
 
 ["word1","word 1","en2","word 1"],
 
+["sub_string","substring","en2","substring"],
+
+["atom_string","atom string","en2","atom string"],
+
 ["writeq","write q","en2","write q"]
 
 ]
