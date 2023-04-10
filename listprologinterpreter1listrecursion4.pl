@@ -1533,9 +1533,11 @@ member([Command,Args],
  ["string_atom",[i,o]],
  ["string_atom",[i,i]],
  ["string_atom",[o,i]],
+ /*
  ["atom_string",[i,o]],
  ["atom_string",[i,i]],
  ["atom_string",[o,i]],
+ */
  ["string_codes",[i,o]],
  ["string_codes",[i,i]],
  ["string_codes",[o,i]],
@@ -1594,10 +1596,7 @@ member([Command,Args],
  ["sub_string",[i,o,o,i,o]],
  ["sub_string",[i,o,o,o,i]],
  ["sub_string",[i,o,o,o,o]],
- */
- ["atom_string",[i,i]],
- ["atom_string",[i,o]],
- ["atom_string",[o,i]],
+  */
  ["char_code",[i,i]],
  ["char_code",[i,o]],
  ["char_code",[o,i]],
@@ -2010,7 +2009,7 @@ get_lang_word("v",Dbw_v),
         %)->true;
 %(
 Query1=[Function,Arguments],%,Function=[Dbw_n1,Function_a],atom_string(Function_a,Function_s),
-
+%(Function=[n,paraphrase2]->trace;true),
 %)
 %),
 
@@ -2106,7 +2105,86 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 	Vars8=[])).        
 
 
+%%% LEGACY INTERPRET FOR SSI
+
+
         
+interpretstatement1(ssi,_Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
+get_lang_word("v",Dbw_v),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("interpret",Dbw_interpret1),Dbw_interpret1=Dbw_interpret,
+
+%%writeln1("h1/10"),
+%trace,
+%find_pred_sm(Reserved_words1),
+        ((Query1=[[Dbw_n,Dbw_interpret],[[lang,Lang1],Debug1,[Function,Arguments],Functions%,Result
+        ]],Tm=off%,
+        %not(member(Dbw_call,Reserved_words1))
+        )->true;
+        (Query1=[[Dbw_n,Dbw_interpret],[[lang,Lang1],Debug1,[Function,Arguments],Types,Modes,Functions%,Result
+        ]],Tm=on)),        
+        
+        %trace,
+        
+        lang(Lang2a),
+        types(Types2a),
+		  (Types2a=on->(typestatements(TypeStatements2a),
+		  modestatements(ModeStatements2a));true),
+		  
+        (Lang1=same->lang(Lang2);Lang2=Lang1),
+        (Debug1=same->debug(Debug2);Debug2=Debug1),
+        
+        %%not(Function=[n,grammar]->true;Function=[n,grammar_part]), ****
+%%writeln1(["Arguments",Arguments,"Vars1",Vars1]),
+        %%***writeln1(substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs)),
+        ((Function=[Dbw_v,F_name],
+                not(reserved_word2(F_name)))->
+        (append([Function],Arguments,Arguments1),
+        substitutevarsA1(Arguments1,Vars1,[],Vars3,[],FirstArgs),
+        Vars3=[Function1|Vars31],
+        Query2=[Function1,Vars31]);
+        (substitutevarsA1(Arguments,Vars1,[],Vars3,[],FirstArgs),
+        %simplify(Vars32,Vars3), %%% var to value, after updatevars:  more vars to values, and select argument vars from latest vars
+%%writeln1([substitutevarsA1,arguments,Arguments,vars1,Vars1,vars3,Vars3,firstargs,FirstArgs]),
+        Query2=[Function,Vars3]
+        %not(reserved_word2(Vars3))
+        )), %% Bodyvars2?
+%%        	debug(on)->writeln1([call,[Function,[Vars3]]]),
+%%writeln1(["Query2",Query2,"Functions0",Functions0]),
+        
+        
+        %interpret2(Query2,Functions0,Functions0,Result1), 
+        
+(Tm=off->international_interpret([lang,Lang2],Debug2,Query2,Functions,Result1a);
+	international_interpret([lang,Lang2],Debug2,Query2,Types,Modes,Functions,Result1a)),
+	member(Result1,Result1a),
+
+	retractall(lang(_)),
+ 	assertz(lang(Lang2a)),
+
+	retractall(types(_)),
+ 	assertz(types(Types2a)),
+
+		  (Types2a=on->(
+		  	retractall(typestatements(_)),
+ 
+ 	%findall([A,C],(member([A,B],TypeStatements2a),expand_types(B,[],C)),TypeStatements2a1),
+	assertz(typestatements(TypeStatements2a)),
+	retractall(modestatements(_)),
+ 	assertz(modestatements(ModeStatements2a)));true),
+
+
+	updatevars2(FirstArgs,Result1,[],Vars5),
+	updatevars3(Vars1,Vars5,Vars6),
+	reverse(Vars6,[],Vars7),
+	((not(Vars7=[])->
+	%%Vars7=[Var71|Vars72],
+	(%trace,
+	unique1(Vars7,[],Vars8)%,notrace
+	)
+);(
+%%writeln1(here1),
+	Vars8=[])).        
 
 interpretstatement1(non-ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
         
@@ -2183,6 +2261,12 @@ get_lang_word("call",Dbw_call1),Dbw_call1=Dbw_call,
 %%writeln1(here1),
 	Vars8=[])).
 	
+	
+	
+	
+	
+	
+		
 	
 %%**** reverse and take first instance of each variable.
 	%%findresult3(Arguments,Vars6,[],Result2)

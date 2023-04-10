@@ -73,9 +73,11 @@
  ["sub_string",[i,o,o,i,o]],
  ["sub_string",[i,o,o,o,i]],
  ["sub_string",[i,o,o,o,o]],
+ /*
  ["atom_string",[i,i]],
  ["atom_string",[i,o]],
  ["atom_string",[o,i]],
+ */
  ["char_code",[i,i]],
  ["char_code",[i,o]],
  ["char_code",[o,i]],

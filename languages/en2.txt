@@ -115,7 +115,7 @@
 
 ["sub_string","substring","en2","substring"],
 
-["atom_string","atom string","en2","atom string"],
+["interpret","interpret","en2","interpret"],
 
 ["writeq","write q","en2","write q"]
 
