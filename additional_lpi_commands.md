@@ -6,7 +6,7 @@
  -
  * [[n,text_area
 ],["rows=\\"4\\" style=\\"width:100%\\"","a",[v,s]]]
- * "rows=\\"4\\" style=\\"width:100%\\"" - text area parameters
+ * "rows=\\"4\\" style=\\"width:100%\\"" - text area parameters - NB. Change two backslashes to one when copying
  * "a" - replace with value already in field
  * [v,s] - text entered in field
 -
