@@ -151,11 +151,11 @@ match_put_vals([Variables1],Statement2b,Vars1,Vars2%,Standard_or_e4
 	)
 	;
 (
-%contains_var(Statement1a,Statement1b))->true;
+%contains_var1(Statement1a,Statement1b))->true;
 
 %((variable_name(Statement1b),
 %not(variable_name(Statement1a)),
-%contains_var(Statement1b,Statement1a))->true;
+%contains_var1(Statement1b,Statement1a))->true;
 
 	
 	match_put_vals(Statement1a,Statement1b,Vars1,Vars3%,Standard_or_e4

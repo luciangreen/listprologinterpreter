@@ -79,7 +79,7 @@ bash_command(Command, Output) :-
                 ['-c', Command],
                 [stdout(pipe(Out))]),
         read_string(Out, _, Output),
-        close(Out)).
+        close(Out)),!.
 
 foldr(Function,A,L,B) :-
 	reverse(A,C),

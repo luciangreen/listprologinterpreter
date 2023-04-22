@@ -149,14 +149,14 @@ occurs_check(Variable1,Variables2) :-
 
  
 
-	contains_var(_,[]) :- fail.
+	contains_var1(_,[]) :- fail.
 	
-contains_var(Var,Statement) :-
+contains_var1(Var,Statement) :-
 	
 (Var=Statement->true;	(Statement=[Statement1|Statement2],
 	(Var=Statement1->true;
-	(contains_var(Var,Statement1)->true;
-	contains_var(Var,Statement2))))).
+	(contains_var1(Var,Statement1)->true;
+	contains_var1(Var,Statement2))))).
 %*/
 
 % if a=b(a) then fail
@@ -169,11 +169,11 @@ occurs_check2(Variables1,Variables2) :-
 /*
 ((variable_name(Variables1),
 not(variable_name(Variables2)),
-contains_var(Variables1,Variables2))->true;
+contains_var1(Variables1,Variables2))->true;
 
 (variable_name(Variables2),
 not(variable_name(Variables1)),
-contains_var(Variables2,Variables1)))),
+contains_var1(Variables2,Variables1)))),
 */
 	((Variables1=[Statement1a|Statement2a],
 Variables2=[Statement1b|Statement2b]),
@@ -181,11 +181,11 @@ Variables2=[Statement1b|Statement2b]),
 	
 ((variable_name(Statement1a),
 not(variable_name(Statement1b)),
-contains_var(Statement1a,Statement1b))->true;
+contains_var1(Statement1a,Statement1b))->true;
 
 ((variable_name(Statement1b),
 not(variable_name(Statement1a)),
-contains_var(Statement1b,Statement1a))->true;
+contains_var1(Statement1b,Statement1a))->true;
 
 	
 	occurs_check2(Statement1a,Statement1b)))),

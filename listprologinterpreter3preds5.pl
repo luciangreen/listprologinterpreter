@@ -117,7 +117,7 @@ get_lang_word("v",Dbw_v),
         getvalues_equals4(Variable1,Variable2,Value1,Value2,Vars1),
 
 
-	matrix_member(Matrix),findall(X,(member(Y,[Value1,Value2]),(contains_var([Dbw_v,_],Y)->X=o;X=i)),Z),
+	matrix_member(Matrix),findall(X,(member(Y,[Value1,Value2]),(contains_var1([Dbw_v,_],Y)->X=o;X=i)),Z),
 foldr(atom_concat,Z,'',W),(member(W,Matrix)->true;(writeln([incorrect,member2,modes,W]),abort)),
 
 ((W=ii->true;W=io)->	((%Value2=empty,
@@ -1030,8 +1030,8 @@ numbers(VL,1,[],VLN),
 % check modes of arguments
 forall(member(VLN1,VLN),(get_item_n(Args,VLN1,Arg),
 get_item_n(Values,VLN1,Val),
-(Arg=o->contains_var([Dbw_v,_],Val);
-not(contains_var([Dbw_v,_],Val))))),
+(Arg=o->contains_var1([Dbw_v,_],Val);
+not(contains_var1([Dbw_v,_],Val))))),
 
 findall(Debug_variable,(member(VLN1,VLN),
  get_item_n(Args,VLN1,Arg),get_item_n(Values,VLN1,Value),
@@ -1163,11 +1163,11 @@ grammar_part2(_Dbw_n,_Dbw_grammar_part,Terminal,Phrase1,Phrase2,Vars1,Vars2) :-
         getvalues2([Terminal,Phrase1,Phrase2],
         	[],[TerminalValue1,Phrase1Value1,Phrase2Value1],Vars1,[],[_Flag1,_Flag2,_Flag3]),
         	
-(%(not(contains_var(Terminal)),
+(%(not(contains_var1(Terminal)),
 is_list(TerminalValue1)->true;
-(%(not(contains_var(Phrase1)),
+(%(not(contains_var1(Phrase1)),
 is_list(Phrase1Value1)->true;
-(%(not(contains_var(Phrase2)),
+(%(not(contains_var1(Phrase2)),
 is_list(Phrase2Value1)))),
 
 %getvalues(Terminal,Phrase1,Phrase2,TerminalValue1,Phrase1Value1,Phrase2Value1,Vars1),
