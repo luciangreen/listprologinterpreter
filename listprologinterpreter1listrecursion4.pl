@@ -1489,7 +1489,7 @@ get_lang_word("phrase_from_file",Dbw_phrase_from_file1),Dbw_phrase_from_file1=Db
 get_lang_word("string",Dbw_string1),Dbw_string1=Dbw_string,
         interpretpart(phrase_from_file,Out,Path,Vars1,Vars2).
 
-interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_word1],[Variable1]],Vars1,Vars1,true,nocut) :-
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_word11],[Variable1]],Vars1,Vars1,true,nocut) :-
 %trace,
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("word1",Dbw_word1),Dbw_word11=Dbw_word1,
