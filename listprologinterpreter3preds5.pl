@@ -117,7 +117,7 @@ get_lang_word("v",Dbw_v),
         getvalues_equals4(Variable1,Variable2,Value1,Value2,Vars1),
 
 
-	matrix_member(Matrix),findall(X,(member(Y,[Value1,Value2]),(contains_var1([Dbw_v,_],Y)->X=o;X=i)),Z),
+	matrix_member(Matrix),findall(X,(member(Y,[Value1,Value2]),(contains_var([Dbw_v,_],Y)->X=o;X=i)),Z),
 foldr(atom_concat,Z,'',W),(member(W,Matrix)->true;(writeln([incorrect,member2,modes,W]),abort)),
 
 ((W=ii->true;W=io)->	((%Value2=empty,
@@ -1030,7 +1030,7 @@ numbers(VL,1,[],VLN),
 % check modes of arguments
 forall(member(VLN1,VLN),(get_item_n(Args,VLN1,Arg),
 get_item_n(Values,VLN1,Val),
-(Arg=o->contains_var1([Dbw_v,_],Val);
+(Arg=o->contains_var([Dbw_v,_],Val);
 not(contains_var1([Dbw_v,_],Val))))),
 
 findall(Debug_variable,(member(VLN1,VLN),
