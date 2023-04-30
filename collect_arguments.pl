@@ -149,15 +149,15 @@ occurs_check(Variable1,Variables2) :-
 
  
 
-/*	contains_var1(_,[]) :- fail.
+contains_var(_,[]) :- fail.
 	
-contains_var1(Var,Statement) :-
+contains_var(Var,Statement) :-
 	
 (Var=Statement->true;	(Statement=[Statement1|Statement2],
 	(Var=Statement1->true;
-	(contains_var1(Var,Statement1)->true;
-	contains_var1(Var,Statement2))))).
-*/
+	(contains_var(Var,Statement1)->true;
+	contains_var(Var,Statement2))))).
+
 
 % if a=b(a) then fail
 	occurs_check2([],[]) :- true.
