@@ -15,6 +15,7 @@
 ---
  * 	
 [[n,interpret],[[lang,"en"/same],debug is on/off/same,[[n,predicate],[[v,variable],...]],Predicates]] - Legacy List Prolog call for SSI with language code, debug or trace mode, predicate and variable query and predicates to call.
+ * For example, https://github.com/luciangreen/Philosophy/blob/master/paraphraser1_lp.pl
 ---
 * In the following, ["predicate_name",[i,o]] is called as [[n,predicate_name],[[v,i],[v,o]]]
 
