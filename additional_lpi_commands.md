@@ -13,7 +13,7 @@
  * [[n,date_time_stamp],[Year,Month,Day,Hour,Minute,Seconds,Seconds2,Variable1]],
  * Converts the date and time to a number stamp
 ---
-* 	
+ * 	
 [[n,interpret],[[lang,"en"/same],debug is on/off/same,[[n,predicate],[[v,variable],...]],Predicates]] - Legacy List Prolog call for SSI with language code, debug or trace mode, predicate and variable query and predicates to call.
 ---
 * In the following, ["predicate_name",[i,o]] is called as [[n,predicate_name],[[v,i],[v,o]]]
