@@ -3,16 +3,19 @@
  * [[n,phrase_from_file],[[[n,string],[[v,out]]],[v,path]]]
  * [v,out] - replace with variable to save string to
  * [v,path] - atom file path to read
- -
+ ---
  * [[n,text_area
 ],["rows=\\"4\\" style=\\"width:100%\\"","a",[v,s]]]
  * "rows=\\"4\\" style=\\"width:100%\\"" - text area parameters - NB. Change two backslashes to one when copying
  * "a" - replace with value already in field
  * [v,s] - text entered in field
--
+---
  * [[n,date_time_stamp],[Year,Month,Day,Hour,Minute,Seconds,Seconds2,Variable1]],
  * Converts the date and time to a number stamp
--
+---
+* 	
+[[n,interpret],[[lang,"en"/same],debug is on/off/same,[[n,predicate],[[v,variable],...]],Predicates]] - Legacy List Prolog call for SSI with language code, debug or trace mode, predicate and variable query and predicates to call.
+---
 * In the following, ["predicate_name",[i,o]] is called as [[n,predicate_name],[[v,i],[v,o]]]
 
  ["word1",[i]],
