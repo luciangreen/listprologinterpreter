@@ -5351,3 +5351,38 @@ test(246,[[n,test2]],
 ],
 
 [[]]).
+
+% Tests 247 and 248: In Prolog, the clause in not and antecedent in ->/2 and ->/3 have cut after them if needed (there is no cp or not already a cut after the last cp).
+
+% This is accomplished by editing the state machine (SM) for the algorithm in LPI and SSI, and converting the SM back to List Prolog in LPI.
+
+/*
+test(247,[[n,test]],
+
+[
+[[n,test],":-",
+[
+	[[n,not],[[[[n,member],[[1,2],[v,a]]]
+	%,[[n,cut]]
+	]]]
+]]],
+
+[]).
+
+test(248,[[n,test],[[v,b]]],
+
+[
+[[n,test],[[v,b]],":-",
+[
+	[[n,findall],[[v,a],
+	[[n,"->"],[[[[n,member],[[1,2],[v,a]]]
+	%,[[n,cut]]
+	],
+	[[n,writeln],["1"]],
+	[[n,writeln],["2"]]
+	]]
+	,[v,b]]]
+]]],
+
+[[[[v,b],[1]]]]).
+*/

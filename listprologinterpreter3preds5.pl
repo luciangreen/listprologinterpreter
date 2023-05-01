@@ -1031,7 +1031,7 @@ numbers(VL,1,[],VLN),
 forall(member(VLN1,VLN),(get_item_n(Args,VLN1,Arg),
 get_item_n(Values,VLN1,Val),
 (Arg=o->contains_var([Dbw_v,_],Val);
-not(contains_var1([Dbw_v,_],Val))))),
+not(contains_var([Dbw_v,_],Val))))),
 
 findall(Debug_variable,(member(VLN1,VLN),
  get_item_n(Args,VLN1,Arg),get_item_n(Values,VLN1,Value),

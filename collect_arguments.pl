@@ -181,11 +181,11 @@ Variables2=[Statement1b|Statement2b]),
 	
 ((variable_name(Statement1a),
 not(variable_name(Statement1b)),
-contains_var1(Statement1a,Statement1b))->true;
+contains_var(Statement1a,Statement1b))->true;
 
 ((variable_name(Statement1b),
 not(variable_name(Statement1a)),
-contains_var1(Statement1b,Statement1a))->true;
+contains_var(Statement1b,Statement1a))->true;
 
 	
 	occurs_check2(Statement1a,Statement1b)))),
