@@ -189,6 +189,10 @@ occurs_check([v,a],[[v,a]]).
 false.
 ```
 
+# List Prolog Interpreter with Prolog queries
+
+* Run <a href="https://github.com/luciangreen/Philosophy">List Prolog Interpreter with Prolog queries</a>.
+
 * then enter `turn_occurs_check(on).`.  To return `true.` above, indicating any occurrences have been ignored, enter `turn_occurs_check(off).` (the default).
 
 # Versioning
