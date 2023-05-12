@@ -131,9 +131,9 @@ get_lang_word("list",Dbw_list),
 	Data1=[Data2Data3|Data41],
 
 not(Data2Data3=[T,_]),
-
+%trace,
 curly_head_taila(Data2Data3,Data2,Data3),
-	expand_types1(Data2,[],Types3),
+	expand_types1([Data2],[],Types3),
 	expand_types1(Data3,Types3,Types4),
 	Types5=[[[T,Dbw_list],Types4]],
 %trace,

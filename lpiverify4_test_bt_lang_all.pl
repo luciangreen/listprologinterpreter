@@ -87,7 +87,19 @@ test_all_bt000(test_types_cases,Debug,NTotal3,Score1,Score3,Lang) :-
 test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
 
 	trans_alg1(Query,"en",Lang,Query1),
-	trans_alg1(Types,"en",Lang,Types1),
+	
+	findall([F1|Types00],(member([F1|Types003],Types),
+	
+	expand_types1(Types003,[],Types00)),Types004),
+	
+	%Types004=[[[n, find_record], [[t, brackets], [[[t, list], [[t, number], [t, string]]], [t, number], [t, string]]]]],
+
+	trans_alg1(Types004,"en",Lang,Types005),%,expand_types1(Types002,[],Types003),simplify_types(Types003,[],Types00)
+	%),Types1),
+	
+	%simplify_types(Types01,[],Types1),%findall
+	findall([F|Types100],(member([F|Types101],Types005),simplify_types(Types101,[],Types100)),Types1),
+	
 	trans_alg1(Modes,"en",Lang,Modes1),
 	trans_alg1(Functions,"en",Lang,Functions1),
 	(Debug=on->writeln1(Functions1);true),
@@ -105,7 +117,20 @@ test_all_bt000(testopen_cases,Debug,NTotal3,Score1,Score3,Lang) :-
 test_all_bt000(test_open_types_cases,Debug,NTotal3,Score1,Score3,Lang) :-
 	test_open_types_cases(NTotal3,Query,Types,Modes,Functions),
 	trans_alg1(Query,"en",Lang,Query1),
-	trans_alg1(Types,"en",Lang,Types1),
+	%trans_alg1(Types,"en",Lang,Types1),
+
+	findall([F1|Types00],(member([F1|Types003],Types),
+	
+	expand_types1(Types003,[],Types00)),Types004),
+	
+	%Types004=[[[n, find_record], [[t, brackets], [[[t, list], [[t, number], [t, string]]], [t, number], [t, string]]]]],
+
+	trans_alg1(Types004,"en",Lang,Types005),%,expand_types1(Types002,[],Types003),simplify_types(Types003,[],Types00)
+	%),Types1),
+	
+	%simplify_types(Types01,[],Types1),%findall
+	findall([F|Types100],(member([F|Types101],Types005),simplify_types(Types101,[],Types100)),Types1),
+
 	trans_alg1(Modes,"en",Lang,Modes1),
 	trans_alg1(Functions,"en",Lang,Functions1),
 	(Debug=on->writeln1(Functions1);true),

@@ -1323,18 +1323,18 @@ test(40,[[n,minus1],[[1,2,3],[1,2],[v,a]]],
 	
 ,[[[[v,a], [3]]]]).
 
-test(41,[[n,substring],[[1,2,3,4],[2,3]]],
+test(41,[[n,part_of_string],[[1,2,3,4],[2,3]]],
 
 [
-        [[n,substring],[[], []]],
-        [[n,substring],[[],[v,b]],":-",
+        [[n,part_of_string],[[], []]],
+        [[n,part_of_string],[[],[v,b]],":-",
 	             [[[n,not],[[[n,=],[[v,b],[]]]]],
 	             [[n,fail]]]],
-        [[n,substring],[[v,a],[v,b]],":-",
+        [[n,part_of_string],[[v,a],[v,b]],":-",
                 [[[n,tail],[[v,a],[v,at]]],
                 [[n,"->"],[[[n,listhead],[[v,a],[v,b]]],
                         [[n,true]],
-                        [[n,substring],[[v,at],[v,b]]]]]]],
+                        [[n,part_of_string],[[v,at],[v,b]]]]]]],
 
         [[n,listhead],[[v,l],[]]],
         [[n,listhead],[[v,a],[v,b]],":-",
@@ -1683,7 +1683,7 @@ test(60,[[n,a]],
 [[n,a],":-",
 [
 
-[[n,intersection1],[[["select,dash"],["neiey,person"],["neiey,person"]],[["select,dash"],["neiey,person"],["neiey,person"]],[],[["select,dash"],["neiey,person"],["neiey,person"]]]],
+[[n,interweaving1],[[["select,dash"],["neiey,person"],["neiey,person"]],[["select,dash"],["neiey,person"],["neiey,person"]],[],[["select,dash"],["neiey,person"],["neiey,person"]]]],
 
 [[n,duplicates],[[["select,dash"],["neiey,person"],["neiey,person"],["neiey,person"],["neiey,person"]],[["select,dash"],["neiey,person"],["neiey,person"],["neiey,person"],["neiey,person"]],[],[["select,dash"],["neiey,person"],["neiey,person"],["neiey,person"],["neiey,person"]]]],
 
@@ -1691,7 +1691,7 @@ test(60,[[n,a]],
 
 [[n,reverse],[[["select,dash"],["neiey,person"],["neiey,person"]],[],[["neiey,person"],["neiey,person"],["select,dash"]]]],
 
-[[n,intersection1],[[["neiey,person"],["neiey,person"],["select,dash"]],[["hipaa,square"],["releases,up"],["hipaa,square"]],[],[]]],
+[[n,interweaving1],[[["neiey,person"],["neiey,person"],["select,dash"]],[["hipaa,square"],["releases,up"],["hipaa,square"]],[],[]]],
 
 [[n,append1],[[],[["hipaa,square"],["releases,up"],["hipaa,square"]],[["hipaa,square"],["releases,up"],["hipaa,square"]]]],
 
@@ -1700,11 +1700,11 @@ test(60,[[n,a]],
 ]],
 [[n,reverse],[[],[v,l],[v,l]]],
 [[n,reverse],[[v,l],[v,m],[v,n]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,wrap],[[v,h],[v,h1]]],[[n,append],[[v,h1],[v,m],[v,o]]],[[n,reverse],[[v,t],[v,o],[v,n]]]]],
-[[n,intersection1],[[],[v,a],[v,l],[v,l]]],
-[[n,intersection1],[[v,l1],[v,l2],[v,l3a],[v,l3]],":-",[[[n,head],[[v,l1],[v,i1]]],[[n,tail],[[v,l1],[v,l4]]],[[n,intersection2],[[v,i1],[v,l2],[],[v,l5]]],[[n,append],[[v,l3a],[v,l5],[v,l6]]],[[n,intersection1],[[v,l4],[v,l2],[v,l6],[v,l3]]]]],
-[[n,intersection2],[[v,a],[],[v,l],[v,l]]],
-[[n,intersection2],[[v,i1],[v,l1],[v,l2],[v,l3]],":-",[[[n,head],[[v,l1],[v,i1]]],[[n,tail],[[v,l1],[v,l4]]],[[n,wrap],[[v,i1],[v,i11]]],[[n,append],[[v,l2],[v,i11],[v,l3]]]]],%%[[n,intersection2],[[v,i1],[v,l4],[v,l5],[v,l3]]]]],
-[[n,intersection2],[[v,i1],[v,l1],[v,l2],[v,l3]],":-",[[[n,head],[[v,l1],[v,i2]]],[[n,tail],[[v,l1],[v,l4]]],[[n,not],[[[n,=],[[v,i1],[v,i2]]]]],[[n,intersection2],[[v,i1],[v,l4],[v,l2],[v,l3]]]]],
+[[n,interweaving1],[[],[v,a],[v,l],[v,l]]],
+[[n,interweaving1],[[v,l1],[v,l2],[v,l3a],[v,l3]],":-",[[[n,head],[[v,l1],[v,i1]]],[[n,tail],[[v,l1],[v,l4]]],[[n,interweaving2],[[v,i1],[v,l2],[],[v,l5]]],[[n,append],[[v,l3a],[v,l5],[v,l6]]],[[n,interweaving1],[[v,l4],[v,l2],[v,l6],[v,l3]]]]],
+[[n,interweaving2],[[v,a],[],[v,l],[v,l]]],
+[[n,interweaving2],[[v,i1],[v,l1],[v,l2],[v,l3]],":-",[[[n,head],[[v,l1],[v,i1]]],[[n,tail],[[v,l1],[v,l4]]],[[n,wrap],[[v,i1],[v,i11]]],[[n,append],[[v,l2],[v,i11],[v,l3]]]]],%%[[n,interweaving2],[[v,i1],[v,l4],[v,l5],[v,l3]]]]],
+[[n,interweaving2],[[v,i1],[v,l1],[v,l2],[v,l3]],":-",[[[n,head],[[v,l1],[v,i2]]],[[n,tail],[[v,l1],[v,l4]]],[[n,not],[[[n,=],[[v,i1],[v,i2]]]]],[[n,interweaving2],[[v,i1],[v,l4],[v,l2],[v,l3]]]]],
 [[n,append1],[[v,b],[v,c],[v,a]],":-",[[[n,append],[[v,b],[v,c],[v,a]]]]],
 [[n,minus1],[[v,l],[],[v,l]]],
 [[n,minus1],[[v,l1],[v,l2],[v,l3]],":-",[[[n,head],[[v,l2],[v,i1]]],[[n,tail],[[v,l2],[v,l5]]],[[n,delete2],[[v,l1],[v,i1],[],[v,l6]]],[[n,minus1],[[v,l6],[v,l5],[v,l3]]]]],
@@ -1724,10 +1724,10 @@ test(60,[[n,a]],
 [[n,membera4],[[],[v,l]],":-",[[[n,fail]]]],
 [[n,membera4],[[v,l],[v,h]],":-",[[[n,head],[[v,l],[v,h]]]]],
 [[n,membera4],[[v,l],[v,m]],":-",[[[n,head],[[v,l],[v,h]]],[[n,tail],[[v,l],[v,t]]],[[n,not],[[[n,=],[[v,m],[v,h]]]]],[[n,membera4],[[v,t],[v,m]]]]],
-[[n,substring],[[],[]]],
-[[n,substring],[[],[v,b]],":-",[[[n,not],[[[n,=],[[v,b],[]]]]],[[n,fail]]]],
-%%[[n,substring],[[v,a],[v,b]],":-",[[[n,tail],[[v,a],[v,at]]],[[n,"->"],[[[n,listhead],[[v,a],[v,b]]],[[[n,true]]],[[[n,substring],[[v,at],[v,b]]]]]]]],
-[[n,substring],[[v,a],[v,b]],":-",[[[n,tail],[[v,a],[v,at]]],[[n,"->"],[[[[n,listhead],[[v,a],[v,b]]]],[[[n,true]]],[[[n,substring],[[v,at],[v,b]]]]]]]],
+[[n,part_of_string],[[],[]]],
+[[n,part_of_string],[[],[v,b]],":-",[[[n,not],[[[n,=],[[v,b],[]]]]],[[n,fail]]]],
+%%[[n,part_of_string],[[v,a],[v,b]],":-",[[[n,tail],[[v,a],[v,at]]],[[n,"->"],[[[n,listhead],[[v,a],[v,b]]],[[[n,true]]],[[[n,part_of_string],[[v,at],[v,b]]]]]]]],
+[[n,part_of_string],[[v,a],[v,b]],":-",[[[n,tail],[[v,a],[v,at]]],[[n,"->"],[[[[n,listhead],[[v,a],[v,b]]]],[[[n,true]]],[[[n,part_of_string],[[v,at],[v,b]]]]]]]],
 [[n,listhead],[[v,l],[]]],
 [[n,listhead],[[v,a],[v,b]],":-",[[[n,head],[[v,a],[v,ah]]],[[n,tail],[[v,a],[v,at]]],[[n,head],[[v,b],[v,ah]]],[[n,tail],[[v,b],[v,bt]]],[[n,listhead],[[v,at],[v,bt]]]]],
 [[n,listhead],[[v,a],[v,b]],":-",[[[n,head],[[v,a],[v,ah]]],[[n,tail],[[v,a],[v,at]]],[[n,head],[[v,b],[v,ah]]],[[n,tail],[[v,b],[v,bt]]],[[n,listhead],[[v,at],[v,bt]]]]]
@@ -2966,7 +2966,7 @@ test(118,[[n,connect_cliques_types],[[["a",1],[1,2],[2,"b"]],[["a",3],[3,4],[4,"
 test(118,%[[n,types],["on"]],
 [[n,query_pred]],
 %[[n,is_list],[[1,2,3]]],
-%[[n,extract_modes2],[[[t,string]],[],[v,typestatements3],["yes"],[],[v,vars3],[output]]],
+%[[n,extractmodes2],[[[t,string]],[],[v,typestatements3],["yes"],[],[v,vars3],[out]]],
 
 /*[[n,checktypes_inputs],
 
@@ -2974,7 +2974,7 @@ test(118,%[[n,types],["on"]],
 
 [[[n,pred],[[t,string],[t,string]]]],
 
-[[[n,pred],[input,output]]]]],
+[[[n,pred],[in,out]]]]],
 
 
 [[n,checktypes_inputs],
@@ -2983,7 +2983,7 @@ test(118,%[[n,types],["on"]],
 
 [[["n","want_baby"],[["t","string"],["t","string"],["t","string"],["t","string"]]]],
 
-[[["n","want_baby"],["input","input","input","output"]]]]],
+[[["n","want_baby"],["in","in","in","out"]]]]],
 */
 %/** *** THESE
 %/*
@@ -2997,7 +2997,7 @@ test(118,%[[n,types],["on"]],
 
 [[[n,want_baby],[[t,string]]]],
 
-[[[n,want_baby],[input]]]]],
+[[[n,want_baby],[in]]]]],
 
 		  [[n,equals4_on]]
 
@@ -3012,7 +3012,7 @@ test(118,%[[n,types],["on"]],
 
 [[n,types],["off"]], % need assertz command in ssi, not in lpi
 
-[[n,checktypes_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]],":-", % need these last 2 vars for output check as well
+[[n,checktypes_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]],":-", % need these last 2 vars for out check as well
 [
 	[[n,"->"],[[[n,types],["on"]],
 	%[[n,typestatements],[[v,typestatements1]]],[[n,modestatements],[[v,modestatements1]]],
@@ -3024,7 +3024,7 @@ test(118,%[[n,types],["on"]],
 	[[n,length],[[v,vars1],[v,l]]],
 	[[n,is],[[v,l],0]],
 	[[n,equals4],[[v,vars1],[]]],
-	[[n,get_lang_word],["input type check",[v,input_type_check]]], % need this command
+	[[n,get_lang_word],["in type check",[v,input_type_check]]], % need this command
 	[[n,"->"],[[[n,types],["on"]],[[n,debug_types_call],[[[v,function],"/","~",[v,l],[v,input_type_check]]]],[[n,true]]]],
 	[[n,"->"],[[[n,types],["on"]],[[n,debug_call],[[v,skip],[[v,function],[v,vars1]]]],[[n,true]]]],
 	[[n,"->"],[[[n,types],["on"]],[[n,debug_exit],[[v,skip],[[v,function],[v,vars1]]]],[[n,true]]]],
@@ -3034,49 +3034,49 @@ test(118,%[[n,types],["on"]],
 [[n,checktypes0_inputs],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]],":-",
 [
 	[[n,length],[[v,vars1],[v,l]]],
-	[[n,get_lang_word],["input type check",[v,input_type_check]]],
+	[[n,get_lang_word],["in type check",[v,input_type_check]]],
 	[[n,"->"],[[[n,types],["on"]],[[[n,debug_types_call],[[[v,function],"/","~",[v,l],[v,input_type_check]]]]],[[n,true]]]],
 	
 	%[[n,trace]],
-	[[[[n,member3],[[[v,function],"|",[[v,typestatements2]]],[v,typestatements1]]],[[n,member3],[[[v,function],"|",[[v,modestatements2]]],[v,modestatements1]]],[[n,extract_modes1],[[v,typestatements2],[v,typestatements3],[v,vars1],[v,vars2],[v,modestatements2]]],[[n,"->"],[[[n,types],["on"]],[[n,debug_call],[[v,skip],[[v,function],[v,vars2]]]],[[n,true]]]],[[n,"->"],[[[[n,checktypes1],[[v,vars2],[v,typestatements3],[v,typestatements3],[v,typestatements1]]]],[[[[n,"->"],[[[n,types],["on"]],[[n,debug_exit],[[v,skip],[[v,function],[v,vars2]]]],[[n,true]]]],[[n,"->"],[[[n,types],["on"]],[[[n,debug_types_exit],[[[v,function],"/","~",[v,l],[v,input_type_check]]]]],[[n,true]]]]]],[[[[n,"->"],[[[n,types],["on"]],[[n,debug_fail],[[v,skip],[[v,function],[v,vars1]]]],[[n,true]]]],[[n,"->"],[[[n,types],["on"]],[[[n,debug_types_fail],[[[v,function],"/","~",[v,l],[v,input_type_check]]]]],[[n,true]]]]]]]]]],
+	[[[[n,member3],[[[v,function],"|",[[v,typestatements2]]],[v,typestatements1]]],[[n,member3],[[[v,function],"|",[[v,modestatements2]]],[v,modestatements1]]],[[n,extractmodes1],[[v,typestatements2],[v,typestatements3],[v,vars1],[v,vars2],[v,modestatements2]]],[[n,"->"],[[[n,types],["on"]],[[n,debug_call],[[v,skip],[[v,function],[v,vars2]]]],[[n,true]]]],[[n,"->"],[[[[n,checktypes1],[[v,vars2],[v,typestatements3],[v,typestatements3],[v,typestatements1]]]],[[[[n,"->"],[[[n,types],["on"]],[[n,debug_exit],[[v,skip],[[v,function],[v,vars2]]]],[[n,true]]]],[[n,"->"],[[[n,types],["on"]],[[[n,debug_types_exit],[[[v,function],"/","~",[v,l],[v,input_type_check]]]]],[[n,true]]]]]],[[[[n,"->"],[[[n,types],["on"]],[[n,debug_fail],[[v,skip],[[v,function],[v,vars1]]]],[[n,true]]]],[[n,"->"],[[[n,types],["on"]],[[[n,debug_types_fail],[[[v,function],"/","~",[v,l],[v,input_type_check]]]]],[[n,true]]]]]]]]]],
 	[[n,cut]]
 ]],
-[[n,extract_modes1],[[v,typestatements1],[v,typestatements3],[v,vars1],[v,vars2],[v,modestatements1]],":-",
+[[n,extractmodes1],[[v,typestatements1],[v,typestatements3],[v,vars1],[v,vars2],[v,modestatements1]],":-",
 [
-	[[n,extract_modes2],[[v,typestatements1],[],[v,typestatements3],[v,vars1],[],[v,vars2],[v,modestatements1]]],
+	[[n,extractmodes2],[[v,typestatements1],[],[v,typestatements3],[v,vars1],[],[v,vars2],[v,modestatements1]]],
 	[[n,cut]]
 ]],
 
-[[n,extract_modes2],[[],[v,typestatements2a],[v,typestatements2a],[],[v,vars],[v,vars],[]],":-",
+[[n,extractmodes2],[[],[v,typestatements2a],[v,typestatements2a],[],[v,vars],[v,vars],[]],":-",
 [
 	[[n,cut]]
 ]],
-[[n,extract_modes2],[[v,typestatements1],[v,typestatements2a],[v,typestatements3],[v,vars1],[v,vars2],[v,vars3],[v,modestatements1]],":-",
+[[n,extractmodes2],[[v,typestatements1],[v,typestatements2a],[v,typestatements3],[v,vars1],[v,vars2],[v,vars3],[v,modestatements1]],":-",
 [
-	[[n,get_lang_word],["input",[v,input]]],
+	[[n,get_lang_word],["in",[v,in]]],
 	
 		%[[n,trace]],
 	%[[n,writeln],[[[v,typestatements1],[v,typestatements2a],[v,typestatements3],[v,vars1],[v,vars2],[v,vars3],[v,modestatements1]]]],
 
 	%[[n,writeln],[[v,modestatements1]]],
 	
-	[[n,equals4],[[v,modestatements1],[[v,input],"|",[v,modestatements3]]]],
+	[[n,equals4],[[v,modestatements1],[[v,in],"|",[v,modestatements3]]]],
 	[[n,equals4],[[v,typestatements1],[[v,typestatements2],"|",[v,typestatements3a]]]],
 	[[n,equals4],[[v,vars1],[[v,vars11],"|",[v,vars12]]]],
 	
 	%[[n,trace]],
 	[[n,append],[[v,typestatements2a],[[v,typestatements2]],[v,typestatements4]]],
 	[[n,append],[[v,vars2],[[v,vars11]],[v,vars4]]],
-	[[n,extract_modes2],[[v,typestatements3a],[v,typestatements4],[v,typestatements3],[v,vars12],[v,vars4],[v,vars3],[v,modestatements3]]]
+	[[n,extractmodes2],[[v,typestatements3a],[v,typestatements4],[v,typestatements3],[v,vars12],[v,vars4],[v,vars3],[v,modestatements3]]]
 	,[[n,cut]] %**
 ]],
-[[n,extract_modes2],[[v,typestatements1],[v,typestatements2a],[v,typestatements3],[v,vars1],[v,vars2],[v,vars3],[v,modestatements1]],":-",
+[[n,extractmodes2],[[v,typestatements1],[v,typestatements2a],[v,typestatements3],[v,vars1],[v,vars2],[v,vars3],[v,modestatements1]],":-",
 [
-	[[n,get_lang_word],["output",[v,output]]],
-	[[n,equals4],[[v,modestatements1],[[v,output],"|",[v,modestatements3]]]],
+	[[n,get_lang_word],["out",[v,out]]],
+	[[n,equals4],[[v,modestatements1],[[v,out],"|",[v,modestatements3]]]],
 	[[n,equals4],[[v,typestatements1],[[v,typestatements2],"|",[v,typestatements3a]]]],
 	[[n,equals4],[[v,vars1],[[v,vars11],"|",[v,vars12]]]],
-	[[n,extract_modes2],[[v,typestatements3a],[v,typestatements2a],[v,typestatements3],[v,vars12],[v,vars2],[v,vars3],[v,modestatements3]]],
+	[[n,extractmodes2],[[v,typestatements3a],[v,typestatements2a],[v,typestatements3],[v,vars12],[v,vars2],[v,vars3],[v,modestatements3]]],
 	[[n,cut]]
 ]],
 [[n,checktypes],[[v,function],[v,vars1],[v,typestatements1],[v,modestatements1]],":-",
@@ -4968,13 +4968,13 @@ test(243,
 %test(244,[[n,string_concat1],["a","",[v,d]]],
 %test(244,[[n,append1],[[a],[],[v,d]]],
 %test(244,[[n,string_chars1],["ab",[v,d]]],
-test(244,[[n,foldl1],[[n,string_concat1],["a","b"],"",[v,d]]],
+test(244,[[n,foldl1],[[n,stringconcata1],["a","b"],"",[v,d]]],
 %test(244,[[n,foldl1],[[n,add],[1,2,3],0,[v,d]]],
 [
         [[n,foldl1],[[v,f],[],[v,l],[v,l]],":-",[[[n,cut]]]],
-        [[n,foldl1],[[v,f],[[v,h],"|",[v,t]],[v,m1],[v,n]],":-",
+        [[n,foldl1],[[v,f],[[v,h],"|",[v,t]],[v,m1],[v,na]],":-",
         [       [[v,f],[[v,m1],[v,h],[v,m2]]],
-                [[n,foldl1],[[v,f],[v,t],[v,m2],[v,n]]]
+                [[n,foldl1],[[v,f],[v,t],[v,m2],[v,na]]]
         ]
         ],
 
@@ -4984,7 +4984,7 @@ test(244,[[n,foldl1],[[n,string_concat1],["a","b"],"",[v,d]]],
         ],
         
 
-[[n,string_concat1],[[v,a],[v,b],[v,c]],":-",
+[[n,stringconcata1],[[v,a],[v,b],[v,c]],":-",
 [
 	[[n,"->"],
 	[
@@ -5010,19 +5010,19 @@ test(244,[[n,foldl1],[[n,string_concat1],["a","b"],"",[v,d]]],
 		[[n,fail]],
 
 		[
-		[[n,string_chars1],[[v,a],[v,a1]]],
-		[[n,string_chars1],[[v,b],[v,b1]]],
-		[[n,string_chars1],[[v,c],[v,c1]]],
+		[[n,stringchars1],[[v,a],[v,a1]]],
+		[[n,stringchars1],[[v,b],[v,b1]]],
+		[[n,stringchars1],[[v,c],[v,c1]]],
 		%[[n,writeln],[[v,c1]]],
 		%[[n,trace2]],
-		[[n,append1],[[v,a1],[v,b1],[v,c1]]],
-		[[n,string_chars1],[[v,a],[v,a1]]],
-		[[n,string_chars1],[[v,b],[v,b1]]],
-		[[n,string_chars1],[[v,c],[v,c1]]]
+		[[n,appenda1],[[v,a1],[v,b1],[v,c1]]],
+		[[n,stringchars1],[[v,a],[v,a1]]],
+		[[n,stringchars1],[[v,b],[v,b1]]],
+		[[n,stringchars1],[[v,c],[v,c1]]]
 		]
 	]]
 ]],
-[[n,string_chars1],[[v,a],[v,b]],":-",
+[[n,stringchars1],[[v,a],[v,b]],":-",
 [
 
 	[[n,"->"],
@@ -5036,14 +5036,14 @@ test(244,[[n,foldl1],[[n,string_concat1],["a","b"],"",[v,d]]],
 	[[n,string_chars],[[v,a],[v,b]]]
 	]]
 ]],
-%[[n,string_chars1],[[v,a],[v,b]],":-",
+%[[n,stringchars1],[[v,a],[v,b]],":-",
 %[
-%	[[n,string_chars],[[v,a],[v,b]]]
+%	[[n,stringchars],[[v,a],[v,b]]]
 %]],
-[[n,append1],[[],[v,a],[v,a]]],
-[[n,append1],[[[v,a],"|",[v,d]],[v,b],[[v,a],"|",[v,c]]],":-",
+[[n,appenda1],[[],[v,a],[v,a]]],
+[[n,appenda1],[[[v,a],"|",[v,d]],[v,b],[[v,a],"|",[v,c]]],":-",
 [
-	[[n,append1],[[v,d],[v,b],[v,c]]]
+	[[n,appenda1],[[v,d],[v,b],[v,c]]]
 ]]
 
 ]

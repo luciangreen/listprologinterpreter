@@ -453,16 +453,16 @@ test_types_cases(24,[[n,hand_traffic],["Australia",[v,a1]]],
 
 % ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Finite Data will be a Solution in Conglish 2 of 4.txt",0,algorithms,"17.    *I prepared to judge the way the other person was speaking.  I did this by watching the diareasoner identify the speech rate in her partner.  First, I counted the number of words over the time.  Second, I counted the number of minutes.  Third, I calculated the speech rate to equal the number of words divided by the number of minutes.  In this way, I prepared to judge the way the other person was speaking by watching the diareasoner identify the speech rate in her partner."]
 
-test_types_cases(25,[[n,way_of_speaking1],[["high-pitched","smiling"],[v,way]]],
+test_types_cases(25,[[n,way_of_speaking_a],[["high-pitched","smiling"],[v,way]]],
         [
-[[n,way_of_speaking1],[{[t,string]},{[t,string]}]],
+[[n,way_of_speaking_a],[{[t,string]},{[t,string]}]],
 [[n,way_of_speaking],[[t,string],[t,string]]]
 ],
-        [[[n,way_of_speaking1],[input,output]],
+        [[[n,way_of_speaking_a],[input,output]],
         [[n,way_of_speaking],[input,output]]],
 
 [
-        [[n,way_of_speaking1],[[v,properties],[v,expression]],":-",
+        [[n,way_of_speaking_a],[[v,properties],[v,expression]],":-",
         [[[n,equals4],[[v,properties],[[v,item1a],[v,item1b]]]],
                [[n,findall],[[v,item2],
          [[[n,way_of_speaking],[[v,item1a],[v,item2]]]],
