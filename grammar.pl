@@ -98,9 +98,10 @@ Grammar9=[[n,Name],[[],[v,vgp]|Variables1]],Grammar10=[[n,Name],["",[v,vgp]|Vari
 convert_to_grammar_part11(Grammar5,Grammar8,Grammar3,_EndGrammar3,_EndGrammar2,Grammara4,Grammara3,_EndGrammara4,_EndGrammara2),!.
 convert_to_grammar_part11(Grammar1,Grammar2,Grammar3,_EndGrammar1,_EndGrammar2,Grammara1,Grammara2,_EndGrammara1,_EndGrammara2) :-
 	Grammar1=[Grammar4|Grammar5],
-   ((((Grammar4=[_Name1,_Variables1,":-",_Body1]->true;
+   (((((Grammar4=[_Name1,_Variables1,":-",_Body1]->true;
 	Grammar4=[_Name2,":-",_Body2])->true;
 	Grammar4=[_Name3,_Variables2])->true;
+	Grammar4=[":-",_,_])->true;
 	Grammar4=[_Name4])->true;
 	(writeln0(["Error: Grammar",Grammar4,"badly formed."]),abort)),
 	append(Grammar2,[Grammar4],Grammar6),

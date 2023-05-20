@@ -22,3 +22,15 @@ save_file_s(Path,Content_term_or_string) :-
 	write(Stream,String),
 	close(Stream)),
 	!.
+	
+exists_file_s(F1) :-
+ atom_string(F2,F1),
+ exists_file(F2),!.
+
+exists_directory_s(F1) :-
+ atom_string(F2,F1),
+ exists_directory(F2),!.
+
+make_directory_s(F1) :-
+ atom_string(F2,F1),
+ make_directory(F2),!.

@@ -5,6 +5,10 @@
 use_module(library(pio)).
 use_module(library(dcg/basics)).
 
+string_strings(S,S1) :-
+	string_chars(S,S2),
+	findall(S3,(member(S4,S2),atom_string(S4,S3)),S1),!.
+
 open_s(File,Mode,Stream) :-
 	atom_string(File1,File),
 	open(File1,Mode,Stream),!.
