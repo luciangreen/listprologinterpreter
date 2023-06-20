@@ -997,10 +997,11 @@ get_lang_word("term_to_atom",Dbw_term_to_atom),
 
 interpretpart(shell_pl,I0,QP0,QV0,P0,OVar0,Vars1,Vars2) :-
 %trace,
-% eg [I,QP,QV,P,OVar]=[[1,1],"a","A,A1","atom_number(A,A0),atom_number(A1,A10),B is A0+A10,B1 is A10-A10,write([B,B1]).",[v,o]]
+% eg [I,QP,QV,P,OVar]=[[1,1],"a","A,A1","B is A+A1,B1 is A1-A1,write([B,B1]).",[v,o]]
  find_v_sys(V_sys),
  interpretpart(match4,I0,V_sys,Vars1,Vars3,_),
- getvalue(V_sys,I,Vars3),
+ getvalue(V_sys,I1,Vars3),
+ term_to_atom(I1,I),
 
        %getvalue(I0,I,Vars1),
        getvalue(QP0,QP,Vars1),
@@ -1017,8 +1018,8 @@ debug_call(Skip,[[Dbw_n,Dbw_shell_pl],[I,QP,QV,P,variable]]),
 foldr(string_concat,["#!/usr/bin/swipl -f -q\n\n",%":-include('",Go_path5,File,"').\n",
 ":- initialization(catch(main, Err, handle_error(Err))).\n\nhandle_error(_Err):-\n  halt(1).\n\n","main :-\n\t",
 
-    "opt_arguments([], _, Args),","\n\t",
-    "Args=[",QV,"],","\n\t",
+    %"opt_arguments([], _, Args),","\n\t",
+    "[",QV,"]=",I,",","\n\t",
     QP,"(",QV,"),","\n\t",
     
 
