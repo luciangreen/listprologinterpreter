@@ -1014,18 +1014,26 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("shell_pl",Dbw_shell_pl1),Dbw_shell_pl1=Dbw_shell_pl,
 
 debug_call(Skip,[[Dbw_n,Dbw_shell_pl],[I,QP,QV,P,variable]]),
-        
-foldr(string_concat,["#!/usr/bin/swipl -f -q\n\n",%":-include('",Go_path5,File,"').\n",
-":- initialization(catch(main, Err, handle_error(Err))).\n\nhandle_error(_Err):-\n  halt(1).\n\n","main :-\n\t",
-
-    %"opt_arguments([], _, Args),","\n\t",
-    "[",QV,"]=",I,",","\n\t",
+       
+((QV="",I1=[])->Mid=    [
+    QP,",\n\t",
+    "halt.\n\n","main :- halt(1).\n",
+	QP, " :-","\n\t"];
+	
+	Mid=[    "[",QV,"]=",I,",","\n\t",
     QP,"(",QV,"),","\n\t",
     
 
 	"halt.\n\n","main :- halt(1).\n",
-	QP,"(",QV,") :-","\n\t",
-P],String),
+	QP,"(",QV,") :-","\n\t"]),
+   
+flatten(["#!/usr/bin/swipl -f -q\n\n",%":-include('",Go_path5,File,"').\n",
+":- initialization(catch(main, Err, handle_error(Err))).\n\nhandle_error(_Err):-\n  halt(1).\n\n","main :-\n\t",
+
+    %"opt_arguments([], _, Args),","\n\t",
+Mid,P],String1),
+
+foldr(string_concat,String1,String),
 
 foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path5,
 "main.pl"],GP),
