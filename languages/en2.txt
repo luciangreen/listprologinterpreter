@@ -117,6 +117,9 @@
 
 ["interpret","interpret","en2","interpret"],
 
-["writeq","write q","en2","write q"]
+["writeq","write q","en2","write q"],
+
+["shell_pl","shell prolog","en2","shell prolog"]
+
 
 ]

@@ -995,6 +995,69 @@ get_lang_word("term_to_atom",Dbw_term_to_atom),
 ))
 ,!.
 
+interpretpart(shell_pl,I0,QP0,QV0,P0,OVar0,Vars1,Vars2) :-
+%trace,
+% eg [I,QP,QV,P,OVar]=[[1,1],"a","A,A1","atom_number(A,A0),atom_number(A1,A10),B is A0+A10,B1 is A10-A10,write([B,B1]).",[v,o]]
+ find_v_sys(V_sys),
+ interpretpart(match4,I0,V_sys,Vars1,Vars3,_),
+ getvalue(V_sys,I,Vars3),
+
+       %getvalue(I0,I,Vars1),
+       getvalue(QP0,QP,Vars1),
+       getvalue(QV0,QV,Vars1),
+       getvalue(P0,P,Vars1),
+       getvalue(OVar0,OVar,Vars1),
+
+
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("shell_pl",Dbw_shell_pl1),Dbw_shell_pl1=Dbw_shell_pl,
+
+debug_call(Skip,[[Dbw_n,Dbw_shell_pl],[I,QP,QV,P,variable]]),
+        
+foldr(string_concat,["#!/usr/bin/swipl -f -q\n\n",%":-include('",Go_path5,File,"').\n",
+":- initialization(catch(main, Err, handle_error(Err))).\n\nhandle_error(_Err):-\n  halt(1).\n\n","main :-\n\t",
+
+    "opt_arguments([], _, Args),","\n\t",
+    "Args=[",QV,"],","\n\t",
+    QP,"(",QV,"),","\n\t",
+    
+
+	"halt.\n\n","main :- halt(1).\n",
+	QP,"(",QV,") :-","\n\t",
+P],String),
+
+foldr(string_concat,[%"../private2/luciancicd-testing/",Repository1b,"/",Go_path5,
+"main.pl"],GP),
+open_s(GP,write,S1),
+write(S1,String),close(S1),
+
+findall([" ",I1],member(I1,I),I2),flatten(I2,I3),foldr(string_concat,I3,I4),
+foldr(string_concat,["chmod +x ",GP],S31),%,
+%trace,
+catch(bash_command(S31,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],_Text4),%writeln1(Text4),
+	fail%abort
+ 	)),
+ foldr(string_concat,["swipl -f -q ./",GP,%" ",
+I4],S3),%,
+%trace,
+((catch(bash_command(S3,VO), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],_Text4),%writeln1(Text4),
+	fail%abort
+ 	)),	term_to_atom(OVar1,VO))->
+ 	(        val1emptyorvalsequal(OVar,OVar1),
+        putvalue(OVar0,OVar1,Vars1,Vars2),
+debug_exit(Skip,[[Dbw_n,Dbw_shell_pl],[I,QP,QV,P,OVar1]]));
+(debug_fail(Skip,[[Dbw_n,Dbw_shell_pl],[I,QP,QV,P,variable]]),fail)),!.
+
+/*
+ 	bash_command1(Command, Output) :-
+        process_create(path(bash),
+                ['-c', Command],
+                [stdout(pipe(Out))]),
+        read_string(Out, _, Output),
+        close(Out).
+*/
 
 interpretpart(command,Command1,Args,Variables,Vars1,Vars2) :- 
 %trace,
