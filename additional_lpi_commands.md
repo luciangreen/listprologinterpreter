@@ -6,7 +6,7 @@
  * I - inputs, e.g. [1,1] means A=1, A1=1
  * QP - query predicate, e.g. "a", which is used in the call and to build the predicate.
  * QV - query variables, e.g. "A,A1", which are used in the call and to build the predicate.
- * P - e.g. "B is A+A1,B1 is A1-A1,write([B,B1]).", the body of the predicate. Return output from Prolog with write/1.
+ * P - e.g. "B is A+A1,B1 is A1-A1,write([B,B1]).", the body of the predicate. Convert result to an atom with term_to_atom/2. Return output from Prolog with write/1. Take care to return the correct variable because it is hard to debug shell commands.
  * OVar - e.g. [v,o], the List Prolog variable to return output to.
  ---
  * [[n,phrase_from_file],[[[n,string],[[v,out]]],[v,path]]]
