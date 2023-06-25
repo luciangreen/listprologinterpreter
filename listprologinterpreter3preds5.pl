@@ -1059,6 +1059,66 @@ I4],S3),%,
 debug_exit(Skip,[[Dbw_n,Dbw_shell_pl],[I,QP,QV,P,OVar1]]));
 (debug_fail(Skip,[[Dbw_n,Dbw_shell_pl],[I,QP,QV,P,variable]]),fail)),!.
 
+interpretpart(shell_c,I0,P0,OVar0,Vars1,Vars2) :-
+%trace,
+% eg [I,QP,QV,P,OVar]=[[1,1],"a","A,A1","B is A+A1,B1 is A1-A1,write([B,B1]).",[v,o]]
+ %find_v_sys(V_sys),
+ %interpretpart(match4,I0,V_sys,Vars1,Vars3,_),
+ getvalue(I0,I1,Vars1),
+ term_to_atom(I1,I),
+ 
+open_s("input.txt",write,S1T),
+write(S1T,I),close(S1T),
+ 
+
+       %getvalue(I0,I,Vars1),
+       %getvalue(QP0,QP,Vars1),
+       %getvalue(QV0,QV,Vars1),
+       %trace,
+       getvalue(P0,P1,Vars1),
+       %trace,
+%atomic_list_concat(P1,'\n',P2),
+%atomic_list_concat(P1,'\\n',P3),
+%atomic_list_concat(P4,'\"',P3),
+%atomic_list_concat(P4,'"',P),
+atom_string(P,P1),
+open_s("program.txt",write,S1C),
+write(S1C,P),close(S1C),
+
+foldr(string_concat,["cp program.txt program.c"],S32),%,
+%trace,
+catch(bash_command(S32,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],_Text4),%writeln1(Text4),
+	fail%abort
+ 	)),
+
+       
+       getvalue(OVar0,OVar,Vars1),
+
+
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("shell_c",Dbw_shell_c1),Dbw_shell_c1=Dbw_shell_c,
+
+debug_call(Skip,[[Dbw_n,Dbw_shell_c],[I,P,variable]]),
+       
+
+foldr(string_concat,["gcc program.c"],S31),%,
+%trace,
+catch(bash_command(S31,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],_Text4),%writeln1(Text4),
+	fail%abort
+ 	)),
+ foldr(string_concat,["./a.out<input.txt"],S3),%,
+%trace,
+((catch(bash_command(S3,VO), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],_Text4),%writeln1(Text4),
+	fail%abort
+ 	)),	term_to_atom(OVar1,VO))->
+ 	(        val1emptyorvalsequal(OVar,OVar1),
+        putvalue(OVar0,OVar1,Vars1,Vars2),
+debug_exit(Skip,[[Dbw_n,Dbw_shell_c],[I,P,OVar1]]));
+(debug_fail(Skip,[[Dbw_n,Dbw_shell_c],[I,P,variable]]),fail)),!.
+
 /*
  	bash_command1(Command, Output) :-
         process_create(path(bash),

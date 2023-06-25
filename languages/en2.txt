@@ -119,7 +119,9 @@
 
 ["writeq","write q","en2","write q"],
 
-["shell_pl","shell prolog","en2","shell prolog"]
+["shell_pl","shell prolog","en2","shell prolog"],
+
+["shell_c","shell c","en2","shell c"]
 
 
 ]

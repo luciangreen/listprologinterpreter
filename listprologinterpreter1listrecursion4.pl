@@ -2114,6 +2114,15 @@ get_lang_word("shell_pl",Dbw_shell_pl1),Dbw_shell_pl1=Dbw_shell_pl,
 
         interpretpart(shell_pl,I,QP,QV,P,OVar,Vars1,Vars2).
 
+
+interpretstatement1(ssi,_Functions0,_Functions,[[Dbw_n,Dbw_shell_c],[I,P,OVar]],Vars1,Vars2,true,nocut) :-
+%trace,
+%get_lang_word("v",Dbw_v),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("shell_c",Dbw_shell_c1),Dbw_shell_c1=Dbw_shell_c,
+
+        interpretpart(shell_c,I,P,OVar,Vars1,Vars2).
+
 %%% LEGACY INTERPRET FOR SSI
 
 

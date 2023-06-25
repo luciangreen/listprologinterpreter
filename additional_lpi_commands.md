@@ -1,5 +1,12 @@
 # Additional LPI Commands
 
+ * Run C in List Prolog.
+ * [[n,shell_c],[[I,P,OVar]]]
+ * e.g. [[n,shell_c],["a","#include<stdio.h>\n#include<stdlib.h>\n\nint main(void)\n{\n   char str1[20];\n\n   scanf(\"%19s\", str1);\n   \n   printf(\"%s\\n\", str1);\n return 0;\n}",[v,o]]]
+ * I - inputs, e.g. "a" is in file input.txt
+ * P - the C source file (see example above). Escape quotes.
+ * OVar - e.g. [v,o], the List Prolog variable to return output to. Take care to return the correct variable because it is hard to debug shell commands.
+ ---
  * Run Prolog in List Prolog.
  * [[n,shell_pl],[[I,QP,QV,P,OVar]]]
  * e.g. [[n,shell_pl],[[1,1],"a","A,A1","B is A+A1,B1 is A-A1,write([B,B1]).",[v,o]]]

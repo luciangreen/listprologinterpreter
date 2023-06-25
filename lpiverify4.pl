@@ -5386,3 +5386,14 @@ test(248,[[n,test],[[v,b]]],
 
 [[[[v,b],[1]]]]).
 */
+
+test(247,[[n,test2],[[v,a]]],
+
+[
+[[n,test2],[[v,a]],":-",
+[
+	[[n,shell_c],["a","#include<stdio.h>\n#include<stdlib.h>\n\nint main(void)\n{\n   char str1[20];\n\n   scanf(\"%19s\", str1);\n   \n   printf(\"%s\\n\", str1);\n return 0;\n}",[v,a]]]
+]]
+],
+
+[[[[v,a],"a"]]]).
