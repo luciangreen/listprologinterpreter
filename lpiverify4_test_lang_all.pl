@@ -83,19 +83,29 @@ test_types_cases(NTotal3,Query,Types,Modes,Functions,Result),
 
 	trans_alg(Query,"en",Lang,Query1),
 	
-	findall([F1|Types00],(member([F1|Types003],Types),
+	retractall(lang(_)),
+	assertz(lang("en")),
+
 	
+%/*
+	findall([F1|Types00],(member([F1|Types003],Types),
+
 	expand_types1(Types003,[],Types00)),Types004),
 	
 	%Types004=[[[n, find_record], [[t, brackets], [[[t, list], [[t, number], [t, string]]], [t, number], [t, string]]]]],
 
-	trans_alg1(Types004,"en",Lang,Types005),%,expand_types1(Types002,[],Types003),simplify_types(Types003,[],Types00)
+	trans_alg(Types004,"en",Lang,Types005),%,expand_types1(Types002,[],Types003),simplify_types(Types003,[],Types00)
 	%),Types1),
 	
 	%simplify_types(Types01,[],Types1),%findall
-	findall([F|Types100],(member([F|Types101],Types005),simplify_types(Types101,[],Types100)),Types1),
+	findall([F|Types100],(member([F|Types101],Types005),
+
+	%retractall(lang(_)),
+	%assertz(lang("en")),
+
+	simplify_types(Types101,[],Types100)),Types1),
 	
-		
+		%*/
 	%trans_alg(Types,"en",Lang,Types1),
 	trans_alg(Modes,"en",Lang,Modes1),
 	trans_alg(Functions,"en",Lang,Functions1),

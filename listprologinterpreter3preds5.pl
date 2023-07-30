@@ -122,9 +122,9 @@ foldr(atom_concat,Z,'',W),(member(W,Matrix)->true;(writeln([incorrect,member2,mo
 
 ((W=ii->true;W=io)->	((%Value2=empty,
 	((member(Value2a,Value1),
-	debug_call(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2]]),
+	debug_call(Skip,[[Dbw_n,Dbw_member2],[Value2,Value1]]),
 	putvalue_equals4(Variable2,Value2a,Vars1,Vars2)))),
-      debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2a]]));
+      debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value2a,Value1]]));
       
       
       
@@ -163,8 +163,8 @@ foldr(atom_concat,Z,'',W),(member(W,Matrix)->true;(writeln([incorrect,member2,mo
         putvalue_equals4(Variable1,Value1a,Vars1,Vars2),
         
         
-        	debug_call(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2]]),
-      debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value1a,Value2]]));
+        	debug_call(Skip,[[Dbw_n,Dbw_member2],[Value2,Value1]]),
+      debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value2,Value1a]]));
       
       
 (W=oo->%**** change this
@@ -205,9 +205,9 @@ foldr(atom_concat,Z,'',W),(member(W,Matrix)->true;(writeln([incorrect,member2,mo
 					%Vars2c=[[Dbw_n,Dbw_member2],[Value1,Value3],_,_,%,%Value2a
 			%_,_,%[Value1,Value2a]
 			%Vars2c1],
-        	 debug_call(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2]]),
+        	 debug_call(Skip,[[Dbw_n,Dbw_member2],[Value1,Value1]]),
 
-      debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2a]]))))           
+      debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value2a,Value1]]))))           
       .
 %%;     %%debug_fail(Skip,[[n,member],[Value1,Value2]])),!.
 %%		((debug(on)->(writeln1([fail,[[n,member],[Value1,value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail))))).
@@ -228,10 +228,10 @@ get_lang_word("member3",Dbw_member2),
 	turn_back_debug(Debug),
 
 	
-	debug_call(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2]])
+	debug_call(Skip,[[Dbw_n,Dbw_member2],[Value2,Value1]])
 	%putvalue(Variable1,Value1a,Vars1,Vars2)
 	))),
-      debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value1a,Value2]])).
+      debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value2,Value1a]])).
 
 interpretpart(isop,Operator,Variable1,Variable2,Variable3,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
