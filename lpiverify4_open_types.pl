@@ -154,7 +154,7 @@ test_open_types_cases(5,[[n,prevent_rumination],[[]]],
                 [[n,writeln],["What would you like to think about?"]],
                 [[n,read_string],[[v,item]]],
 
-                [[n,"->"],[[[n,member],[[v,list],[v,item]]],
+                [[n,"->"],[[[n,member],[[v,item],[v,list]]],
                 
                 [[[n,writeln],["Please do not think of"]],
                 [[n,writeln],[[v,item]]],
@@ -215,22 +215,22 @@ test_open_types_cases(7,[[n,episode_character],[[v,a]]],
         [        
                 [[n,findall],[[v,ds3],
          [
-         [[n,member2],[[10,11,12%,4
-         ],[v,l0]]],
+         [[n,member],[[v,l0],[10,11,12%,4
+         ]]],
          				[[n,findall],[[v,ds2],
          [
-         [[n,member2],[[1,2,3%,4
-         ],[v,l1]]],
+         [[n,member],[[v,l1],[1,2,3%,4
+         ]]],
          				[[n,findall],[[v,ds1],
          [
-         [[n,member2],[[%1,2,
+         [[n,member],[[v,l2],[%1,2,
          %3,
          4,5,6
-         ],[v,l2]]],
+         ]]],
          					[[n,findall],[[[v,l0],[v,l1],[v,l2],[v,l3],[v,d]],
          [
-         [[n,member2],[[7,8,9%5,6%1,2,3,4
-         ],[v,l3]]],
+         [[n,member],[[v,l3],[7,8,9%5,6%1,2,3,4
+         ]]],
          [[n,equals4],[[v,line],["Level",[v,l0],[v,l1],[v,l2],[v,l3],
          "Please write a detail."]]],
          [[n,writeln],[[v,line]]],
@@ -602,16 +602,16 @@ test_open_types_cases(25,[[n,episode_character],[[v,a]]],
         [        
                 [[n,findall],[[v,ds2],
          [
-         [[n,member2],[[1,2],[v,l1]]],
+         [[n,member],[[v,l1],[1,2]]],
                 [[n,findall],[[v,ds21],
          [
-         [[n,member2],[[3,4],[v,l11]]],
+         [[n,member],[[v,l11],[3,4]]],
          				[[n,findall],[[v,ds1],
          [
-         [[n,member2],[[5,6],[v,l2]]],
+         [[n,member],[[v,l2],[5,6]]],
          					[[n,findall],[[[v,l1],[v,l11],[v,l2],[v,l3],[v,d]],
          [
-         [[n,member2],[[7,8],[v,l3]]],
+         [[n,member],[[v,l3],[7,8]]],
          [[n,equals4],[[v,line],["Level",[v,l1],[v,l11],[v,l2],[v,l3],
          "Please write a detail."]]],
          [[n,writeln],[[v,line]]],
@@ -641,10 +641,10 @@ test_open_types_cases(26,[[n,episode_character],[[v,a]]],
         [        
                 [[n,findall],[[v,ds2],
          [
-         [[n,member2],[[1,2],[v,l1]]],
+         [[n,member],[[v,l1],[1,2]]],
          					[[n,findall],[[[v,l1],[v,l2],[v,d]],
          [
-         [[n,member2],[[3,4],[v,l2]]],
+         [[n,member],[[v,l2],[3,4]]],
          [[n,equals4],[[v,line],["Level",[v,l1],[v,l2],
          "Please write a detail."]]],
          [[n,writeln],[[v,line]]],

@@ -1192,7 +1192,7 @@ get_lang_word("member",Dbw_member1),Dbw_member1=Dbw_member,
 %%writeln1(8),
         interpretpart(member2,Variable1,Variable2,Vars1,Vars2).
 */
-interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable2,Variable1]],Vars1,Vars2,true,nocut) :-
 %writeln(here),
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,

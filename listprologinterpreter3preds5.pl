@@ -96,7 +96,7 @@ debug_call(Skip,[[Dbw_n,Dbw_tail],[Value1,variable]]),
       debug_exit(Skip,[[Dbw_n,Dbw_tail],[Value1,Value1A]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_tail],[Value1,variable]])),!.
         	
-interpretpart(member,Variable1,Variable2,Vars1,Vars2) :-
+/*interpretpart(member,Variable1,Variable2,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("member",Dbw_member),
         getvalues_equals4(Variable1,Variable2,Value1,Value2,Vars1),
@@ -107,7 +107,7 @@ debug_call(Skip,[[Dbw_n,Dbw_member],[Value1,Value2]]),
 	)->
       debug_exit(Skip,[[Dbw_n,Dbw_member],[Value1,Value3]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_member],[Value1,Value2]])),!.
-
+*/
 interpretpart(member2,Variable1,Variable2,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("member2",Dbw_member2),
@@ -209,8 +209,8 @@ foldr(atom_concat,Z,'',W),(member(W,Matrix)->true;(writeln([incorrect,member2,mo
 
       debug_exit(Skip,[[Dbw_n,Dbw_member2],[Value1,Value2a]]))))           
       .
-%%;     %%debug_fail(Skip,[[n,member2],[Value1,Value2]])),!.
-%%		((debug(on)->(writeln1([fail,[[n,member2],[Value1,value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail))))).
+%%;     %%debug_fail(Skip,[[n,member],[Value1,Value2]])),!.
+%%		((debug(on)->(writeln1([fail,[[n,member],[Value1,value]],"Press c."]),(leash1(on)->true;(not(get_single_char(97))->true;abort)));true),fail))))).
 
 interpretpart(member3,Variable1,Variable2,Vars1,Vars2) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,

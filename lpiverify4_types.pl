@@ -185,40 +185,40 @@ test_types_cases(10,[[n,f],["a"]],
 ]
 ,[[]]).
 
-test_types_cases(11,[[n,call1b],[[1,11,111],[v,b]]],
+test_types_cases(11,[[n,call1b],[[v,b],[1,11,111]]],
         [
-[[n,call1b],[[[t,number],[t,number],[t,number]],[t,number]]]
+[[n,call1b],[[t,number], [[t,number],[t,number],[t,number]]]]
 ],
-        [[[n,call1b],[input,output]]],
+        [[[n,call1b],[output,input]]],
 
 [
-        [[n,call1b],[[v,a],[v,b]],":-",
-        [       [[n,call],[[lang,same],same,[[n,member2a],[[v,a],[v,b]]],
-        [[[n,member2a],[[[t,number],[t,number],[t,number]],[t,number]]]],
-        [[[n,member2a],[input,output]]],
+        [[n,call1b],[[v,b],[v,a]],":-",
+        [       [[n,call],[[lang,same],same,[[n,member2a],[[v,b],[v,a]]],
+        [[[n,member2a],[[t,number],[[t,number],[t,number],[t,number]]]]],
+        [[[n,member2a],[output,input]]],
 
-[[[n,member2a],[[v,a],[v,b]],":-",
-        [       [[n,member2],[[v,a],[v,b]]],[[n,cut]]]
+[[[n,member2a],[[v,b],[v,a]],":-",
+        [       [[n,member],[[v,b],[v,a]]],[[n,cut]]]
         ]]]],
         [[n,cut]]]]       
         
 ],[[[[v,b],1]]]).
 
 
-test_types_cases(12,[[n,call1b],[[1,11,111],[v,b]]],
+test_types_cases(12,[[n,call1b],[[v,b],[1,11,111]]],
         [
-[[n,call1b],[[[t,number],[t,number],[t,number]],[t,number]]]
+[[n,call1b],[[t,number],[[t,number],[t,number],[t,number]]]]
 ],
-        [[[n,call1b],[input,output]]],
+        [[[n,call1b],[output,input]]],
 
 [
-        [[n,call1b],[[v,a],[v,b]],":-",
-        [       [[n,call],[[lang,same],same,[[n,member2a],[[v,a],[v,b]]],
+        [[n,call1b],[[v,b],[v,a]],":-",
+        [       [[n,call],[[lang,same],same,[[n,member2a],[[v,b],[v,a]]],
         %[[[n,member2a],[[[t,brackets],[[t,number],[t,number],[t,number]]],[t,number]]]],
         %[[[n,member2a],[input,output]]],
 
-[[[n,member2a],[[v,a],[v,b]],":-",
-        [       [[n,member2],[[v,a],[v,b]]],[[n,cut]]]
+[[[n,member2a],[[v,b],[v,a]],":-",
+        [       [[n,member],[[v,b],[v,a]]],[[n,cut]]]
         ]]]],
         [[n,cut]]]]       
         
@@ -397,13 +397,13 @@ test_types_cases(22,[[n,function],[[["a","b"],["b","c"]]]],
 [[n,reverse],[[v,t],[v,o],[v,n]]]]],
 
 [[n,function2],[[v,a],[v,b],[v,f]],":-",
-[[[n,member2],[[v,a],[v,d]]],
+[[[n,member],[[v,d],[v,a]]],
 [[n,equals1],[[v,d],[[v,b],[v,f]]]]
 %,[[n,cut]]
 ]],
 
 [[n,function2],[[v,a],[v,b],[v,c]],":-",
-[[[n,member2],[[v,a],[v,d]]],
+[[[n,member],[[v,d],[v,a]]],
 [[n,equals1],[[v,d],[[v,b],[v,f]]]],
 [[n,function2],[[v,d],[v,f],[v,c]]]]],
 
@@ -497,7 +497,7 @@ test_types_cases(26,[[n,choose_time],[[-15,-10,-5,0,5,10,15],[v,time]]],
 
 [
         [[n,choose_time],[[v,a],10],":-",
-        [       [[n,member],[[v,a],10]]
+        [       [[n,member],[10,[v,a]]]
         ]]        
 ],[[[[v,time],10]]]).
 
@@ -526,7 +526,7 @@ test_types_cases(28,[[n,aimed],[[["bulls-eye","red"],["outer-ring","blue"]],"bul
 
 [
         [[n,aimed],[[v,a],[v,b],[v,c]],":-",
-        [       [[n,member2],[[v,a],[v,d]]],
+        [       [[n,member],[[v,d],[v,a]]],
                 [[n,equals4],[[v,d],[[v,b],[v,c]]]]
         ]]        
 ],[[[[v,object],"red"]]]).
@@ -757,7 +757,7 @@ test_types_cases(42,[[n,as_expanse],[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,
         [[[n,as_expanse],[input]]],
 [
         [[n,as_expanse],[[v,numbers]],":-",
-        [       [[n,findall],[[v,num],[[[n,member2],[[v,numbers],[v,num]]],
+        [       [[n,findall],[[v,num],[[[n,member],[[v,num],[v,numbers]]],
         	[[n,number],[[v,num]]]],[v,num2]]]]]
 ],[[]]).
 
@@ -789,7 +789,7 @@ test_types_cases(44,[[n,find_record],[[[1,"a"],[2,"b"]],1,[v,r]]],
 [
         [[n,find_record],[[v,pairs],[v,num],[v,rec]],":-",
         [       %[[n,trace2]],
-        	[[n,member],[[v,pairs],[[v,num],[v,rec]]]]]]
+        	[[n,member],[[[v,num],[v,rec]],[v,pairs]]]]]
 ]
 
 ,[[[[v,r],"a"]]]).
@@ -858,12 +858,12 @@ test_types_cases(48,[[n,pole],[["a",[1,2,3]],["b",[4,5,6]],3,[v,a_or_b]]],
         [[n,pole],[[v,pole1],[v,pole2],[v,person],[v,pole_name]],":-",
         [       %[[n,trace2]],
         	[[n,equals4],[[v,pole1],[[v,pole_name],[v,list1]]]],
-        	[[n,member2],[[v,list1],[v,person]]]]],
+        	[[n,member],[[v,person],[v,list1]]]]],
 
         [[n,pole],[[v,pole1],[v,pole2],[v,person],[v,pole_name]],":-",
         [       %[[n,trace2]],
         	[[n,equals4],[[v,pole2],[[v,pole_name],[v,list1]]]],
-        	[[n,member2],[[v,list1],[v,person]]]]]
+        	[[n,member],[[v,person],[v,list1]]]]]
 
 ]
 ,[[[[v,a_or_b],"a"]]]).
@@ -883,8 +883,8 @@ test_types_cases(49,[[n,meantness],[[["a","b"],["b","c"]],["a","b","c"]]],
         [[n,meantness],[[v,lists],[v,list]],":-",
         [       %[[n,trace2]],
         	[[n,equals4],[[v,list],[[v,head],"|",[v,tail]]]],
-        	[[n,member2],[[v,lists],[v,list1]]],
-        	[[n,member2],[[v,list1],[v,head]]],
+        	[[n,member],[[v,list1],[v,lists]]],
+        	[[n,member],[[v,head],[v,list1]]],
         	%[[n,delete],[[v,lists],[v,list1],[v,lists2]]],
         	[[n,meantness],[[v,lists],[v,tail]]
         	]]]
@@ -1119,9 +1119,9 @@ test_types_cases(59,[[n,tour_heartland],[[1,2]]],
         [[n,tour_heartland1],[[v,heartland],[v,path]],":-",
         [
          [[n,equals4],[[v,path],[[v,curr_step],[v,next_step],"|",[v,rest]]]],
-         [[n,member2],[[v,heartland],[v,step]]],
+         [[n,member],[[v,step],[v,heartland]]],
          [[n,equals4],[[v,step],[[v,curr_step],"|",[v,links_to]]]],	
-         [[n,member2],[[v,links_to],[v,next_step]]],
+         [[n,member],[[v,next_step],[v,links_to]]],
          [[n,equals4],[[v,next],[[v,next_step],"|",[v,rest]]]],
          [[n,tour_heartland1],[[v,heartland],[v,next]]]
         ]],
@@ -1149,7 +1149,7 @@ test_types_cases(60,[[n,find_in_room],["newspaper",[v,x],[v,y]]],
         [[n,find_in_room],[[v,string],[v,x],[v,y]],":-",
         [
          [[n,room],[[v,room]]],
-         [[n,member2],[[v,room],[[v,x],[v,y],[v,string]]]]
+         [[n,member],[[[v,x],[v,y],[v,string]],[v,room]]]
         ]],
 
         [[n,room],[

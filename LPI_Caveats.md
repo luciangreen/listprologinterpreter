@@ -4,7 +4,7 @@
 
 * Use findall, not rely on semi-colon-like separated results for non-determinism.
 
-* member(Item,List) in Prolog has the reversed order of arguments in member(List,Item), in List Prolog.
+* member(Item,List) in List Prolog now uses the same order of arguments as Prolog.
 
 * get_item_n(List,Item_number,Item) replaces append and length (the programmer must copy this algorithm into their algorithm).
 
