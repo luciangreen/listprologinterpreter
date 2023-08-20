@@ -1,5 +1,7 @@
 # Additional LPI Commands
 
+* NB. Change two backslashes to one when copying.
+---
  * Run C in List Prolog.
  * [[n,shell_c],[[I,P,OVar]]]
  * e.g. [[n,shell_c],["a","#include<stdio.h>\n#include<stdlib.h>\n\nint main(void)\n{\n   char str1[20];\n\n   scanf(\"%19s\", str1);\n   \n   printf(\"%s\\n\", str1);\n return 0;\n}",[v,o]]]
@@ -22,7 +24,7 @@
  ---
  * [[n,text_area
 ],["rows=\\"4\\" style=\\"width:100%\\"","a",[v,s]]]
- * "rows=\\"4\\" style=\\"width:100%\\"" - text area parameters - NB. Change two backslashes to one when copying
+ * "rows=\\"4\\" style=\\"width:100%\\"" - text area parameters.
  * "a" - replace with value already in field
  * [v,s] - text entered in field
 ---
