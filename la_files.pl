@@ -34,3 +34,11 @@ exists_directory_s(F1) :-
 make_directory_s(F1) :-
  atom_string(F2,F1),
  make_directory(F2),!.
+
+working_directory1(A1,B1) :-
+ (string(A1)->atom_string(A,A1);A=A1),
+ (string(B1)->atom_string(B,B1);B=B1),
+ term_to_atom(working_directory(A,B),Atom),
+ 	catch(working_directory(A,B), _, (foldr(string_concat,["Error on ",Atom%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
+	],Text41),writeln1(Text41)%fail%abort
+ 	)),!.
