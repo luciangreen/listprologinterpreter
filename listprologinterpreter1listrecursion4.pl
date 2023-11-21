@@ -1198,11 +1198,12 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %trace,
 get_lang_word("member2",Dbw_member21),
 get_lang_word("member",Dbw_member22),
-(Dbw_member21=Dbw_member2->true;
-Dbw_member22=Dbw_member2),
+(Dbw_member21=Dbw_member2->
+        interpretpart(member2,Variable2,Variable1,Vars1,Vars2);
+(Dbw_member22=Dbw_member2,
 %%writeln1(8),
 
-        interpretpart(member2,Variable1,Variable2,Vars1,Vars2).
+        interpretpart(member2,Variable1,Variable2,Vars1,Vars2))).
 
 interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_member2],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
