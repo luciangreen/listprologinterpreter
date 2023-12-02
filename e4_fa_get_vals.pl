@@ -202,11 +202,10 @@ replace_vars0(Term,First_vars1,First_vars2) :-
 replace_vars0(Term,First_vars1,First_vars2) :-
 	get_lang_word("v",Dbw_v1),Dbw_v1=Dbw_v,
 	variable_name(Term),
-	%(Term=[_,'_']->First_vars1=First_vars2;
 	%(
 	(member([Term,[Dbw_v,_Var_name1]],First_vars1)->
 	(First_vars1=First_vars2);
-	(find_sys(Var_name2),
+	((Term=[_,'_']->Var_name2='_';find_sys(Var_name2)),
 	append(First_vars1,[[Term,[Dbw_v,Var_name2]]],First_vars2))),%)),
 	!.
 	

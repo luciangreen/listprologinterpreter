@@ -5439,12 +5439,8 @@ test(248,[[n,function],[[v,'_'],[1],[v,c]]],
 ]
 ,[[[[v,c], [1]]]]).
 
-test(249,[[n,function],[[v,'_'],[v,c]]],
+test(249,[[n,function],[1,2]],
 [
-        [[n,function],[[v,a],[v,c]],":-",
-        [
-                [[n,equals4],[[v,a],[v,c]]]
-        ]
-        ]
+        [[n,function],[[v,'_'],[v,'_']]]
 ]
 ,[[]]).

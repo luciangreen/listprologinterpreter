@@ -92,7 +92,7 @@ query_box(Query,Query1,Functions,Functions1) :-
 get_lang_word("n",Dbw_n),
 
 	collect_arguments_body2([Query],[],Arguments1),
-	sort(Arguments1,Arguments),
+	msort(Arguments1,Arguments),
 	%trace,
 	find_query_box_n(Query_box_n),
 	(Arguments=[]->
@@ -407,7 +407,7 @@ turn_occurs_check(off) :-
 
 checkarguments(Variable1a,Variable2a,Vars1,Vars2,_,FirstArgs2) :-
 %writeln1(a1checkarguments(Variable1a,Variable2a,Vars1,Vars2,_,FirstArgs2)),
-
+%trace,
 %(a1checkarguments(Variable1a,Variable2a,Vars1,Vars2,_,FirstArgs2)=a1checkarguments([[v,a],[[v,b],[v,c]]],[[[v,d],[v,e]],[v,f]],[],_346892,_346906,_346894)->trace;true),
 
 %(not(Variable1a=[[v,a],[v,d]])->trace;true),
@@ -415,8 +415,8 @@ checkarguments(Variable1a,Variable2a,Vars1,Vars2,_,FirstArgs2) :-
 %(Variable2a=[[[v,a],"|",_]|_]->trace;true),
 	simplify(Variable1a,Variable1),
 	simplify(Variable2a,Variable2),
-	(equals4(on)->checkarguments1(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2);
-checkarguments2(Variable1,Variable2,Vars1,Vars2,_,FirstArgs2)),
+	(equals4(on)->checkarguments1(Variable1,Variable2,Vars1,Vars2,[],FirstArgs2);
+checkarguments2(Variable1,Variable2,Vars1,Vars2,[],FirstArgs2)),
 % fail if two bs in a,b c,b in first args
 %trace,
 /*length(FirstArgs2,L),
@@ -466,6 +466,43 @@ occurs_check(Variable1,Variable2),
 
 
 checkarguments2([],[],Vars,Vars,FirstArgs,FirstArgs) :- !. 
+/*
+checkarguments2(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%
+%%writeln1(1),
+%trace,
+	Arguments1=[Value|Arguments3], %% Value may be a number, string, list or tree
+	%expressionnotatom3(Value),
+	Arguments2=[Variable2|Arguments4],
+	%trace,
+	(Value=[_,'_']->true;Variable2=[_,'_']),
+
+	%not(var(Variable2)),isvar(Variable2),
+	%((Value=[_,'_']->true;Variable2=[_,'_'])->
+	%Vars1=Vars3;
+	%(
+	%get_lang_word("v",Dbw_v),
+	putvalue(Variable2,undef,%[Dbw_v,'_'],
+	Vars1,Vars3),%)),
+	checkarguments2(Arguments3,Arguments4,Vars3,Vars2,FirstArgs1,FirstArgs2),!.
+	checkarguments2(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%
+%%writeln1(1),
+trace,
+	Arguments1=[Value|Arguments3], %% Value may be a number, string, list or tree
+	%expressionnotatom3(Value),
+	Arguments2=[Variable2|Arguments4],
+	%trace,
+	(Value=undef->true;Variable2=undef),
+
+	%not(var(Variable2)),isvar(Variable2),
+	%((Value=[_,'_']->true;Variable2=[_,'_'])->
+	%Vars1=Vars3;
+	%(
+	%get_lang_word("v",Dbw_v),
+	Vars1=Vars3,
+	%putvalue(Variable2,undef,%[Dbw_v,'_'],
+	%Vars1,Vars3),%)),
+	checkarguments2(Arguments3,Arguments4,Vars3,Vars2,FirstArgs1,FirstArgs2),!.
+	*/
 checkarguments2(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%
 %%writeln1(1),
 %trace,
@@ -478,6 +515,7 @@ checkarguments2(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%
 	%(
 	putvalue(Variable2,Value,Vars1,Vars3),%)),
 	checkarguments2(Arguments3,Arguments4,Vars3,Vars2,FirstArgs1,FirstArgs2),!.
+
 checkarguments2(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%A
 %%writeln1(2),
         Arguments1=[Variable|Arguments3], %% Value may be a number, string, list or tree
