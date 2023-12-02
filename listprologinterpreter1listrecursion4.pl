@@ -1538,7 +1538,7 @@ arg(1,A,Variable2),
 debug_call(Skip,[[Dbw_n,Dbw_getz],[variable]]),
 (        putvalue(Variable1,Value2,Vars1,Vars2)->
 debug_exit(Skip,[[Dbw_n,Dbw_getz],[Value1]])
-;     debug_fail(Skip,[[Dbw_n,Dbw_getz],[Value1]])),!.
+;     debug_fail(Skip,[[Dbw_n,Dbw_getz],[Value1]])).
 
 
 %assertz(A),
