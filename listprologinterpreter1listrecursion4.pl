@@ -1502,9 +1502,18 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("assertz",Dbw_assertz1),Dbw_assertz1=Dbw_assertz,
 
 %assertz(Var(In))
+debug_call(Skip,[[Dbw_n,Dbw_assertz],[[[Dbw_n, Var], [In]]]]),
+
 functor(A,Var,1),arg(1,A,In),
 dynamic(Var/1),
-assertz(A),!.
+assertz(A),
+
+debug_exit(Skip,[[Dbw_n,Dbw_assertz],[[[Dbw_n, Var], [In]]]]),
+
+!.
+
+
+
 
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_getz],[[[Dbw_n, Var], [Variable1]]]],Vars1,Vars2,true,nocut) :-
 %
@@ -1526,7 +1535,7 @@ arg(1,A,Variable2),
 	%is_empty(Value2),
         val1emptyorvalsequal(Value2,Value1),
 	%%isval(Value2),
-debug_call(Skip,[[Dbw_n,Dbw_getz],[Value1]]),
+debug_call(Skip,[[Dbw_n,Dbw_getz],[variable]]),
 (        putvalue(Variable1,Value2,Vars1,Vars2)->
 debug_exit(Skip,[[Dbw_n,Dbw_getz],[Value1]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_getz],[Value1]])),!.
@@ -1542,8 +1551,14 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("retractall",Dbw_retractall1),Dbw_retractall1=Dbw_retractall,
 
 %assertz(Var(In))
+debug_call(Skip,[[Dbw_n,Dbw_retractall],[[[Dbw_n, Var], [In]]]]),
+
 functor(A,Var,1),arg(1,A,In),
-retractall(A),!.
+retractall(A),
+
+debug_exit(Skip,[[Dbw_n,Dbw_retractall],[[[Dbw_n, Var], [In]]]]),
+
+!.
 
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_word11],[Variable1]],Vars1,Vars1,true,nocut) :-
 %trace,
