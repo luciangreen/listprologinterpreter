@@ -3,6 +3,9 @@
 
 match4_new_22(Variable1,Variable2,Vars1,Vars2%,Standard_or_e4
 ) :-
+
+%writeln(match4_new_22(Variable1,Variable2,Vars1,Vars2)),
+%trace,
 	(match4_new_220([Variable1],[Variable2],Vars1,Vars2%,Standard_or_e4
 	)->true;
 	match4_new_220([Variable2],[Variable1],Vars1,Vars2%,Standard_or_e4

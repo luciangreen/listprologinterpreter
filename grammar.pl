@@ -373,6 +373,9 @@ putvalue_equals4(Variable,Value,Vars1,Vars2) :-
 	(equals4(on)->putvalue_equals41(Variable,Value,Vars1,Vars2);
 	putvalue(Variable,Value,Vars1,Vars2)).
 	
+%putvalue_equals41(Variable,Value,Vars1,Vars1) :-
+%	isvar(Variable),isvar(Value),!.
+
 putvalue_equals41(Variable,Value,Vars1,Vars2) :-
 	%get_lang_word("v",Dbw_v),
 		remember_and_turn_off_debug(Debug),

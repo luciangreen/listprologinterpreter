@@ -468,11 +468,15 @@ occurs_check(Variable1,Variable2),
 checkarguments2([],[],Vars,Vars,FirstArgs,FirstArgs) :- !. 
 checkarguments2(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%
 %%writeln1(1),
+%trace,
 	Arguments1=[Value|Arguments3], %% Value may be a number, string, list or tree
 	expressionnotatom3(Value),
 	Arguments2=[Variable2|Arguments4],
 	not(var(Variable2)),isvar(Variable2),
-	putvalue(Variable2,Value,Vars1,Vars3),
+	%((Value=[_,'_']->true;Variable2=[_,'_'])->
+	%Vars1=Vars3;
+	%(
+	putvalue(Variable2,Value,Vars1,Vars3),%)),
 	checkarguments2(Arguments3,Arguments4,Vars3,Vars2,FirstArgs1,FirstArgs2),!.
 checkarguments2(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :- %%A
 %%writeln1(2),
@@ -489,6 +493,7 @@ checkarguments2(Arguments1,Arguments2,Vars1,Vars2,FirstArgs1,FirstArgs2) :-
 	not(var(Variable1)),isvar(Variable1),
         Arguments2=[Variable2|Arguments4],
 	not(var(Variable2)),isvar(Variable2),
+	%trace,
 	(getvalue(Variable2,Value,Vars1)),%%->true);Value=empty), 
 	%%((Value=empty->Value1=Variable2;Value1=Value))),
         putvalue(Variable2,Value,Vars1,Vars3),
@@ -1489,6 +1494,56 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("phrase_from_file",Dbw_phrase_from_file1),Dbw_phrase_from_file1=Dbw_phrase_from_file,
 get_lang_word("string",Dbw_string1),Dbw_string1=Dbw_string,
         interpretpart(phrase_from_file,Out,Path,Vars1,Vars2).
+
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_assertz],[[[Dbw_n, Var], [In]]]],Vars1,Vars1,true,nocut) :-
+%
+%trace,
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("assertz",Dbw_assertz1),Dbw_assertz1=Dbw_assertz,
+
+%assertz(Var(In))
+functor(A,Var,1),arg(1,A,In),
+dynamic(Var/1),
+assertz(A),!.
+
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_getz],[[[Dbw_n, Var], [Variable1]]]],Vars1,Vars2,true,nocut) :-
+%
+%trace,
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("getz",Dbw_getz1),Dbw_getz1=Dbw_getz,
+
+%assertz(Var(In))
+functor(A,Var,1),
+A,
+arg(1,A,Variable2),
+
+        getvalue(Variable2,Value2,Vars1),
+        %%getvalue(Value1,Value1A,Vars1),
+	%%isvalstr(Value1),
+	%%isvalstr(Value1A),
+	%not(is_empty(Value1)),
+	%expression(Value1),
+	%is_empty(Value2),
+        val1emptyorvalsequal(Value2,Value1),
+	%%isval(Value2),
+debug_call(Skip,[[Dbw_n,Dbw_getz],[Value1]]),
+(        putvalue(Variable1,Value2,Vars1,Vars2)->
+debug_exit(Skip,[[Dbw_n,Dbw_getz],[Value1]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_getz],[Value1]])),!.
+
+
+%assertz(A),
+
+
+
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_retractall],[[[Dbw_n, Var], [In]]]],Vars1,Vars1,true,nocut) :-
+%trace,
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("retractall",Dbw_retractall1),Dbw_retractall1=Dbw_retractall,
+
+%assertz(Var(In))
+functor(A,Var,1),arg(1,A,In),
+retractall(A),!.
 
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_word11],[Variable1]],Vars1,Vars1,true,nocut) :-
 %trace,

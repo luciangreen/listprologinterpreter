@@ -37,6 +37,10 @@
 ---
 * In the following, ["predicate_name",[i,o]] is called as [[n,predicate_name],[[v,i],[v,o]]]
 
+ ["assertz",[i]],
+ ["getz",[o]], - get value of an asserted variable
+ ["retractall",[o]],
+ 
  ["word1",[i]],
 
  ["term_to_atom",[i,o]],

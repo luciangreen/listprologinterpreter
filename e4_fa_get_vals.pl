@@ -18,13 +18,22 @@ e4_fa_getvalues(Variable1,Variable2,Variable3,Value1,Value2,Value3,Vars) :-
         e4_fa_getvalue(Variable2,Value2,Vars),
         e4_fa_getvalue(Variable3,Value3,Vars).
         
+
+%e4_fa_getvalue(Variable,_,_Vars) :-
+%	var(Variable),!.
+
 e4_fa_getvalue(Variable,Value,Vars) :-
         ((not(isvar(Variable)),isvalstrorundef(Value),Variable=Value)->true;
         (isvar(Variable),isvalstrorundef(Value),e4_fa_getvar(Variable,Value,Vars))).
 %putvalue(empty,A,Vars,Vars) :- %writeln1(A),
 % not(isvar(A)),!.
+%putvalue(Variable,Value,Vars1,Vars1) :-
+%trace,
+%	isvar(Variable),isvar(Value),!.
 putvalue(Variable,Value,Vars1,Vars2) :-
-        ((not(isvar(Variable)),isvalstrorundef_or_compound(Value),Variable=Value,Vars1=Vars2)->true;
+%writeln1(putvalue(Variable,Value,Vars1,Vars2)),
+%trace, 
+       ((not(isvar(Variable)),isvalstrorundef_or_compound(Value),Variable=Value,Vars1=Vars2)->true;
         (isvar(Variable),isvalstrorundef_or_compound(Value),updatevar(Variable,Value,Vars1,Vars2))),!. 
 isvalstrorundef_or_compound(Value):-
 	(compound(Value)->true;
@@ -193,10 +202,12 @@ replace_vars0(Term,First_vars1,First_vars2) :-
 replace_vars0(Term,First_vars1,First_vars2) :-
 	get_lang_word("v",Dbw_v1),Dbw_v1=Dbw_v,
 	variable_name(Term),
+	%(Term=[_,'_']->First_vars1=First_vars2;
+	%(
 	(member([Term,[Dbw_v,_Var_name1]],First_vars1)->
 	(First_vars1=First_vars2);
 	(find_sys(Var_name2),
-	append(First_vars1,[[Term,[Dbw_v,Var_name2]]],First_vars2))),
+	append(First_vars1,[[Term,[Dbw_v,Var_name2]]],First_vars2))),%)),
 	!.
 	
 replace_first_vars1([],_First_vars,Vars,Vars) :- !.

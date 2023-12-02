@@ -121,7 +121,15 @@
 
 ["shell_pl","shell prolog","en2","shell prolog"],
 
-["shell_c","shell c","en2","shell c"]
+["shell_c","shell c","en2","shell c"],
+
+["assertz","assert z","en2","assert z"],
+
+["retractall","retract all","en2","retract all"],
+
+["getz","get z","en2","get z"]
+
+
 
 
 ]
