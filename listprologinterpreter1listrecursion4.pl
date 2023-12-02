@@ -1517,15 +1517,16 @@ debug_exit(Skip,[[Dbw_n,Dbw_assertz],[[[Dbw_n, Var], [In]]]]),
 
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_getz],[[[Dbw_n, Var], [Variable1]]]],Vars1,Vars2,true,nocut) :-
 %
-%trace,
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("getz",Dbw_getz1),Dbw_getz1=Dbw_getz,
+%trace,
 
 %assertz(Var(In))
 functor(A,Var,1),
-A,
-arg(1,A,Variable2),
+findall(Variable21,(A,
+arg(1,A,Variable21)),Variable2),
 
+		%Variable2=Value2,
         getvalue(Variable2,Value2,Vars1),
         %%getvalue(Value1,Value1A,Vars1),
 	%%isvalstr(Value1),
