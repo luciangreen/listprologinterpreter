@@ -89,6 +89,8 @@ append(S1,[Value1],S3));
 	%(S1=[]->S2=S5;
 	foldr(append,[S1,S5],S2),!.
 	
+match_get_val([_,'_'],undef,_Vars)	 :- !.
+ 
 match_get_val(Variable,Value,Vars)	 :-
  (member([Variable,Value],Vars)->true;
  Variable=Value),!.
@@ -146,7 +148,11 @@ match_put_vals([Variables1],Statement2b,Vars1,Vars2%,Standard_or_e4
 % 
 % 
 (%Vars1=Vars3,
-((((single_item_or_var(Statement1a)%,Vars1=Vars2
+(
+((Statement1a=undef->true;Statement1b=undef)->
+Vars1=Vars3;
+
+(((single_item_or_var(Statement1a)%,Vars1=Vars2
 )->true;
 (single_item_or_var(Statement1b)%,Vars1=Vars2
 ))->
@@ -162,7 +168,8 @@ match_put_vals([Variables1],Statement2b,Vars1,Vars2%,Standard_or_e4
 
 	
 	match_put_vals(Statement1a,Statement1b,Vars1,Vars3%,Standard_or_e4
-	)))),
+	))))
+	),
 	%Vars3=Vars4,
 	match_put_vals(Statement2a,Statement2b,Vars3,Vars2%,Standard_or_e4
 	))
