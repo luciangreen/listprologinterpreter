@@ -44,6 +44,13 @@
  * e.g. assertz(a(1)),assertz(a(2)),getz(a(A)).
  * A=[1,2].
 
+ ["number_string",[i,i]],
+ ["number_string",[i,o]],
+ ["number_string",[o,i]],
+
+ ["get_single_char",[i]],
+ ["get_single_char",[o]],
+
  ["word1",[i]],
 
  ["term_to_atom",[i,o]],

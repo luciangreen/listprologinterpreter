@@ -1914,7 +1914,12 @@ member([Command,Args],
  ["sub_string",[i,o,o,i,i]],
  ["sub_string",[i,o,o,i,o]],
  ["sub_string",[i,o,o,o,i]],
- ["sub_string",[i,o,o,o,o]]
+ ["sub_string",[i,o,o,o,i]],
+ ["number_string",[i,i]],
+ ["number_string",[i,o]],
+ ["number_string",[o,i]],
+ ["get_single_char",[i]],
+ ["get_single_char",[o]]
  /*,
  ["atom_string",[i,i]],
  ["atom_string",[i,o]],

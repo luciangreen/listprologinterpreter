@@ -127,9 +127,10 @@
 
 ["retractall","retract all","en2","retract all"],
 
+["number_string","number string","en2","number string"],
+
+["get_single_char","get single character","en2","get single character"],
+
 ["getz","get z","en2","get z"]
-
-
-
 
 ]
