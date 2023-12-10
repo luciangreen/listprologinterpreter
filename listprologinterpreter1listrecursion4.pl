@@ -1136,13 +1136,13 @@ get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 %%writeln1(4),
         %trace,
 %trace,
-        interpretpart(isop,Operator,Variable1,Variable2,Variable3,Vars1,Vars2).
+        interpretpart(isop,Operator,Variable1,Variable2,Variable3,Vars1,Vars2),!.
 
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Operator],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 	comparisonoperator(Operator),
 %%writeln1(4),
-        interpretpart(iscomparison,Operator,Variable1,Variable2,Vars1,Vars2).
+        interpretpart(iscomparison,Operator,Variable1,Variable2,Vars1,Vars2),!.
 
 %%interpretstatement1(ssi,_F0,_Functions,[Variable2+Variable3,is,Variable1],Vars1,Vars2,true,nocut) :-
 %%writeln1(41),
