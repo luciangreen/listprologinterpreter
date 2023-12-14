@@ -33,3 +33,5 @@
 :- include('preds_converters_and_matrices.pl').
 %:- include('numbers_of_items_correspond.pl').
 :- include('match_get_put_vals.pl').
+%:- include('insert_cuts.pl').
+%:- include('../Philosophy/sub_term_with_address.pl').

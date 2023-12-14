@@ -77,6 +77,8 @@ interpret11(Debug,Query,Functions,Result) :-
 %%writeln1([i1]),
 	%%writeln1(convert_to_grammar_part1(Functions1,[],Functions2,_)),
 	convert_to_grammar_part1(Functions1,[],Functions2,_),
+	
+	%insert_cuts(Functions2a,Functions2),
 	%retractall(assertz_functions(_)),
  	%assertz(assertz_functions(Functions2)),
 	%trace,
