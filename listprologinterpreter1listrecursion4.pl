@@ -1059,6 +1059,11 @@ interpretstatement1(ssi,Functions0,Functions,[[n,or],[Statement1,Statement2]],Va
 		Statement2,Result2)).
 **/
 
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_comment],[Variable]],Vars,Vars,true,nocut) :-
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("comment",Dbw_comment1),Dbw_comment1=Dbw_comment,!.
+
+
 interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_atom],[Variable]],Vars,Vars,true,nocut) :-
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("atom",Dbw_atom1),Dbw_atom1=Dbw_atom,

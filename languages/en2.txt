@@ -131,6 +131,8 @@
 
 ["get_single_char","get single character","en2","get single character"],
 
-["getz","get z","en2","get z"]
+["getz","get z","en2","get z"],
+
+["comment","comment","en2","comment"]
 
 ]
