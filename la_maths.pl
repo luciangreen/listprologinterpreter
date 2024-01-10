@@ -20,7 +20,7 @@ numbers1(N2,N1,Numbers1,Numbers2) :-
 %% get_item_n([a,b,c],3,Item).
 %% Item = c
 
-get_item_n([],_,[]) :-!.
+get_item_n([],_,[]) :-!.%,fail.
 get_item_n(Exposition,Number1,Item) :-
 	Number2 is Number1-1,
 	length(List,Number2),
