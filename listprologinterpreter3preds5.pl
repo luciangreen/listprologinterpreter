@@ -174,7 +174,7 @@ foldr(atom_concat,Z,'',W),(member(W,Matrix)->true;(writeln([incorrect,member2,mo
 	%findall([Vars2b,[Value1a,Value3a],Value1a,Value3a],(
 	findnsols(N,%[Value1A2,
 	Value2A2%]
-	,(member(Value1A,Value2A),
+	,(member(_Value1A,Value2A),
         %replace_in_term(Value1A,_%'$VAR'(_)
         %,empty,Value1A1),
 
@@ -1044,7 +1044,7 @@ findall([" ",I1],member(I1,I),I2),flatten(I2,I3),foldr(string_concat,I3,I4),
 foldr(string_concat,["chmod +x ",GP],S31),%,
 %trace,
 catch(bash_command(S31,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
-	],_Text4),%writeln1(Text4),
+	],_Text41),%writeln1(Text4),
 	fail%abort
  	)),
  foldr(string_concat,["swipl -f -q ./",GP,%" ",
@@ -1088,7 +1088,7 @@ write(S1C,P),close(S1C),
 foldr(string_concat,["cp program.txt program.c"],S32),%,
 %trace,
 catch(bash_command(S32,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
-	],_Text4),%writeln1(Text4),
+	],_Text42),%writeln1(Text4),
 	fail%abort
  	)),
 
@@ -1105,13 +1105,13 @@ debug_call(Skip,[[Dbw_n,Dbw_shell_c],[I,P,variable]]),
 foldr(string_concat,["gcc program.c"],S31),%,
 %trace,
 catch(bash_command(S31,_), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
-	],_Text4),%writeln1(Text4),
+	],_Text43),%writeln1(Text4),
 	fail%abort
  	)),
  foldr(string_concat,["./a.out<input.txt"],S3),%,
 %trace,
 ((catch(bash_command(S3,VO), _, (foldr(string_concat,["Warning."%%"Error: Can't clone ",User3,"/",Repository3," repository on GitHub."
-	],_Text4),%writeln1(Text4),
+	],_Text44),%writeln1(Text4),
 	fail%abort
  	)),	term_to_atom(OVar1,VO))->
  	(        val1emptyorvalsequal(OVar,OVar1),

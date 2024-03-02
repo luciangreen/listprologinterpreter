@@ -54,8 +54,8 @@ convert_to_grammar_part1(Grammar1,Grammar2,Grammar3,Grammar5) :-
 	%%duplicate(Grammar4,[],Grammar5), %% 6->4
 	!.
 
-convert_to_grammar_part11([],Grammar1,Grammar1,_EndGrammar1,_EndGrammar1,_Grammar2,_Grammar2,_EndGrammar2,_EndGrammar2) :- !.
-convert_to_grammar_part11(Grammar1,Grammar2,Grammar3,_EndGrammar1,_EndGrammar2,Grammara2,Grammara3,_EndGrammara1,_EndGrammara2) :-
+convert_to_grammar_part11([],Grammar1,Grammar1,EndGrammar1,EndGrammar1,Grammar2,Grammar2,EndGrammar2,EndGrammar2) :- !.
+convert_to_grammar_part11(Grammar1,Grammar2,Grammar3,_EndGrammar1,EndGrammar2,Grammara2,Grammara3,_EndGrammara1,EndGrammara2) :-
 get_lang_word("v",Dbw_v),
 get_lang_word("n",Dbw_n),
 get_lang_word("vgp1",Dbw_vgp1),
@@ -95,8 +95,8 @@ Grammar9=[[n,Name],[[],[v,vgp]|Variables1]],Grammar10=[[n,Name],["",[v,vgp]|Vari
 	**/
 	append(Grammar2,[Grammar7],Grammar8),
 	append(Grammara2,[[Grammar4,[Grammar7]]],Grammara4),
-convert_to_grammar_part11(Grammar5,Grammar8,Grammar3,_EndGrammar3,_EndGrammar2,Grammara4,Grammara3,_EndGrammara4,_EndGrammara2),!.
-convert_to_grammar_part11(Grammar1,Grammar2,Grammar3,_EndGrammar1,_EndGrammar2,Grammara1,Grammara2,_EndGrammara1,_EndGrammara2) :-
+convert_to_grammar_part11(Grammar5,Grammar8,Grammar3,_EndGrammar3,EndGrammar2,Grammara4,Grammara3,_EndGrammara4,EndGrammara2),!.
+convert_to_grammar_part11(Grammar1,Grammar2,Grammar3,EndGrammar1,EndGrammar2,Grammara1,Grammara2,EndGrammara1,EndGrammara2) :-
 	Grammar1=[Grammar4|Grammar5],
    (((((Grammar4=[_Name1,_Variables1,":-",_Body1]->true;
 	Grammar4=[_Name2,":-",_Body2])->true;
@@ -106,7 +106,7 @@ convert_to_grammar_part11(Grammar1,Grammar2,Grammar3,_EndGrammar1,_EndGrammar2,G
 	(writeln0(["Error: Grammar",Grammar4,"badly formed."]),abort)),
 	append(Grammar2,[Grammar4],Grammar6),
 	append(Grammara1,[[Grammar4,Grammar4]],Grammara4),
-	convert_to_grammar_part11(Grammar5,Grammar6,Grammar3,_EndGrammar1,_EndGrammar2,Grammara4,Grammara2,_EndGrammara1,_EndGrammara2),!.
+	convert_to_grammar_part11(Grammar5,Grammar6,Grammar3,EndGrammar1,EndGrammar2,Grammara4,Grammara2,EndGrammara1,EndGrammara2),!.
 	
 duplicate([],Grammar,Grammar) :- !.
 duplicate(Grammar1,Grammar2,Grammar3) :-

@@ -2110,7 +2110,7 @@ interpretpart(grammar_part,Vars9,[],Result1),
 	!.
 **/
 
-interpretstatement1(non-ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
+interpretstatement1(non-ssi,Functions0,Functions,Query1,Vars1,Vars8,true,nocut) :-
         
         %trace,
         %(Query1=[[n, flatten2], [[v, e], [v, f], [v, c]]]->trace;true),%writeln1(interpretstatement1(ssi,Functions0,_Functions,Query1,Vars1,Vars8,true,nocut)),
@@ -2146,7 +2146,7 @@ Query1=[Function,Arguments],%,Function=[Dbw_n1,Function_a],atom_string(Function_
         %reserved_word(Function3),
         append([Function3],[Arguments],Arguments1),
         
-interpretstatement1(_,Functions0,_Functions,Arguments1,Vars1,Vars8,true,nocut).
+interpretstatement1(_,Functions0,Functions,Arguments1,Vars1,Vars8,true,nocut).
 
         
 interpretstatement1(non-ssi,_Functions0,_Functions,Query1,Vars1,Vars8,true,nocut) :-
