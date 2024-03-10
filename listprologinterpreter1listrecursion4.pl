@@ -27,6 +27,16 @@
 
 command_n_sols(10).
 
+main3:-
+time((
+test_all00("en",off,NTotal1,Score1),
+test_all00("en2",off,NTotal2,Score2),
+test_all_bt00("en2",off,NTotal3,Score3),
+writeln(test_all00("en",off,NTotal1,Score1)),
+writeln(test_all00("en2",off,NTotal2,Score2)),
+writeln(test_all_bt00("en2",off,NTotal3,Score3))
+)).
+
 /** List Prolog Interpreter **/
 
 interpret(Debug,Query,Functions1,Result) :-
