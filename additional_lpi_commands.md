@@ -39,7 +39,7 @@
 
  ["assertz",[i]],
  ["getz",[o]], - get value of an asserted variable
- ["retractall",[o]],
+ ["retractall",[o]], - e.g. retractall(a).
  
  * e.g. assertz(a(1)),assertz(a(2)),getz(a(A)).
  * A=[1,2].
