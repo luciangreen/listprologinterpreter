@@ -150,6 +150,13 @@ get_lang_word("t",T),
 Data=[T,A],	%string(Data),
 append(Types1,[[T,A]],Types2),!.
 
+	expand_types1(Data,Types1,Types2) :-
+%get_lang_word("t",T),
+%get_lang_word("string",Dbw_string),
+
+Data="|",	%string(Data),
+append(Types1,["|"],Types2),!.
+
 
 expand_types1(Data1,Types1,Types2) :-
 	Data1=[Data2|Data3],

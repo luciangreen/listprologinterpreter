@@ -730,6 +730,12 @@ simplify_types([[[T,Dbw_brackets]|[TypeStatements3]]],[],TypeStatements31),debug
 
 **/
 checktypes1(Vars1,TypeStatements0,TypeStatements1,TypeStatements4) :-
+	Vars1=Vars3,
+	TypeStatements0=["|",TypeStatements3],
+	%checktypes2(Vars2,TypeStatements2,TypeStatements1,TypeStatements4),
+	%%not(variable_name(Vars2)),
+	checktypes1([Vars3],[TypeStatements3],TypeStatements1,TypeStatements4).
+checktypes1(Vars1,TypeStatements0,TypeStatements1,TypeStatements4) :-
 	Vars1=[Vars2|Vars3],
 	TypeStatements0=[TypeStatements2|TypeStatements3],
 	checktypes2(Vars2,TypeStatements2,TypeStatements1,TypeStatements4),
