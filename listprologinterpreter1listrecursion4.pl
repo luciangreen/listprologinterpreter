@@ -671,9 +671,13 @@ checktypes0(Function,Vars1,TypeStatements1) :-
 
 (types(on)->(debug_types_fail([Function,/,L,Type_check]));true))),!.
 
-checktypes1([],[],_,_) :- !.
+checktypes1(Vars1,TypeStatements0,TypeStatements1,TypeStatements4) :-
+ findall(-,member("|",Vars1),A),length(A,L),not(L>=2),
+checktypes10(Vars1,TypeStatements0,TypeStatements1,TypeStatements4).
 
-	checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
+checktypes10([],[],_,_) :- !.
+
+	checktypes10(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
 get_lang_word("t",T),
 %trace,
 get_lang_word("list",Dbw_list),
@@ -687,13 +691,13 @@ debug_call(Skip,TypeStatements31));true),
 
 	((checktypes3(Vars2,TypeStatements3,TypeStatements2,TypeStatements4))->
 		((types(on)->(debug_exit(Skip,{Vars2}));true),
-		checktypes1(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4))
+		checktypes10(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4))
 ;     (types(on)->(debug_fail(Skip,{Vars2}));true)
 )
 %%not(variable_name(Vars2)),
 	. %% ** in brac as well
 
-checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
+checktypes10(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
 	get_lang_word("t",T),get_lang_word("list",Dbw_list),
 %%writeln(checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4)),
 	%%Vars1=[Vars2|Vars3],
@@ -708,15 +712,15 @@ simplify_types([[[T,Dbw_list]|[TypeStatements3]]],[],TypeStatements31),debug_cal
 	%%checktypes1(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4). %% ** in brac as well
 	
 
-checktypes1(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
+checktypes10(Vars1,TypeStatements1,TypeStatements2,TypeStatements4) :-
 	get_lang_word("t",T),get_lang_word("brackets",Dbw_brackets),
 	TypeStatements1=[[[T,Dbw_brackets]|[TypeStatements3]]|TypeStatements4a],
 (types(on)->(%trace,%TypeStatements3=[TypeStatements32],
 simplify_types([[[T,Dbw_brackets]|[TypeStatements3]]],[],TypeStatements31),debug_call(Skip,TypeStatements31));true),
 	(([Vars2|Vars3]=Vars1,
-	checktypes1(Vars2,TypeStatements3,TypeStatements2,TypeStatements4))->
+	checktypes10(Vars2,TypeStatements3,TypeStatements2,TypeStatements4))->
 		((types(on)->debug_exit(Skip,Vars1);true),
-		checktypes1(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4))
+		checktypes10(Vars3,TypeStatements4a,TypeStatements2,TypeStatements4))
 ;     (types(on)->debug_fail(Skip,Vars1);true))
 %%not(variable_name(Vars2)),
 	,!. %% ** in brac as well
@@ -729,18 +733,19 @@ simplify_types([[[T,Dbw_brackets]|[TypeStatements3]]],[],TypeStatements31),debug
 	%%checktypes1(Vars3,TypeStatements3,TypeStatements1,TypeStatements4).
 
 **/
-checktypes1(Vars1,TypeStatements0,TypeStatements1,TypeStatements4) :-
+
+checktypes10(Vars1,TypeStatements0,TypeStatements1,TypeStatements4) :-
 	Vars1=Vars3,
 	TypeStatements0=["|",TypeStatements3],
 	%checktypes2(Vars2,TypeStatements2,TypeStatements1,TypeStatements4),
 	%%not(variable_name(Vars2)),
-	checktypes1([Vars3],[TypeStatements3],TypeStatements1,TypeStatements4).
-checktypes1(Vars1,TypeStatements0,TypeStatements1,TypeStatements4) :-
+	checktypes10([Vars3],[TypeStatements3],TypeStatements1,TypeStatements4).
+checktypes10(Vars1,TypeStatements0,TypeStatements1,TypeStatements4) :-
 	Vars1=[Vars2|Vars3],
 	TypeStatements0=[TypeStatements2|TypeStatements3],
 	checktypes2(Vars2,TypeStatements2,TypeStatements1,TypeStatements4),
 	%%not(variable_name(Vars2)),
-	checktypes1(Vars3,TypeStatements3,TypeStatements1,TypeStatements4).
+	checktypes10(Vars3,TypeStatements3,TypeStatements1,TypeStatements4).
 	
 checktypes2(Vars,TypeStatements1,_TypeStatements2,_C) :-
 	get_lang_word("t",T),get_lang_word("number",Dbw_number),
@@ -802,8 +807,8 @@ TypeStatements1=[T,Type],(not(Type=Dbw_list),not(Type=Dbw_brackets),not(Type=Dbw
 	((
 	%%not(variable_name(Vars)),
 	member([[T,Type]|[TypeStatements3]],TypeStatements4),
-	(checktypes1(Vars,TypeStatements3,TypeStatements2,TypeStatements4)->true;
-		checktypes1([Vars],TypeStatements3,TypeStatements2,TypeStatements4)))->
+	(checktypes10(Vars,TypeStatements3,TypeStatements2,TypeStatements4)->true;
+		checktypes10([Vars],TypeStatements3,TypeStatements2,TypeStatements4)))->
 		(types(on)->debug_exit(Skip,[[T,Type],Vars]);true)
 ;     (types(on)->debug_fail(Skip,[[T,Type],Vars]);true)).
 
@@ -816,18 +821,49 @@ checktypes2(Vars,TypeStatements1,TypeStatements2,TypeStatements4) :-
 checktypes3([],_,_TypeStatements2,_) :- !.
 checktypes3(Vars,TypeStatements3,TypeStatements2,TypeStatements6) :-
 %%writeln(checktypes3(Vars,TypeStatements3,TypeStatements2,TypeStatements6)),
+%delete(TypeStatements3,"|",TypeStatements31),
+%trace,
+	%findall(L0,length1(TypeStatements3,TypeStatements6,[],_,0,L0),L01),
+	%sort(L01,L02),
+	%member(L,L02),
 	length(TypeStatements3,L),
 	length(L1,L),
 	append(L1,L2,Vars),
 	%%[L10]=L1,
 	%%TypeStatements3=[TypeStatements4|TypeStatements5],
 	%%findall(L10,(member(L10,L1),checktypes2(L10,TypeStatements4,TypeStatements2,TypeStatements6)),B),
-	checktypes1(L1,TypeStatements3,TypeStatements2,TypeStatements6),
-	checktypes3(L2,TypeStatements3,TypeStatements2,TypeStatements6),!.
+	checktypes10(L1,TypeStatements3,TypeStatements2,TypeStatements6),
+	checktypes3(L2,TypeStatements3,TypeStatements2,TypeStatements6).
 
+/*
+length1([],_,T,T,L,L).
 
+length1(TypeStatements3,TypeStatements2,T1,T2,L1,L2) :-
+	TypeStatements3=["|",B],
+	length1(B,TypeStatements2,T1,T2,L1,L2).
 
+length1(TypeStatements3,TypeStatements2,T1,T2,L1,L2) :-
+	TypeStatements3=[TypeStatements1|B],
+	L3 is L1+1,
+	(undefined_type([T,Type])->
+	(not(member([T,Type],T1)),append(T1,[[T,Type]],T3),	
+	member([TypeStatements1|[TypeStatements4]],TypeStatements2),
+length1(TypeStatements4,TypeStatements2,T3,T2,L3,L2));
+length1(B,TypeStatements2,T1,T2,L3,L2)).
 
+undefined_type([T,Type]) :-
+	get_lang_word("t",T),
+	get_lang_word("list",Dbw_list),
+	get_lang_word("brackets",Dbw_brackets),
+	get_lang_word("number",Dbw_number),
+	get_lang_word("predicatename",Dbw_predicatename),
+	get_lang_word("string",Dbw_string),
+	get_lang_word("any",Dbw_any),
+
+TypeStatements1=[T,Type],
+not(Type=Dbw_list),not(Type=Dbw_brackets),not(Type=Dbw_number),not(Type=Dbw_predicatename),not(Type=Dbw_string),not(Type=Dbw_any).
+
+*/
 
 
 interpretbody(_Functions1,_Functions2,Vars,Vars,[],true) :- true.%%!.

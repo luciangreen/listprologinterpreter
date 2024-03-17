@@ -1355,19 +1355,56 @@ test_types_cases(70,
 
 test_types_cases(71,
 [[n,numbers],[[1,2,3]]],
-%[[n,characters],[[["a"],"a"]]],
-        [
+[
 [[n,numbers],[[t,number1]]],
 [[t,number1],[[]]],
 [[t,number1],[[[t,number],"|",[t,number1]]]]
-
 ],
-        %[[[n,characters],[[[t,brackets],[[[t,brackets],[[t,string]]],[t,string]]]]]],
-
-        [[[n,numbers],[input]]],
-
+[[[n,numbers],[input]]],
 [
         [[n,numbers],[[v,_]]]
+ 
+]
+,[[]]).
+
+test_types_cases(72,
+[[n,string_numbers],[["a",2,3]]],
+[
+[[n,string_numbers],[[t,string_numbers1]]],
+[[t,string_numbers1],[[[t,string],"|",{[t,number]}]]]
+],
+[[[n,string_numbers],[input]]],
+[
+        [[n,string_numbers],[[v,_]]]
+ 
+]
+,[[]]).
+
+test_types_cases(73,
+[[n,atom_any],[["a",2,"b",1]]],
+[
+[[n,atom_any],[[t,atom_any1]]],
+[[t,atom_any1],[{[t,string],[t,any]}]]
+],
+[[[n,atom_any],[input]]],
+[
+        [[n,atom_any],[[v,_]]]
+ 
+]
+,[[]]).
+
+
+test_types_cases(74,
+[[n,atom_any],[["a",2,3,"b",1,1]]],
+[
+[[n,atom_any],[[t,atom_any1]]],
+[[t,atom_any1],[{[t,string],[t,number],[t,number]}]]
+%[[t,any1],[[t,number]]],
+%[[t,any1],[[t,number],[t,number]]]
+],
+[[[n,atom_any],[input]]],
+[
+        [[n,atom_any],[[v,_]]]
  
 ]
 ,[[]]).

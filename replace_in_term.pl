@@ -12,8 +12,9 @@ replace_in_term(Statement,A,B,Term2) :-
 	((match1(A,Statement1)->Statement1_a=B;
 	replace_in_term(Statement1,A,B,Statement1_a)),
 	replace_in_term(Statement2,A,B,Statement2_a))),
-	
-append([Statement1_a],Statement2_a,Term2)),!.
+	(isvar(Statement2_a)->Statement2_b=["|",Statement2_a];
+	Statement2_b=Statement2_a),
+append([Statement1_a],Statement2_b,Term2)),!.
 
 replace_in_term(A,B,_,A) :- not(match1(A,B)),!.
 
