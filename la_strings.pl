@@ -343,32 +343,70 @@ A,Value,Value,B,B_res_var,B_res_var1) :-
 	repeat_until_the_same1(B_new1,A_new2,%A2,
 	A1,Value,B_res_var,B,B_res_var,B_res_var1)),!.
 */
-% repeat_until_last_two_same((generate_result(Result),writeln(Result)),Result,Result1).
+
+% repeat_until_last_two_same(generate_result(Result),Result,Result1).
 		
 % to do: initial values, more result vars		
 
-repeat_until_last_two_same(Pred,Pred_res_var,Result) :-
-    repeat_until_last_two_same(Pred,Pred_res_var, _, Result),!.
+%repeat_until_last_two_same(Pred,Pred_res_var,Result) :-
+%   repeat_until_last_two_same(Pred,Pred_res_var, _,_, Result),!.
 
-repeat_until_last_two_same(Pred,A, B, Result) :-
-    % Generate some result
+/*
+repeat_until_last_two_same(Pred,Pred_res_var,A, B, Result) :-
+	functor(Pred,Name,Arity),
+	functor(Pred_new,Name,Arity),
+	copy_term(Pred_res_var,Pred_res_var_new),
+	%copy_term(Pred_new,Pred_new1),
+	%copy_term(Pred_new,Pred_new2),
+	% Generate some result
     (Pred,%generate_result(Result1),
-    (var(A)%var(B)
-    ->
-    (
-            repeat_until_last_two_same(Pred,Pred_res_var,B,  Result));
+    (%false%var(Pred_res_var)
+    %->%var(B)
+    
+    %(
+        %repeat_until_last_two_same(Pred_new1,Pred_res_var,B,Pred_res_var, Result);
+        
+% repeat_until_last_two_same(Result1).
+		
+% to do: initial values, more result vars		
 
-    (A = B->
+        */
+
+repeat_until_last_two_same(Result) :-
+   repeat_until_last_two_same(_,_, Result),!.
+        
+  	repeat_until_last_two_same(A, B, Result) :-
+    % Generate some result
+    generate_result(Result1),
     % Check if the last two results are the same
-     	B = Result;
+    (   ((var(B)->fail;true),
+    Result1 = B, B = Result)->true;
     % If not, continue repeating
-        repeat_until_last_two_same(Pred,B, Pred_res_var, Result)
-    ))).
+       repeat_until_last_two_same(B, Result1, Result)
+    ),!.    
+
+
+/*
+%	repeat_until_last_two_same(generate_result(Result1),Result1,R).
+    repeat_until_last_two_same( Pred, Result_var, Result) :-
+	    repeat_until_last_two_same1(Pred, Result_var,_, Result),!.
+    repeat_until_last_two_same1(Pred, Result_var, B, Result) :-
+    %copy_term(Result_var,Result_var0),
+    functor(Result_var,Name,Arity),
+	functor(Result_var0,Name,Arity),
+
+    % Generate some result
+    Pred,%generate_result(Result1),
+    % Check if the last two results are the same
+    (   ((var(B)->fail;true),
+    Result_var = B, B = Result)->true;
+    % If not, continue repeating
+       repeat_until_last_two_same1(Pred, Result_var0,Result_var, Result)
+    ),!.    
 
 % Predicate to generate a result (replace this with your actual computation)
-/*
+*/
 generate_result(Result) :-
     % For example, generating a random integer between 1 and 100
     random(1, 3, Result),
     writeln(Result).
-*/
