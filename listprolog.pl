@@ -1,3 +1,6 @@
+:-style_check(-discontiguous).
+:-style_check(-singleton).
+
 :- include('grammar.pl').
 %%:- include('lpi_caw_commands.pl').
 :- include('listprologinterpreter1listrecursion4.pl').

@@ -261,4 +261,114 @@ string_concat(A2,"%",A),		split_string(A,Find,Find,B),findall([C,Replace],(membe
 	string_concat("%",F3,F2),	
 	string_concat(F,"%",F3),!.
 
-%append1(A,B,C):-append([A],B,C).
+
+% find_first(B,(member(B,[true,false]),B),D).
+% D = [true] .
+find_first(A,B,C) :-
+ D = (B,!),findall(A,D,C1),
+ (C1=[C|_]->true;C=[]),!.
+
+% findall_until_fail(B,member(B,[true,true,false,true]),B,D).
+% D = [true,true] .
+
+findall_until_fail(A,B,B_condition,C) :-
+	D=(B,(B_condition->true;(!,fail))),
+	findall(A,D,C),!.
+	
+find_until(A,B,C) :-
+	append(C,B4,A),
+	append([B],_C4,B4),!.
+
+% repeat_until_the_same(A=1,A,B is A+1,B,C).
+% A=1,B = 2.
+
+/*
+repeat_until_the_same(A,Value,B_initial,B,B_result) :-
+	%copy_term(B,B1),
+	A=Value,
+	%A_initial_assignment,
+	repeat_until_the_same1(A,B_initial,B,B_result),!.
+repeat_until_the_same1(A,B_initial,B,B_result2) :-
+	%copy_term(A,A1),
+	copy_term(B_initial,B_initial1),
+	copy_term(B,B1),
+	copy_term(B,B2),
+	copy_term(B_result,B_result1),
+	A=B_initial,B1,(A=B_result->B_result=B_result2;(repeat_until_the_same1(A,B_initial1,B2,B_result2))),!.
+*/
+
+% repeat_until_the_same(A,1,(C=1,writeln(C)),C). 
+% A = C, C = D.
+
+% repeat_until_the_same(A,1,(random(X),C is floor(3*X),writeln(C)),C).
+% 0
+% 2
+% 1
+% A = E, E = C, C = 1,
+% X = 0.5791569817112253.
+
+/*
+repeat_until_the_same(A,Value,B,B_res_var) :-
+	repeat_until_the_same1(A,Value,B_res_var,B,B_res_var,B_res_var),!.
+
+repeat_until_the_same1(A1,Value,Value,B,B_res_var,B_res_var1) :-
+	copy_term(A,A1),
+	A=Value,
+	B,(B_res_var=B_res_var1->
+	true;
+	repeat_until_the_same1(A1,Value,B_res_var,B,B_res_var,B_res_var1)),!.
+
+
+
+% repeat_until_the_same(A,1,((A=1->A2=2;A2=1),writeln(A2)),A2).
+% repeat until the last two results are the same.
+
+repeat_until_the_same(A,Value,B,B_res_var) :-
+	copy_term(A,A_new),
+	copy_term(B,B_new),
+	A=Value,
+	B,
+	repeat_until_the_same1(B_new,A_new,%A,
+	A,Value,B_res_var,B,B_res_var,B_res_var),!.
+
+repeat_until_the_same1(B_new,A_new,%A,
+A,Value,Value,B,B_res_var,B_res_var1) :-
+	copy_term(A,A1),
+	copy_term(A_new,A_new1),
+	copy_term(A_new,A_new2),
+	copy_term(B_new,B_new1),
+	A_new=Value,
+	B_new,(B_res_var=B_res_var1->
+	true;
+	repeat_until_the_same1(B_new1,A_new2,%A2,
+	A1,Value,B_res_var,B,B_res_var,B_res_var1)),!.
+*/
+% repeat_until_last_two_same((generate_result(Result),writeln(Result)),Result,Result1).
+		
+% to do: initial values, more result vars		
+
+repeat_until_last_two_same(Pred,Pred_res_var,Result) :-
+    repeat_until_last_two_same(Pred,Pred_res_var, _, Result),!.
+
+repeat_until_last_two_same(Pred,A, B, Result) :-
+    % Generate some result
+    (Pred,%generate_result(Result1),
+    (var(A)%var(B)
+    ->
+    (
+            repeat_until_last_two_same(Pred,Pred_res_var,B,  Result));
+
+    (A = B->
+    % Check if the last two results are the same
+     	B = Result;
+    % If not, continue repeating
+        repeat_until_last_two_same(Pred,B, Pred_res_var, Result)
+    ))).
+
+% Predicate to generate a result (replace this with your actual computation)
+/*
+generate_result(Result) :-
+    % For example, generating a random integer between 1 and 100
+    random(1, 3, Result),
+    writeln(Result).
+*/
