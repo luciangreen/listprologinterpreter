@@ -172,6 +172,9 @@ split_string17(String1,List) :-
 
 % split_string1(Docs,["`"],Input1) - splits and deletes on chars
 
+split_string(A,B,C) :-
+	split_string(A,B,B,C),!.
+	
 split_string1(String1,Chars,List) :-
 	%string_codes(String2,String1),
 	test(116,_,Code,_),
@@ -213,6 +216,21 @@ join_chars_after(List1,Chars,List5,List2) :-
 	append([Char2],List3,List4),
 	append(List5,[Char1],List6),
 	join_chars_after(List4,Chars,List6,List2),!.
+
+% split_on_substring117a("AAABAAD","BD",[],A).
+% A = ["AAA", "B", "AA", "D"].
+
+split_on_substring117a(A,B,_,D) :-
+    string_codes(A,A1),
+    string_codes(B,B1),
+	split_on_substring117(A1,B1,[],D),!.
+
+% split_on_substring117a("AAABAAD","BD",A).
+% A = ["AAA", "B", "AA", "D"].
+
+split_on_substring117a(A,B,C) :-
+	split_on_substring117a(A,B,_,C),!.
+
 
 % split_on_substring117(`AAABAAD`,`BD`,[],A). or
 % ?- split_on_substring117([65,65,65,66,65,65,68],[66,68],[],A).
@@ -264,9 +282,14 @@ string_concat(A2,"%",A),		split_string(A,Find,Find,B),findall([C,Replace],(membe
 
 % find_first(B,(member(B,[true,false]),B),D).
 % D = [true] .
-find_first(A,B,C) :-
- D = (B,!),findall(A,D,C1),
+find_first(A) :-
+ A,!.
+
+/*
+find_first(A,B,B_condition,C) :-
+ D = (B,(B_condition->!;fail)),findall(A,D,C1),
  (C1=[C|_]->true;C=[]),!.
+*/
 
 % findall_until_fail(B,member(B,[true,true,false,true]),B,D).
 % D = [true,true] .
@@ -370,19 +393,21 @@ repeat_until_last_two_same(Pred,Pred_res_var,A, B, Result) :-
 		
 % to do: initial values, more result vars		
 
+* put into shell command to work with other Prolog predicate arguments
+
         */
 
 repeat_until_last_two_same(Result) :-
-   repeat_until_last_two_same(_,_, Result),!.
+   repeat_until_last_two_same(_, Result),!.
         
-  	repeat_until_last_two_same(A, B, Result) :-
+  	repeat_until_last_two_same(B, Result) :-
     % Generate some result
     generate_result(Result1),
     % Check if the last two results are the same
     (   ((var(B)->fail;true),
     Result1 = B, B = Result)->true;
     % If not, continue repeating
-       repeat_until_last_two_same(B, Result1, Result)
+       repeat_until_last_two_same(Result1, Result)
     ),!.    
 
 
@@ -410,3 +435,72 @@ generate_result(Result) :-
     % For example, generating a random integer between 1 and 100
     random(1, 3, Result),
     writeln(Result).
+
+not(A) :- \+(A),!.
+
+% Doesn't delete \n in "\n"
+split_on_substring1(A,B,D) :-
+	string_codes(A,A1),
+	string_codes(B,B1),
+	split_on_substring117(A1,B1,[],D),!.
+
+% Deletes \n in "\n"
+split_on_substring(A,B,_,D) :-
+	split_on_substring(A,B,D),!.
+		
+split_on_substring(A,B,D) :-
+	string_codes(A,A1),
+	string_codes(B,B1),
+	split_on_substring117(A1,B1,[],D1),
+	(D1=[]->D2=[""];D1=D2),
+	%D2=D,%delete_double_newlines(D2,[],D),
+	append(_D6,B4,D2),
+	append([B5],_C4,B4),
+	not(B5="\n"),
+	delete_newlines_after_text(B4,[],D),!.
+	
+split_string1(A,B,_,C) :-
+	string_strings(B,B2),
+	split_on_substring(A,B,C1),
+	findall(D,(member(D1,C1),(member(D1,B2)->D="";D=D1)),C),!.
+	
+delete_newlines_after_text([],A,A) :- !.
+delete_newlines_after_text([A],B,C) :- 
+	append(B,[A],C),!.
+delete_newlines_after_text(D2,D1,D) :-
+	D2=[T,"\n"|D4],
+	append(D5,B4,D4),
+	append([B],_C4,B4),
+	not(B="\n"),
+	length(D5,L),
+	numbers(L,1,[],Ns),
+	findall("",member(_,Ns),D51),
+	foldr(append,[D1,[T],D51],D6),
+	delete_newlines_after_text(B4,D6,D),!.
+delete_newlines_after_text(D2,D1,D) :-
+	D2=[T|D4],
+	%append(D5,B4,D4),
+	%append([B],_C4,B4),
+	%not(B="\n"),
+	foldr(append,[D1,[T]],D6),
+	delete_newlines_after_text(D4,D6,D),!.
+
+/*
+delete_double_newlines([],D,D) :- !.
+delete_double_newlines(D2,D5,D) :-
+	trace,
+	D2=["\n","\n"|D4],
+	append(D5,["\n"],D6),
+	delete_double_newlines(D4,D6,D),!.
+delete_double_newlines(D2,D5,D) :-
+	trace,
+	D2=["\n"|D4],
+	append(D5,[],D6),
+	delete_double_newlines(D4,D6,D),!.
+delete_double_newlines(D2,D5,D) :-
+	D2=[D3|D4],
+	append(D5,[D3],D6),
+	delete_double_newlines(D4,D6,D),!.
+*/
+
+retract_all(A) :- retractall(A).
