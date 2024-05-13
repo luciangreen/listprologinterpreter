@@ -67,7 +67,38 @@ write1(Term) :-
 	format(Atom,[])%,format('\n',[])
 	);
 	write(Atom)),!.
+
+
+
+
+n_to_br(Term,Term1) :-
+	sub_term_types_wa([string,atom],Term,Instances),
+	findall([Add,X],(member([Add,X1],Instances),
+	atomic_list_concat(A,'\n',X1),
+	atomic_list_concat(A,'<br>',X2),	
+	(atom(X1)
+	->X2=X;(atom_string(X2,X4)),X4=X%,term_to_atom(X4,X)
+	)),X3),
+	foldr(put_sub_term_wa_ae,X3,Term,Term1),!.
+
+writeln_br(Term) :-	
+	(html_api_maker_or_terminal(html)->
+	(n_to_br(Term,Term1),
+	%term_to_atom(Term1,Atom),
+	write(Term1),write('<br>\n'));
+	(%term_to_atom(Term,Atom),
+	writeln(Term))),!.
+
+write_br(Term) :-	
+	(html_api_maker_or_terminal(html)->
+	(n_to_br(Term,Term1),
+	%term_to_atom(Term1,Atom),
+	write(Term1));
+	(%term_to_atom(Term,Atom),
+	write(Term))),!.
 	
+	
+		
 shell1_s(Command) :-
  	atom_string(Command1,Command),
 	shell1(Command1),!.
@@ -101,6 +132,11 @@ foldr(string_concat,A,B) :-
 foldr(atom_concat,A,B) :-
 	foldr(atom_concat,A,'',B),!.
 
+concat_list_terms(A,B) :-
+	findall(X,(member(X1,A),((string(X1)->true;(atom(X1)->true;number(X1)))->X=X1;term_to_atom(X1,X)%,term_to_atom(X2,X)
+	)),A1),
+	concat_list(A1,B),!.
+	
 concat_list([],""):-!.
 concat_list(A1,B):-
 	%A1=[A|List],
@@ -175,7 +211,7 @@ split_string17(String1,List) :-
 split_string(A,B,C) :-
 	split_string(A,B,B,C),!.
 	
-split_string1(String1,Chars,List) :-
+split_string1a(String1,Chars,List) :-
 	%string_codes(String2,String1),
 	test(116,_,Code,_),
 	%trace,
@@ -436,7 +472,7 @@ generate_result(Result) :-
     random(1, 3, Result),
     writeln(Result).
 
-not(A) :- \+(A),!.
+%not(A) :- \+(A),!.
 
 % Doesn't delete \n in "\n"
 split_on_substring1(A,B,D) :-
@@ -459,7 +495,19 @@ split_on_substring(A,B,D) :-
 	not(B5="\n"),
 	delete_newlines_after_text(B4,[],D),!.
 	
+split_string1(A,B,C) :-
+	split_string1(A,B,_,C),!.
+	
 split_string1(A,B,_,C) :-
+	%string_strings(B,B2),
+	split_on_substring(A,B,C),
+	%findall(D,(member(D1,C1),(member(D1,B2)->D="";D=D1)),C),
+	!.
+	
+split_string1b(A,B,C) :-
+	split_string1b(A,B,_,C),!.
+	
+split_string1b(A,B,_,C) :-
 	string_strings(B,B2),
 	split_on_substring(A,B,C1),
 	findall(D,(member(D1,C1),(member(D1,B2)->D="";D=D1)),C),!.
@@ -504,3 +552,11 @@ delete_double_newlines(D2,D5,D) :-
 */
 
 retract_all(A) :- retractall(A).
+
+remove_dups([],[]) :- !.
+remove_dups([Head|Tail],Result):-
+ member(Head,Tail),
+ remove_dups(Tail,Result).
+remove_dups([Head|Tail],[Head|Result]):-
+ remove_dups(Tail,Result),!.
+

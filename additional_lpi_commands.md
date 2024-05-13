@@ -44,6 +44,14 @@
  * e.g. assertz(a(1)),assertz(a(2)),getz(a(A)).
  * A=[1,2].
 
+ ["working_directory",[i,i]],
+ ["working_directory",[o,i]],
+ ["directory_files",[o]],
+ ["exists_directory",[i]],
+ ["exists_file",[i]],
+
+ ["split_string",[i,i,i,o]],
+
  ["number_string",[i,i]],
  ["number_string",[i,o]],
  ["number_string",[o,i]],

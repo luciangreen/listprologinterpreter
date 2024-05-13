@@ -6,7 +6,7 @@
 numbers(N2,N1,Numbers2) :-
 	(N2>=N1->
 	numbers(N2,N1,[],Numbers2);
-	numbers(N1,N2,[],Numbers2)).
+	numbers(N1,N2,[],Numbers2)),!.
 
 numbers(N2,N1,Numbers1,Numbers2):-
 numbers1(N2,N1,Numbers1,Numbers2),!.
@@ -67,3 +67,6 @@ sum(S0,S1,S2) :-
 
 number_order(N1,M) :-
 	log(N1,N),log(10,P),M is ceiling(N/P),!.
+
+foldr(plus,A,B) :-
+	foldr(plus,A,0,B).

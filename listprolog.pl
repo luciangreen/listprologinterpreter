@@ -1,5 +1,5 @@
-:-style_check(-discontiguous).
-:-style_check(-singleton).
+%:-style_check(-discontiguous).
+%:-style_check(-singleton).
 
 :- include('grammar.pl').
 %%:- include('lpi_caw_commands.pl').

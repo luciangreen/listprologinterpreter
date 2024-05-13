@@ -1698,6 +1698,14 @@ member([Command,Args],
 [
  %["phrase_from_file",[i,i]],
  %["phrase_from_file",[i,i]],
+ 
+ ["working_directory",[i,i]],
+ ["working_directory",[o,i]],
+ ["directory_files",[o]],
+ ["exists_directory",[i]],
+ ["exists_file",[i]],
+
+ ["split_string",[i,i,i,o]],
  ["numbers",[i,i,i,o]],
  ["string_atom",[i,o]],
  ["string_atom",[i,i]],
