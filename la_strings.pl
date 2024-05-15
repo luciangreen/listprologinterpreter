@@ -98,6 +98,11 @@ write_br(Term) :-
 	write(Term))),!.
 	
 	
+shell1_s(Command,Out) :-
+ 	atom_string(Command1,Command),
+	bash_command(Command1,Out),
+	%not(Out=user:fail),
+	!.
 		
 shell1_s(Command) :-
  	atom_string(Command1,Command),
