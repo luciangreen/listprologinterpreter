@@ -36,7 +36,9 @@ open_string_file_s(Path,File_string) :-
 
 
 save_file_s(Path,Content_term_or_string) :-
-	((compound(Content_term_or_string)->true;Content_term_or_string=[])->term_to_atom(Content_term_or_string,String);((string(Content_term_or_string)->true;atom(Content_term_or_string))->Content_term_or_string=String;
+	((compound(Content_term_or_string)->true;Content_term_or_string=[])->term_to_atom(Content_term_or_string,String);((string(Content_term_or_string)->true;(atom(Content_term_or_string)->true;
+	number(Content_term_or_string))
+	)->Content_term_or_string=String;
 	(concat_list(["Error: save_file_s content not in compound, atom or string format."],Notification),
 	writeln0(Notification),abort))),
 	(open_s(Path,write,Stream),
@@ -63,6 +65,7 @@ save_file_sh(F1,File_term) :-
 		shell1_s(Command),
 	
 		!.
+
 	% ssh root@46.250.240.201
 	%  open_file_sh("root@x.x.x.x:~/Dropbox/GitHub/",)
 	
@@ -146,6 +149,53 @@ exists_directory_sh(F1) :-
 	shell1_s(S3)
 	);fail))
 	;(writeln("exists_directory_sh aborted."),abort)),!.
+
+delete_file_sh(F1) :-
+ (absolute_url(F1)->
+ F1=F2;
+ (working_directory_sh(F11,F11),
+ string_concat_url(F11,F1,F2))),
+	split_string(F2,":",":",F),
+	append([G],[H],F),
+	string_concat(K,K1,H),
+	string_length(K,2),
+	foldr(string_concat,["main_tmp :- catch(delete_file('",K1,"'),Err,handle_error(Err)),halt.\nmain_tmp :- halt(1).\nhandle_error(_Err):-\n  halt(1)."],S1),
+	foldr(string_concat,[G,":~/tmp54837.pl"],P1),
+	save_file_sh(P1,S1),
+	foldr(string_concat,["ssh ",G," swipl --goal=main_tmp --stand_alone=true -o tmp54837 -c tmp54837.pl"],S2),
+	(catch(shell1_s(S2),_,fail)->
+	(foldr(string_concat,["ssh ",G," ./tmp54837"],S),
+	(catch(shell1_s(S,_Out),_,fail)->
+	(
+	true,
+	foldr(string_concat,["ssh ",G," rm tmp54837.pl\nssh ",G," rm tmp54837"],S3),
+	shell1_s(S3)
+	);fail))
+	;(writeln("delete_file_sh aborted."),abort)),!.
+
+
+delete_directory_sh(F1) :-
+ (absolute_url(F1)->
+ F1=F2;
+ (working_directory_sh(F11,F11),
+ string_concat_url(F11,F1,F2))),
+	split_string(F2,":",":",F),
+	append([G],[H],F),
+	string_concat(K,K1,H),
+	string_length(K,2),
+	foldr(string_concat,["main_tmp :- catch(delete_directory('",K1,"'),Err,handle_error(Err)),halt.\nmain_tmp :- halt(1).\nhandle_error(_Err):-\n  halt(1)."],S1),
+	foldr(string_concat,[G,":~/tmp54837.pl"],P1),
+	save_file_sh(P1,S1),
+	foldr(string_concat,["ssh ",G," swipl --goal=main_tmp --stand_alone=true -o tmp54837 -c tmp54837.pl"],S2),
+	(catch(shell1_s(S2),_,fail)->
+	(foldr(string_concat,["ssh ",G," ./tmp54837"],S),
+	(catch(shell1_s(S,_Out),_,fail)->
+	(
+	true,
+	foldr(string_concat,["ssh ",G," rm tmp54837.pl\nssh ",G," rm tmp54837"],S3),
+	shell1_s(S3)
+	);fail))
+	;(writeln("delete_directory_sh aborted."),abort)),!.
 
 make_directory_s(F1) :-
  atom_string(F2,F1),
