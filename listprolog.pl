@@ -9,6 +9,7 @@
 :- include('lpiverify4_open.pl').
 :- include('lpiverify4_types.pl').
 :- include('lpiverify4_open_types.pl').
+:- include('lpiverify_pl.pl').
 %%:- include('caw5 copy 12.pl').
 %%:- include('cawpverify.pl').
 %%:- include('rcawp.pl').
@@ -38,3 +39,4 @@
 :- include('match_get_put_vals.pl').
 %:- include('insert_cuts.pl').
 %:- include('../Philosophy/sub_term_with_address.pl').
+:-include('../List-Prolog-to-Prolog-Converter/lp2pconverter2.pl').

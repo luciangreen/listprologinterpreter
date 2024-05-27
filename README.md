@@ -113,6 +113,12 @@ where 1 is replaced with the test number from
 
 respectively.
 
+* Run Prolog tests:
+```
+['lpiverify_pl.pl].
+test_pl1(off,A,B).
+```
+
 * See note 1 above.
 
 To run all tests (main, types, open and open types) back-translating to and from any language:

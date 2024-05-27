@@ -121,6 +121,11 @@ bash_command(Command, Output) :-
         read_string(Out, _, Output),
         close(Out)),!.
 
+foldr(string_concat,[A,B,C],D) :-
+	not(var(A)),var(B),not(var(C)),
+	string_concat(A,G,D),
+	string_concat(B,C,G),!.
+	
 foldr(Function,A,L,B) :-
 	reverse(A,C),
 	foldl(Function,C,L,B),!.
@@ -564,4 +569,5 @@ remove_dups([Head|Tail],Result):-
  remove_dups(Tail,Result).
 remove_dups([Head|Tail],[Head|Result]):-
  remove_dups(Tail,Result),!.
+
 

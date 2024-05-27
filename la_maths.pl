@@ -20,8 +20,11 @@ numbers1(N2,N1,Numbers1,Numbers2) :-
 %% get_item_n([a,b,c],3,Item).
 %% Item = c
 
-get_item_n([],_,[]) :-!.%,fail.
-get_item_n(Exposition,Number1,Item) :-
+get_item_n(A,B,C) :-
+	catch(get_item_n1(A,B,C),_,fail),!.
+
+get_item_n1([],_,[]) :-!.%,fail.
+get_item_n1(Exposition,Number1,Item) :-
 	Number2 is Number1-1,
 	length(List,Number2),
 	append(List,[Item|_],Exposition),!.
@@ -70,3 +73,12 @@ number_order(N1,M) :-
 
 foldr(plus,A,B) :-
 	foldr(plus,A,0,B).
+
+maximum_length(List,Maximum_length) :-
+	findall(L,(member(A2,List),length(A2,L)),L2),
+	sort(L2,L3),
+	append(_,[Maximum_length],L3),!.
+
+sub_list(List,Before_list,Sub_list,After_list) :-
+	append(Before_list,L1,List),
+	append(Sub_list,After_list,L1),!.
