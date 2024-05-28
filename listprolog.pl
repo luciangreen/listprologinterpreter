@@ -38,5 +38,5 @@
 %:- include('numbers_of_items_correspond.pl').
 :- include('match_get_put_vals.pl').
 %:- include('insert_cuts.pl').
-%:- include('../Philosophy/sub_term_with_address.pl').
+:- include('../Philosophy/sub_term_with_address.pl').
 :-include('../List-Prolog-to-Prolog-Converter/lp2pconverter2.pl').

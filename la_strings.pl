@@ -126,6 +126,67 @@ foldr(string_concat,[A,B,C],D) :-
 	string_concat(A,G,D),
 	string_concat(B,C,G),!.
 	
+% aBc=abc	
+foldr(string_concat1,ABC,D) :-
+	findall(E,(member(E,ABC),var(E)),E1),
+	length(E1,1),not(var(D)),
+	member(V,ABC),var(V),!,
+	sub_term_types_wa([var],ABC,[[Ad,_]]),
+	(string(D)->string_strings(D,D11);atom_chars(D,D11)),
+	%trace,
+	findall(M,(member(M1,D11),(catch(number_string(M,M1),_,false)->true;M=M1)),M2),
+	get_sub_term_wa(M2,Ad,V),!.
+	
+/*
+foldr(string_concat2,["a","b",C,D,E,"f"],"abcdef").
+
+C = D, D = "",
+E = "cde" ;
+C = "",
+D = "c",
+E = "de" ;
+C = "",
+D = "cd",
+E = "e" ;
+C = E, E = "",
+D = "cde" ;
+C = "c",
+D = "",
+E = "de" 
+...
+*/
+	
+foldr(string_concat2,ABC,D) :-
+	findall(E,(member(E,ABC),var(E)),E1),
+	length(E1,3),
+	not(var(D)),
+	sub_term_types_wa([var],ABC,[[Ad1,_],[Ad2,_],[Ad3,_]]),
+	Ad1=[_,N1],Ad2=[_,N2],N2 is N1+1,Ad3=[_,N3],N3 is N2+1,
+	(string(D)->string_strings(D,D11);atom_chars(D,D11)),
+	findall(M,(member(M1,D11),(catch(number_string(M,M1),_,false)->true;M=M1)),M2),
+	findall(L,(member(L1,ABC),(var(L1)->L=L1;L=[L1])),L2),
+	
+	N4 is N1-1,
+	length(N4L,N4),
+	length(N4L1,N4),
+	N5 is 3,
+	length(N5L,N5),
+	length(N5L1,N5),
+	append(N4L,N6,M2),
+	append(N5L,_,N6),
+
+	append(N4L1,N61,ABC),
+	append(N5L1,_,N61),
+
+	append(V1,V4,N5L),
+	append(V2,V3,V4),
+
+	foldr(string_concat,V1,V11),
+	foldr(string_concat,V2,V21),
+	foldr(string_concat,V3,V31),	
+	N5L1=[V11,V21,V31].
+	
+
 foldr(Function,A,L,B) :-
 	reverse(A,C),
 	foldl(Function,C,L,B),!.
