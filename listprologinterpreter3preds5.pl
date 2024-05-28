@@ -995,11 +995,65 @@ get_lang_word("term_to_atom",Dbw_term_to_atom),
 ))
 ,!.
 
+
+interpretpart(split_on_substring117a,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2) :- 
+%trace,
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("split_on_substring117a",Dbw_split_on_substring117a),
+       getvalue(Variable1,Value1,Vars1),
+       getvalue(Variable2,Value2,Vars1),
+       getvalue(Variable3,Value3,Vars1),
+       getvalue(Variable4,Value4,Vars1),
+        %trace,
+
+%trace,
+        debug_call(Skip,[[Dbw_n,Dbw_split_on_substring117a],[Value1,Value2,Value3,variable]]),
+	((%is_list(Value1),
+	split_on_substring117a(Value1,Value2,Value3,Value41),
+	%shell1_s(Value1)
+	%Value2A=Value2A1,
+	%string_atom(Value2A,Value2A1), % *** LPI only takes strings
+   %sort(Value1,Value2A),
+        val1emptyorvalsequal(Value4,Value41),
+        putvalue(Variable4,Value41,Vars1,Vars2)
+        )->
+      debug_exit(Skip,[[Dbw_n,Dbw_split_on_substring117a],[Value1,Value2,Value3,Value41]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_split_on_substring117a],[Value1,Value2,Value3,variable]])),!.
+
+
+interpretpart(string_strings,Variable1,Variable2,Vars1,Vars2) :- 
+%trace,
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("string_strings",Dbw_string_strings),
+       getvalue(Variable1,Value1,Vars1),
+       getvalue(Variable2,Value2,Vars1),
+        %trace,
+
+%trace,
+        debug_call(Skip,[[Dbw_n,Dbw_string_strings],[Value1,variable]]),
+	((%is_list(Value1),
+	string_strings(Value1,Value21),
+	%shell1_s(Value1)
+	%Value2A=Value2A1,
+	%string_atom(Value2A,Value2A1), % *** LPI only takes strings
+   %sort(Value1,Value2A),
+        val1emptyorvalsequal(Value2,Value21),
+        putvalue(Variable2,Value21,Vars1,Vars2)
+        )->
+      debug_exit(Skip,[[Dbw_n,Dbw_string_strings],[Value1,Value21]])
+;     debug_fail(Skip,[[Dbw_n,Dbw_string_strings],[Value1,variable]])),!.
+
+
 interpretpart(shell_pl,I0,QP0,QV0,P0,OVar0,Vars1,Vars2) :-
 %trace,
 % eg [I,QP,QV,P,OVar]=[[1,1],"a","A,A1","B is A+A1,B1 is A1-A1,write([B,B1]).",[v,o]]
  find_v_sys(V_sys),
+ 	remember_and_turn_off_debug(Debug),
+
  interpretpart(match4,I0,V_sys,Vars1,Vars3,_),
+ 
+ 	turn_back_debug(Debug),
+
  getvalue(V_sys,I1,Vars3),
  term_to_atom(I1,I),
 
@@ -1055,7 +1109,19 @@ I4],S3),%,
 	fail%abort
  	)),	term_to_atom(OVar1,VO))->
  	(        val1emptyorvalsequal(OVar,OVar1),
-        putvalue(OVar0,OVar1,Vars1,Vars2),
+        
+        
+         	remember_and_turn_off_debug(Debug1),
+
+find_sys(Sys_name),        interpretpart(match4,OVar0,[Dbw_v,Sys_name],Vars1,Vars2fa,_),
+	getvalue([Dbw_v,Sys_name],Value3,Vars2fa),
+	interpretpart(match4,OVar1,Value3,[]%Vars1
+	,Vars2,_),
+	 turn_back_debug(Debug1),
+	 
+        %putvalue(OVar0,OVar1,Vars1,Vars2),
+	 
+	         
 debug_exit(Skip,[[Dbw_n,Dbw_shell_pl],[I,QP,QV,P,OVar1]]));
 (debug_fail(Skip,[[Dbw_n,Dbw_shell_pl],[I,QP,QV,P,variable]]),fail)),!.
 

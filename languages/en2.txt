@@ -133,6 +133,12 @@
 
 ["getz","get z","en2","get z"],
 
-["comment","comment","en2","comment"]
+["comment","comment","en2","comment"],
+
+["split_on_substring117a","split on substring 117 a","en2","split on substring 117 a"],
+
+["open_file_s","open file string","en2","open file string"],
+
+["open_string_file_s","open string file string","en2","open string file string"]
 
 ]

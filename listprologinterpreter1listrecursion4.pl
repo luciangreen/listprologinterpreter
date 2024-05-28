@@ -1673,6 +1673,22 @@ get_lang_word("term_to_atom",Dbw_term_to_atom1),Dbw_term_to_atom1=Dbw_term_to_at
         interpretpart(term_to_atom,Variable1,Variable2,Vars1,Vars2).
 
 /*
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_split_on_substring117a],[Variable1,Variable2,Variable3,Variable4]],Vars1,Vars2,true,nocut) :-
+%trace,
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("split_on_substring117a",Dbw_split_on_substring117a1),Dbw_split_on_substring117a1=Dbw_split_on_substring117a,
+        %trace,
+        interpretpart(split_on_substring117a,Variable1,Variable2,Variable3,Variable4,Vars1,Vars2).
+
+
+interpretstatement1(ssi,_F0,_Functions,[[Dbw_n,Dbw_string_strings],[Variable1,Variable2]],Vars1,Vars2,true,nocut) :-
+%trace,
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
+get_lang_word("string_strings",Dbw_string_strings1),Dbw_string_strings1=Dbw_string_strings,
+        %trace,
+        interpretpart(string_strings,Variable1,Variable2,Vars1,Vars2).
+*/
+/*
 interpretstatement1(non-ssi,_F0,_Functions,[[Dbw_n,Dbw_assertz],[[[Dbw_n,Variable1],[Variable2]]]],Vars1,Vars2,true,nocut) :-
 %trace,
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
@@ -1699,6 +1715,12 @@ member([Command,Args],
  %["phrase_from_file",[i,i]],
  %["phrase_from_file",[i,i]],
  
+ ["open_file_s",[i,o]],
+ ["open_string_file_s",[i,o]],
+
+ ["split_on_substring117a",[i,i,i,o]],
+ ["string_strings",[i,o]],
+
  ["working_directory",[i,i]],
  ["working_directory",[o,i]],
  ["directory_files",[o]],
