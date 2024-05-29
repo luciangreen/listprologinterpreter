@@ -22,7 +22,7 @@ test_pl(Debug,NTotal1,NTotal2,Score1,Score2) :-
 %% test_pl individual cases, Debug=trace=on or off, N=case number, Passed=output=result
 
 test_pl1(Debug,N,Passed) :-
-	test_pl(NTotal3,Query,Functions,Result),
+	test_pl(N,Query,Functions,Result),
 	p2lpconverter_command([string,Query],Query1),
 	p2lpconverter([string,Functions],Functions1),	
 %trace,
