@@ -1351,7 +1351,7 @@ get_lang_word("grammar_part",Dbw_grammar_part),
 
 	Variables1=[Terminal,Phrase1,Phrase2], %% terminal can be v or "a"
         %%terminal(Terminal),
-        
+        %trace,
 grammar_part2(Dbw_n,Dbw_grammar_part,Terminal,Phrase1,Phrase2,Vars1,Vars2).
 
 
