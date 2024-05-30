@@ -251,7 +251,7 @@ test_types_cases(14,[[n,neuroscience],["**","***",[v,output]]],
         
 ],[[[[v,output],5]]]).
 
-% ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Blue Nature 1 of 4.txt",0,algorithms,"9.     *I prepared to connect together main points from cliques.  I did this by writing on something interesting to do with the song.  First, I identified the topic.  Second, I constructed an aphohedron from all the song‚Äôs parts.  Third, I thought of interconnections between clique nodes from the randomly broken down aphohedron.  In this way, I prepared to connect together main points from cliques by writing on something interesting to do with the song."]
+% ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Blue Nature 1 of 4.txt",0,algorithms,"9.     *I prepared to connect together main points from cliques.  I did this by writing on something interesting to do with the song.  First, I identified the topic.  Second, I constructed an aphohedron from all the song’s parts.  Third, I thought of interconnections between clique nodes from the randomly broken down aphohedron.  In this way, I prepared to connect together main points from cliques by writing on something interesting to do with the song."]
 
 test_types_cases(15,[[n,connect_cliques],[[["a",1],[1,2],[2,"b"]],[["a",3],[3,4],[4,"b"]],[v,output]]],
         [
@@ -283,7 +283,7 @@ test_types_cases(16,[[n,a],[[1,[1,[1]]]]],
 ],[[]]).
 **/
 
-% ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Children, H1, Earning Jobs and Protection in Jobs 3 of 4.txt",0,algorithms,"24.     *I prepared to watch the insect eat a fruit.  I did this by feeding it the raspberry.  First, I lifted the raspberry on a fork.  Second, I placed it in the airlock.  Third, I unlocked the airlock‚Äôs den side to feed the raspberry to the mosquitoes.  In this way, I prepared to watch the insect eat a fruit by feeding it the raspberry."]
+% ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Children, H1, Earning Jobs and Protection in Jobs 3 of 4.txt",0,algorithms,"24.     *I prepared to watch the insect eat a fruit.  I did this by feeding it the raspberry.  First, I lifted the raspberry on a fork.  Second, I placed it in the airlock.  Third, I unlocked the airlock’s den side to feed the raspberry to the mosquitoes.  In this way, I prepared to watch the insect eat a fruit by feeding it the raspberry."]
 
 
 test_types_cases(16,[[n,insect_food],["food",[v,stomach]]],
@@ -344,7 +344,7 @@ test_types_cases(20,[[n,visit_staged_history],["us",[v,staged_history]]],
         [[n,visit_staged_history],[[v,now],[v,now]]]
 ],[[[[v,staged_history],"us"]]]).
 
-% ["Fundamentals of Pedagogy and Pedagogy Indicators","FUNDAMENTALS OF PEDAGOGY by Lucian Green Time to Prepare 2 of 4.txt",0,algorithms,"11. *The teacher prepared to represent being interested in a lesson by ‚Äúdotting it on‚Äù. He did this by climbing the rope ladder. First, he found the correct ladder. Second, he tested that the ladder was about to start. Third, he climbed the ladder with his arms and legs. In this way, the teacher prepared to represent being interested in a lesson by ‚Äúdotting it on‚Äù by climbing the rope ladder."]
+% ["Fundamentals of Pedagogy and Pedagogy Indicators","FUNDAMENTALS OF PEDAGOGY by Lucian Green Time to Prepare 2 of 4.txt",0,algorithms,"11. *The teacher prepared to represent being interested in a lesson by “dotting it on”. He did this by climbing the rope ladder. First, he found the correct ladder. Second, he tested that the ladder was about to start. Third, he climbed the ladder with his arms and legs. In this way, the teacher prepared to represent being interested in a lesson by “dotting it on” by climbing the rope ladder."]
 
 
 test_types_cases(21,[[n,memorise_point],["point",[v,memory_out]]],
@@ -355,7 +355,7 @@ test_types_cases(21,[[n,memorise_point],["point",[v,memory_out]]],
         [[n,memorise_point],[[v,memory_in],[v,memory_in]]]
 ],[[[[v,memory_out],"point"]]]).
 
-% ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Hours Prayer 1 of 4.txt",0,algorithms,"8.    *I prepared to endorse Nietzsche‚Äôs brilliance.  I did this by writing Alexius Meinong‚Äôs probable comments on the Medicine blog.  First, I called it Anarchy 3.  Second, I liked brilliance.  Third, I liked Nietzsche‚Äôs brilliance.  In this way, I prepared to endorse Nietzsche‚Äôs brilliance by writing Alexius Meinong‚Äôs probable comments on the Medicine blog."]
+% ["Fundamentals of Meditation and Meditation Indicators","FUNDAMENTALS OF MEDITATION by Lucian Green Hours Prayer 1 of 4.txt",0,algorithms,"8.    *I prepared to endorse Nietzsche’s brilliance.  I did this by writing Alexius Meinong’s probable comments on the Medicine blog.  First, I called it Anarchy 3.  Second, I liked brilliance.  Third, I liked Nietzsche’s brilliance.  In this way, I prepared to endorse Nietzsche’s brilliance by writing Alexius Meinong’s probable comments on the Medicine blog."]
 
 % trope chain
 
@@ -733,7 +733,7 @@ test_types_cases(40,[[n,guess_io],["+",[v,a2],[v,a3]]],
         [[n,guess_io],["-",[1,1],[0]]]
 ],[[[[v,a2],[1,1]],[[v,a3],[2]]]]).
 
-% ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Order in Conglish 2 of 4.txt",0,algorithms,"15.   *I prepared to order the Conglish subjects.  I did this by observing the marriage.  First, I observed the partner place the ring on his or her partner‚Äôs finger.  Second, I observed the couple say their vows.  Third, I observed the couple sign the wedding register.  In this way, I prepared to order the Conglish subjects by observing the marriage."]
+% ["Computational English","COMPUTATIONAL ENGLISH by Lucian Green Order in Conglish 2 of 4.txt",0,algorithms,"15.   *I prepared to order the Conglish subjects.  I did this by observing the marriage.  First, I observed the partner place the ring on his or her partner’s finger.  Second, I observed the couple say their vows.  Third, I observed the couple sign the wedding register.  In this way, I prepared to order the Conglish subjects by observing the marriage."]
 
 % Order strings by length
 
@@ -1411,13 +1411,14 @@ test_types_cases(74,
 
 
 test_types_cases(75,
-[[n,list1],[["a","b","c","d"]]],
+[[n,list1],[[4,b,"c","c"]]],
+%[[n,list1],[[4,b,"c",b,"c",5,d,"e",d,"e"]]],
 [
 [[n,list1],[[t,1]]],
 [[t,1],[[]]],
-[[t,1],[[[t,string],"|",[t,2]],"|",[t,1]]],
+[[t,1],[[[t,number],"|",[t,2]],"|",[t,1]]],
 [[t,2],[[]]],
-[[t,2],[[[t,string],"|",[t,3]],"|",[t,2]]],
+[[t,2],[[[t,atom],"|",[t,3]],"|",[t,2]]],
 [[t,3],[[]]],
 [[t,3],[[t,string],"|",[t,3]]]],
 

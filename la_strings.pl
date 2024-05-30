@@ -164,7 +164,7 @@ foldr(string_concat2,ABC,D) :-
 	Ad1=[_,N1],Ad2=[_,N2],N2 is N1+1,Ad3=[_,N3],N3 is N2+1,
 	(string(D)->string_strings(D,D11);atom_chars(D,D11)),
 	findall(M,(member(M1,D11),(catch(number_string(M,M1),_,false)->true;M=M1)),M2),
-	findall(L,(member(L1,ABC),(var(L1)->L=L1;L=[L1])),L2),
+	%findall(L,(member(L1,ABC),(var(L1)->L=L1;L=[L1])),L2),
 	
 	N4 is N1-1,
 	length(N4L,N4),
