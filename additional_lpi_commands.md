@@ -44,6 +44,10 @@
  * e.g. assertz(a(1)),assertz(a(2)),getz(a(A)).
  * A=[1,2].
 
+ ["term_to_atom",[i,i]],
+ ["term_to_atom",[i,o]],
+ ["term_to_atom",[o,i]],
+
  ["open_file_s",[i,o]],
  ["open_string_file_s",[i,o]],
 

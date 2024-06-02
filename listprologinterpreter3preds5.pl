@@ -966,6 +966,7 @@ get_lang_word("phrase_from_file",Dbw_phrase_from_file),
       debug_exit(Skip,[[Dbw_n,Dbw_phrase_from_file],[Out,Value2]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_phrase_from_file],[variable,Value2]])),!.
 
+/*
 interpretpart(term_to_atom,Variable1,Variable2,Vars1,Vars2) :- 
 get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("term_to_atom",Dbw_term_to_atom),
@@ -1042,7 +1043,7 @@ get_lang_word("string_strings",Dbw_string_strings),
         )->
       debug_exit(Skip,[[Dbw_n,Dbw_string_strings],[Value1,Value21]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_string_strings],[Value1,variable]])),!.
-
+*/
 
 interpretpart(shell_pl,I0,QP0,QV0,P0,OVar0,Vars1,Vars2) :-
 %trace,
