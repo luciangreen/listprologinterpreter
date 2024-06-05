@@ -82,3 +82,5 @@ maximum_length(List,Maximum_length) :-
 sub_list(List,Before_list,Sub_list,After_list) :-
 	append(Before_list,L1,List),
 	append(Sub_list,After_list,L1),!.
+	
+all_distinct1(A) :- sort(A,B),msort(A,B).
