@@ -1,4 +1,4 @@
-%:-style_check(-discontiguous).
+:-style_check(-discontiguous).
 %:-style_check(-singleton).
 
 :- include('grammar.pl').

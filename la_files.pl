@@ -13,7 +13,7 @@ open_file_sh(F1,File_term) :-
  (working_directory_sh(F11,F11),
  string_concat_url(F11,F1,Path))),
 		split_string(Path,"/","/",Path1),
-		append(P1,[P2],Path1),
+		append(_P1,[P2],Path1),
 		string_concat(P2,"tmp54837",P3),
 		
 		Scp="scp -pr ",
@@ -55,7 +55,7 @@ save_file_sh(F1,File_term) :-
  (working_directory_sh(F11,F11),
  string_concat_url(F11,F1,Path))),
 		split_string(Path,"/","/",Path1),
-		append(P1,[P2],Path1),
+		append(_P1,[P2],Path1),
 		string_concat(P2,"tmp54837",P3),
 
 		save_file_s(P3,File_term),
@@ -227,7 +227,7 @@ make_directory_sh(F1) :-
 
 string_concat_url("",F1,F1) :-!.
 string_concat_url(F11,F1,F2) :-
- (string_concat(F12,"/",F11)->
+ (string_concat(_F12,"/",F11)->
  string_concat(F11,F1,F2);
  (foldr(string_concat,[F11,"/",F1],F2))),!.
  
