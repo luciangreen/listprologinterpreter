@@ -627,7 +627,7 @@ retract_all(A) :- retractall(A).
 remove_dups([],[]) :- !.
 remove_dups([Head|Tail],Result):-
  member(Head,Tail),
- remove_dups(Tail,Result).
+ remove_dups(Tail,Result),!.
 remove_dups([Head|Tail],[Head|Result]):-
  remove_dups(Tail,Result),!.
 
