@@ -9,6 +9,15 @@ string_strings(S,S1) :-
 	string_chars(S,S2),
 	findall(S3,(member(S4,S2),atom_string(S4,S3)),S1),!.
 
+get_until_char(S,C,Cs1,Left1) :-
+	string_strings(S,S1),
+	append(Cs,B,S1),(is_list(C)->C1=C;	string_strings(C,C1)),
+	append(C1,Left,B),
+	foldr(string_concat,Cs,Cs1),
+	foldr(string_concat,Left,Left1),
+	!.
+get_until_char(S,_C,S,"") :- !.
+
 open_s(File,Mode,Stream) :-
 	atom_string(File1,File),
 	open(File1,Mode,Stream),!.

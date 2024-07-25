@@ -66,6 +66,11 @@ save_file_sh(F1,File_term) :-
 	
 		!.
 
+directory_files_s(F1,B) :-
+	atom_string(F1,F2),
+	directory_files(F2,B),!.
+
+
 	% ssh root@46.250.240.201
 	%  open_file_sh("root@x.x.x.x:~/Dropbox/GitHub/",)
 	

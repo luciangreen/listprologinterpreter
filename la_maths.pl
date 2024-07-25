@@ -91,3 +91,12 @@ sub_list_reverse(List,Before_list,Sub_list,After_list) :-
 	append(Before_list,Sub_list,L11).
 	
 all_distinct1(A) :- sort(A,B),msort(A,B).
+
+split_list_on_item(A,Item,Lists) :-
+	(is_list(Item)->Item1=Item;Item1=[Item]),
+ 	findall(BID,(((append(B,C,A),append(Item1,F,C),
+ 	split_list_on_item(F,Item1,D),delete([B,Item1],[],BI),%foldr(append,[B,Item1],BI),
+ 	foldr(append,[BI,D],BID))->true;(A=[]->BID=[];BID=[A]))),Lists1),foldr(append,Lists1,Lists).
+
+
+
