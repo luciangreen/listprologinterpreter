@@ -414,6 +414,8 @@ findall_until_fail(A,B,B_condition,C) :-
 	D=(B,(B_condition->true;(!,fail))),
 	findall(A,D,C),!.
 	
+find_until_fails(A)	:- (A->true;find_until_fails(A)),!.
+	
 find_until(A,B,C) :-
 	append(C,B4,A),
 	append([B],_C4,B4),!.
