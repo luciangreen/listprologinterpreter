@@ -642,4 +642,10 @@ remove_dups([Head|Tail],Result):-
 remove_dups([Head|Tail],[Head|Result]):-
  remove_dups(Tail,Result),!.
 
+remove_first_and_last_items(L1,L5) :-
+ append([_L],L4,L1),
+ append(L5,[_L3],L4),!.
 
+remove_first_and_last_items(L,R,L1,L5) :-
+ append([L],L4,L1),
+ append(L5,[R],L4),!.
