@@ -44,6 +44,7 @@ save_file_s(Path,Content_term_or_string) :-
 	(open_s(Path,write,Stream),
 	write(Stream,String),
 	close(Stream)),
+	%sleep(2),
 	!.
 
 % working_directory_sh(_,"root@x.x.x.x:~/").

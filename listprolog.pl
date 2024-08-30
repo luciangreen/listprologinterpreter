@@ -1,3 +1,5 @@
+:-set_prolog_flag(stack_limit, 40000000000).
+
 :-style_check(-discontiguous).
 :-style_check(-singleton).
 

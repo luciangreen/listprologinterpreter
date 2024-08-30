@@ -649,3 +649,5 @@ remove_first_and_last_items(L1,L5) :-
 remove_first_and_last_items(L,R,L1,L5) :-
  append([L],L4,L1),
  append(L5,[R],L4),!.
+
+findall1(A,B,C) :- findall(A,B,C),!.
