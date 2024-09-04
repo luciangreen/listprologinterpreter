@@ -651,3 +651,12 @@ remove_first_and_last_items(L,R,L1,L5) :-
  append(L5,[R],L4),!.
 
 findall1(A,B,C) :- findall(A,B,C),!.
+
+% first_n(B,member(B,([true,true,false,true,true,false]),B),D,3).
+% D = [true,true,true] .
+
+first_n(A,B,C,Limit) :-
+retractall(first_n(_)),
+assertz(first_n(0)),
+	D=(B,first_n(First_n),First_n1 is First_n+1,retractall(first_n(_)),assertz(first_n(First_n1)),(First_n1>=Limit->!;true)),
+	findall(A,D,C),!.
