@@ -289,7 +289,7 @@ split_string17(String1,List) :-
 % split_string1(Docs,["`"],Input1) - splits and deletes on chars
 
 split_string_on_non_alpha(A,B) :-
-numbers(256,1,[],Ns3),findall(A2,(member(N21,Ns3),char_code(A2,N21),not(char_type(A2,alpha))),B8),
+numbers(154998,0,[],Ns3),findall(A2,(member(N21,Ns3),char_code(A2,N21),not(char_type(A2,alpha))),B8),
 
 foldr(string_concat,B8,B9),split_string(A,B9,B9,B),!.
 
