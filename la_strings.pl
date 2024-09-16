@@ -7,7 +7,7 @@ use_module(library(dcg/basics)).
 
 string_strings(S,S1) :-
 	string_chars(S,S2),
-	findall(S3,(member(S4,S2),atom_string(S4,S3)),S1),!.
+	maplist(atom_string,S2,S1),!.
 
 get_until_char(S,C,Cs1,Left1) :-
 	string_strings(S,S1),
@@ -289,16 +289,19 @@ split_string17(String1,List) :-
 % split_string1(Docs,["`"],Input1) - splits and deletes on chars
 
 split_string_on_non_alpha(A,B1) :-
-numbers(255,1,[],Ns3),findall(A21,(member(N21,Ns3),char_code(A2,N21),(char_type(A2,alpha)),atom_string(A2,A21)),B8), % ABC
+numbers(255,1,[],Ns3),foldl(alpha_and_string,Ns3,[],B8), % ABC
 % A = ABC123ABC
 % Want ABC,ABC
 string_strings(A,A1),
 
-findall(E,(member(E1,A1),(member(E1,B8)->E=E1;E="™")),E2),
+maplist(if_member_equals_else_space(B8),A1,E2),
 
-foldr(string_concat,E2,B9),split_string(B9,"™","™",B1)%split_on_substring117a_complement(A,B9,[],B),
-%findall(C,(member(C,B),string_concat(D,_,C),string_length(D,1),member(D1,B8),atom_string(D1,D)),B1)
-,!.
+foldr(string_concat,E2,B9),split_string(B9," "," ",B1),!.
+
+alpha_and_string(N21,L,A22) :- ((char_code(A2,N21),char_type(A2,alpha),atom_string(A2,A21),append(L,[A21],A22))->true;L=A22),!.
+
+if_member_equals_else_space(B8,E1,E) :-
+(member(E1,B8)->E=E1;E=" "),!.
 
 split_string(A,B,C) :-
 	split_string(A,B,B,C),!.
