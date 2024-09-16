@@ -78,7 +78,7 @@ write1(Term) :-
 	write(Atom)),!.
 
 
-
+writeln_info(A) :- split_string(A,"\n\r","\n\r",B),findall(_,(member(C,B),atom_string(C1,C),print_message(information,C1)),_),!.
 
 n_to_br(Term,Term1) :-
 	sub_term_types_wa([string,atom],Term,Instances),
