@@ -273,3 +273,44 @@ working_directory_sh(A,B) :-
  (dynamic(working_directory_sh1/1),
  working_directory_sh1(A),A=B))),!.
  
+ 
+ 
+container(A) :-
+ %catch
+ ((functor(A,Name,Arity),
+ source_file(Name,Path),
+ term_to_atom(A,AA),
+ 
+foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('",Path,"').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((A=",AA,",A,term_to_atom(A,LP1),write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
+
+working_directory1(A1,A1),
+
+GP="tmp65473.pl",
+save_file_s(GP,String),
+foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main -q ./",GP],S3),%,
+
+
+(catch(bash_command(S3,LP), _, (foldr(string_concat,["Container error."],_Text4),
+	abort
+ 	)
+ 	)
+ 	->
+ 	(
+
+delete_tmp65473,
+split_string(LP,"\n\r","\n\r",LP1),
+append(_,[LP2],LP1),
+	term_to_atom(A,LP2)
+	);fail),
+		
+	working_directory1(_,A1))
+	),%_,(writeln("Failed container."),abort)),
+	!.
+
+
+delete_tmp65473:-
+foldr(string_concat,["rm -f tmp65473.pl"
+ ],Command315),
+ 	catch(bash_command(Command315,_), _, (foldr(string_concat,["Error deleting tmp65473.pl."
+	],_Text42),abort
+ 	)),!.
