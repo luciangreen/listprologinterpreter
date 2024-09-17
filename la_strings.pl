@@ -201,16 +201,16 @@ foldr(Function,A,L,B) :-
 	foldl(Function,C,L,B),!.
 
 foldr(append,A,B) :-
-	foldr(append,A,[],B),!.
+	append(A,B),!.
 	
 %foldr(append1,A,B) :-
 %	foldr(append1,A,[],B),!.
 	
 foldr(string_concat,A,B) :-
-	foldr(string_concat,A,"",B),!.
+	atomics_to_string(A,"",B),!.
 
 foldr(atom_concat,A,B) :-
-	foldr(atom_concat,A,'',B),!.
+	atomic_list_concat(A,'',B),!.
 
 concat_list_terms(A,B) :-
 	findall(X,(member(X1,A),((string(X1)->true;(atom(X1)->true;number(X1)))->X=X1;term_to_atom(X1,X)%,term_to_atom(X2,X)
