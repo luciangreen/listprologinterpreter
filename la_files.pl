@@ -276,41 +276,70 @@ working_directory_sh(A,B) :-
  
  
 container(A) :-
+
+ get_time(TS),stamp_date_time(TS,date(Year,Month,Day,Hour1,Minute1,Seconda,_A,_TZ,_False),local),
+ atomic_list_concat(Seconda1,'.',Seconda),
+ atomic_list_concat(Seconda1,'',Seconda2),
+ 
+	foldr(string_concat,[Year ,"_", Month ,"_", Day ,"_", Hour1 ,"_", Minute1 ,"_", Seconda2],FN),
+
+
+%trace,
+ working_directory(WD,WD),
+ cd,
+ working_directory(WDCD,WDCD),
+ foldr(atom_concat,[WDCD,'Dropbox/GitHub/'],WDCD1),
+ working_directory(_,WDCD1),
+ make_directory(FN),
+ foldr(atom_concat,[WDCD1,FN,'/'],WDCD2),
+ working_directory(_,WDCD2),
+
+ %home_dir1(HD),
  %catch
  ((functor(A,Name,Arity),
- source_file(Name,Path),
+ functor(A2,Name,Arity),
+ source_file(A2,Path),
  term_to_atom(A,AA),
  
-foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('",Path,"').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch((A=",AA,",A,term_to_atom(A,LP1),write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
 
-working_directory1(A1,A1),
+foldr(string_concat,["#!/usr/bin/swipl -g main",FN," -q\n\n",":-include('",Path,"').\n","handle_error(_Err):-\n  halt(1).\n","main",FN," :-\n    catch((working_directory(_,'",WD,"'),A=",AA,",A,term_to_atom(A,LP1),",%writeln(\"**********\"),
+"write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main",FN," :- halt(1).\n"],String),
 
-GP="tmp65473.pl",
+%working_directory1(A1,A1),
+
+foldr(string_concat,["tmp",FN,".pl"],GP),
 save_file_s(GP,String),
-foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main -q ./",GP],S3),%,
+foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main",FN," -q ./",GP],S3),%,
 
 
-(catch(bash_command(S3,LP), _, (foldr(string_concat,["Container error."],_Text4),
-	abort
+(catch(bash_command(S3,LP), _, (foldr(string_concat,["Container error."],Text4),writeln(Text4),
+	fail
  	)
  	)
  	->
  	(
 
-delete_tmp65473,
-split_string(LP,"\n\r","\n\r",LP1),
-append(_,[LP2],LP1),
-	term_to_atom(A,LP2)
-	);fail),
+delete_tmp(FN),
+%split_string(LP,"\n\r","\n\r",LP1),
+%trace,
+%string_strings(LP,LP1),
+%string_strings("**********",Sub_list),
+%sub_list(LP1,_Before_list,Sub_list,LP2),
+%foldr(atom_concat,LP2,LP3),
+	term_to_atom(A,LP)
+	);(delete_tmp(FN),working_directory1(_,WD),fail)),
 		
-	working_directory1(_,A1))
-	),%_,(writeln("Failed container."),abort)),
+	working_directory1(_,WD))
+	),
 	!.
 
 
-delete_tmp65473:-
-foldr(string_concat,["rm -f tmp65473.pl"
+delete_tmp(FN):-
+foldr(string_concat,["rm -f tmp",FN,".pl"
  ],Command315),
- 	catch(bash_command(Command315,_), _, (foldr(string_concat,["Error deleting tmp65473.pl."
-	],_Text42),abort
- 	)),!.
+ 	catch(bash_command(Command315,_), _, (foldr(string_concat,["Error deleting tmp",FN,".pl."
+	],Text42),writeln(Text42),abort
+ 	)),
+ 	working_directory(_,'../'),
+	delete_directory(FN),
+	!.
