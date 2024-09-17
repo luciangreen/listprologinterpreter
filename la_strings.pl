@@ -351,11 +351,6 @@ join_chars_after(List1,Chars,List5,List2) :-
 % split_on_substring117a("AAABAAD","BD",[],A).
 % A = ["AAA", "B", "AA", "D"].
 
-split_on_substring117a_complement(A,B,_,D) :-
-    string_codes(A,A1),
-    string_codes(B,B1),
-	split_on_substring117_complement(A1,B1,[],D),!.
-
 split_on_substring117a(A,B,_,D) :-
     string_codes(A,A1),
     string_codes(B,B1),
@@ -402,35 +397,6 @@ num_chars(Char,Num1,String) :-
 	numbers(Num1,1,[],Nums),
 	findall(Char,(member(_Num2,Nums)),Chars),
 	concat_list(Chars,String),!.
-
-
-/*
-split_on_substring117_complement([],_A,E,E) :- !.
-split_on_substring117_complement(A,B2,E,C) :-
-    intersection(A,B2,[]),
-    string_codes(E1,E),
-    string_codes(A1,A),
-    concat_list([E1,A1],C2),
-    append_list([C2],C),
-    !.
-split_on_substring117_complement(A,B2,E,C) :-
-    member(B,B2),
-    append([B],D,A),
-    %trace,
-    split_on_substring117_complement(D,B2,[],C1),
-    string_codes(E1,E),
-    string_codes(B1,[B]),
-    %trace,
-    (E1=""->maplist(append,[[[B1],C1]],[C]);
-    (%trace,
-    maplist(append,[[[E1,B1],C1]],[C]))),
-    !.
-split_on_substring117_complement(A,B,E1,C) :-
-    length(E,1),
-    append(E,D,A),
-    append(E1,E,E2),
-    split_on_substring117_complement(D,B,E2,C),!.
-*/
 
 /*
 replace_new('0ab0','a','c',A).
