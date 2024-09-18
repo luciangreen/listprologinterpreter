@@ -675,3 +675,13 @@ retractall(first_n(_)),
 assertz(first_n(0)),
 	D=(B,first_n(First_n),First_n1 is First_n+1,retractall(first_n(_)),assertz(first_n(First_n1)),(First_n1>=Limit->!;true)),
 	findall(A,D,C),!.
+
+sub_string_strings(List,Before1,Sub_string,After1) :-
+	string_strings(List,List1),
+	string_strings(Sub_string,Sub_string1),
+	append(Before,L1,List1),
+	append(Sub_string1,After,L1),
+	foldr(string_concat,Before,Before1),
+	foldr(string_concat,After,After1).
+
+reverse_string(A,B) :- string_strings(A,C), reverse(C,D), foldr(string_concat,D,B),!.

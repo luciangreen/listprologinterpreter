@@ -277,6 +277,7 @@ working_directory_sh(A,B) :-
  
 container(A) :-
 
+ %trace,
  get_time(TS),stamp_date_time(TS,date(Year,Month,Day,Hour1,Minute1,Seconda,_A,_TZ,_False),local),
  atomic_list_concat(Seconda1,'.',Seconda),
  atomic_list_concat(Seconda1,'',Seconda2),
@@ -288,7 +289,9 @@ container(A) :-
  working_directory(WD,WD),
  cd,
  working_directory(WDCD,WDCD),
- foldr(atom_concat,[WDCD,'Dropbox/GitHub/'],WDCD1),
+ atom_concat(WDCD,WDCD3,WD),
+ once(sub_string_strings(WDCD3,WDCD4,'/',WDCD5)),once(sub_string_strings(WDCD5,WDCD6,'/',_)),
+ foldr(atom_concat,[WDCD,WDCD4,'/',WDCD6,'/'],WDCD1),
  working_directory(_,WDCD1),
  make_directory(FN),
  foldr(atom_concat,[WDCD1,FN,'/'],WDCD2),
@@ -301,9 +304,9 @@ container(A) :-
  source_file(A2,Path),
  term_to_atom(A,AA),
  
-
-foldr(string_concat,["#!/usr/bin/swipl -g main",FN," -q\n\n",":-include('",Path,"').\n","handle_error(_Err):-\n  halt(1).\n","main",FN," :-\n    catch((working_directory(_,'",WD,"'),A=",AA,",A,term_to_atom(A,LP1),",%writeln(\"**********\"),
-"write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main",FN," :- halt(1).\n"],String),
+reverse_string(FN,RFN),
+%trace,
+foldr(string_concat,["#!/usr/bin/swipl -g main",FN," -q\n\n",":-include('",Path,"').\n","handle_error(_Err):-\n  halt(1).\n","main",FN," :-\n    catch((working_directory(_,'",WD,"'),A=",AA,",A,term_to_atom(A,LP1),writeln(\"",RFN,"\"),write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main",FN," :- halt(1).\n"],String),
 
 %working_directory1(A1,A1),
 
@@ -320,13 +323,12 @@ foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main",FN," -q ./",GP],S3),%,
  	(
 
 delete_tmp(FN),
-%split_string(LP,"\n\r","\n\r",LP1),
 %trace,
-%string_strings(LP,LP1),
-%string_strings("**********",Sub_list),
-%sub_list(LP1,_Before_list,Sub_list,LP2),
-%foldr(atom_concat,LP2,LP3),
-	term_to_atom(A,LP)
+string_strings(LP,LP1),
+string_strings(RFN,Sub_list),
+once((sub_list(LP1,_Before_list,Sub_list,LP2))),
+foldr(atom_concat,LP2,LP3),
+	term_to_atom(A,LP3)
 	);(delete_tmp(FN),working_directory1(_,WD),fail)),
 		
 	working_directory1(_,WD))
