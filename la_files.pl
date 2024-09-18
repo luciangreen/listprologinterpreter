@@ -276,8 +276,8 @@ working_directory_sh(A,B) :-
  
  
 container(A) :-
-
- %trace,
+A.
+ /*%trace,
  get_time(TS),stamp_date_time(TS,date(Year,Month,Day,Hour1,Minute1,Seconda,_A,_TZ,_False),local),
  atomic_list_concat(Seconda1,'.',Seconda),
  atomic_list_concat(Seconda1,'',Seconda2),
@@ -321,7 +321,7 @@ foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main",FN," -q ./",GP],S3),%,
  	)
  	->
  	(
-
+%trace,
 delete_tmp(FN),
 %trace,
 string_strings(LP,LP1),
@@ -345,3 +345,5 @@ foldr(string_concat,["rm -f tmp",FN,".pl"
  	working_directory(_,'../'),
 	delete_directory(FN),
 	!.
+	
+*/
