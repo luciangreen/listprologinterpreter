@@ -276,7 +276,7 @@ working_directory_sh(A,B) :-
  
  
 container(A) :-
-A.
+A,!.
  /*%trace,
  get_time(TS),stamp_date_time(TS,date(Year,Month,Day,Hour1,Minute1,Seconda,_A,_TZ,_False),local),
  atomic_list_concat(Seconda1,'.',Seconda),
