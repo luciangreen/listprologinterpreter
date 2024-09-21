@@ -279,8 +279,12 @@ container1(A) :-
 A,!.
 
 container(A) :-
+%term_to_atom(A,A1),
+%atom_length(A1,A2),
+%(A2>35-
 writeln_info("Starting Container"),
-(A%container2(A)
+(A%
+%container2(A)
 ->writeln_info("Container Successful");
 (writeln_info("Container Failed"),fail)),!.
 
