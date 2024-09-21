@@ -275,9 +275,19 @@ working_directory_sh(A,B) :-
  
  
  
-container(A) :-
+container1(A) :-
 A,!.
- /*%trace,
+
+container(A) :-
+writeln_info("Starting Container"),
+(A%container2(A)
+->writeln_info("Container Successful");
+(writeln_info("Container Failed"),fail)),!.
+
+container2(A) :-
+%A,!.
+ %/*
+ %trace,
  get_time(TS),stamp_date_time(TS,date(Year,Month,Day,Hour1,Minute1,Seconda,_A,_TZ,_False),local),
  atomic_list_concat(Seconda1,'.',Seconda),
  atomic_list_concat(Seconda1,'',Seconda2),
@@ -346,4 +356,4 @@ foldr(string_concat,["rm -f tmp",FN,".pl"
 	delete_directory(FN),
 	!.
 	
-*/
+%*/
