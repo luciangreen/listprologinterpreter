@@ -282,11 +282,14 @@ container(A) :-
 %term_to_atom(A,A1),
 %atom_length(A1,A2),
 %(A2>35-
-writeln_info("Starting Container"),
+%writeln_info("Starting Container"),
 (A%
 %container2(A)
-->writeln_info("Container Successful");
-(writeln_info("Container Failed"),fail)),!.
+->true;%writeln_info("Container Successful");
+(%writeln_info("Container Failed"),
+fail)),
+%sleep1(2),
+!.
 
 container2(A) :-
 %A,!.
@@ -361,3 +364,6 @@ foldr(string_concat,["rm -f tmp",FN,".pl"
 	!.
 	
 %*/
+
+sleep1(A) :- %!.
+	sleep(A),!.

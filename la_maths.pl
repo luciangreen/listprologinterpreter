@@ -100,3 +100,21 @@ split_list_on_item(A,Item,Lists) :-
 
 
 
+
+% With apologies to swipl 8.3.17+
+
+clumped1(Items, Counts) :-
+    clump1(Items, Counts).
+
+clump1([], []).
+clump1([H|T0], [H-C|T]) :-
+    ccount1(T0, H, T1, 1, C),
+    clump1(T1, T).
+
+ccount1([H|T0], E, T, C0, C) :-
+    E == H,
+    !,
+    C1 is C0+1,
+    ccount1(T0, E, T, C1, C).
+
+ccount1(List, _, List, C, C).
