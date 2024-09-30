@@ -78,7 +78,8 @@ write1(Term) :-
 	write(Atom)),!.
 
 
-writeln_info(A) :- split_string(A,"\n\r","\n\r",B),findall(_,(member(C,B),atom_string(C1,C),print_message(information,C1)),_),!.
+writeln_info(A1) :-
+(is_list(A1)->term_to_atom(A1,A);A=A1), split_string(A,"\n\r","\n\r",B),findall(_,(member(C,B),atom_string(C1,C),print_message(information,C1)),_),!.
 
 n_to_br(Term,Term1) :-
 	sub_term_types_wa([string,atom],Term,Instances),
@@ -118,17 +119,25 @@ shell1_s(Command) :-
 	shell1(Command1),!.
 	
 shell1(Command) :-
-				(bash_command(Command,_)->
-					true;
-					(writeln0(["Failed shell1 command: ",Command]),abort)
-				),!.
+	bash_command(Command,_),!.
 
 bash_command(Command, Output) :-
+	timeout((
         setup_call_cleanup(process_create(path(bash),
                 ['-c', Command],
                 [stdout(pipe(Out))]),
         read_string(Out, _, Output),
-        close(Out)),!.
+        close(Out))
+        ),3,300),!.
+
+timeout(A,N,S) :-
+	timeout(N,A,N,S),!.
+
+timeout(N2,A,0,S) :- writeln_info([A,"has failed after ",N2," unsuccessful attempts with timeouts of ",S," seconds."]),abort,!.
+timeout(N2,A,N,S) :-
+	Time_limit is 60*60,
+	(catch(call_with_time_limit(Time_limit,(writeln_info(["Trying",A]),A)),time_limit_exceeded,fail)->writeln_info([A,"successful"]);(sleep(S),N1 is N-1,timeout(N2,A,N1,S))),!.
+
 
 foldr(string_concat,[A,B,C],D) :-
 	not(var(A)),var(B),not(var(C)),
