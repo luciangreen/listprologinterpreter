@@ -135,8 +135,9 @@ timeout(A,N,S) :-
 
 timeout(N2,A,0,S) :- writeln_info([A,"has failed after ",N2," unsuccessful attempts with timeouts of ",S," seconds."]),abort,!.
 timeout(N2,A,N,S) :-
-	Time_limit is 60*60,
-	(catch(call_with_time_limit(Time_limit,(writeln_info(["Trying",A]),A)),time_limit_exceeded,fail)->writeln_info([A,"successful"]);(N1 is N-1,(N1=0->true;sleep(S)),timeout(N2,A,N1,S))),!.
+	Time_limit is 5*60*60,
+	(catch(call_with_time_limit(Time_limit,(writeln_info(["Trying",A]),A)),time_limit_exceeded,fail)->writeln_info([A,"successful"]);(N1 is N-1,(N1=0->true;(writeln_info(["Failed",A,". Please press return to retry."]),read_string(user_input,"\n","\r",_,_)%sleep(S))
+	)),timeout(N2,A,N1,S))),!.
 
 
 foldr(string_concat,[A,B,C],D) :-
