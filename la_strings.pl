@@ -115,28 +115,44 @@ shell1_s(Command,Out) :-
 	bash_command(Command1,Out),
 	%not(Out=user:fail),
 	!.
+
+shell1_s1(Command,Out) :-
+ 	atom_string(Command1,Command),
+	bash_command1(Command1,Out),
+	%not(Out=user:fail),
+	!.
 		
 shell1_s(Command) :-
  	atom_string(Command1,Command),
 	shell1(Command1),!.
+
+shell1_s1(Command) :-
+ 	atom_string(Command1,Command),
+	shell11(Command1),!.
 	
 shell1(Command) :-
 	bash_command(Command,_),!.
 
+shell11(Command) :-
+	bash_command1(Command,_),!.
+
 bash_command(Command, Output) :-
-	timeout((
-        setup_call_cleanup(process_create(path(bash),
+	timeout(bash_command1(Command, Output),3,10),!.
+
+bash_command1(Command, Output) :-
+		setup_call_cleanup(process_create(path(bash),
                 ['-c', Command],
                 [stdout(pipe(Out))]),
         read_string(Out, _, Output),
         close(Out))
-        ),3,300),!.
-
+        ,!.
+        
 timeout(A,N,S) :-
 	timeout(N,A,N,S),!.
 
 timeout(N2,A,0,S) :- writeln_info([%A,"has"
-"Failed after ",N2," unsuccessful attempts with timeouts of ",S," seconds."]),abort,!.
+"Failed after ",N2," unsuccessful attempts with timeouts of ",S," seconds."]),fail,%abort,
+!.
 timeout(N2,A,N,S) :-
 	Time_limit is 5*60*60,
 	(catch(call_with_time_limit(Time_limit,(writeln_info(["Trying"%,A
