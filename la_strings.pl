@@ -133,10 +133,13 @@ bash_command(Command, Output) :-
 timeout(A,N,S) :-
 	timeout(N,A,N,S),!.
 
-timeout(N2,A,0,S) :- writeln_info([A,"has failed after ",N2," unsuccessful attempts with timeouts of ",S," seconds."]),abort,!.
+timeout(N2,A,0,S) :- writeln_info([%A,"has"
+"Failed after ",N2," unsuccessful attempts with timeouts of ",S," seconds."]),abort,!.
 timeout(N2,A,N,S) :-
 	Time_limit is 5*60*60,
-	(catch(call_with_time_limit(Time_limit,(writeln_info(["Trying",A]),catch(A,_,fail))),time_limit_exceeded,fail)->writeln_info([A,"successful"]);(writeln_info(["Failed",A%,". Please press return to retry."
+	(catch(call_with_time_limit(Time_limit,(writeln_info(["Trying"%,A
+	]),catch(A,_,fail))),time_limit_exceeded,fail)->writeln_info([%A,
+	"Successful."]);(writeln_info(["Failed."%,A%,". Please press return to retry."
 	]),N1 is N-1,(N1=0->true;%true%
 	sleep(S)%)
 	%)
