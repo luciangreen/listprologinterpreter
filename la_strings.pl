@@ -78,10 +78,10 @@ write1(Term) :-
 	write(Atom)),!.
 
 writeln_info(Colour,A1) :-
-(is_list(A1)->term_to_atom(A1,A);A=A1), split_string(A,"\n\r","\n\r",B),findall(_,(member(C,B),atom_string(C1,C),ansi_format([fg(Colour)], C1, []),nl),_),!.
+(is_list(A1)->term_to_atom(A1,A);A=A1), atomic_list_concat(C1,"\\n",A),atomic_list_concat(C1,"\n",B),split_string(B,"\n\r","\n\r",B1),findall(_,(member(C,B1),atom_string(C2,C),ansi_format([fg(Colour)], C2, []),nl),_),!.
 
 writeln_info(A1) :-
-(is_list(A1)->term_to_atom(A1,A);A=A1), split_string(A,"\n\r","\n\r",B),findall(_,(member(C,B),atom_string(C1,C),print_message(information,C1)),_),!.
+(is_list(A1)->term_to_atom(A1,A);A=A1), atomic_list_concat(C1,"\\n",A),atomic_list_concat(C1,"\n",B),split_string(B,"\n\r","\n\r",B1),findall(_,(member(C,B1),atom_string(C2,C),print_message(information,C2)),_),!.
 
 n_to_br(Term,Term1) :-
 	sub_term_types_wa([string,atom],Term,Instances),
