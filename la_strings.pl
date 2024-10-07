@@ -77,6 +77,8 @@ write1(Term) :-
 	);
 	write(Atom)),!.
 
+writeln_info(Colour,A1) :-
+(is_list(A1)->term_to_atom(A1,A);A=A1), split_string(A,"\n\r","\n\r",B),findall(_,(member(C,B),atom_string(C1,C),ansi_format([fg(Colour)], C1, []),nl),_),!.
 
 writeln_info(A1) :-
 (is_list(A1)->term_to_atom(A1,A);A=A1), split_string(A,"\n\r","\n\r",B),findall(_,(member(C,B),atom_string(C1,C),print_message(information,C1)),_),!.
