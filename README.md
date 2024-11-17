@@ -200,6 +200,15 @@ false.
 
 * then enter `turn_occurs_check(on).`.  To return `true.` above, indicating any occurrences have been ignored, enter `turn_occurs_check(off).` (the default).
 
+# Starlog
+
+* Enter `retractall(starlog(_)),assertz(starlog(on)).` to turn on the Starlog trace displays for string_concat, atom_concat and append, e.g.
+
+```
+[call,[[n,append],[[1],[],variable3]],'Press c to creep, s to skip or a to abort.'] creep
+[exit,[1]=[1]&[],'Press c to creep or a to abort.'] creep
+```
+
 # List Prolog Interpreter with Prolog queries
 
 * Run <a href="https://github.com/luciangreen/Philosophy">List Prolog Interpreter with Prolog queries</a>.

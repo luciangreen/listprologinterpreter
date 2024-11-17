@@ -1,6 +1,7 @@
 :- use_module(library(date)).
 
 :- dynamic debug/1.
+:- dynamic starlog/1.
 :- dynamic cut/1.
 :- dynamic leash1/1.
 :- dynamic types/1.
@@ -145,6 +146,7 @@ interpret1(Debug,Query,Functions1,Functions2,Result) :-
 
 	(not(occurs_check(_))->(retractall(occurs_check(_)),assertz(occurs_check(off)));true),
 
+	(not(starlog(_))->(retractall(starlog(_)),assertz(starlog(off)));true),
 
 retractall(retry_back(_)),
 	  	retractall(retry_back_stack(_)),
@@ -2560,7 +2562,8 @@ do_saved_debug(List2));true),
 (leash1(on)->writeln0("");(%print_text,
 get_single_char(Key),debug_react(fail,Key,_Skip))));true),fail)).
 
-debug_exit(Skip,FunctionResult2) :-
+debug_exit(Skip,FunctionResult22) :-
+convert_to_starlog(_Skip,_true,FunctionResult22,FunctionResult2),
 get_lang_word("exit",Dbw_exit),
 get_lang_word("Press c to creep or a to abort.",Dbw_note1),
 ((save_debug(on),debug(on))->(saved_debug(List1),append(List1,[[Dbw_exit,FunctionResult2,Dbw_note1]],List2),

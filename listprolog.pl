@@ -1,3 +1,7 @@
+:- op(900, xfx, user:(&)).
+:- op(800, xfx, user:(:)).
+:- op(700, xfx, user:(^)).
+
 :-set_prolog_flag(stack_limit, 40000000000).
 
 :-style_check(-discontiguous).
@@ -43,3 +47,4 @@
 :-include('../Philosophy/sub_term_with_address.pl').
 :-include('../List-Prolog-to-Prolog-Converter/lp2pconverter2.pl').
 :-include('la_terms.pl').
+:-include('convert_to_starlog.pl').
