@@ -20,7 +20,7 @@ menu_display(Menu_items,Result) :-
 	flatten1_menu(Menu1,Menu3),
 	foldr(string_concat,Menu3,Menu2),
 	writeln(Menu2),
-	menu_display2(Menu_items,Menu_items_length,Result).
+	menu_display2(Menu_items,Menu_items_length,Result),!.
 	
 menu_display2(Menu_items,Menu_items_length,Result) :-
 	foldr(string_concat,["Please choose from menu items 1-",Menu_items_length,", or q to quit."],Prompt),
