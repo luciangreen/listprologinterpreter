@@ -48,3 +48,4 @@
 :-include('../List-Prolog-to-Prolog-Converter/lp2pconverter2.pl').
 :-include('la_terms.pl').
 :-include('convert_to_starlog.pl').
+:-include('la_io.pl').
