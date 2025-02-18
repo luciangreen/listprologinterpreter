@@ -5400,7 +5400,7 @@ test(247,[[n,test2],[[v,a]]],
 [
 [[n,test2],[[v,a]],":-",
 [
-	[[n,shell_c],["a","#include<stdio.h>\n#include<stdlib.h>\n\nint main(void)\n{\n   char str1[20];\n\n   scanf(\"%19s\", str1);\n   \n   printf(\"%s\\n\", str1);\n return 0;\n}",[v,a]]]
+	[[n,shell_c],["a","#include<stdio.h>\n#include<stdlib.h>\n\nint main(void)\n{\n   char str1[20];\n\n       if (fgets(str1, sizeof(str1), stdin) == NULL) {\n        fprintf(stderr, \"Input error\\n\");\n        return 1;\n    }\n\n    printf(\"%s\\n\", str1);\n return 0;\n}",[v,a]]]
 ]]
 ],
 

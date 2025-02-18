@@ -5,8 +5,11 @@ int main(void)
 {
    char str1[20];
 
-   scanf("%19s", str1);
-   
-   printf("%s\n", str1);
+       if (fgets(str1, sizeof(str1), stdin) == NULL) {
+        fprintf(stderr, "Input error\n");
+        return 1;
+    }
+
+    printf("%s\n", str1);
  return 0;
 }
