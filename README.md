@@ -10,19 +10,6 @@ Please read the following instructions on how to install the project on your com
 
 * Please download and install SWI-Prolog for your machine at `https://www.swi-prolog.org/build/`.
 
-# Mac: Run swipl after installing brew and swipl
-
-* In Terminal settings, make default shell: /bin/bash
-
-`nano .bashrc`
-`sudo ln -s /opt/homebrew/bin/swipl /usr/local/bin/swipl`
-
-* In shell:
-`sudo ln -s /opt/homebrew/bin/swipl /usr/local/bin/swipl`
-
-* From anywhere:
-`swipl`
-
 * You may need to install gawk using Homebrew.
 
 * Install <a href="https://github.com/soimort/translate-shell">Translation Shell</a> on Mac, etc.
@@ -32,6 +19,24 @@ culturaltranslationtool/ctt2.pl
 trans_location("../../../gawk/trans").
 ```
 to correct location of <a href="https://github.com/soimort/translate-shell">trans</a>.
+
+# Mac: Run swipl after installing brew and swipl
+
+* In Terminal settings, make default shell:
+```
+/bin/bash
+```
+
+```
+nano .bashrc
+sudo ln -s /opt/homebrew/bin/swipl /usr/local/bin/swipl
+```
+
+* In shell:
+`sudo ln -s /opt/homebrew/bin/swipl /usr/local/bin/swipl`
+
+* From anywhere:
+`swipl`
 
 # 1. Install manually
 
