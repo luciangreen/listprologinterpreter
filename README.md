@@ -29,7 +29,7 @@ to correct location of <a href="https://github.com/soimort/translate-shell">tran
 
 ```
 nano .bashrc
-sudo ln -s /opt/homebrew/bin/swipl /usr/local/bin/swipl
+export PATH="$PATH:/opt/homebrew/bin/"
 ```
 
 * In shell:
