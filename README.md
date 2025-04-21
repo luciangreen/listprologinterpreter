@@ -28,7 +28,7 @@ to correct location of <a href="https://github.com/soimort/translate-shell">tran
 ```
 
 ```
-nano .bashrc
+nano ~/.bashrc
 export PATH="$PATH:/opt/homebrew/bin/"
 ```
 
