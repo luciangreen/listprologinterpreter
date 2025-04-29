@@ -27,16 +27,25 @@ to correct location of <a href="https://github.com/soimort/translate-shell">tran
 /bin/bash
 ```
 
+* In Terminal:
 ```
 nano ~/.bashrc
+```
+
+* Add the following to the file `~/.bashrc`:
+```
 export PATH="$PATH:/opt/homebrew/bin/"
 ```
 
-* In shell:
-`sudo ln -s /opt/homebrew/bin/swipl /usr/local/bin/swipl`
+* In Terminal:
+```
+sudo ln -s /opt/homebrew/bin/swipl /usr/local/bin/swipl
+```
 
-* From anywhere:
-`swipl`
+* From any folder in Terminal:
+```
+swipl
+```
 
 # 1. Install manually
 
