@@ -20,6 +20,26 @@ trans_location("../../../gawk/trans").
 ```
 to correct location of <a href="https://github.com/soimort/translate-shell">trans</a>.
 
+# 1. Install manually
+
+Download <a href="http://github.com/luciangreen/listprologinterpreter/">this repository</a>, the <a href="https://github.com/luciangreen/Languages"> Languages repository</a> (which enables List Prolog Interpreter to be run in different languages), <a href="https://github.com/luciangreen/SSI">SSI</a> and <a href="https://github.com/luciangreen/culturaltranslationtool">Cultural Translation Tool</a>.
+
+# 2. Or Install from List Prolog Package Manager (LPPM)
+
+* Download the <a href="https://github.com/luciangreen/List-Prolog-Package-Manager">LPPM Repository</a>:
+
+```
+mkdir GitHub
+cd GitHub/
+git clone https://github.com/luciangreen/List-Prolog-Package-Manager.git
+cd List-Prolog-Package-Manager
+swipl
+['lppm'].
+lppm_install("luciangreen","listprologinterpreter").
+../
+halt.
+```
+
 # Mac: Run swipl after installing brew and swipl
 
 * In Terminal settings, make default shell:
@@ -45,26 +65,6 @@ sudo ln -s /opt/homebrew/bin/swipl /usr/local/bin/swipl
 * From any folder in Terminal:
 ```
 swipl
-```
-
-# 1. Install manually
-
-Download <a href="http://github.com/luciangreen/listprologinterpreter/">this repository</a>, the <a href="https://github.com/luciangreen/Languages"> Languages repository</a> (which enables List Prolog Interpreter to be run in different languages), <a href="https://github.com/luciangreen/SSI">SSI</a> and <a href="https://github.com/luciangreen/culturaltranslationtool">Cultural Translation Tool</a>.
-
-# 2. Or Install from List Prolog Package Manager (LPPM)
-
-* Download the <a href="https://github.com/luciangreen/List-Prolog-Package-Manager">LPPM Repository</a>:
-
-```
-mkdir GitHub
-cd GitHub/
-git clone https://github.com/luciangreen/List-Prolog-Package-Manager.git
-cd List-Prolog-Package-Manager
-swipl
-['lppm'].
-lppm_install("luciangreen","listprologinterpreter").
-../
-halt.
 ```
 
 # Running
