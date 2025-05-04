@@ -8,7 +8,7 @@ Please read the following instructions on how to install the project on your com
 
 # Prerequisites
 
-* Please download and install SWI-Prolog for your machine at `https://www.swi-prolog.org/build/`.
+* Use a search engine to find the Homebrew (or other) Terminal install command for your platform and install it, and search for the Terminal command to install swipl using Homebrew and install it or download and install SWI-Prolog for your machine at <a href="https://www.swi-prolog.org/build/">SWI-Prolog</a>.
 
 * You may need to install gawk using Homebrew.
 
@@ -40,31 +40,30 @@ lppm_install("luciangreen","listprologinterpreter").
 halt.
 ```
 
-# Mac: Run swipl after installing brew and swipl
+# Mac: Prepare to run swipl
 
 * In Terminal settings, make default shell:
+
 ```
 /bin/bash
 ```
 
-* In Terminal:
+* In Terminal, edit the text file `~/.bashrc` using the text editor Nano:
+
 ```
 nano ~/.bashrc
 ```
 
 * Add the following to the file `~/.bashrc`:
+
 ```
 export PATH="$PATH:/opt/homebrew/bin/"
 ```
 
 * In Terminal:
+
 ```
 sudo ln -s /opt/homebrew/bin/swipl /usr/local/bin/swipl
-```
-
-* From any folder in Terminal:
-```
-swipl
 ```
 
 # Running
