@@ -40,9 +40,9 @@ lppm_install("luciangreen","listprologinterpreter").
 halt.
 ```
 
-# Mac: Prepare to run swipl
+# Mac, Linux and Windows (with Linux commands installed): Prepare to run swipl
 
-* In Terminal settings, make default shell:
+* In Terminal settings (Mac), make Bash the default shell:
 
 ```
 /bin/bash
@@ -60,7 +60,7 @@ nano ~/.bashrc
 export PATH="$PATH:/opt/homebrew/bin/"
 ```
 
-* In Terminal:
+* Link to swipl in Terminal:
 
 ```
 sudo ln -s /opt/homebrew/bin/swipl /usr/local/bin/swipl
