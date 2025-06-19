@@ -5,6 +5,9 @@
 use_module(library(pio)).
 use_module(library(dcg/basics)).
 
+foldr(string_concat,A,B) :-
+	atomics_to_string(A,'',B),!.
+
 string_strings(S,S1) :-
 	string_chars(S,S2),
 	maplist(atom_string,S2,S1),!.
@@ -242,9 +245,6 @@ foldr(append,A,B) :-
 %foldr(append1,A,B) :-
 %	foldr(append1,A,[],B),!.
 	
-foldr(string_concat,A,B) :-
-	atomics_to_string(A,'',B),!.
-
 foldr(atom_concat,A,B) :-
 	atomic_list_concat(A,'',B),!.
 
@@ -721,3 +721,7 @@ sub_string_strings(List,Before1,Sub_string,After1) :-
 	foldr(string_concat,After,After1).
 
 reverse_string(A,B) :- string_strings(A,C), reverse(C,D), foldr(string_concat,D,B),!.
+
+downcase_string(A,B) :- atom_string(C,A),downcase_atom(C,D),atom_string(D,B),!.
+
+is_alpha1(A,A) :- is_alpha(A),!.
