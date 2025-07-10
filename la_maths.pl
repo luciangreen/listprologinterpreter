@@ -118,3 +118,6 @@ ccount1([H|T0], E, T, C0, C) :-
     ccount1(T0, E, T, C1, C).
 
 ccount1(List, _, List, C, C).
+
+repeat(N,C) :-
+	numbers(N,1,[],Ns),findall(_,(member(_,Ns),C),_),!.
