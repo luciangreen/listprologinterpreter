@@ -1489,18 +1489,19 @@ get_lang_word("v",Dbw_v),
 %trace,
 	debug_call(Skip,[[Dbw_n,Dbw_findall],[Variable1,Body,Variable3]]),
 ((
+	% Use simple findall but check for cut state after each solution
 	findall(Value3,(
 	%%trace,
 	%%writeln1(	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],Result2)),
 
 %writeln1(	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],_Result2)),
+	% Reset cut state before interpreting body
+	retractall(cut(_)), assertz(cut(off)),
 	interpretbody(Functions0,Functions,Vars1,Vars3,[Body],Result2), %% 2->1
 	Result2=true,
-	%%((Result2=cut)->!;true),
-	%%trace,
-	%%(cut(on)->(%%notrace,
-	%%fail);(%%trace,
-	%%true)),%%notrace,
+	% Check if cut occurred and stop backtracking if it did
+	cut(Cut_state),
+	(Cut_state = on -> ! ; true),
 		
 	 remember_and_turn_off_debug(Debug),
 	%%trace,
@@ -1512,7 +1513,7 @@ find_sys(Sys_name),
 	
 	 turn_back_debug(Debug)
 
-	),Value3a),
+	), Value3a),
 	putvalue(Variable3,Value3a,Vars1,Vars2)
         )->
 debug_exit(Skip,[[Dbw_n,Dbw_findall],[Variable1,Body,Value3a]])
