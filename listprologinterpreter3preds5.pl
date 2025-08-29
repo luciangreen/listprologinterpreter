@@ -1,38 +1,47 @@
-% Helper predicate to reduce repetitive get_lang_word calls
-get_dbw_n(Dbw_n) :- get_lang_word("n",Dbw_n).
-
 interpretpart(is,Variable1,Variable2,Vars1,Vars2) :-
-get_dbw_n(Dbw_n),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("is",Dbw_is),
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        %%getvalue(Value1,Value1A,Vars1),
+	%%isvalstr(Value1),
+	%%isvalstr(Value1A),
 	not(is_empty(Value1)),
 	expression(Value1),
 	is_empty(Value2),
         val1emptyorvalsequal(Value2,Value1),
+	%%isval(Value2),
 debug_call(Skip,[[Dbw_n,Dbw_is],[Value1,variable]]),
 (        putvalue(Variable2,Value1,Vars1,Vars2)->
 debug_exit(Skip,[[Dbw_n,Dbw_is],[Value1,Value1]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_is],[Value1,variable]])),!.
 
 interpretpart(is,Variable1,Variable2,Vars1,Vars2) :-
-get_dbw_n(Dbw_n),
+%writeln(here),
+%trace,
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("is",Dbw_is),
         getvalues(Variable1,Variable2,Value1,Value2,Vars1),
+        %%getvalue(Value1,Value1A,Vars1),
+	%%isvalstr(Value1),
+	%%isvalstr(Value1A),
 	is_empty(Value1),
 	not(is_empty(Value2)),
 	expression(Value2),
         val1emptyorvalsequal(Value1,Value2),
+	%%isval(Value2),
 debug_call(Skip,[[Dbw_n,Dbw_is],[variable,Value2]]),
 (        putvalue(Variable1,Value2,Vars1,Vars2)->
 debug_exit(Skip,[[Dbw_n,Dbw_is],[Value2,Value2]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_is],[variable,Value2]])),!.
 		
 interpretpart(bracket1,Variable1,Variable2,Vars1,Vars2) :-
-get_dbw_n(Dbw_n),
+get_lang_word("n",Dbw_n1),Dbw_n1=Dbw_n,
 get_lang_word("wrap",Dbw_wrap),
         getvalues_equals4(Variable1,Variable2,Value1,_Value2,Vars1),
 debug_call(Skip,[[Dbw_n,Dbw_wrap],[Value1,Variable2]]),
 ((	Value1A = [Value1],
+        %val1emptyorvalsequal(Value2,Value1A),
+        %%val1emptyorvalsequal(Value1A,Value2),
         putvalue_equals4(Variable2,Value1A,Vars1,Vars2))->
 debug_exit(Skip,[[Dbw_n,Dbw_wrap],[Value1A,Value1A]])
 ;     debug_fail(Skip,[[Dbw_n,Dbw_wrap],[Value1,Variable2]])),!.
