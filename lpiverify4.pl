@@ -2302,35 +2302,7 @@ test(105,[[n,member2a],[[v,b],[1,11,111]]],
         
 ],[[[[v,b],1]]]).
 
-
-%% Need to analyse body, test whether cut is after a statement, cut results
-
-test(105a,[[n,findall1],[[[1,11,111],[2,22,222],[3,33,333]],[v,b]]],
-
-[
-        [[n,findall1],[[v,a],[v,b]],":-",
-        [       [[n,findall],[[v,b1],[[[n,member],[[v,a],[v,a1]]],
-                [[n,cut]],
-        
-        [[n,findall],[[v,a2],[[n,member],[[v,a1],[v,a2]]],
-                [v,b1]]]
-                ],
-                
-                [v,b]]]
-        ]]
-        
-],[[[[v,b],[[1,11,111]]]]]).
-
-test(105b,[[n,findall1],[[1,2,3],[v,b]]],
-
-[
-        [[n,findall1],[[v,a],[v,b]],":-",
-        [       [[n,findall],[[[v,a1],[v,a1]],[[[n,member],[[v,a],[v,a1]]],[[n,cut]]],
-                [v,b]]]
-        ]]
-        
-],[[[[v,b],[[1,1]]]]]).
-
+% See tests 252, 253
 
 test(106,[[n,call1a],[[v,b],[1,11,111]]],
 
@@ -5500,3 +5472,32 @@ test(251,[[n,grammar1],[["b","c","b","c"]]],
 ],[[]]).
 
 
+
+
+%% Need to analyse body, test whether cut is after a statement, cut results
+
+test(252,[[n,findall1],[[[1,11,111],[2,22,222],[3,33,333]],[v,b]]],
+
+[
+        [[n,findall1],[[v,a],[v,b]],":-",
+        [       [[n,findall],[[v,b1],[[[n,member],[[v,a],[v,a1]]],
+                [[n,cut]],
+        
+        [[n,findall],[[v,a2],[[n,member],[[v,a1],[v,a2]]],
+                [v,b1]]]
+                ],
+                
+                [v,b]]]
+        ]]
+        
+],[[[[v,b],[[1,11,111]]]]]).
+
+test(253,[[n,findall1],[[1,2,3],[v,b]]],
+
+[
+        [[n,findall1],[[v,a],[v,b]],":-",
+        [       [[n,findall],[[[v,a1],[v,a1]],[[[n,member],[[v,a],[v,a1]]],[[n,cut]]],
+                [v,b]]]
+        ]]
+        
+],[[[[v,b],[[1,1]]]]]).
