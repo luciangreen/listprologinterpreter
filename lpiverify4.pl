@@ -2302,7 +2302,6 @@ test(105,[[n,member2a],[[v,b],[1,11,111]]],
         
 ],[[[[v,b],1]]]).
 
-/**
 
 %% Need to analyse body, test whether cut is after a statement, cut results
 
@@ -2332,8 +2331,6 @@ test(105b,[[n,findall1],[[1,2,3],[v,b]]],
         
 ],[[[[v,b],[[1,1]]]]]).
 
-
-**/
 
 test(106,[[n,call1a],[[v,b],[1,11,111]]],
 
