@@ -2017,7 +2017,7 @@ test(77,[[n,findall1],[[1,2,3],[v,b]]],
 ],[[[[v,b],[1,2,3]]]]).
 
 /**
-test(77a,[[n,member2a],[[1,2,3],[v,b]]],
+test('77a',[[n,member2a],[[1,2,3],[v,b]]],
 
 [
         [[n,member2a],[[v,a],[v,b]],":-",
@@ -2305,7 +2305,7 @@ test(105,[[n,member2a],[[v,b],[1,11,111]]],
 
 %% Need to analyse body, test whether cut is after a statement, cut results
 
-test(105a,[[n,findall1],[[[1,11,111],[2,22,222],[3,33,333]],[v,b]]],
+test('105a',[[n,findall1],[[[1,11,111],[2,22,222],[3,33,333]],[v,b]]],
 
 [
         [[n,findall1],[[v,a],[v,b]],":-",
@@ -2321,7 +2321,7 @@ test(105a,[[n,findall1],[[[1,11,111],[2,22,222],[3,33,333]],[v,b]]],
         
 ],[[[[v,b],[[1,11,111]]]]]).
 
-test(105b,[[n,findall1],[[1,2,3],[v,b]]],
+test('105b',[[n,findall1],[[1,2,3],[v,b]]],
 
 [
         [[n,findall1],[[v,a],[v,b]],":-",

@@ -79,7 +79,8 @@ interpret11(Debug,Query,Functions,Result) :-
 	(retractall(lang(_)),
  	assertz(lang("en")));
 	true),
-	load_lang_db,
+	%load_lang_db, % commented out - dependency not available
+	true, % stub for missing load_lang_db
 
 	query_box(Query,Query1,Functions,Functions1),
 
