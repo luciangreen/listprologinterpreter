@@ -31,8 +31,8 @@
 :-include('operators.pl').
 :-include('lpiverify4_test_lang_all.pl').
 :-include('lpiverify4_test_bt_lang_all.pl').
-:-include('../Languages/make_docs.pl').
-:-include('../SSI/find_pred_sm.pl').
+%:-include('../Languages/make_docs.pl'). % commented out - dependency not available
+%:-include('../SSI/find_pred_sm.pl'). % commented out - dependency not available
 :-include('e4_fa_get_vals.pl').
 %:-include('equals4_first_args.pl').
 :-include('expression_not_var.pl').
@@ -44,8 +44,11 @@
 %:-include('numbers_of_items_correspond.pl').
 :-include('match_get_put_vals.pl').
 %:-include('insert_cuts.pl').
-:-include('../Philosophy/sub_term_with_address.pl').
-:-include('../List-Prolog-to-Prolog-Converter/lp2pconverter2.pl').
+%:-include('../Philosophy/sub_term_with_address.pl'). % commented out - dependency not available
+%:-include('../List-Prolog-to-Prolog-Converter/lp2pconverter2.pl'). % commented out - dependency not available
 :-include('la_terms.pl').
 :-include('convert_to_starlog.pl').
 :-include('la_io.pl').
+
+% Stub for missing language database functions
+get_lang_word(Word, Word) :- !.
