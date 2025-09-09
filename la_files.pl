@@ -365,7 +365,7 @@ foldr(string_concat,["rm -f tmp",FN,".pl"
 	
 %*/
 
-sleep1(A) :- %!.
-	sleep(A),!.
+sleep1(A) :- !.
+	%sleep(A),!.
 	
 catch_true(A) :- catch(A,_,false),!.

@@ -686,13 +686,17 @@ delete_double_newlines(D2,D5,D) :-
 
 retract_all(A) :- retractall(A).
 
-remove_dups([],[]) :- !.
-remove_dups([Head|Tail],Result):-
- member(Head,Tail),
- remove_dups(Tail,Result),!.
-remove_dups([Head|Tail],[Head|Result]):-
- remove_dups(Tail,Result),!.
+remove_dups(List, Result) :-
+    remove_dups_helper(List, [], Result).
 
+remove_dups_helper([], _, []).
+remove_dups_helper([Head|Tail], Seen, Result) :-
+    memberchk(Head, Seen), 
+    !,
+    remove_dups_helper(Tail, Seen, Result).
+remove_dups_helper([Head|Tail], Seen, [Head|Result]) :-
+    remove_dups_helper(Tail, [Head|Seen], Result).
+    
 remove_first_and_last_items(L1,L5) :-
  append([_L],L4,L1),
  append(L5,[_L3],L4),!.
@@ -725,3 +729,60 @@ reverse_string(A,B) :- string_strings(A,C), reverse(C,D), foldr(string_concat,D,
 downcase_string(A,B) :- atom_string(C,A),downcase_atom(C,D),atom_string(D,B),!.
 
 is_alpha1(A,A) :- is_alpha(A),!.
+
+remove_trailing_white_space(F4,F8) :-
+reverse(F4,F6),
+findall_until_fail(B,member(B,F6),is_space(B),F5),
+append(F5,F7,F6),
+reverse(F7,F8),!.
+remove_trailing_white_space(F4,F81) :-
+reverse_string(F4,F6),
+string_strings(F6,F61),
+findall_until_fail(B,member(B,F61),is_space(B),F5),
+append(F5,F7,F61),
+reverse(F7,F8),
+foldr(string_concat,F8,F81),!.
+
+split_into_assertable_predicates([], []):-!.
+split_into_assertable_predicates([X11,X21|Xs], Ys) :-
+	not(X11="\n"),not(X11="."),not(X21="\n"),
+	%not(X21="."),not(X21="\n"),
+	foldr(string_concat,[X11,X21],X3),
+    split_into_assertable_predicates([X3|Xs], Ys),!.
+split_into_assertable_predicates([C, C1|Xs], %[X11|
+Ys) :-
+	C=".",C1="\n",
+
+	%(false%string(X1,X11)
+	%->
+	%X12=X11;X12=X11),
+    split_into_assertable_predicates(Xs, Ys),!.
+split_into_assertable_predicates([X11,C1|Xs], %[X11|
+Ys1) :-
+	not(X11="."),not(X11="\n"),
+	C1="\n",
+
+	%(false%string(X1,X11)
+	%->
+	%X12=X11;X12=X11),
+    split_into_assertable_predicates(Xs, Ys),
+    (string_concat(X12,".",X11)->true;X12=X11),
+    append([X12],Ys,Ys1),!.
+split_into_assertable_predicates([C1|Xs], %[X11|
+Ys) :-
+	%not(X11="."),not(X11="\n"),
+	C1="\n",
+
+	%(false%string(X1,X11)
+	%->
+	%X12=X11;X12=X11),
+    split_into_assertable_predicates(Xs, Ys),!.
+    %append([X11],Ys,Ys1),!.
+/*split_into_assertable_predicates([X11,C|Xs], [X12|Ys]) :-
+	C="\n",
+
+	(false%string(X1,X11)
+	->
+	X12=X11;X12=X11),
+    split_into_assertable_predicates(Xs, Ys),!.
+*/
