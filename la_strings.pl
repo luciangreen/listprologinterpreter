@@ -686,16 +686,12 @@ delete_double_newlines(D2,D5,D) :-
 
 retract_all(A) :- retractall(A).
 
-remove_dups(List, Result) :-
-    remove_dups_helper(List, [], Result).
-
-remove_dups_helper([], _, []).
-remove_dups_helper([Head|Tail], Seen, Result) :-
-    memberchk(Head, Seen), 
-    !,
-    remove_dups_helper(Tail, Seen, Result).
-remove_dups_helper([Head|Tail], Seen, [Head|Result]) :-
-    remove_dups_helper(Tail, [Head|Seen], Result).
+remove_dups([],[]) :- !.
+remove_dups([Head|Tail],Result):-
+ member(Head,Tail),
+ remove_dups(Tail,Result),!.
+remove_dups([Head|Tail],[Head|Result]):-
+ remove_dups(Tail,Result),!.
     
 remove_first_and_last_items(L1,L5) :-
  append([_L],L4,L1),
