@@ -49,3 +49,4 @@
 :-include('la_terms.pl').
 :-include('convert_to_starlog.pl').
 :-include('la_io.pl').
+:-include('la_diff.pl').
