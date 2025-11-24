@@ -288,7 +288,8 @@ time_file_sh(A,B) :-
 	catch(shell1_s1(S1,Out),_,fail)->
 	(
 	term_to_atom(B,Out)
-	);(writeln("time_file_sh aborted."),fail)
+	);(%writeln("time_file_sh aborted."),
+	fail)
  )->true;
  time_file(A,B)
  )),!.
