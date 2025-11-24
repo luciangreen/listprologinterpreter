@@ -273,6 +273,23 @@ working_directory_sh(A,B) :-
  (dynamic(working_directory_sh1/1),
  working_directory_sh1(A),A=B))),!.
  
+% time_file_sh("root@x.x.x.x:~/",Time_stamp).
+
+time_file_sh(A,B) :-
+ ((not(var(A)),var(B))->
+ ( 
+	split_string(A,":",":",F),
+	append([G],[H],F),
+	string_concat(K,K1,H),
+	string_length(K,2),
+	
+	foldr(string_concat,["ssh ",G," 'swipl -q -g \"time_file(\\\"",K1,"\\\",A),writeln(A).\" -t halt'"],S1),
+	catch(shell1_s(S1,Out),_,fail)->
+	(
+	term_to_atom(B,Out)
+	);(writeln("time_file_sh aborted."),abort)
+ )),!.
+ 
  
  
 container1(A) :-
@@ -365,7 +382,7 @@ foldr(string_concat,["rm -f tmp",FN,".pl"
 	
 %*/
 
-sleep1(A) :- !.
+sleep1(_A) :- !.
 	%sleep(A),!.
 	
 catch_true(A) :- catch(A,_,false),!.
