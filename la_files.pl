@@ -18,14 +18,14 @@ open_file_sh(F1,File_term) :-
 		
 		Scp="scp -pr ",
 		concat_list([Scp,Path," ",P3],Command),
-		shell1_s(Command),
+		shell1_s1(Command),
 	
 
 		open_file_s(P3,File_term),
 		
 		Rm="rm -rf",
 		concat_list([Rm," ",P3],Command1),
-		shell1_s(Command1),
+		shell1_s1(Command1),
 		!.
 
 
@@ -63,7 +63,7 @@ save_file_sh(F1,File_term) :-
 		
 		Mv="rsync -avz --remove-source-files ",
 		concat_list([Mv,P3," ",Path],Command),
-		shell1_s(Command),
+		shell1_s1(Command),
 	
 		!.
 
@@ -91,16 +91,16 @@ directory_files_sh(F1,B) :-
 	foldr(string_concat,[G,":~/tmp54837.pl"],P1),
 	save_file_sh(P1,S1),
 	foldr(string_concat,["ssh ",G," swipl --goal=main_tmp --stand_alone=true -o tmp54837 -c tmp54837.pl"],S2),
-	(catch(shell1_s(S2),_,fail)->
+	(catch(shell1_s1(S2),_,fail)->
 	(foldr(string_concat,["ssh ",G," ./tmp54837"],S),
-	(catch(shell1_s(S,Out),_,fail)->
+	(catch(shell1_s1(S,Out),_,fail)->
 	(
 	term_to_atom(B%Out1
 	,Out),
 	foldr(string_concat,["ssh ",G," rm tmp54837.pl\nssh ",G," rm tmp54837"],S3),
-	shell1_s(S3)
-	);(writeln("directory_files_sh aborted."),abort))
-	);(writeln("directory_files_sh aborted."),abort)),!.
+	shell1_s1(S3)
+	);(writeln("directory_files_sh aborted."),fail))
+	);(writeln("directory_files_sh aborted."),fail)),!.
 	
 exists_file_s(F1) :-
  atom_string(F2,F1),
@@ -119,15 +119,15 @@ exists_file_sh(F1) :-
 	foldr(string_concat,[G,":~/tmp54837.pl"],P1),
 	save_file_sh(P1,S1),
 	foldr(string_concat,["ssh ",G," swipl --goal=main_tmp --stand_alone=true -o tmp54837 -c tmp54837.pl"],S2),
-	(catch(shell1_s(S2),_,fail)->
+	(catch(shell1_s1(S2),_,fail)->
 	(foldr(string_concat,["ssh ",G," ./tmp54837"],S),
-	(catch(shell1_s(S,_Out),_,fail)->
+	(catch(shell1_s1(S,_Out),_,fail)->
 	(
 	true,
 	foldr(string_concat,["ssh ",G," rm tmp54837.pl\nssh ",G," rm tmp54837"],S3),
-	shell1_s(S3)
+	shell1_s1(S3)
 	);fail))
-	;(writeln("exists_file aborted."),abort)),!.
+	;(writeln("exists_file aborted."),fail)),!.
 
 exists_directory_s(F1) :-
  atom_string(F2,F1),
@@ -146,15 +146,15 @@ exists_directory_sh(F1) :-
 	foldr(string_concat,[G,":~/tmp54837.pl"],P1),
 	save_file_sh(P1,S1),
 	foldr(string_concat,["ssh ",G," swipl --goal=main_tmp --stand_alone=true -o tmp54837 -c tmp54837.pl"],S2),
-	(catch(shell1_s(S2),_,fail)->
+	(catch(shell1_s1(S2),_,fail)->
 	(foldr(string_concat,["ssh ",G," ./tmp54837"],S),
-	(catch(shell1_s(S,_Out),_,fail)->
+	(catch(shell1_s1(S,_Out),_,fail)->
 	(
 	true,
 	foldr(string_concat,["ssh ",G," rm tmp54837.pl\nssh ",G," rm tmp54837"],S3),
-	shell1_s(S3)
+	shell1_s1(S3)
 	);fail))
-	;(writeln("exists_directory_sh aborted."),abort)),!.
+	;(writeln("exists_directory_sh aborted."),fail)),!.
 
 delete_file_sh(F1) :-
  (absolute_url(F1)->
@@ -169,19 +169,19 @@ delete_file_sh(F1) :-
 	foldr(string_concat,[G,":~/tmp54837.pl"],P1),
 	save_file_sh(P1,S1),
 	foldr(string_concat,["ssh ",G," swipl --goal=main_tmp --stand_alone=true -o tmp54837 -c tmp54837.pl"],S2),
-	(catch(shell1_s(S2),_,fail)->
+	(catch(shell1_s1(S2),_,fail)->
 	(foldr(string_concat,["ssh ",G," ./tmp54837"],S),
-	(catch(shell1_s(S,_Out),_,fail)->
+	(catch(shell1_s1(S,_Out),_,fail)->
 	(
 	true,
 	foldr(string_concat,["ssh ",G," rm tmp54837.pl\nssh ",G," rm tmp54837"],S3),
-	shell1_s(S3)
+	shell1_s1(S3)
 	);fail))
-	;(writeln("delete_file_sh aborted."),abort)),!.
+	;(writeln("delete_file_sh aborted."),fail)),!.
 
 
 delete_directory_sh(F1) :-
- (absolute_url(F1)->
+ (((absolute_url(F1)->
  F1=F2;
  (working_directory_sh(F11,F11),
  string_concat_url(F11,F1,F2))),
@@ -193,15 +193,16 @@ delete_directory_sh(F1) :-
 	foldr(string_concat,[G,":~/tmp54837.pl"],P1),
 	save_file_sh(P1,S1),
 	foldr(string_concat,["ssh ",G," swipl --goal=main_tmp --stand_alone=true -o tmp54837 -c tmp54837.pl"],S2),
-	(catch(shell1_s(S2),_,fail)->
+	(catch(shell1_s1(S2),_,fail)->
 	(foldr(string_concat,["ssh ",G," ./tmp54837"],S),
-	(catch(shell1_s(S,_Out),_,fail)->
+	(catch(shell1_s1(S,_Out),_,fail)->
 	(
 	true,
 	foldr(string_concat,["ssh ",G," rm tmp54837.pl\nssh ",G," rm tmp54837"],S3),
-	shell1_s(S3)
+	shell1_s1(S3)
 	);fail))
-	;(writeln("delete_directory_sh aborted."),abort)),!.
+	;(writeln("delete_directory_sh aborted."),fail))
+	)->true;rm(F1)),!.
 
 make_directory_s(F1) :-
  atom_string(F2,F1),
@@ -222,14 +223,14 @@ make_directory_sh(F1) :-
 	foldr(string_concat,[G,":~/tmp54837.pl"],P1),
 	save_file_sh(P1,S1),
 	foldr(string_concat,["ssh ",G," swipl --goal=main_tmp --stand_alone=true -o tmp54837 -c tmp54837.pl"],S2),
-	(catch(shell1_s(S2),_,fail)->
+	(catch(shell1_s1(S2),_,fail)->
 	(foldr(string_concat,["ssh ",G," ./tmp54837\nssh ",G," rm tmp54837.pl\nssh ",G," rm tmp54837"
 	],S),
-	(catch(shell1_s(S,_Out),_,fail)->
+	(catch(shell1_s1(S,_Out),_,fail)->
 	(
 	true
-	);(writeln("make_directory_sh aborted."),abort))
-	);(writeln("make_directory_sh aborted."),abort)),!.
+	);(writeln("make_directory_sh aborted."),fail))
+	);(writeln("make_directory_sh aborted."),fail)),!.
 
 string_concat_url("",F1,F1) :-!.
 string_concat_url(F11,F1,F2) :-
@@ -277,17 +278,19 @@ working_directory_sh(A,B) :-
 
 time_file_sh(A,B) :-
  ((not(var(A)),var(B))->
- ( 
+ (( 
 	split_string(A,":",":",F),
 	append([G],[H],F),
 	string_concat(K,K1,H),
 	string_length(K,2),
 	
 	foldr(string_concat,["ssh ",G," 'swipl -q -g \"time_file(\\\"",K1,"\\\",A),writeln(A).\" -t halt'"],S1),
-	catch(shell1_s(S1,Out),_,fail)->
+	catch(shell1_s1(S1,Out),_,fail)->
 	(
 	term_to_atom(B,Out)
-	);(writeln("time_file_sh aborted."),abort)
+	);(writeln("time_file_sh aborted."),fail)
+ )->true;
+ time_file(A,B)
  )),!.
  
  

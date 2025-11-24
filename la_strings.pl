@@ -692,7 +692,7 @@ remove_dups([Head|Tail],Result):-
  remove_dups(Tail,Result),!.
 remove_dups([Head|Tail],[Head|Result]):-
  remove_dups(Tail,Result),!.
-    
+
 remove_first_and_last_items(L1,L5) :-
  append([_L],L4,L1),
  append(L5,[_L3],L4),!.
@@ -782,3 +782,8 @@ Ys) :-
 	X12=X11;X12=X11),
     split_into_assertable_predicates(Xs, Ys),!.
 */
+
+% atom_replace(LocalPath, '~', '~~', SafeLocalPath).
+atom_replace(A,F,T,B) :-
+	atomic_list_concat(C,F,A),
+	atomic_list_concat(C,T,B),!.
