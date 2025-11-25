@@ -1,9 +1,11 @@
 %% la_strings.pl
 
 :- dynamic html_api_maker_or_terminal/1.
+%:- use_module(library(pure_input)).
 
-use_module(library(pio)).
-use_module(library(dcg/basics)).
+:- use_module(library(pio)).
+:- use_module(library(dcg/basics)).
+:- use_module(library(apply)).   % for foldl/4
 
 foldr(string_concat,A,B) :-
 	atomics_to_string(A,'',B),!.
@@ -28,10 +30,16 @@ open_s(File,Mode,Stream) :-
 string_atom(String,Atom) :-
 	atom_string(Atom,String),!.
 
-phrase_from_file_s(string(Output), String) :-
-	atom_string(String1,String),
-	phrase_from_file(string(Output), String1),!.
-	
+% Generic wrapper: accepts atom or string path; any DCG "Grammar"
+phrase_from_file_s(Grammar, File0) :-
+    (   atom(File0)
+    ->  File = File0
+    ;   string(File0)
+    ->  atom_string(File, File0)
+    ;   throw(error(type_error(file_name, File0), phrase_from_file_s/2))
+    ),
+    phrase_from_file(Grammar, File).
+    	
 writeln0(Term) :-
 	%term_to_atom(Term,Atom),
 %append([Term],["\n"],Term1),	
