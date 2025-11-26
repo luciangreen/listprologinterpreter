@@ -3,9 +3,9 @@
 :- dynamic html_api_maker_or_terminal/1.
 %:- use_module(library(pure_input)).
 
-:- use_module(library(pio)).
-:- use_module(library(dcg/basics)).
-:- use_module(library(apply)).   % for foldl/4
+%:- use_module(library(pio)).
+%:- use_module(library(dcg/basics)).
+%:- use_module(library(apply)).   % for foldl/4
 
 foldr(string_concat,A,B) :-
 	atomics_to_string(A,'',B),!.
