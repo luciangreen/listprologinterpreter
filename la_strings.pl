@@ -30,7 +30,12 @@ open_s(File,Mode,Stream) :-
 string_atom(String,Atom) :-
 	atom_string(Atom,String),!.
 
+phrase_from_file_s(string(Output), String) :-
+	atom_string(String1,String),
+	phrase_from_file(string(Output), String1),!.
+
 % Generic wrapper: accepts atom or string path; any DCG "Grammar"
+/*
 phrase_from_file_s(Grammar, File0) :-
     (   atom(File0)
     ->  File = File0
@@ -39,6 +44,7 @@ phrase_from_file_s(Grammar, File0) :-
     ;   throw(error(type_error(file_name, File0), phrase_from_file_s/2))
     ),
     phrase_from_file(Grammar, File).
+*/
     	
 writeln0(Term) :-
 	%term_to_atom(Term,Atom),
