@@ -1,6 +1,6 @@
-:- op(900, xfx, user:(&)).
-:- op(800, xfx, user:(:)).
-:- op(700, xfx, user:(^)).
+:- op(600, yfx, ':').
+:- op(500, xfx, '&').
+:- op(500, xfx, '•').
 
 :-set_prolog_flag(stack_limit, 40000000000).
 
@@ -50,3 +50,4 @@
 :-include('convert_to_starlog.pl').
 :-include('la_io.pl').
 :-include('la_diff.pl').
+:-include('la_predicates.pl').
