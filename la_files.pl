@@ -312,66 +312,19 @@ fail)),
 %sleep1(2),
 !.
 
-container2(A) :-
-%A,!.
- %/*
- %trace,
- get_time(TS),stamp_date_time(TS,date(Year,Month,Day,Hour1,Minute1,Seconda,_A,_TZ,_False),local),
- atomic_list_concat(Seconda1,'.',Seconda),
- atomic_list_concat(Seconda1,'',Seconda2),
- 
-	foldr(string_concat,[Year ,"_", Month ,"_", Day ,"_", Hour1 ,"_", Minute1 ,"_", Seconda2],FN),
+container2(Include,Command,Out) :-
 
-
-%trace,
- working_directory(WD,WD),
- cd,
- working_directory(WDCD,WDCD),
- atom_concat(WDCD,WDCD3,WD),
- once(sub_string_strings(WDCD3,WDCD4,'/',WDCD5)),once(sub_string_strings(WDCD5,WDCD6,'/',_)),
- foldr(atom_concat,[WDCD,WDCD4,'/',WDCD6,'/'],WDCD1),
- working_directory(_,WDCD1),
- make_directory(FN),
- foldr(atom_concat,[WDCD1,FN,'/'],WDCD2),
- working_directory(_,WDCD2),
-
- %home_dir1(HD),
- %catch
- ((functor(A,Name,Arity),
- functor(A2,Name,Arity),
- source_file(A2,Path),
- term_to_atom(A,AA),
- 
-reverse_string(FN,RFN),
-%trace,
-foldr(string_concat,["#!/usr/bin/swipl -g main",FN," -q\n\n",":-include('",Path,"').\n","handle_error(_Err):-\n  halt(1).\n","main",FN," :-\n    catch((working_directory(_,'",WD,"'),A=",AA,",A,term_to_atom(A,LP1),writeln(\"",RFN,"\"),write(LP1)),Err, handle_error(Err)), nl,\n    halt.\n","main",FN," :- halt(1).\n"],String),
-
-%working_directory1(A1,A1),
-
-foldr(string_concat,["tmp",FN,".pl"],GP),
-save_file_s(GP,String),
-foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main",FN," -q ./",GP],S3),%,
-
-
-(catch(bash_command(S3,LP), _, (foldr(string_concat,["Container error."],Text4),writeln(Text4),
+foldr(string_concat,["#!/usr/bin/swipl -g main -q\n\n",":-include('",Include,"').\n","handle_error(_Err):-\n  halt(1).\n","main :-\n    catch(call_with_time_limit(",2000,",(",Command,")), Err, handle_error(Err)), nl,\n    halt.\n","main :- halt(1).\n"],String),
+foldr(string_concat,[
+"test364728.pl"],GP),
+open_s(GP,write,S1),
+write(S1,String),close(S1),
+foldr(string_concat,["chmod +x ",GP,"\n","swipl -g main -q ./",GP],S3),
+catch(bash_command1(S3,Out), _, (foldr(string_concat,["Warning."
+	],_Text4),
 	fail
- 	)
- 	)
- 	->
- 	(
-%trace,
-delete_tmp(FN),
-%trace,
-string_strings(LP,LP1),
-string_strings(RFN,Sub_list),
-once((sub_list(LP1,_Before_list,Sub_list,LP2))),
-foldr(atom_concat,LP2,LP3),
-	term_to_atom(A,LP3)
-	);(delete_tmp(FN),working_directory1(_,WD),fail)),
-		
-	working_directory1(_,WD))
-	),
-	!.
+ 	)),!.
+ 	
 
 
 delete_tmp(FN):-

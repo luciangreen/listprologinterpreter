@@ -1,13 +1,15 @@
 %% la_strings.pl
 
-:-include('../Philosophy/word_frequency_count2-1.pl').
-:- use_module(library(pcre)).
-
 wc(S,WC):-
     split_string(S, " \t\n\r", " \t\n\r", Words),
     length(Words, WC),!.
+
+/*:-include('../Philosophy/word_frequency_count2-1.pl').
+
 kw(S,KW) :-
 	word_frequency_count2(["string",S],A),sort(A,B),reverse(B,KW),!.
+*/
+:- use_module(library(pcre)).
 
 remove_non_alpha_numbers_spaces_punct(InFile, OutFile) :-
     open(InFile, read, InStream),
