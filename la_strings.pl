@@ -1,5 +1,19 @@
 %% la_strings.pl
 
+:- use_module(library(pcre)).
+
+remove_non_alpha_numbers_spaces_punct(InFile, OutFile) :-
+    open(InFile, read, InStream),
+    read_string(InStream, _, Text),
+    close(InStream),
+    
+    Regex = "[^a-zA-Z0-9\\p{P}\\p{Z}]",
+    re_replace(Regex/g, "", Text, CleanedText),
+    
+    open(OutFile, write, OutStream),
+    write(OutStream, CleanedText),
+    close(OutStream).
+    
 :- dynamic html_api_maker_or_terminal/1.
 %:- use_module(library(pure_input)).
 
