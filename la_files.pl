@@ -343,3 +343,4 @@ sleep1(_A) :- !.
 	%sleep(A),!.
 	
 catch_true(A) :- catch(A,_,false),!.
+
