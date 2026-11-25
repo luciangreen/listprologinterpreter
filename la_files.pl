@@ -47,6 +47,14 @@ save_file_s(Path,Content_term_or_string) :-
 	%sleep(2),
 	!.
 
+% delete_file_s(Path) - local counterpart of delete_file_sh/1.
+% Deletes Path if it exists; succeeds (with a message) if it doesn't.
+delete_file_s(Path) :-
+	(exists_file(Path)->
+	catch(delete_file(Path),Err,(print_message(error,Err),fail));
+	(concat_list(["Warning: delete_file_s: ",Path," does not exist."],Notification),
+	writeln0(Notification))),!.
+
 % working_directory_sh(_,"root@x.x.x.x:~/").
 % save_file_sh("a1.txt", [a]).
 
