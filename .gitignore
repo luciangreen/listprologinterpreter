@@ -1,0 +1,7 @@
+# Made when programs run (shell and C tests, the operating system, other tools)
+a.out
+program.c
+program.txt
+input.txt
+.DS_Store
+config.vclb

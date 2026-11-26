@@ -7,6 +7,45 @@
 :-style_check(-discontiguous).
 :-style_check(-singleton).
 
+% List Prolog Interpreter loads files from these repositories, which must be
+% cloned beside it (in the same parent folder). Say clearly which are missing
+% before the includes below fail one by one.
+lpi_dependency('Languages').
+lpi_dependency('SSI').
+lpi_dependency('Philosophy').
+lpi_dependency('List-Prolog-to-Prolog-Converter').
+lpi_dependency('Prolog-to-List-Prolog').
+lpi_dependency('culturaltranslationtool').
+
+lpi_dependency_file('Languages', 'make_docs.pl').
+lpi_dependency_file('SSI', 'find_pred_sm.pl').
+lpi_dependency_file('Philosophy', 'sub_term_with_address.pl').
+lpi_dependency_file('List-Prolog-to-Prolog-Converter', 'lp2pconverter2.pl').
+
+lpi_check_dependencies(Dir) :-
+    findall(Missing,
+            ( lpi_dependency(Repo),
+              atomic_list_concat([Dir, '/../', Repo], RepoDir),
+              (   \+ exists_directory(RepoDir)
+              ->  Missing = repo(Repo)
+              ;   lpi_dependency_file(Repo, File),
+                  atomic_list_concat([RepoDir, '/', File], Path),
+                  \+ exists_file(Path),
+                  Missing = file(Repo, File)
+              ) ),
+            Missing),
+    (   Missing == []
+    ->  true
+    ;   format(user_error, "~nList Prolog Interpreter: some files it loads are missing.~n", []),
+        forall(member(repo(R), Missing),
+               format(user_error, "  Missing repository ~w. Clone it beside listprologinterpreter:~n    git clone https://github.com/luciangreen/~w~n", [R, R])),
+        forall(member(file(R, F), Missing),
+               format(user_error, "  Missing file ~w in ../~w (update that repository).~n", [F, R])),
+        nl(user_error)
+    ).
+
+:- prolog_load_context(directory, Dir), lpi_check_dependencies(Dir).
+
 :-include('grammar.pl').
 %%:-include('lpi_caw_commands.pl').
 :-include('listprologinterpreter1listrecursion4.pl').
