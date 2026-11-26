@@ -262,3 +262,13 @@ Lucian Green - Initial programmer - <a href="https://www.lucianacademy.com/">Luc
 # License
 
 I licensed this project under the BSD3 License - see the LICENSE.md file for details
+
+## Repositories it needs
+
+List Prolog Interpreter loads files from Languages, SSI, Philosophy,
+List-Prolog-to-Prolog-Converter, Prolog-to-List-Prolog and
+culturaltranslationtool, which must be cloned in the same parent folder.
+When it loads, it checks these and prints which repositories or files are
+missing, with the command to clone each. Files that programs create when
+they run (`a.out`, `program.c`, `input.txt`, `.DS_Store`, `config.vclb`) are
+listed in `.gitignore`.
